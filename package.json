@@ -1,0 +1,32 @@
+{
+  "name"            : "MindMapJS",
+  "version"         : "0.0.1",
+  "description"	    : "Editor de mapas mentales en JavaScript",
+  "keywords"        : ["MindMap", "Editor"],
+  "homepage"        : "https://github.com/joseluismolinasoria/MindMapJS",
+  "author"          : "José Luis Molina Soria <joseluismolinasoria@gmail.com>",
+  "contributors"    : [
+    {
+        "name"  : "Juan Falgueras",
+    	"email" : "jfalgueras@uma.es"
+    }
+  ],
+  "repository"      : {
+    "type" : "git",
+    "url"  : "https://github.com/joseluismolinasoria/MindMapJS.git"  
+  },
+  "dependencies"    : {
+  },
+  "devDependencies" : {
+    "mocha"   : "1.7.x",
+    "should"  : "1.2.x"
+  },
+  "engines"         : {
+    "node" : "0.8.x" 
+  }, 
+  "main"            : "index",
+  "scripts"         : {
+    "start" : "node ./src/MindMapJS",
+    "test"  : "mocha --require should --reporter spec"
+  }
+}
