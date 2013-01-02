@@ -1,5 +1,5 @@
+0.0.1 / 2013-01-02 (abierta)
+============================
 
-0.0.1 / 2010-01-03
-==================
-
-  * Initial release
+  * Primera release
+  * Incluidas pruebas con KineticJS
