@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      canvas {
+        border: 1px solid blue;
+      }
+    </style>
+    <script src="http://www.html5canvastutorials.com/libraries/kinetic-v4.2.0.js"></script>
+    <script src="0_texto.js"></script>
+    <script>
+      function load() {
+         var stage = new Kinetic.Stage({
+            container: 'container',
+            width: 578,
+            height: 200
+         });
+
+         var layer = new Kinetic.Layer();
+         layer.add(simpleText);
+         layer.add(complexText);
+         stage.add(layer);
+      }
+    </script>
+  </head>
+  <body onload="load()">
+    <div id="container" style="border: 1px solid red"></div>
+  </body>
+</html>
