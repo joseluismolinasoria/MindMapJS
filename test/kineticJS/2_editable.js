@@ -102,7 +102,29 @@ nodo.on('dblclick', function() {
     var y = mousePos.y;
     var mensaje = 'x: ' + x + ', y: ' + y;
     console.log('dblclick ' + mensaje);
-    var input = new element ('input', {})
+    var textarea = new Element ('textarea', {'id'  : 'editNodo', 
+					     'innerHTML': nodo.getText(), 
+					     'style' : 'position: absolute; ' +
+					     'top : ' + (nodo.getY()+7) + 'px; ' +
+					     'left: ' + (nodo.getX()+7) + 'px; ' + 
+					     'width: ' + (nodo.getWidth()-14) + 'px; ' +
+					     'height: ' + (nodo.getHeight()-14) + 'px; ' +
+					     'max-width: ' + (nodo.getWidth()-14) + 'px; ' +
+					     'max-height: ' + (nodo.getHeight()-14) + 'px; ' +
+					     'border: none; ' +
+					     'background-color: ' + nodo.getFill() + '; ' + 
+					     'color: ' + nodo.getTextFill() + '; ' +
+					     'font-family: ' + nodo.getFontFamily() + '; ' +
+					     'font-size: ' + nodo.getFontSize() + 'pt; '
+					    });
+    textarea.onblur = function () {
+	nodo.setText(this.value);
+	layer.draw();
+	this.remove();
+    };
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.focus();
 });
 
 nodo.on('dragstart', function() {

@@ -2,4 +2,7 @@
 ============================
 
   * Primera release
-  * Incluidas pruebas con KineticJS
+  * Módulo class.js 
+  * Incluidas primeras pruebas con KineticJS
+  * Módulo element.js
+  * Incluido .gitignore
