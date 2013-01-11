@@ -11,7 +11,7 @@ Class.extend = function(prop) {
     for (var name in prop) {
 	// Si estamos sobreescribiendo un método de la clase padre.
 	if (typeof prop[name] == "function" && typeof _super[name] == "function") {
-	    proto[name] = (function(name, fn) { // clausura para poder hacer 
+	    proto[name] = (function(name, fn) { // asociamos las funciones al nuevo contexto 
 		return function() {
 		    var tmp = this._super;               // guardamos _super
 		    this._super = _super[name];          // función super => podemos hacerthis._super(argumentos)
@@ -37,7 +37,11 @@ Class.extend = function(prop) {
     return Klass; 
 };
 
-
+Class.bind = function (ctx, fn) {
+    return function() {
+	return fn.apply(ctx, arguments);
+    }
+};
 
 ////////////////////////////////////////
 //          EJEMPLO DE USO            //
