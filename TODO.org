@@ -26,11 +26,13 @@
 *** TODO Interacción. 
 *** TODO Primer ejemplo completo con un mapa
 *** TODO Pruebas con eventos touch 
-** TODO Crear libería para manejo de teclado [1/3]
+** TODO Crear libería para manejo de teclado [2/4]
 *** DONE Buscar constantes de teclado. Escape, Tabulador, Insert, etc.
     CLOSED: [2013-01-13 dom 21:24]
-*** TODO Funciones para convertir de teclas valor a texto y viceversa
-*** TODO Seria bueno, implementar un observer para tener un manejador de atajos de teclado
+*** DONE Funciones para convertir de teclas valor a texto y viceversa
+    CLOSED: [2013-01-14 lun 21:13]
+*** TODO Implementar un manejador de atajos de teclado
+*** TODO Página para pruebas de atajos de teclado
 ** TODO Crear librería para manejo de eventos
 ** TODO Estudir en profundidad como funciona un sistema ya implementado.
 ** TODO Ver un sistema de documentación para el código fuente

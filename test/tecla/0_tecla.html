@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../src/tecla.js"></script>
+    <script>
+      function mostrarLog(mensaje) {
+        var div = document.getElementById('container');
+        div.innerHTML += '\n' + mensaje;
+      }
+
+      window.onload = function() {
+         window.onkeydown = tecla.keyDown;
+         window.onkeyup = tecla.keyUp;
+      };
+
+      function addAtajo () {
+        var valor = document.getElementById('secuencia').value;
+        tecla.atajos.add(valor, function () {
+          mostrarLog('Pulsado ' + valor);
+        });
+        mostrarLog('Añadido atajo de teclado: ' + valor);
+      };
+
+      function lanzarAtajo () {
+        var valor = document.getElementById('secuencia').value;
+        tecla.atajos.lanzar(valor); 
+      };
+    </script>
+  </head>
+  <body>
+    <input type="text" id='secuencia' name="secuencia" value="Ctrl+ins"/>
+    <button onclick="addAtajo();">Añadir</button>
+    <button onclick="lanzarAtajo();">Lanzar</button>
+    <div>
+      <textArea id="container" rows="20" cols="98%" style="border: 2px solid grey;"></textarea>
+    </div>
+    <div>
+      Añadir secuencías de teclas y probar.
+    </div>
+  </body>
+</html>

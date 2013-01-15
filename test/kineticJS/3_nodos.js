@@ -116,7 +116,7 @@ var Nodo = Mensaje.extend({
 var mensaje;
 var mensaje2; 
 
-window.onload = function load() {
+window.onload = function () {
     var stage = new Kinetic.Stage({
         container: 'contenedor',
         width: 600,

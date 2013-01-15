@@ -1,4 +1,4 @@
-0.0.1 / 2013-01-13 (abierta)
+0.0.1 / 2013-01-14 (abierta)
 ============================
 
   * Primera release
@@ -10,4 +10,5 @@
   * Función Class.bind para establecer contextos
   * Prueba de creación de multiples nodos
   * Incluido fichero TODO.org
-  * Constantes de teclado
+  * Constantes de teclado (tecla.js)
+  * Implemantación de atajos de teclado (tecla.atajos) 
