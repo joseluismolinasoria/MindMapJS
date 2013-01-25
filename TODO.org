@@ -1,8 +1,9 @@
 #+TITLE: Todo del Projecto Fin de Carrera
 #+STARTUP:  
     
-* Pendiente
+* Planificado
 ** TODO Probar los ejemplos con ... [2/6]
+   SCHEDULED: <2013-01-22 mar>
 *** DONE Google Chrome
     CLOSED: [2013-01-13 dom 20:12]
 *** DONE Firefox
@@ -10,7 +11,26 @@
 *** TODO Safari
 *** TODO Internet Explorer 9 
 *** TODO Internet Explorer 8
+** TODO Crear libería para manejo de teclado [4/5]
+   SCHEDULED: <2013-01-26 sáb>
+*** DONE Buscar constantes de teclado. Escape, Tabulador, Insert, etc.
+    CLOSED: [2013-01-13 dom 21:24]
+*** DONE Funciones para convertir de teclas valor a texto y viceversa
+    CLOSED: [2013-01-14 lun 21:13]
+*** DONE Implementar un manejador de atajos de teclado
+    CLOSED: [2013-01-20 dom 20:06]
+*** DONE Página para pruebas de atajos de teclado
+    CLOSED: [2013-01-20 dom 20:06]
+*** TODO Probrar en distintos navegadores (Safari, Chrome, Firefox, IE)
+** TODO Arbol-N [1/2]
+   SCHEDULED: <2013-01-26 sáb>
+*** DONE Primera implementación.
+    CLOSED: [2013-01-25 vie 18:25]
+*** TODO Pruebas sobre la librería.
+** TODO Ver como implementar un sistema de Test (mocha).
+   SCHEDULED: <2013-01-28 lun>
 ** TODO Implementar prueba de concepto con KineticJS [5/10]
+   SCHEDULED: <2013-02-02 sáb>
 *** DONE Dibujar un nodo / texto
     CLOSED: [2012-12-28 dom 19:48]
 *** DONE Ejemplo de funcionamiento del sistema de eventos
@@ -26,17 +46,12 @@
 *** TODO Interacción. 
 *** TODO Primer ejemplo completo con un mapa
 *** TODO Pruebas con eventos touch 
-** TODO Crear libería para manejo de teclado [2/4]
-*** DONE Buscar constantes de teclado. Escape, Tabulador, Insert, etc.
-    CLOSED: [2013-01-13 dom 21:24]
-*** DONE Funciones para convertir de teclas valor a texto y viceversa
-    CLOSED: [2013-01-14 lun 21:13]
-*** TODO Implementar un manejador de atajos de teclado
-*** TODO Página para pruebas de atajos de teclado
+
+
+* Pendiente de planificar
 ** TODO Crear librería para manejo de eventos
 ** TODO Estudir en profundidad como funciona un sistema ya implementado.
 ** TODO Ver un sistema de documentación para el código fuente
-** TODO Ver como implmentar un sistema de Test.
 
 
 * Realizado 
@@ -85,6 +100,7 @@
 ** DONE Buscar documentación sobre herencia en JavaScript
    CLOSED: [2012-11-11 dom 22:56] 
  
+
 
 
 * Sitios interesantes

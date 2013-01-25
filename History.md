@@ -1,4 +1,4 @@
-0.0.1 / 2013-01-14 (abierta)
+0.0.1 / 2013-01-25 (abierta)
 ============================
 
   * Primera release
@@ -12,3 +12,4 @@
   * Incluido fichero TODO.org
   * Constantes de teclado (tecla.js)
   * Implemantación de atajos de teclado (tecla.atajos) 
+  * Primera implementación de arbol-n
