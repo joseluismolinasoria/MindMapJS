@@ -13,3 +13,4 @@
   * Constantes de teclado (tecla.js)
   * Implemantación de atajos de teclado (tecla.atajos) 
   * Primera implementación de arbol-n
+  * Prueba de concepto de aristas. Implementado 3 modelos

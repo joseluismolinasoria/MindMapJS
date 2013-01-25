@@ -35,22 +35,22 @@ var ArbolN = (function (elemento) {
 
     // preorden( a ) = e, preorden( a1 ), ..., preorden( an )    
     arbol.preOrden = function () {
-        var a = [elemento];
+        var a = [this.elemento];
         this.hijos.forEach(function (hijo) {
-            a.push(hijo.preOrden());
+            a = a.concat(hijo.preOrden());
         });
         return a;
     };
 
     // inorden( a ) = inorden( a1 ), e, inorden( a2 ), ..., inorden( an )
     arbol.inOrden = function () {
-        if (this.ordenNodo() === 0)
+        if (this.ordenNodo() == 0)
             return [this.elemento];
         var a = [];
         this.hijos.forEach(function (hijo, idx) {
-            a.push(hijo.inOrden());
-            if (idx === 0)
-                a.push(this.elemento);
+            a = a.concat(hijo.inOrden());
+            if (idx == 0)
+                a = a.concat(this.elemento);
         }, this);
         return a;
     };
@@ -59,10 +59,9 @@ var ArbolN = (function (elemento) {
     arbol.postOrden = function () {
         var a = [];
         this.hijos.forEach(function (hijo) {
-            a.push(hijo.postOrden());
+            a = a.concat(hijo.postOrden());
         });
-        a.push(elemento);
-        return a;
+        return a.concat(this.elemento);
     };
 
     arbol.ordenNodo = function () {
@@ -97,31 +96,22 @@ var ArbolN = (function (elemento) {
         return this.hijos.length === 0;
     };
 
-    return arbol;
+    return arbol; 
 });
 
+module.exports = exports = ArbolN;
 
-//                         a
-//                       / | \
-//                      b  c  \ 
-//                        /|    d
-//                       e f  / | \
-//                           g  h  i
-//                          /
-//                       [j,k,l,m]
-
-module.exports = ArbolN;
-
-//var a = ArbolN("a",
-//    ArbolN("b"),
-//    ArbolN("c",
-//        ArbolN("e"),
-//        ArbolN("f")),
-//    ArbolN("d",
-//        ArbolN("g",
-//            ArbolN("j"),
-//            ArbolN("k"),
-//            ArbolN("l"),
-//            ArbolN("m")),
-//        ArbolN("h"),
-//        ArbolN("i")));
+var a = ArbolN("a",
+	       B=ArbolN("b"),
+	       C=ArbolN("c",
+			ArbolN("e"),
+			ArbolN("f")),
+	       D=ArbolN("d",
+			G=ArbolN("g",
+				 ArbolN("j", ArbolN("J1")),
+				 ArbolN("k"),
+				 ArbolN("l"),
+				 ArbolN("m")),
+			ArbolN("h"),
+			ArbolN("i")));
+	      

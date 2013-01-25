@@ -22,14 +22,16 @@
 *** DONE Página para pruebas de atajos de teclado
     CLOSED: [2013-01-20 dom 20:06]
 *** TODO Probrar en distintos navegadores (Safari, Chrome, Firefox, IE)
-** TODO Arbol-N [1/2]
+** TODO Arbol-N [2/3]
    SCHEDULED: <2013-01-26 sáb>
 *** DONE Primera implementación.
     CLOSED: [2013-01-25 vie 18:25]
 *** TODO Pruebas sobre la librería.
+*** DONE Aplanar la lista de los recorridos.
+    CLOSED: [2013-01-25 vie 20:26]
 ** TODO Ver como implementar un sistema de Test (mocha).
    SCHEDULED: <2013-01-28 lun>
-** TODO Implementar prueba de concepto con KineticJS [5/10]
+** TODO Implementar prueba de concepto con KineticJS [6/10]
    SCHEDULED: <2013-02-02 sáb>
 *** DONE Dibujar un nodo / texto
     CLOSED: [2012-12-28 dom 19:48]
@@ -41,7 +43,8 @@
     CLOSED: [2013-01-11 dom 19:52]
 *** DONE Ejemplo con multiples nodos
     CLOSED: [2013-01-11 dom 19:55]
-*** TODO Dibujar una arista
+*** DONE Dibujar una arista
+    CLOSED: [2013-01-25 vie 21:17]
 *** TODO Ejemplo con dos nodos y una arista
 *** TODO Interacción. 
 *** TODO Primer ejemplo completo con un mapa
