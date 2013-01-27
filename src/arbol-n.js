@@ -1,32 +1,3 @@
-// Un árbol n-ario es una estructura recursiva, en la cual cada elemento tiene un número cualquiera de árboles n-arios asociados
-// 
-// RECORRIDOS:
-// inorden( a ) = inorden( a1 ), e, inorden( a2 ), ..., inorden( an )
-// preorden( a ) = e, preorden( a1 ), ..., preorden( an )
-// postorden( a ) = postorden( a1 ), ...., postorden( an ), e
-// 
-// EJEMPLO DE ARBOL:
-//                         a
-//                       / | \
-//                      b  c  \ 
-//                        /|    d
-//                       e f  / | \
-//                           g  h  i
-//                          /
-//                       [j,k,l,m]
-// el orden del árbol es 4
-// el orden del elemento a es 3
-// preorden = a, b, c, e, f, d, g, j, k, l, m, h, i
-// inorden = b, a, e, c, f, j, g, k, l, m, d, h, i
-// postorden = b, e, f, c, j, k, l, m, g, h, i, d, a
-// niveles = a, b, c, d, e, f, g, h, i, j, k, l, m
-// altura = 4
-// peso = 13
-// los hijos de g son los elementos j, k, l, m
-// el ancestro común más próximo de k y h es d
-// 
-// URL: http://cupi2.uniandes.edu.co/libros/estructuras_de_datos/index.php?option=com_content&view=article&id=148&Itemid=131
-
 var ArbolN = (function (elemento) {
     var arbol = {};
 
@@ -89,7 +60,7 @@ var ArbolN = (function (elemento) {
         this.hijos.forEach(function (hijo) {
             max = Math.max(max, hijo.altura());
         });
-        return max + 1;
+        return max+1;
     };
 
     arbol.esHoja = function () {
@@ -101,17 +72,3 @@ var ArbolN = (function (elemento) {
 
 module.exports = exports = ArbolN;
 
-var a = ArbolN("a",
-	       B=ArbolN("b"),
-	       C=ArbolN("c",
-			ArbolN("e"),
-			ArbolN("f")),
-	       D=ArbolN("d",
-			G=ArbolN("g",
-				 ArbolN("j", ArbolN("J1")),
-				 ArbolN("k"),
-				 ArbolN("l"),
-				 ArbolN("m")),
-			ArbolN("h"),
-			ArbolN("i")));
-	      

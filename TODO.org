@@ -22,15 +22,16 @@
 *** DONE Página para pruebas de atajos de teclado
     CLOSED: [2013-01-20 dom 20:06]
 *** TODO Probrar en distintos navegadores (Safari, Chrome, Firefox, IE)
-** TODO Arbol-N [2/3]
+** TODO Arbol-N [3/5]
    SCHEDULED: <2013-01-26 sáb>
 *** DONE Primera implementación.
     CLOSED: [2013-01-25 vie 18:25]
-*** TODO Pruebas sobre la librería.
+*** DONE Pruebas sobre la librería.
+    CLOSED: [2013-01-27 dom 19:12]
 *** DONE Aplanar la lista de los recorridos.
     CLOSED: [2013-01-25 vie 20:26]
-** TODO Ver como implementar un sistema de Test (mocha).
-   SCHEDULED: <2013-01-28 lun>
+*** TODO Recorrido por niveles
+*** TODO Test para recorridos 
 ** TODO Implementar prueba de concepto con KineticJS [6/10]
    SCHEDULED: <2013-02-02 sáb>
 *** DONE Dibujar un nodo / texto
@@ -50,14 +51,26 @@
 *** TODO Primer ejemplo completo con un mapa
 *** TODO Pruebas con eventos touch 
 
+** TODO Ver un sistema de documentación para el código fuente
+   SCHEDULED: <2013-01-30 mié>
+
 
 * Pendiente de planificar
 ** TODO Crear librería para manejo de eventos
 ** TODO Estudir en profundidad como funciona un sistema ya implementado.
-** TODO Ver un sistema de documentación para el código fuente
+** TODO Documentar [0/5]
+*** TODO arbol-n.js
+*** TODO element.js
+*** TODO klass.js
+*** TODO properties.js
+*** TODO tecla.js
+
 
 
 * Realizado 
+** DONE Ver como implementar un sistema de Test (mocha).
+   CLOSED: [2013-01-27 dom 18:30] SCHEDULED: <2013-01-28 lun>
+
 ** DONE Instalar Internet Explorer en Linux
    CLOSED: [2013-01-13 dom 20:05]
    El Play on linux no tiene el Internet Explorer 9 para su instalación en linux.
