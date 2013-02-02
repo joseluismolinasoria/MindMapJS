@@ -1,4 +1,4 @@
-0.0.1 / 2013-01-27 (abierta)
+0.0.1 / 2013-02-02 (abierta)
 ============================
 
   * Primera release
@@ -16,3 +16,5 @@
   * Prueba de concepto de aristas. Implementado 3 modelos
   * Incorporación de mocha+should como sistema de pruebas
   * Implementación de test para arbol-n
+  * Test para klass
+  * Ajustado Árbol eneario para que extienda de Class (Cambios es los test)

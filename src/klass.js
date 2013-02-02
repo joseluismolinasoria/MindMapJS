@@ -1,7 +1,9 @@
-var Class = function(){}
+var Class = function (){ 
+    this.init = function () {};
+};
     
 Class.extend = function(prop) {
-    var _super = this.prototype; // prototype de la clase padre
+    var _super = this.prototype || Class.prototype; // prototype de la clase padre
 
     function F() {}
     F.prototype = _super;
@@ -39,47 +41,8 @@ Class.extend = function(prop) {
 
 Class.bind = function (ctx, fn) {
     return function() {
-	return fn.apply(ctx, arguments);
+	return fn.apply(ctx, arguments); 
     }
 };
 
-////////////////////////////////////////
-//          EJEMPLO DE USO            //
-////////////////////////////////////////
-/*
-var Person = Class.extend({
-  init: function(name) {
-    console.log("Bienvenido, " + name);
-    this.name = name;
-  },
-  bailar: function() {
-    console.log("tanana nana, nana, nana...");
-  },
-  piernas: 2
-});
-
-var Ninja = Person.extend({
-  init: function() {
-    console.log("NINJA EN ACCION!");
-    this._super("ninja");
-  },
-  bailar: function() {
-    console.log("Los ninjas no bailan!");
-  },
-  esgrimeEspada: true
-});
-
-var Atori = Ninja.extend({
-  init: function() {
-    this._super();
-    console.log("Atorriiiiii....");
-  }
-});
-
-
-var n = new Atori(); // NINJA EN ACCION!\n Bienvenido, ninja\n  Artoriii
-n.bailar(); // Los ninjas no bailan!
-n instanceof Atori && n instanceof Ninja && n instanceof Person; // true
-n.piernas; // 2
-n.esgrimeEspada; // true
-*/
+module.exports = Class;
