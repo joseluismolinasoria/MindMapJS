@@ -18,3 +18,5 @@
   * Implementación de test para arbol-n
   * Test para klass
   * Ajustado Árbol eneario para que extienda de Class (Cambios es los test)
+  * Cambio a KineticJS v.4.3.1 
+  * Creado prueba de concepto de dos nodos con una arista

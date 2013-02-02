@@ -54,9 +54,6 @@
 
 ** TODO Ver un sistema de documentación para el código fuente
    SCHEDULED: <2013-01-30 mié>
-** DONE Crear los tests para la Clase
-   CLOSED: [2013-02-02 sáb 01:18] SCHEDULED: <2013-01-30 mié>
-
 
 * Pendiente de planificar
 ** TODO Crear librería para manejo de eventos
@@ -74,6 +71,9 @@
 
 
 * Realizado 
+** DONE Crear los tests para la Clase
+   CLOSED: [2013-02-02 sáb 01:18] SCHEDULED: <2013-01-30 mié>
+
 ** DONE Ver como implementar un sistema de Test (mocha).
    CLOSED: [2013-01-27 dom 18:30] SCHEDULED: <2013-01-28 lun>
 
