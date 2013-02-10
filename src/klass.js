@@ -45,4 +45,5 @@ Class.bind = function (ctx, fn) {
     }
 };
 
-module.exports = Class;
+if ( typeof module !== 'undefined' ) 
+    module.exports = Class;

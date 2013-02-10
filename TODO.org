@@ -12,7 +12,6 @@
 *** TODO Internet Explorer 9 
 *** TODO Internet Explorer 8
 ** TODO Crear libería para manejo de teclado [4/5]
-   SCHEDULED: <2013-01-26 sáb>
 *** DONE Buscar constantes de teclado. Escape, Tabulador, Insert, etc.
     CLOSED: [2013-01-13 dom 21:24]
 *** DONE Funciones para convertir de teclas valor a texto y viceversa
@@ -22,17 +21,7 @@
 *** DONE Página para pruebas de atajos de teclado
     CLOSED: [2013-01-20 dom 20:06]
 *** TODO Probrar en distintos navegadores (Safari, Chrome, Firefox, IE)
-** TODO Arbol-N [3/5]
-   SCHEDULED: <2013-01-26 sáb>
-*** DONE Primera implementación.
-    CLOSED: [2013-01-25 vie 18:25]
-*** DONE Pruebas sobre la librería.
-    CLOSED: [2013-01-27 dom 19:12]
-*** DONE Aplanar la lista de los recorridos.
-    CLOSED: [2013-01-25 vie 20:26]
-*** TODO Recorrido por niveles
-*** TODO Test para recorridos 
-** TODO Implementar prueba de concepto con KineticJS [7/10]
+** TODO Implementar prueba de concepto con KineticJS [8/10]
    SCHEDULED: <2013-02-02 sáb>
 *** DONE Dibujar un nodo / texto
     CLOSED: [2012-12-28 dom 19:48]
@@ -48,29 +37,55 @@
     CLOSED: [2013-01-25 vie 21:17]
 *** DONE Ejemplo con dos nodos y una arista
     CLOSED: [2013-02-02 sáb 01:18]
-*** TODO Interacción. 
-*** TODO Primer ejemplo completo con un mapa
+*** DONE Primer ejemplo completo con un mapa
+    CLOSED: [2013-02-07 jue 20:58]
+*** TODO interacción
+    SCHEDULED: <2013-02-16 sáb>
 *** TODO Pruebas con eventos touch 
-
 ** TODO Ver un sistema de documentación para el código fuente
-   SCHEDULED: <2013-01-30 mié>
+   SCHEDULED: <2013-02-28 jue>
+
+** TODO Incluir al procesable el retorno
+   SCHEDULED: <2013-02-23 sáb>
+
+** TODO Implementación de un test de rendimiento. 
+   SCHEDULED: <2013-02-16 sáb> 
+   - Crear un MM con 100, 1000 y/o 10000 para ver como se comporta el sistema.
+
 
 * Pendiente de planificar
 ** TODO Crear librería para manejo de eventos
 ** TODO Estudir en profundidad como funciona un sistema ya implementado.
-** TODO Documentar [0/5]
+** TODO Documentar [0/7]
 *** TODO arbol-n.js
 *** TODO element.js
 *** TODO klass.js
 *** TODO properties.js
 *** TODO tecla.js
-
-
+*** TODO chain.js
+*** TODO processable.js
 ** TODO JsMin como compresor de código JavaScript
 ** TODO JsLint/JsHint para validar código
 
+** TODO Librería para carga de ficheros
+   - Implementar un parse XML de FreeMind
+** TODO Prueba de carga de un MM de FreeMind
 
-* Realizado 
+
+* Realizado
+** DONE Arbol-N [4/4]
+   CLOSED: [2013-02-10 dom 02:03] SCHEDULED: <2013-01-26 sáb>
+*** DONE Primera implementación.
+    CLOSED: [2013-01-25 vie 18:25]
+*** DONE Pruebas sobre la librería.
+    CLOSED: [2013-01-27 dom 19:12]
+*** DONE Aplanar la lista de los recorridos.
+    CLOSED: [2013-01-25 vie 20:26]
+*** DONE Funciones y test de movimiento por el árbol: 
+    CLOSED: [2013-02-10 dom 01:46] 
+    - Buscar un elemento
+    - Profundidad
+    - PadreDe 
 ** DONE Crear los tests para la Clase
    CLOSED: [2013-02-02 sáb 01:18] SCHEDULED: <2013-01-30 mié>
 

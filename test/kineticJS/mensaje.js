@@ -10,17 +10,17 @@ var Mensaje = Class.extend({
 	align: 'center'
     },
 
-    init: function(stage, layer, propiedades) {
-	this.stage = stage;
-	this.layer = layer;
+    init: function(escenario, capa, propiedades) {
+	this.escenario = escenario;
+	this.capa = capa;
 	var prop = Properties.add(this.defecto, propiedades);
 	this.kText = new Kinetic.Text(prop);
-	layer.add ( this.kText );
+	capa.add ( this.kText );
     },
 
     setText: function (texto) {
 	this.kText.setText(texto);
-	this.layer.draw();
+	this.capa.draw();
     },
 
     getText: function () {

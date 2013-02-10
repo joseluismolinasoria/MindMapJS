@@ -1,4 +1,4 @@
-0.0.1 / 2013-02-02 (abierta)
+0.0.1 / 2013-02-10 (abierta)
 ============================
 
   * Primera release
@@ -20,3 +20,7 @@
   * Ajustado Árbol eneario para que extienda de Class (Cambios es los test)
   * Cambio a KineticJS v.4.3.1 
   * Creado prueba de concepto de dos nodos con una arista
+  * Incluido Chain
+  * Implementado Processable y test
+  * Implementación de función de búsqueda, profundidad, PadreDe en el árbol.
+  * Primer árbol completo
