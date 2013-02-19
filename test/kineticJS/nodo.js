@@ -19,8 +19,8 @@ var Nodo = Mensaje.extend({
         this.kText = new Kinetic.Text(prop);
 
         this.rect = new Kinetic.Rect({
-            x: this.getX(),
-            y: this.getY(),
+            x: this.kText.getX(),
+            y: this.kText.getY(),
             stroke: '#555',
             strokeWidth: 2,
             fill: '#ddd',
@@ -43,20 +43,18 @@ var Nodo = Mensaje.extend({
         this.group.add(this.kText);
         this.capa.add(this.group);
 
-        var bindMensaje = Class.bind(this, this.ponerMensaje);
-        var bindPosicion = Class.bind(this, this.ponerPosicion);
         var bindEditar = Class.bind(this, this.editar);
         var bindNOP = Class.bind(this, this.nop);
-        this.group.on('click', bindMensaje);
+        this.group.on('click', bindNOP);
         this.group.on('dblclick', bindEditar);
-        this.group.on('mouseout', bindMensaje);
-        this.group.on('mousemove', bindMensaje);
-        this.group.on('mousedown', bindMensaje);
-        this.group.on('mouseup', bindMensaje);
-        this.group.on('mouseenter', bindMensaje);
-        this.group.on('mouseLeave', bindMensaje);
-        this.group.on('dragstart', bindPosicion);
-        this.group.on('dragend', bindPosicion);
+        this.group.on('mouseout', bindNOP);
+        this.group.on('mousemove', bindNOP);
+        this.group.on('mousedown', bindNOP);
+        this.group.on('mouseup', bindNOP);
+        this.group.on('mouseenter', bindNOP);
+        this.group.on('mouseLeave', bindNOP);
+        this.group.on('dragstart', bindNOP);
+        this.group.on('dragend', bindNOP);
     },
 
     ponerFoco : function () {
@@ -69,6 +67,25 @@ var Nodo = Mensaje.extend({
 	this.rect.setStroke('#555');
 	this.rect.setShadowColor('black');
 	this.capa.draw();
+    },
+
+    setX : function (x) {
+	this.rect.setX(x);
+	this._super(x);
+    },
+
+    getX : function () {
+	return this.rect.getAbsolutePosition().x;
+    },
+
+    setY : function (y) {
+	this.rect.setY(y);
+	this._super(y);
+    },
+
+
+    getY : function () {
+	return this.rect.getAbsolutePosition().y;
     },
 
 

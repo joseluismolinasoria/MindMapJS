@@ -14,11 +14,13 @@ var MM = function () {
     }.chain();
 
     var next = function () {
-	if ( this.foco.ordenNodo !== 0 ) 
+	if ( this.foco.ordenNodo() !== 0 ) 
 	    this.foco = this.foco.hijos[0];
     }.chain();
 
     var irPadre = function () {
+	if ( !this.foco )
+	    return;
         var p = this.arbol.padreDe(this.foco.elemento.id);
 	if ( p != null )
 	    this.foco = p;
@@ -27,36 +29,38 @@ var MM = function () {
 
     var nextHermano = function () {
         var p = this.arbol.padreDe(this.foco.elemento.id);
-	for ( var i = 0; i <= p.hijos.lenght; i++ ) {
-	    if ( p.hijos[i].elementEqual(this.foco.elemento.id) )
-		if ( i == p.hijos.lenght ) {
+	if ( p == null ) return; 
+	for ( var i = 0; i < p.hijos.length; i++ )
+	    if ( p.hijos[i].elementEqual(this.foco.elemento.id) ){
+		if ( i === p.hijos.length-1 ) 
 		    this.foco = p.hijos[0];
-		} else {
+		else 
 		    this.foco = p.hijos[i+1];
-		}
-	    p = null;
-	    return;
-	}
+		return;
+	    }
+	p = null;
     }.chain();
 
 
     var prevHermano = function () {
         var p = this.arbol.padreDe(this.foco.elemento.id);
-	for ( var i = 0; i <= p.hijos.lenght; i++ ) {
-	    if ( p.hijos[i].elementEqual(this.foco.elemento.id) )
-		if ( i == 0 ) {
-		    this.foco = p.hijos[p.hijos.length];
-		} else {
-		    this.foco = p.hijos[i+1];
-		}
-	    p = null;
-	    return;
-	}
+	if ( p == null ) return;
+	for ( var i = 0; i < p.hijos.length; i++ )
+	    if ( p.hijos[i].elementEqual(this.foco.elemento.id) ) {
+		if ( i === 0 )
+		    this.foco = p.hijos[p.hijos.length-1];
+		else
+		    this.foco = p.hijos[i-1];
+		return;
+	    }
+	p = null;
     }.chain();
 
+
     var irRoot = function () {
-	this.foco = arbol;
+	this.foco = this.arbol;
     }.chain();
+
 
     return {
         arbol: arbol,
@@ -73,7 +77,7 @@ var MM = function () {
 // extendemos el modulo MM para el render
 var MM = function(mm) {
     var reparto = [];
-    
+
     mm.aristas = [];
 
     Arbol.prototype.preProceso = function () {
@@ -82,16 +86,21 @@ var MM = function(mm) {
 	reparto[p] = reparto[p].slice(1, reparto[p].length);
 	reparto[p+1] = [];
 	var y0 = r.y0;
-	var division = r.y1 / this.hijos.length;
+	var division = (r.y1 -r.y0) / this.hijos.length;
 	division = (division < 22)?22:division;
 	this.hijos.forEach(function () {
 	    reparto[p+1].push({y0: y0, y1:y0+division});
 	    y0 += division;
 	});
-	x = 10 + (150 * p);
-	y = r.y0 + ((r.y1 - r.y0) / 2) - 11;
-        this.elemento.nodo = new Nodo(mm, mm.escenario, mm.capaNodos, { x: x, y: y, text: this.elemento.texto});
-	p = r = y0 = division = null;
+	var x = 10 + (150 * p);
+	var y = r.y0 + ((r.y1 - r.y0) / 2) - 11;
+	if ( this.elemento.nodo !== null ) {
+	    this.elemento.nodo.setX(x);
+	    this.elemento.nodo.setY(y);
+	} else
+            this.elemento.nodo = new Nodo(mm, mm.escenario, mm.capaNodos, { x: x, y: y, text: this.elemento.texto});
+	this.elemento.reparto = r;
+	p = r = y0 = division = x = y = null;
     };
 
     Arbol.prototype.postProceso = function () {
@@ -120,14 +129,19 @@ var MM = function(mm) {
         this.escenario.add(this.capaAristas);
 
 	reparto.push([{y0: 0, y1: height}]);
-        mm.arbol.preOrden();
+        this.arbol.preOrden();
 
         this.escenario.add(this.capaNodos);
         this.escenario.add(this.capaMensajes);
 
 	this.irRoot = this.irRoot.processable(this.quitarFoco, this.ponerFoco);
+	this.irPadre = this.irPadre.processable(this.quitarFoco, this.ponerFoco);
 	this.next = this.next.processable(this.quitarFoco, this.ponerFoco);
-	
+	this.nextHermano = this.nextHermano.processable(this.quitarFoco, this.ponerFoco);
+	this.prevHermano = this.prevHermano.processable(this.quitarFoco, this.ponerFoco);
+	this.add = this.add.processable(function(){}, this.renderDesdeFoco);
+
+	this.irRoot();
     };
 
     mm.renderAristas = function () {
@@ -135,6 +149,16 @@ var MM = function(mm) {
 	this.aristas.forEach(function(arista) {
 	    arista.render();
 	});
+    };
+
+    mm.renderDesdeFoco = function () {
+	var p = this.arbol.profundidad(this.foco.elemento.id);
+	reparto[p].push ( this.foco.elemento.reparto );
+	this.capaAristas.clear();
+        this.foco.preOrden();
+	this.renderAristas();
+	this.capaNodos.draw();
+	p = null;
     };
 
     mm.ponerFoco = function () {
@@ -150,8 +174,4 @@ var MM = function(mm) {
 }(MM);
 
 
-window.onload = function () {
-    MM.add('hijo1').add('hijo2').add('hijo3').next().add('hijo11').add('hijo12').next().add('hijo111').add('hijo112').add('hijo113').add('hijo114');
-    MM.render('contenedor', 600, 400);
-};
 

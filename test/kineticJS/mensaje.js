@@ -27,8 +27,18 @@ var Mensaje = Class.extend({
 	return this.kText.getText();
     },
 
+    setX: function (x) { 
+	this.kText.setX(x);
+	this.capa.draw();
+    },
+
     getX: function () {
 	return this.kText.getAbsolutePosition().x;
+    },
+
+    setY: function (y) { 
+	this.kText.setY(y);
+	this.capa.draw();
     },
 
     getY: function () {

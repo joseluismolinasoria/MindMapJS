@@ -25,14 +25,21 @@
 
     <script>
       window.onload = function () {
-          MM.add('hijo1').add('hijo2').add('hijo3')
-              .next().add('hijo11').add('hijo12')
-              .next().add('hijo111').add('hijo112').add('hijo113').add('hijo114');
+          MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
           MM.render('contenedor', 600, 400);
       };
     </script>
   </head>
   <body>
-    <div id="contenedor" style="border: 1px solid red"></div>
+    <div id="contenedor" style="border: 1px solid red">
+      <div style="float:left; width:100px; height:400px;background-color: grey;">
+	<button onclick="MM.add('Nuevo');">Nuevo hijo</button><br/>
+	<button onclick="MM.irRoot();">Raiz</button><br>
+	<button onclick="MM.irPadre();">Padre</button>
+	<button onclick="MM.next();">Hijo</button><br/>
+	<button onclick="MM.prevHermano();">Arriba</button>
+	<button onclick="MM.nextHermano();">Abajo</button>
+      </div>
+    </div>
   </body>
 </html>
