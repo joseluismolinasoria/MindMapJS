@@ -3,29 +3,31 @@ var Nodo = Mensaje.extend({
         x: 0,
         y: 0,
         text: '',
-        fontSize: 12,
-        fontFamily: 'Calibri',
+        fontSize: 14,
+        fontFamily: 'helvetica',
         fill: '#555',
         width: 'auto',
         padding: 5,
         align: 'center'
     },
 
-    init: function (mm, escenario, capa, propiedades) {
-	this.mm = mm;
+    init: function (escenario, capa, propiedades) {
         this.escenario = escenario;
         this.capa = capa;
-        var prop = Properties.add(this.defecto, propiedades);
+
+        var prop = MM.Properties.add(this.defecto, propiedades);
+	prop.x = 0;
+	prop.y = 0;
         this.kText = new Kinetic.Text(prop);
 
         this.rect = new Kinetic.Rect({
-            x: this.kText.getX(),
-            y: this.kText.getY(),
+            x: 0,
+            y: 0,
             stroke: '#555',
             strokeWidth: 2,
             fill: '#ddd',
-            width: this.getWidth(),
-            height: this.getHeight(),
+            width: this.kText.getWidth(),
+            height: this.kText.getHeight(),
             shadowColor: 'black',
             shadowBlur: 5,
             shadowOffset: [3, 3],
@@ -33,18 +35,24 @@ var Nodo = Mensaje.extend({
             cornerRadius: 7
         });
 
-	var self = this;
-        this.group = new Kinetic.Group({draggable: true,
+        this.group = new Kinetic.Group({
+	    x : propiedades.x,
+	    y : propiedades.y,
+	    width: this.kText.getWidth(),
+	    height: this.kText.getHeight(),
+	    draggable: true,
             dragBoundFunc: function (pos) {
-                self.mm.renderAristas();
+                MM.renderAristas();
                 return pos;
-            }});
+            }
+	});
+
         this.group.add(this.rect);
         this.group.add(this.kText);
         this.capa.add(this.group);
 
-        var bindEditar = Class.bind(this, this.editar);
-        var bindNOP = Class.bind(this, this.nop);
+        var bindEditar = MM.Class.bind(this, this.editar);
+        var bindNOP = MM.Class.bind(this, this.nop);
         this.group.on('click', bindNOP);
         this.group.on('dblclick', bindEditar);
         this.group.on('mouseout', bindNOP);
@@ -70,34 +78,40 @@ var Nodo = Mensaje.extend({
     },
 
     setX : function (x) {
-	this.rect.setX(x);
-	this._super(x);
+	this.group.setX(x);
     },
 
     getX : function () {
-	return this.rect.getAbsolutePosition().x;
+	return this.group.getX();
     },
 
     setY : function (y) {
-	this.rect.setY(y);
-	this._super(y);
+	this.group.setY(y);
     },
-
 
     getY : function () {
-	return this.rect.getAbsolutePosition().y;
+	return this.group.getY();
     },
 
+    getWidth: function () {
+	return this.group.getWidth();
+    },
+
+    getHeight: function () {
+	return this.group.getHeight();
+    },
 
     editar: function () {
-        var textarea = new Element('textarea',
+        var textarea = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
                 'innerHTML': this.getText(),
                 'style': 'position: absolute; ' +
-                    'top : ' + this.rect.getAbsolutePosition().y + 'px; ' +
-                    'left: ' + this.rect.getAbsolutePosition().x + 'px; ' +
-                    'min-width: ' + this.rect.getWidth() + 'px; ' +
-                    'min-height: ' + this.rect.getHeight() + 'px; ' +
+                    'top : ' + this.getY() + 'px; ' +
+                    'left: ' + this.getX() + 'px; ' +
+                    //'min-width: 7em; ' +
+                    //'min-height: 2em; ' +
+                    'width: ' + this.getWidth() + 'px; ' +
+                    'height: ' + this.getHeight() + 'px; ' +
                     'border: ' + this.rect.getStrokeWidth() + 'px solid ' + this.rect.getStroke() + '; ' +
                     'border-radius: ' + this.rect.getCornerRadius() + 'px;' +
                     'background-color: ' + this.rect.getFill() + '; ' +
@@ -108,9 +122,15 @@ var Nodo = Mensaje.extend({
             });
         var self = this;
         textarea.onblur = function () {
+	    console.log('X, Y: ' + self.group.getX() + " - " + self.group.getY());
+	    console.log('Position: ' + self.group.getPosition().x + " - " + self.group.getPosition().y);
+	    console.log('Absoluto: ' + self.group.getAbsolutePosition().x + " - " + self.group.getAbsolutePosition().y);
             self.setText(this.value);
-            self.rect.setWidth(self.getWidth());
-            self.rect.setHeight(self.getHeight());
+            self.rect.setWidth(self.kText.getWidth());
+            self.rect.setHeight(self.kText.getHeight());
+            self.group.setWidth(self.kText.getWidth());
+            self.group.setHeight(self.kText.getHeight());
+            MM.renderAristas();
             self.capa.draw();
             this.remove();
         };

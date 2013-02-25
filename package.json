@@ -27,6 +27,7 @@
   "main"            : "index",
   "scripts"         : {
     "start" : "node ./src/MindMapJS",
-    "test"  : "mocha --require should --reporter spec"
+    "test"  : "mocha --require should --reporter spec",
+    "docs" : "./node_modules/jsdoc/jsdoc src/*.js -d docs/jsdocs"
   }
 }

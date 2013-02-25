@@ -1,4 +1,4 @@
-var Mensaje = Class.extend({
+var Mensaje = MM.Class.extend({
     defecto : {
 	x: 5,
 	y: 5,
@@ -11,7 +11,7 @@ var Mensaje = Class.extend({
     init: function(stage, layer, propiedades) {
 	this.stage = stage;
 	this.layer = layer;
-	var prop = Properties.add(this.defecto, propiedades);
+	var prop = MM.Properties.add(this.defecto, propiedades);
 	this.kText = new Kinetic.Text(prop);
 	layer.add ( this.kText );
     },
@@ -55,9 +55,9 @@ var Nodo = Mensaje.extend({
 
     init: function(stage, layer, propiedades) {
 	this._super(stage, layer, propiedades);
-	var bindMensaje = Class.bind(this, this.ponerMensaje);
-	var bindPosicion = Class.bind(this, this.ponerPosicion);
-	var bindEditar = Class.bind(this, this.editar);
+	var bindMensaje = MM.Class.bind(this, this.ponerMensaje);
+	var bindPosicion = MM.Class.bind(this, this.ponerPosicion);
+	var bindEditar = MM.Class.bind(this, this.editar);
 	this.kText.on('click',     bindMensaje);
 	this.kText.on('dblclick',  bindEditar);
 	this.kText.on('mouseout',  bindMensaje);
@@ -71,7 +71,7 @@ var Nodo = Mensaje.extend({
     },
     
     editar : function() {
-	var textarea = new Element ('textarea', 
+	var textarea = new MM.DOM.create ('textarea', 
 				    { 'id'  : 'editNodo', 
 				      'innerHTML': this.getText(), 
 				      'style' : 'position: absolute; ' +

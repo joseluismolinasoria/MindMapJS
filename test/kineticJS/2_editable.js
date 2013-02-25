@@ -102,7 +102,7 @@ nodo.on('dblclick', function() {
     var y = mousePos.y;
     var mensaje = 'x: ' + x + ', y: ' + y;
     console.log('dblclick ' + mensaje);
-    var textarea = new Element ('textarea', {'id'  : 'editNodo', 
+    var textarea = new MM.DOM.create ('textarea', {'id'  : 'editNodo', 
 					     'innerHTML': nodo.getText(), 
 					     'style' : 'position: absolute; ' +
 					     'top : ' + (nodo.getY()+7) + 'px; ' +

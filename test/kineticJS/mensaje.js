@@ -1,10 +1,10 @@
-var Mensaje = Class.extend({
+var Mensaje = MM.Class.extend({
     defecto: {
 	x: 5,
 	y: 5,
 	text: '',
-	fontSize: 10,
-	fontFamily: 'Calibri',
+	fontSize: 14,
+	fontFamily: 'helvetica',
 	fill: '#555',
 	width: 'auto',
 	align: 'center'
@@ -13,7 +13,7 @@ var Mensaje = Class.extend({
     init: function(escenario, capa, propiedades) {
 	this.escenario = escenario;
 	this.capa = capa;
-	var prop = Properties.add(this.defecto, propiedades);
+	var prop = MM.Properties.add(this.defecto, propiedades);
 	this.kText = new Kinetic.Text(prop);
 	capa.add ( this.kText );
     },

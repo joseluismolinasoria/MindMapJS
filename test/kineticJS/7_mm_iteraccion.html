@@ -12,7 +12,8 @@
       }
     </style>
     <script src="../../lib/kinetic-v4.3.1.js"></script>
-    <script src="../../src/element.js"></script>
+    <script src="../../src/MindMapJS.js"></script>
+    <script src="../../src/dom.js"></script>
     <script src="../../src/properties.js"></script>
     <script src="../../src/chain.js"></script>
     <script src="../../src/processable.js"></script>
@@ -31,15 +32,18 @@
     </script>
   </head>
   <body>
-    <div id="contenedor" style="border: 1px solid red">
-      <div style="float:left; width:100px; height:400px;background-color: grey;">
-	<button onclick="MM.add('Nuevo');">Nuevo hijo</button><br/>
-	<button onclick="MM.irRoot();">Raiz</button><br>
+      <div style="background-color: grey;">
+	<button onclick="MM.add('Nuevo');">Nuevo hijo</button>
+	<button onclick="MM.irRoot();">Raiz</button>
 	<button onclick="MM.irPadre();">Padre</button>
-	<button onclick="MM.next();">Hijo</button><br/>
+	<button onclick="MM.next();">Hijo</button>
 	<button onclick="MM.prevHermano();">Arriba</button>
 	<button onclick="MM.nextHermano();">Abajo</button>
       </div>
-    </div>
+      <div id="contenedor" style="border: 1px solid red">
+      </div>
+      <div id="posicion" style="background-color: grey;">&nbsp;</div>
+      <div id="posicionNodos" style="background-color: grey;">&nbsp;</div>
+      <div id="posicionAristas" style="background-color: grey;">&nbsp;</div>
   </body>
 </html>

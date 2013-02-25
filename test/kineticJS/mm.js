@@ -1,24 +1,25 @@
 // Módulo principal
-var MM = function () {
+MM = function (mm) {
 
     var idNodos = 1;
 
-    Arbol.prototype.elementEqual = function (id){
+    MM.Arbol.prototype.elementEqual = function (id){
 	return id === this.elemento.id;
-    }
+    };
 
-    var arbol = new Arbol({id: idNodos++, texto: 'Idea Central', nodo: null});
+    mm.arbol = mm.foco = new MM.Arbol({id: idNodos++, texto: 'Idea Central', nodo: null});
+    
 
-    var add = function (texto) {
-        this.foco.hijos.push(new Arbol({id: idNodos++, texto: texto, nodo: null}));
+    mm.add = function (texto) {
+        this.foco.hijos.push(new MM.Arbol({id: idNodos++, texto: texto, nodo: null}));
     }.chain();
 
-    var next = function () {
+    mm.next = function () {
 	if ( this.foco.ordenNodo() !== 0 ) 
 	    this.foco = this.foco.hijos[0];
     }.chain();
 
-    var irPadre = function () {
+    mm.irPadre = function () {
 	if ( !this.foco )
 	    return;
         var p = this.arbol.padreDe(this.foco.elemento.id);
@@ -27,7 +28,7 @@ var MM = function () {
 	p = null;
     }.chain();
 
-    var nextHermano = function () {
+    mm.nextHermano = function () {
         var p = this.arbol.padreDe(this.foco.elemento.id);
 	if ( p == null ) return; 
 	for ( var i = 0; i < p.hijos.length; i++ )
@@ -42,7 +43,7 @@ var MM = function () {
     }.chain();
 
 
-    var prevHermano = function () {
+    mm.prevHermano = function () {
         var p = this.arbol.padreDe(this.foco.elemento.id);
 	if ( p == null ) return;
 	for ( var i = 0; i < p.hijos.length; i++ )
@@ -57,30 +58,22 @@ var MM = function () {
     }.chain();
 
 
-    var irRoot = function () {
+    mm.irRoot = function () {
 	this.foco = this.arbol;
     }.chain();
 
+    
 
-    return {
-        arbol: arbol,
-        foco : arbol,
-        add : add,
-	next : next,
-	irRoot : irRoot,
-	irPadre : irPadre,
-	nextHermano : nextHermano,
-	prevHermano : prevHermano
-    };
-}();
+    return mm;
+}(MM);
 
 // extendemos el modulo MM para el render
-var MM = function(mm) {
+MM = function(mm) {
     var reparto = [];
 
     mm.aristas = [];
 
-    Arbol.prototype.preProceso = function () {
+    MM.Arbol.prototype.preProceso = function () {
 	var p = mm.arbol.profundidad(this.elemento.id);
 	var r = reparto[p][0];
 	reparto[p] = reparto[p].slice(1, reparto[p].length);
@@ -98,12 +91,12 @@ var MM = function(mm) {
 	    this.elemento.nodo.setX(x);
 	    this.elemento.nodo.setY(y);
 	} else
-            this.elemento.nodo = new Nodo(mm, mm.escenario, mm.capaNodos, { x: x, y: y, text: this.elemento.texto});
+            this.elemento.nodo = new Nodo(mm.escenario, mm.capaNodos, { x: x, y: y, text: this.elemento.texto});
 	this.elemento.reparto = r;
 	p = r = y0 = division = x = y = null;
     };
 
-    Arbol.prototype.postProceso = function () {
+    MM.Arbol.prototype.postProceso = function () {
         var elemento = this.elemento;
         this.hijos.forEach(function (hijo) {
             var arista = new Arista(mm.capaAristas, elemento.nodo, hijo.elemento.nodo);
@@ -111,6 +104,12 @@ var MM = function(mm) {
             arista = null;
         });
 	elemento = null;
+    };
+
+    var getDevicePixelRatio = function () {
+	if ( window.devicePixelRatio ) 
+	    return window.devicePixelRatio;
+	return 1;
     };
 
     mm.render = function (contenedor, width, height) {
@@ -122,9 +121,9 @@ var MM = function(mm) {
 
 	this.width = width;
 	this.height = height;
+	this.devicePixelRatio = getDevicePixelRatio();
         this.capaNodos = new Kinetic.Layer();
         this.capaAristas = new Kinetic.Layer();
-        this.capaMensajes = new Kinetic.Layer();
 
         this.escenario.add(this.capaAristas);
 
@@ -132,7 +131,15 @@ var MM = function(mm) {
         this.arbol.preOrden();
 
         this.escenario.add(this.capaNodos);
-        this.escenario.add(this.capaMensajes);
+
+	var e = document.getElementById('posicionAristas');
+	this.aristas.forEach(function (arista) {
+	    e.innerHTML += "<br>" + arista.x1 + " - " + arista.y1 + " a " + 
+		arista.x2 + " - " + arista.y2;
+	});
+	e = null;
+
+	document.getElementById('posicionNodos').innerHTML = window.devicePixelRatio;
 
 	this.irRoot = this.irRoot.processable(this.quitarFoco, this.ponerFoco);
 	this.irPadre = this.irPadre.processable(this.quitarFoco, this.ponerFoco);
