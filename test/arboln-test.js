@@ -70,7 +70,7 @@ describe('ArbolN', function(){
 	});
     });
 
-    describe ('Con el arbol de prueba', function () {
+    describe ('Con el árbol de prueba', function () {
 	var a = ArbolN("a",
 		       ArbolN("b"),
 		       ArbolN("c",
@@ -136,9 +136,5 @@ describe('ArbolN', function(){
 	it('el padre de m es g', function(){
             a.padreDe('m').should.have.property('elemento', 'g');
 	});	
-	
-    // it('su recorrido por niveles es [abcdefghijklm] ', function(){
-    // 	    a.niveles().should.eql(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm']);
-    // 	});
     });
 });

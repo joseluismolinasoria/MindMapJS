@@ -11,5 +11,6 @@
  * @property {MM.Arbol}        Arbol      - Constructor de Árboles enarios.
  * @property {MM.Properties}   Properties - Extensión para manejo de propiedades
  * @property {MM.DOM}          DOM        - Funciones para manejo del DOM
+ * @property {MM.PubSub}       PubSub     - Patrón Publish/Subscribe
  */
 var MM = {}; 

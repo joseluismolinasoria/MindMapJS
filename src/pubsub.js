@@ -1,18 +1,25 @@
 /**
- * @file Describe the file
+ * @file pubsub.js Implementación del patrón Publish/Subscribe
  * @author José Luis Molina Soria
- * @version 20130224
+ * @version 20130227
  */
-MM.PubSub = function() {
 
-    /**
-     * @class PubSub
-     * @classdesc Implementación del patrón Publish/Subscribe
-     * @constructor PubSub
-     */
+if ( typeof module !== 'undefined' ) {
+    var MM = require('./MindMapJS.js');
+    MM.Class = require('./klass.js');
+}
+
+/**
+ * @class MM.PubSub
+ * @classdesc Implementación del patrón Publish/Subscribe
+ * @constructor MM.PubSub
+ */
+MM.PubSub = MM.Class.extend(function() {
+
+    /** @lends MM.PubSub.prototype */
     var p = {};
     var on = {};
-    var idSub = 0;
+    var idSub = 1;
 
     /**
      * @desc Realiza la notificación a los subscriptores de que se a producido
@@ -22,12 +29,12 @@ MM.PubSub = function() {
      * @return {boolean} Si el evento no es un nombre valido retorna false en
      * otro caso retorna true
      */
-    p.on = function( evento, args ) {
+    p.on = function( evento, args1, args2 ) {
         if (!on[evento])
             return false;
 
         on[evento].forEach(function (evt){
-            evt.funcion.call(evt.contexto, args);
+            evt.funcion.call(evt.contexto, args1, args2);
         });
 
         return true;
@@ -74,4 +81,7 @@ MM.PubSub = function() {
     };
 
     return p;
-};
+}());
+
+if ( typeof module !== 'undefined' ) 
+    module.exports = MM.PubSub;

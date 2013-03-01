@@ -6,7 +6,7 @@
 
 if ( typeof module !== 'undefined' ) {
     var MM = require('./MindMapJS.js');
-    MM.Class = require('./klass.js');
+    MM.Class = require('./pubsub.js');
 }
 
 /**
@@ -16,7 +16,7 @@ if ( typeof module !== 'undefined' ) {
  * @param {*}     elemento  elemento del árbol
  * @param {Array} [hijos]   array de árboles hijo 
  */
-MM.Arbol = MM.Class.extend( /** @lends MM.Arbol.prototype */ {
+MM.Arbol = MM.PubSub.extend( /** @lends MM.Arbol.prototype */ {
     init: function(elemento, hijos) {
 	this.elemento = elemento;
 	this.hijos = hijos || [];
@@ -29,15 +29,13 @@ MM.Arbol = MM.Class.extend( /** @lends MM.Arbol.prototype */ {
  * @return {array} array de elementos resultados del recorrido preorden
  */
 MM.Arbol.prototype.preOrden = function () {
-    if ( this.preProceso )
-        this.preProceso();
+    this.on('preOrden', this);
     var a = [this.elemento];
     this.hijos.forEach(function (hijo) {
         a = a.concat(hijo.preOrden());
     });
 
-    if ( this.postProceso )
-	this.postProceso();
+    this.on('postPreOrden', this);
     return a;
 };
 
@@ -51,9 +49,12 @@ MM.Arbol.prototype.inOrden = function () {
     var a = [];
     this.hijos.forEach(function (hijo, idx) {
         a = a.concat(hijo.inOrden());
-        if (idx == 0)
+        if (idx == 0) {
             a = a.concat(this.elemento);
+	    this.on('inOrden', this);
+	}
     }, this);
+    this.on('postInOrden', this);
     return a;
 };
 
@@ -66,6 +67,7 @@ MM.Arbol.prototype.postOrden = function () {
     this.hijos.forEach(function (hijo) {
         a = a.concat(hijo.postOrden());
     });
+    this.on('postOrden', this);
     return a.concat(this.elemento);
 };
 
