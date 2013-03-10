@@ -136,5 +136,26 @@ describe('ArbolN', function(){
 	it('el padre de m es g', function(){
             a.padreDe('m').should.have.property('elemento', 'g');
 	});	
+	it('borrar el elemento a', function(){
+            (a.borrar('a') ===null).should.be.ok;
+	});	
+	it('borrar el elemento b', function(){
+            a.borrar('b').should.have.property('elemento', 'b');
+	});	
+	it('su recorrido preOrden, después de borrar b es [acefdgjklmhi] ', function(){
+	    a.preOrden().should.eql(['a', 'c', 'e', 'f', 'd', 'g', 'j', 'k', 'l', 'm', 'h', 'i']);
+	});
+	it('borrar el elemento c', function(){
+            a.borrar('c').should.have.property('elemento', 'c');
+	});	
+	it('su recorrido preOrden, después de borrar b es [adgjklmhi] ', function(){
+	    a.preOrden().should.eql(['a', 'd', 'g', 'j', 'k', 'l', 'm', 'h', 'i']);
+	});
+	it('borrar el elemento d', function(){
+            a.borrar('d').should.have.property('elemento', 'd');
+	});
+	it('su recorrido preOrden, después de borrar b es [a] ', function(){
+	    a.preOrden().should.eql(['a']);
+	});	
     });
 });

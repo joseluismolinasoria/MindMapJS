@@ -1,4 +1,4 @@
-0.0.1 / 2013-02-10 (abierta)
+0.0.1 / 2013-03-10 (abierta)
 ============================
 
   * Primera release
@@ -24,3 +24,8 @@
   * Implementado Processable y test
   * Implementación de función de búsqueda, profundidad, PadreDe en el árbol.
   * Primer árbol completo
+  * Primera versión interactiva
+  * Prueba de rendimiento.
+  * Incorporación del patrón pubsub
+  * Documenación de código.
+  * Corrección de errores menores

@@ -17,12 +17,16 @@ Function.prototype.processable = function (prefn, postfn) {
             prefn.apply(this, arguments);
         }
         var ret = fn.apply(this, arguments);
+	var postRet;
+	
         if (postfn) {
-            postfn.apply(this, arguments);
+            postRet = postfn.apply(this, [ret].concat(arguments));
         }
-	return ret
+	return (postRet === undefined)? ret : postRet;
     };
 };
 
 if ( typeof module !== 'undefined' ) 
     module.exports = Function.prototype.procesable;
+
+

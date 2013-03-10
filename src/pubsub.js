@@ -32,10 +32,11 @@ MM.PubSub = MM.Class.extend(function() {
     p.on = function( evento, args1, args2 ) {
         if (!on[evento])
             return false;
-
+	var args = Array.prototype.slice.call(arguments, 1);
         on[evento].forEach(function (evt){
-            evt.funcion.call(evt.contexto, args1, args2);
+            evt.funcion.apply(evt.contexto, args);
         });
+	args = null;
 
         return true;
     };

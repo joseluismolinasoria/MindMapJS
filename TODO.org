@@ -40,46 +40,17 @@
 *** DONE Primer ejemplo completo con un mapa
     CLOSED: [2013-02-07 jue 20:58]
 *** TODO interacción
-    SCHEDULED: <2013-03-03 dom>
+    SCHEDULED: <2013-03-10 dom>
 *** TODO Pruebas con eventos touch 
-** TODO Ver un sistema de documentación para el código fuente
-   SCHEDULED: <2013-03-03 dom>
-   - Hasta el momento el jsDoc parece campeón. Probar en el sistema en vivo.
-** TODO Incluir al procesable el retorno
-   SCHEDULED: <2013-03-03 dom>
-   - El procesable se va a quedar sólo para el árbol. Mejor untilizar un patrón PubSub
-** TODO Implementación de un test de rendimiento. 
-   SCHEDULED: <2013-03-10 dom>
-   - Crear un MM con 100, 1000 y/o 10000 para ver como se comporta el sistema.
-** DONE Escalar el nodo una vez editado
-   CLOSED: [2013-02-23 sáb 22:02] SCHEDULED: <2013-03-03 dom>
-** DONE Ajustar las aristas una vez terminada la edición
-   CLOSED: [2013-02-23 sáb 23:19] SCHEDULED: <2013-03-03 dom>
-** TODO El array de aristas se dispara no para de introducir más y más aristas.
-   SCHEDULED: <2013-03-03 dom>
-** TODO Permitir la opción de borrado de nodos
-   SCHEDULED: <2013-03-03 dom>
-
-** TODO El nodo que esta en modo edición debe tener el foco.
-   SCHEDULED: <2013-03-03 dom> 
 ** TODO Ajustar la posición del editor
 
 
 * Pendiente de planificar
-** TODO Implementar el patrón PubSub para manejo de eventos
 ** TODO Crear librería para manejo de eventos
 ** TODO Estudir en profundidad como funciona un sistema ya implementado.
-** TODO Documentar [0/7]
-*** TODO arbol-n.js
-*** TODO element.js
-*** TODO klass.js
-*** TODO properties.js
-*** TODO tecla.js
-*** TODO chain.js
-*** TODO processable.js
 ** TODO JsMin como compresor de código JavaScript
 ** TODO JsLint/JsHint para validar código
-
+** TODO Documentar tecla.js
 ** TODO Librería para carga de ficheros
 ** TODO Prueba de carga de un MM de FreeMind
    - Implementar un parse XML de FreeMind
@@ -93,7 +64,56 @@
    - reveal.js puede ser una opción
 
 
+* Pendiente de poner el WunderList
+** DONE El nodo que esta en modo edición debe tener el foco.
+   CLOSED: [2013-03-10 dom 02:46] DEADLINE: <2013-03-10 dom> SCHEDULED: <2013-03-10 dom>
+
+** DONE El el foco en el nodo con el click
+   CLOSED: [2013-03-10 dom 02:46] DEADLINE: <2013-03-10 dom> SCHEDULED: <2013-03-10 dom>
+
+** DONE Implementación de un test de rendimiento. 
+   CLOSED: [2013-03-10 dom 03:43] SCHEDULED: <2013-03-10 dom>
+   - Crear un MM con 100, 1000 y/o 10000 para ver como se comporta el sistema.
+
+
 * Realizado
+** DONE Permitir la opción de borrado de nodos
+   CLOSED: [2013-03-10 dom 01:14] DEADLINE: <2013-03-10 dom> SCHEDULED: <2013-03-10 dom>
+
+** DONE Incluir al procesable el retorno
+   CLOSED: [2013-03-03 dom 19:47] SCHEDULED: <2013-03-03 dom>
+   - El procesable se va a quedar sólo para el árbol. Mejor untilizar un patrón PubSub
+
+** DONE Ver un sistema de documentación para el código fuente
+   CLOSED: [2013-03-03 dom 19:48] SCHEDULED: <2013-03-03 dom>
+   - Hasta el momento el jsDoc parece campeón. Probar en el sistema en vivo.
+** DONE Documentar [7/7]
+   CLOSED: [2013-03-03 dom 19:36] 
+*** DONE arbol-n.js
+    CLOSED: [2013-03-03 dom 19:35] 
+*** DONE dom.js
+    CLOSED: [2013-03-03 dom 19:35] 
+*** DONE klass.js
+    CLOSED: [2013-03-03 dom 19:35] 
+*** DONE properties.js
+    CLOSED: [2013-03-03 dom 19:35] 
+*** DONE chain.js
+    CLOSED: [2013-03-03 dom 19:35] 
+*** DONE processable.js
+    CLOSED: [2013-03-03 dom 19:35] 
+*** DONE pubsub.js
+    CLOSED: [2013-03-03 dom 19:36] 
+
+** DONE Implementar el patrón PubSub para manejo de eventos
+   CLOSED: [2013-03-03 dom 19:35] SCHEDULED: <2013-03-03 dom> 
+
+** DONE El array de aristas se dispara no para de introducir más y más aristas.
+   CLOSED: [2013-03-03 dom 19:33] SCHEDULED: <2013-03-03 dom>
+
+** DONE Ajustar las aristas una vez terminada la edición
+   CLOSED: [2013-02-23 sáb 23:19] SCHEDULED: <2013-03-03 dom>
+** DONE Escalar el nodo una vez editado
+   CLOSED: [2013-02-23 sáb 22:02] SCHEDULED: <2013-03-03 dom>
 ** DONE Arbol-N [4/4]
    CLOSED: [2013-02-10 dom 02:03] SCHEDULED: <2013-01-26 sáb>
 *** DONE Primera implementación.

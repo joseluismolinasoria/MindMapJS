@@ -27,25 +27,23 @@
 
     <script>
       window.onload = function () {
-          MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
-          MM.render('contenedor', 600, 400);
+        var ini = (new Date()).getTime();
+
+         for ( var i = 0; i < 10; i++ ) { 
+            MM.add ('hijo' + i ).next();
+	    for ( var j = 0; j < 100; j++ ) {
+		MM.add('hijo'+ i + '-' + j);
+            }
+         }
+
+         MM.render('contenedor', 600, 400);
+        var fin = (new Date()).getTime();
+        alert (fin-ini);
+
       };
     </script>
   </head>
   <body>
-      <div style="background-color: grey;">
-	<button onclick="MM.add('Nuevo');">Nuevo</button>
-	<button onclick="MM.borrar();">Borrar</button>
-	<button onclick="MM.root();">Raiz</button>
-	<button onclick="MM.padre();">Padre</button>
-	<button onclick="MM.next();">Hijo</button>
-	<button onclick="MM.prevHermano();">Arriba</button>
-	<button onclick="MM.nextHermano();">Abajo</button>
-      </div>
-      <div id="contenedor" style="border: 1px solid red">
-      </div>
-      <div id="posicion" style="background-color: grey;">&nbsp;</div>
-      <div id="posicionNodos" style="background-color: grey;">&nbsp;</div>
-      <div id="posicionAristas" style="background-color: grey;">&nbsp;</div>
+    <div id="contenedor" style="border: 1px solid red"></div>
   </body>
 </html>

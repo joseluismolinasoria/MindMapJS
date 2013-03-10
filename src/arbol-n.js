@@ -71,7 +71,6 @@ MM.Arbol.prototype.postOrden = function () {
     return a.concat(this.elemento);
 };
 
-
 /**
  * @desc calcula el orden del nodo actual
  * @return {number} 
@@ -193,6 +192,22 @@ MM.Arbol.prototype.padreDe = function (elemento) {
     });
     
     return padre;
+};
+
+MM.Arbol.prototype.borrar = function (elemento) {
+    var padre = this.padreDe(elemento);
+    var hijoBorrado = null;
+    if ( padre != null ) {
+	for (var i = 0 ; i <= padre.hijos.length; i++ ) {
+	    if ( padre.hijos[i].elementEqual(elemento) ) { 
+		hijoBorrado = padre.hijos[i];
+		padre.hijos.splice(i, 1);
+		break;
+	    }
+	}
+    }
+    padre = null;
+    return hijoBorrado;
 };
 
 

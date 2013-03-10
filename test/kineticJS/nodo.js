@@ -11,9 +11,10 @@ var Nodo = Mensaje.extend({
         align: 'center'
     },
 
-    init: function (escenario, capa, propiedades) {
+    init: function (escenario, capa, arbol, propiedades) {
         this.escenario = escenario;
         this.capa = capa;
+	this.arbol = arbol;
 
         var prop = MM.Properties.add(this.defecto, propiedades);
 	prop.x = 0;
@@ -53,8 +54,9 @@ var Nodo = Mensaje.extend({
 
         var bindEditar = MM.Class.bind(this, this.editar);
         var bindNOP = MM.Class.bind(this, this.nop);
-        this.group.on('click', bindNOP);
-        this.group.on('dblclick', bindEditar);
+	var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
+        this.group.on('click tap', bindPonerFoco);
+        this.group.on('dblclick  dbltap', bindEditar);
         this.group.on('mouseout', bindNOP);
         this.group.on('mousemove', bindNOP);
         this.group.on('mousedown', bindNOP);
@@ -108,8 +110,6 @@ var Nodo = Mensaje.extend({
                 'style': 'position: absolute; ' +
                     'top : ' + this.getY() + 'px; ' +
                     'left: ' + this.getX() + 'px; ' +
-                    //'min-width: 7em; ' +
-                    //'min-height: 2em; ' +
                     'width: ' + this.getWidth() + 'px; ' +
                     'height: ' + this.getHeight() + 'px; ' +
                     'border: ' + this.rect.getStrokeWidth() + 'px solid ' + this.rect.getStroke() + '; ' +
@@ -122,16 +122,12 @@ var Nodo = Mensaje.extend({
             });
         var self = this;
         textarea.onblur = function () {
-	    console.log('X, Y: ' + self.group.getX() + " - " + self.group.getY());
-	    console.log('Position: ' + self.group.getPosition().x + " - " + self.group.getPosition().y);
-	    console.log('Absoluto: ' + self.group.getAbsolutePosition().x + " - " + self.group.getAbsolutePosition().y);
             self.setText(this.value);
             self.rect.setWidth(self.kText.getWidth());
             self.rect.setHeight(self.kText.getHeight());
             self.group.setWidth(self.kText.getWidth());
             self.group.setHeight(self.kText.getHeight());
-            MM.renderAristas();
-            self.capa.draw();
+            MM.ponerFoco(self.arbol);
             this.remove();
         };
         document.body.appendChild(textarea);
@@ -153,6 +149,15 @@ var Nodo = Mensaje.extend({
     },
 
     nop: function () {
+    },
+
+    destroy : function () {
+	this.rect.destroy();
+	this.kText.destroy();
+	this.group.destroy();
+	delete this.rect;
+        delete this.kText;
+        delete this.group;
     }
 
 });
