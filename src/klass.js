@@ -21,10 +21,11 @@ MM.Class = function (){
 
 /**
  * @desc Función que nos permite extender sobre una clase existente
+ * @param {object} prop Clase que deseamos extender.
  * @return {Class} una nueva clase. Clase hija hereda los métodos y propiedades de la clase padre.
  */    
 MM.Class.extend = function(prop) {
-    var _super = this.prototype || Class.prototype; // prototype de la clase padre
+    var _super = this.prototype || MM.Class.prototype; // prototype de la clase padre
 
     function F() {}
     F.prototype = _super;
@@ -37,11 +38,11 @@ MM.Class.extend = function(prop) {
 	    proto[name] = (function(name, fn) { // asociamos las funciones al nuevo contexto 
 		return function() {
 		    var tmp = this._super;               // guardamos _super
-		    this._super = _super[name];          // función super => podemos hacerthis._super(argumentos)
+		    this._super = _super[name];          // función super => podemos hacer this._super(argumentos)
 		    var ret = fn.apply(this, arguments); // ejecutamos el método en el contexto de la nueva instancia
 		    this._super = tmp;                   // restauramos el _super
 		    return ret;
-		}
+		};
 	    })(name, prop[name]);
 	} else { // no sobreescribimos métodos ni p
 	    proto[name] = prop[name];
@@ -56,18 +57,20 @@ MM.Class.extend = function(prop) {
     Klass.prototype = proto;
     Klass.prototype.constructor = Klass;
     Klass.extend = this.extend;
-    
+
     return Klass; 
 };
 
 /**
  * @desc Permite especificar un contexto concreto a una función dada
+ * @param {object} ctx Contexto en que desea asociar a la función
+ * @param {function} fn Función a la que le vamos a realizar el bind
  * @return {function} nueva función asociada al contexto dado.
  */    
 MM.Class.bind = function (ctx, fn) {
     return function() {
 	return fn.apply(ctx, arguments); 
-    }
+    };
 };
 
 if ( typeof module !== 'undefined' ) 

@@ -1,17 +1,18 @@
 /**
  * @file arbol-n.js Implementación de un árbol eneario 
  * @author José Luis Molina Soria
- * @version 20130224
+ * @version 20130316
  */
 
 if ( typeof module !== 'undefined' ) {
     var MM = require('./MindMapJS.js');
-    MM.Class = require('./pubsub.js');
+    MM.PubSub = require('./pubsub.js');
 }
 
 /**
  * @class MM.Arbol
- * @classdesc Implementación de árbol eneario. El constructor de la clase árból recibe un elemento y un array de árboles hijo.
+ * @classdesc Implementación de árbol eneario. El constructor de la clase árból recibe un elemento y 
+ * un array de árboles hijo.
  * @constructor MM.Arbol 
  * @param {*}     elemento  elemento del árbol
  * @param {Array} [hijos]   array de árboles hijo 
@@ -134,6 +135,7 @@ MM.Arbol.prototype.elementEqual = function (elemento){
 /**
  * @desc realiza una búsqueda en el árbol para encontrar un elemento dado. 
  * Para comparar los elementos hace uso de la función elementEqual
+ * @param {object} elemento a buscar
  * @return {MM.Arbol} devuelve el árbol cuyo elemento coincide o null en caso de no encontrarlo
  */
 MM.Arbol.prototype.buscar = function (elemento) {
@@ -153,6 +155,7 @@ MM.Arbol.prototype.buscar = function (elemento) {
 /**
  * @desc calcula la profundidad de un elemento dado. Para las comparaciones hace uso de la 
  * función elementEqual. El elemento raíz tiene profundidad 0.
+ * @param {object} elemento del que deseamos la profundidad
  * @return {number} 
  */
 MM.Arbol.prototype.profundidad = function (elemento) {
@@ -170,6 +173,7 @@ MM.Arbol.prototype.profundidad = function (elemento) {
 
 /**
  * @desc calcula el padre de un elemento dado.
+ * @param {object} elemento del que deseamos conocer el padre
  * @return {MM.Arbol} árbol padre o null en caso de no tener
  */
 MM.Arbol.prototype.padreDe = function (elemento) {
@@ -194,6 +198,11 @@ MM.Arbol.prototype.padreDe = function (elemento) {
     return padre;
 };
 
+/**
+ * @desc Borrar un elemento y los elementos que cuelgan de él.
+ * @param {object} elemento a borrar
+ * @return {MM.Arbol} el subárbol donde el nodo raíz es el elemento borrado
+ */
 MM.Arbol.prototype.borrar = function (elemento) {
     var padre = this.padreDe(elemento);
     var hijoBorrado = null;

@@ -29,7 +29,7 @@ MM.PubSub = MM.Class.extend(function() {
      * @return {boolean} Si el evento no es un nombre valido retorna false en
      * otro caso retorna true
      */
-    p.on = function( evento, args1, args2 ) {
+    p.on = function( evento ) {
         if (!on[evento])
             return false;
 	var args = Array.prototype.slice.call(arguments, 1);

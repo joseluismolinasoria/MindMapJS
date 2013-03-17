@@ -12,5 +12,10 @@
  * @property {MM.Properties}   Properties - Extensión para manejo de propiedades
  * @property {MM.DOM}          DOM        - Funciones para manejo del DOM
  * @property {MM.PubSub}       PubSub     - Patrón Publish/Subscribe
+ * @property {MM.teclado}      teclado    - Gestión y manejo de eventos de teclado
  */
 var MM = {}; 
+
+if ( typeof module !== 'undefined' ) {
+    module.exports = MM;
+}

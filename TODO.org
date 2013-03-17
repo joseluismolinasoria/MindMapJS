@@ -2,7 +2,7 @@
 #+STARTUP:  
     
 * Planificado
-** TODO Probar los ejemplos con ... [3/5]
+** TODO Probar los ejemplos con ... [4/4]
    SCHEDULED: <2013-03-03 dom>
 *** DONE Google Chrome
     CLOSED: [2013-01-13 dom 20:12]
@@ -10,8 +10,8 @@
     CLOSED: [2013-01-13 dom 19:58]
 *** DONE Safari
     CLOSED: [2013-02-20 mié 19:18]
-*** TODO Internet Explorer 9 
-*** TODO Internet Explorer 8
+*** DONE Internet Explorer 9 
+    CLOSED: [2013-03-12 mar 19:18]
 ** TODO Crear libería para manejo de teclado [4/5]
 *** DONE Buscar constantes de teclado. Escape, Tabulador, Insert, etc.
     CLOSED: [2013-01-13 dom 21:24]
@@ -22,7 +22,7 @@
 *** DONE Página para pruebas de atajos de teclado
     CLOSED: [2013-01-20 dom 20:06]
 *** TODO Probrar en distintos navegadores (Safari, Chrome, Firefox, IE)
-** TODO Implementar prueba de concepto con KineticJS [8/10]
+** TODO Implementar prueba de concepto con KineticJS [9/10]
 *** DONE Dibujar un nodo / texto
     CLOSED: [2012-12-28 dom 19:48]
 *** DONE Ejemplo de funcionamiento del sistema de eventos
@@ -39,30 +39,50 @@
     CLOSED: [2013-02-02 sáb 01:18]
 *** DONE Primer ejemplo completo con un mapa
     CLOSED: [2013-02-07 jue 20:58]
-*** TODO interacción
-    SCHEDULED: <2013-03-10 dom>
+*** DONE interacción
+    CLOSED: [2013-03-17 dom 02:22] DEADLINE: <2013-03-17 dom> SCHEDULED: <2013-03-17 dom> 
 *** TODO Pruebas con eventos touch 
 ** TODO Ajustar la posición del editor
+   SCHEDULED: <2013-03-11 lun>
+   - Parece que el problema proviene del group
+   - A lo mejor hay que pensar en quitar el group e implementar el render del nodo de otra forma
+** TODO Librería para carga de ficheros
+   DEADLINE: <2013-03-31 dom> SCHEDULED: <2013-03-11 lun>
+** TODO Prueba de carga de un MM de FreeMind
+   DEADLINE: <2013-03-31 dom> SCHEDULED: <2013-03-11 lun>
+   - Implementar un parse XML de FreeMind
+** TODO Una vez terminada la prueba de concepto. [0/3] 
+*** TODO Copiar las implementaciones al src como modulos del proyecto
+*** TODO Dividir las clases en dos. Por ejemplo Nodo y Nodo.render
+*** TODO Preparar el render para que tome distintos Layouts
+    - Por defecto, se dibujará en el forma arborea.
+    - Layout Radial.
+
+** TODO bug en el test del processable. REVISAR.
 
 
 * Pendiente de planificar
-** TODO Crear librería para manejo de eventos
-** TODO Estudir en profundidad como funciona un sistema ya implementado.
+** TODO Pellizco. Multitouch. 
+** TODO Zoom 
+   - Ejemplo muy muy bueno http://sney2002.github.com/canvas-event-js/example-zoom.html
+   - En sistemas touch el zoom en un pellizco. 
+** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
+** TODO Estudiar en profundidad como funciona un sistema ya implementado.
 ** TODO JsMin como compresor de código JavaScript
 ** TODO JsLint/JsHint para validar código
 ** TODO Documentar tecla.js
-** TODO Librería para carga de ficheros
-** TODO Prueba de carga de un MM de FreeMind
-   - Implementar un parse XML de FreeMind
-
-** TODO Implementar un sistema de Layout para el render
-   - Por defecto, se dibujará en el forma arborea.
-   - Layout Radial.
 ** TODO Diseñar la página móvil
-** TODO Scroll dentro de la capa??
+** TODO Scroll dentro del canvas??
 ** TODO Pensar como crear una presentación a partir del árbol
    - reveal.js puede ser una opción
 
+** TODO Evaluar la posibilidad de utilizar Web workers 
+   - Utiliza Web Workers http://arborjs.org/ https://github.com/samizdatco/arbor
+
+** TODO Probar editores para interfaces
+   - http://pencil.evolus.vn/ 
+   - http://www.balsamiq.com/
+   
 
 * Pendiente de poner el WunderList
 ** DONE El nodo que esta en modo edición debe tener el foco.
@@ -228,7 +248,9 @@
 *** Sitio que te indica quien soporta http://caniuse.com/
 
 ** Herramientas
-*** Editor de prototipos webs: http://pencil.evolus.vn/ 
+*** Editor de prototipos webs: 
+    - http://pencil.evolus.vn/ 
+    - http://www.balsamiq.com/
 *** Para empaquetar aplicaciones JS + CSS + HTML5 para moviles. http://phonegap.com/
 
 

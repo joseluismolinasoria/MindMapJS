@@ -12,6 +12,7 @@ MM = function (mm) {
     mm.arbol = mm.foco = new MM.Arbol({id: idNodos++, texto: 'Idea Central', nodo: null});
 
     mm.add = function (texto) {
+	texto = texto || "Nuevo"
 	var nuevo = new MM.Arbol({id: idNodos++, texto: texto, nodo: null});
         this.foco.hijos.push(nuevo);
 	this.eventos.on('add', this.foco, nuevo);

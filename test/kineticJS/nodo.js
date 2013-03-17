@@ -104,6 +104,7 @@ var Nodo = Mensaje.extend({
     },
 
     editar: function () {
+	MM.teclado.atajos.activo = false;
         var textarea = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
                 'innerHTML': this.getText(),
@@ -129,6 +130,7 @@ var Nodo = Mensaje.extend({
             self.group.setHeight(self.kText.getHeight());
             MM.ponerFoco(self.arbol);
             this.remove();
+	    MM.teclado.atajos.activo = true;
         };
         document.body.appendChild(textarea);
         textarea.select();

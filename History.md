@@ -29,3 +29,5 @@
   * Incorporación del patrón pubsub
   * Documenación de código.
   * Corrección de errores menores
+  * Terminada la implementación del manejador de teclado
+  * Terminada la versión interactiva con kineticjs

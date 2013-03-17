@@ -2,21 +2,17 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="../../src/tecla.js"></script>
+    <script src="../../src/MindMapJS.js"></script>
+    <script src="../../src/teclado.js"></script>
     <script>
       function mostrarLog(mensaje) {
         var div = document.getElementById('container');
         div.innerHTML += '\n' + mensaje;
       }
 
-      window.onload = function() {
-         window.onkeydown = tecla.keyDown;
-         window.onkeyup = tecla.keyUp;
-      };
-
       function addAtajo () {
         var valor = document.getElementById('secuencia').value;
-        tecla.atajos.add(valor, function () {
+        MM.teclado.atajos.add(valor, function () {
           mostrarLog('Pulsado ' + valor);
         });
         mostrarLog('Añadido atajo de teclado: ' + valor);
@@ -24,7 +20,7 @@
 
       function lanzarAtajo () {
         var valor = document.getElementById('secuencia').value;
-        tecla.atajos.lanzar(valor); 
+        MM.teclado.atajos.lanzar(valor); 
       };
     </script>
   </head>

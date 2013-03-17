@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prueba de importación de ficheros freeMind</title>
+    <script src="../src/MindMapJS.js"></script>
+    <script src="../src/klass.js"></script>
+    <script src="../src/pubsub.js"></script>
+    <script src="../src/importar.js"></script>
+  </head>
+  <body>
+    <input type="file" id="ficheros" name="ficheros[]" />  <br/>
+    <output id="salida"></output>
+    
+    <script>
+      var imp = new MM.Importar.FreeMind();
+
+      function cargarFichero(evt) {
+        var file = evt.target.files[0];
+        imp.subscribir("parseado", function ( xmlDoc ) {
+            document.getElementById('salida').innerHTML = xmlDoc.toString();
+        });
+        imp.cargar(file);
+      };
+
+      document.getElementById('ficheros').addEventListener('change', cargarFichero, false);
+    </script>
+
+  </body>
+</html>
+
+http://www.w3schools.com/dom/tryit.asp?filename=try_dom_nodetype
+http://www.w3schools.com/dom/tryit.asp?filename=try_dom_nodevalue
