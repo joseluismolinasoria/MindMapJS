@@ -1,4 +1,4 @@
-0.0.1 / 2013-03-10 (abierta)
+0.0.1 / 2013-04-22 (abierta)
 ============================
 
   * Primera release
@@ -31,3 +31,10 @@
   * Corrección de errores menores
   * Terminada la implementación del manejador de teclado
   * Terminada la versión interactiva con kineticjs
+  * Primer versión de importación de ficheros freeMind (con deficiencias en el render)
+  * Pruebas en sistemas touch ( aun con deficiencias )
+  * Modificar el render para que sea un clase que podamos instanciar
+  * Bug en el patrón processable
+  * Escenario ajustable al contenedor
+  * Capa de grid
+  * Mejoras visuales en el Nodo y Arista

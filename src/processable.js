@@ -16,11 +16,10 @@ Function.prototype.processable = function (prefn, postfn) {
         if (prefn) {
             prefn.apply(this, arguments);
         }
-        var ret = fn.apply(this, arguments);
-	var postRet;
+        var ret = fn.apply(this, arguments);	
 	
         if (postfn) {
-            postRet = postfn.apply(this, [ret].concat(arguments));
+            var postRet = postfn.apply(this, arguments);
         }
 	return (postRet === undefined)? ret : postRet;
     };

@@ -2,14 +2,15 @@ var processable = require("../src/processable.js");
 
 describe('Processable', function(){
 
-    var valorPre = valorPost = null;
+    var valorPre = null, 
+	valorPost = null;
 
     var pre = function (nombre){
 	valorPre = "Pre-"+nombre;
     };
 
     var post = function (nombre){
-	valorPost = "Post-"+nombre;
+	valorPost = "Post-" + nombre;
     };
 
     var hola = function (nombre) {

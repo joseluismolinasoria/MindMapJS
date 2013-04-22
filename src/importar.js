@@ -1,7 +1,7 @@
 /**
  * @file importar.js Contiene toda la funcionalidad con respecto a la carga y/o importacion de ficheros.
  * @author José Luis Molina Soria
- * @version 20130312
+ * @version 20130401
  */
 
 if ( typeof module !== 'undefined' ) {
@@ -11,104 +11,158 @@ if ( typeof module !== 'undefined' ) {
 
 
 /**
- * @class MM.Importar
- * @classdesc Realizar la carga de un fichero de texto. Contiene 
- *            la funcionalidad básica para soportar la importaciones de ficheros.
- * @constructor MM.Importar
+ * Contiene la funcionalidad básica para soportar la importaciones de ficheros.
+ *
+ * @namespace MM.importar
+ * @property {MM.importar.XML}        XML       - Clase encargada de parsear un fichero XML genérico
+ * @property {MM.importar.FreeMind}   FreeMind  - Clase encargada de importar ficheros FreeMind
  */
-MM.Importar = function() {
+MM.importar = function() {
 
-    /** @lends MM.Importar.prototype */
-    var f = MM.PubSub.extend({
+    var evento = new MM.PubSub();
 
-	/**
-	 * @desc Proceso de carga de un fichero
-	 * @param file {File} Fichero que deseamos cargar
-	 */
-	cargar : function (file) {
-            this.file = file;
-	    
-            if (this.file) {
-		var reader = new FileReader();
-		reader.onloadstart = MM.Class.bind(cargarInicio);
-		reader.onprogress = MM.Class.bind(progreso);
-		reader.onload = MM.Class.bind(cargado);
-		reader.onabort = MM.Class.bind(abortado);
-		reader.onerror = MM.Class.bind(error);
-		reader.onloadend = MM.Class.bind(cargarFin);
-		reader.readAsText(this.file, "UTF-8");
-            }
-	}
-    });
+    /**
+     * @desc Inicia la carga de un fichero de texto
+     * @param file {File} Fichero que deseamos cargar
+     * @param [encoding] {string} Enconding del fichero a cargar
+     */
+    var texto = function (file, encoding) {
+        if (file) {
+	    var reader = new FileReader();
+	    reader.onloadstart = cargarInicio;
+	    reader.onprogress = progreso;
+	    reader.onload = cargado;
+	    reader.onabort = abortado;
+	    reader.onerror = error;
+	    reader.onloadend = cargarFin;
+	    reader.readAsText(file, encoding || "UTF-8");
+        }
+    };
+
+    /**
+     * @desc Inicia la carga de un fichero como dataURL
+     * @param file {File} Fichero que deseamos cargar
+     */
+    var dataURL = function (file) {
+        if (file) {
+	    var reader = new FileReader();
+	    reader.onloadstart = cargarInicio;
+	    reader.onprogress = progreso;
+	    reader.onload = cargado;
+	    reader.onabort = abortado;
+	    reader.onerror = error;
+	    reader.onloadend = cargarFin;
+	    reader.readAsDataURL(file);
+        }
+    };
 
     var cargarInicio = function (evt) {
-        this.on("inicio", evt);
+        evento.on("inicio", evt);
     };
 
     var cargarFin = function (evt) {
-        this.on("fin", evt);
+        evento.on("fin", evt);
     };
 
     var abortado = function (evt) {
-        this.on("abortado", evt);
+        evento.on("abortado", evt);
     };
 
     var progreso = function (evt) {
         if (evt.lengthComputable) {
             var porcentaje = (evt.loaded / evt.total) * 100;
             if (porcentaje < 100)
-                this.on("progreso", porcentaje, evt);
+                evento.on("progreso", porcentaje, evt);
         }
     };
 
     var cargado = function (evt) {
-        this.on("cargado", evt.target.result, evt );
+        evento.on("cargado", evt.target.result, evt );
     };
 
     var error = function (evt) {
         if (evt.target.error.name == "NotFoundError")
             return;
         if (evt.target.error.name == "SecurityError")
-            this.on ( "error/seguridad", evt );
+            evento.on ( "error/seguridad", evt );
         if (evt.target.error.name == "NotReadableError")
-            this.on ( "error/lectura", evt );
+            evento.on ( "error/lectura", evt );
         if (evt.target.error.name == "EncodingError")
-            this.on ( "error/encoding", evt );
+            evento.on ( "error/encoding", evt );
     };
 
-    return f;
+    return {
+	evento : evento,
+	texto : texto,
+	dataURL : dataURL
+    };
 }();
 
 
-MM.Importar.FreeMind = function() {
+/**
+ * @class MM.importar.XML
+ * @classdesc Clase para parsear ficheros xml.
+ * @constructor MM.importar.XML
+ */
+MM.importar.XML = function() {
 
-    /** @lends MM.Importar.FreeMind.prototype */
-    var f = new MM.Importar.extend({
+    /** @lends MM.importar.XML.prototype */
+    var f = MM.Class.extend({
 
 	/**
-	 * @desc Proceso de carga de un fichero
-	 * @param file {File} Fichero que deseamos cargar
+	 * @desc Proceso de carga de un fichero XML
+	 * @param file     {File}     Fichero que deseamos cargar
+	 * @param encoding {[string]} Codifiación del fichero
 	 */
-	cargar : function (file) {
-	    this.subscribir ( "cargado", cargado, this);
-            this.subscribir ( "error/seguridad", errorCarga, this );
-            this.subscribir ( "error/lectura", errorCarga, this );
-	    this.subscribir ( "error/encoding", errorCarga, this );
-	    this._super(file);
+	cargar : function (file, encoding) {
+	    MM.importar.evento.subscribir ( "cargado", cargado, this);
+            MM.importar.evento.subscribir ( "error/seguridad", errorCarga, this );
+            MM.importar.evento.subscribir ( "error/lectura", errorCarga, this );
+	    MM.importar.evento.subscribir ( "error/encoding", errorCarga, this );
+	    MM.importar.texto(file, encoding);
 	}
     });
 
     var cargado = function ( datos, evt ) {
 	var xmlDoc = getXmlDoc ( datos );
-	f.on ( 'parseado', xmlDoc );
+	MM.importar.evento.on ( 'xml/parseado', xmlDoc );
+	var json = procesar (xmlDoc.documentElement);
+	MM.importar.evento.on ( 'xml/procesado', json );
     };
 
+    var procesar = function ( elemento ) {
+	var obj = { 
+	    nombre : elemento.nodeName,
+	    hijos : []
+	};
+
+	// establecemos los atributos del nodo 
+	if ( elemento.attributes ) {
+	    for ( var i = 0; i < elemento.attributes.length; i++ ) {
+		obj[elemento.attributes[i].name] = elemento.attributes[i].value;
+	    }
+	}
+	// procesamos los hijos del elemento
+	if ( elemento.childNodes ) {
+	    for ( i = 0 ; i < elemento.childNodes.length; i++) {
+		if ( elemento.childNodes[i].nodeType === 3 ) {
+		    obj.texto = elemento.childNodes[i].nodeValue;
+		} else if ( elemento.childNodes[i].nodeType === 1 ) {
+			obj.hijos.push ( procesar(elemento.childNodes[i]) );
+		}
+	    }
+	}
+	i = null;
+	return obj;
+    };
+
+
     var errorCarga = function ( evt ) {
-	alert ( evt.target.error.name );
+	console.log ( evt ); // TODO procesar errores
     };
 
     var getXmlDoc = function ( datos ) {
-	var xmlDoc = parser;
+	var xmlDoc, parser;
 	if (window.DOMParser) {
             parser = new DOMParser();
             xmlDoc = parser.parseFromString ( datos, "text/xml" );
@@ -120,7 +174,7 @@ MM.Importar.FreeMind = function() {
 	    // document.write("Error reason: " + xmlDoc.parseError.reason);
 	    // document.write("Error line: " + xmlDoc.parseError.line);
 	}
-	
+	parser = null;
 	return xmlDoc;
     };
 
@@ -128,8 +182,60 @@ MM.Importar.FreeMind = function() {
 }();
 
 
+/**
+ * @class MM.importar.FreeMind
+ * @classdesc Clase para parsear ficheros con el formato xml de FreeMind. Crea un nuevo
+ * Mapa mental, borrando el existente, con los datos cargados del fichero.
+ * @constructor MM.importar.FreeMind
+ */
+MM.importar.FreeMind = function() {
+
+    /** @lends MM.importar.FreeMind.prototype */
+    var f = MM.importar.XML.extend({
+
+	/**
+	 * @desc Proceso de carga de un fichero FreeMind
+	 * @param file {File} Fichero que deseamos cargar
+	 */
+	cargar : function (file, encoding) {
+	    MM.importar.evento.subscribir ( "xml/procesado", procesado, this);
+	    this._super(file, encoding);
+	}
+    });
+
+    var procesado = function ( obj ) {
+	if ( obj.nombre !== 'map' || obj.hijos.length !== 1 ) {
+	    MM.importar.evento.on("freeMind/error", "No se trata de un fichero FreeMind válido");
+	    return;
+	}
+	var raiz = obj.hijos[0];
+	MM.nuevo(raiz["TEXT"]);
+	procesarHijos(raiz);
+	raiz = null;
+    };
+
+    var procesarHijo = function ( obj ) {
+	MM.add(obj["TEXT"]).next().lastHermano();
+	procesarHijos( obj );
+	MM.padre();
+    };
+
+
+    var procesarHijos = function ( obj ) {
+    	for ( var i = 0; i < obj.hijos.length; i++ ) {
+    	    if ( obj.hijos[i]["nombre"] === "node" ) {
+		procesarHijo(obj.hijos[i]);
+    	    }
+    	}
+	i = null;
+    };
+
+    return f;
+}();
+
+
 if ( typeof module !== 'undefined' ) 
-    module.exports = MM.Importar;
+    module.exports = MM.importar;
 
 
 

@@ -11,7 +11,7 @@
         border: 1px solid blue;
       }
     </style>
-    <script src="../../lib/kinetic-v4.3.1.js"></script>
+    <script src="../../lib/kinetic-v4.4.3.min.js"></script>
     <script src="../../src/MindMapJS.js"></script>
     <script src="../../src/dom.js"></script>
     <script src="../../src/properties.js"></script>
@@ -21,15 +21,21 @@
     <script src="../../src/pubsub.js"></script>
     <script src="../../src/arbol-n.js"></script>
     <script src="../../src/teclado.js"></script>
+    <script src="../../src/importar.js"></script>
+    <script src="grid.js"></script>
+    <script src="borde.js"></script>
     <script src="mensaje.js"></script>
     <script src="arista.js"></script>
     <script src="nodo.js"></script>
     <script src="mm.js"></script>
 
     <script>
+      var render;
       window.onload = function () {
           MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
-          MM.render('contenedor', 600, 400);
+          render = new MM.Render('contenedor');
+//          render.init('contenedor');
+//          MM.render('contenedor', 600);
           MM.teclado.atajos.add('left', MM.padre, MM);
           MM.teclado.atajos.add('right', MM.next, MM);
           MM.teclado.atajos.add('up', MM.prevHermano, MM);
@@ -37,7 +43,15 @@
           MM.teclado.atajos.add('ins', MM.add, MM);
           MM.teclado.atajos.add('del', MM.borrar, MM);
           MM.teclado.atajos.add('home', MM.root, MM);
+          document.getElementById('ficheros').addEventListener('change', cargarFichero, false);
       };
+
+      function cargarFichero(evt) {
+        var imp = new MM.importar.FreeMind();
+        var file = evt.target.files[0];
+        imp.cargar(file);
+      };
+
     </script>
   </head>
   <body>
@@ -49,8 +63,9 @@
 	<button onclick="MM.next();">Hijo</button>
 	<button onclick="MM.prevHermano();">Arriba</button>
 	<button onclick="MM.nextHermano();">Abajo</button>
+	<input type="file" id="ficheros" name="ficheros[]" />
       </div>
-      <div id="contenedor" style="border: 1px solid red">
+      <div id="contenedor" style="height:600px">
       </div>
       <div id="posicion" style="background-color: grey;">
 	-Cursores- Desplazamiento por los nodos. 

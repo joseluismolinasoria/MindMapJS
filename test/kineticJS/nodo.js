@@ -11,9 +11,10 @@ var Nodo = Mensaje.extend({
         align: 'center'
     },
 
-    init: function (escenario, capa, arbol, propiedades) {
-        this.escenario = escenario;
-        this.capa = capa;
+    init: function (render, arbol, propiedades) {
+	this.render = render;
+        this.escenario = render.escenario;
+        this.capa = render.capaNodos;
 	this.arbol = arbol;
 
         var prop = MM.Properties.add(this.defecto, propiedades);
@@ -21,20 +22,29 @@ var Nodo = Mensaje.extend({
 	prop.y = 0;
         this.kText = new Kinetic.Text(prop);
 
-        this.rect = new Kinetic.Rect({
-            x: 0,
-            y: 0,
+	this.rect = new Kinetic.Blob({
+            points: [{
+		x: 0,
+		y: 0
+            }, {
+		x: this.kText.getWidth(),
+		y: 0
+            }, {
+		x: this.kText.getWidth(),
+		y: this.kText.getHeight()
+            }, {
+		x: 0,
+		y: this.kText.getHeight()
+            }],
             stroke: '#555',
             strokeWidth: 2,
             fill: '#ddd',
-            width: this.kText.getWidth(),
-            height: this.kText.getHeight(),
             shadowColor: 'black',
             shadowBlur: 5,
             shadowOffset: [3, 3],
             shadowOpacity: 0.5,
-            cornerRadius: 7
-        });
+            tension: 0.3
+	});
 
         this.group = new Kinetic.Group({
 	    x : propiedades.x,
@@ -43,7 +53,7 @@ var Nodo = Mensaje.extend({
 	    height: this.kText.getHeight(),
 	    draggable: true,
             dragBoundFunc: function (pos) {
-                MM.renderAristas();
+                render.renderAristas();
                 return pos;
             }
 	});
@@ -114,7 +124,7 @@ var Nodo = Mensaje.extend({
                     'width: ' + this.getWidth() + 'px; ' +
                     'height: ' + this.getHeight() + 'px; ' +
                     'border: ' + this.rect.getStrokeWidth() + 'px solid ' + this.rect.getStroke() + '; ' +
-                    'border-radius: ' + this.rect.getCornerRadius() + 'px;' +
+                    'border-radius: 5px' +
                     'background-color: ' + this.rect.getFill() + '; ' +
                     'color: ' + this.kText.getFill() + '; ' +
                     'font-family: ' + this.kText.getFontFamily() + '; ' +
@@ -124,11 +134,13 @@ var Nodo = Mensaje.extend({
         var self = this;
         textarea.onblur = function () {
             self.setText(this.value);
-            self.rect.setWidth(self.kText.getWidth());
-            self.rect.setHeight(self.kText.getHeight());
             self.group.setWidth(self.kText.getWidth());
             self.group.setHeight(self.kText.getHeight());
-            MM.ponerFoco(self.arbol);
+	    self.rect.setPoints ( [ { x: 0, y: 0  }, 
+				    { x: self.kText.getWidth(),	y: 0 }, 
+				    { x: self.kText.getWidth(),	y: self.kText.getHeight() }, 
+				    { x: 0, y: self.kText.getHeight() } ] );
+	    MM.ponerFoco(self.arbol);
             this.remove();
 	    MM.teclado.atajos.activo = true;
         };

@@ -11,7 +11,7 @@
         border: 1px solid blue;
       }
     </style>
-    <script src="../../lib/kinetic-v4.3.1.js"></script>
+    <script src="../../lib/kinetic-v4.4.0.min.js"></script>
     <script src="../../src/MindMapJS.js"></script>
     <script src="../../src/dom.js"></script>
     <script src="../../src/properties.js"></script>
@@ -20,6 +20,8 @@
     <script src="../../src/klass.js"></script>
     <script src="../../src/pubsub.js"></script>
     <script src="../../src/arbol-n.js"></script>
+    <script src="grid.js"></script>
+    <script src="borde.js"></script>
     <script src="mensaje.js"></script>
     <script src="arista.js"></script>
     <script src="nodo.js"></script>
@@ -30,7 +32,7 @@
           MM.add('hijo1').add('hijo2').add('hijo3')
               .next().add('hijo11').add('hijo12')
               .next().add('hijo111').add('hijo112').add('hijo113').add('hijo114');
-          MM.render('contenedor', 600, 400);
+          MM.render('contenedor', 400);
       };
     </script>
   </head>

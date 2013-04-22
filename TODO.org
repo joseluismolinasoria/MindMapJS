@@ -2,27 +2,48 @@
 #+STARTUP:  
     
 * Planificado
-** TODO Probar los ejemplos con ... [4/4]
-   SCHEDULED: <2013-03-03 dom>
-*** DONE Google Chrome
-    CLOSED: [2013-01-13 dom 20:12]
-*** DONE Firefox
-    CLOSED: [2013-01-13 dom 19:58]
-*** DONE Safari
-    CLOSED: [2013-02-20 mié 19:18]
-*** DONE Internet Explorer 9 
-    CLOSED: [2013-03-12 mar 19:18]
-** TODO Crear libería para manejo de teclado [4/5]
-*** DONE Buscar constantes de teclado. Escape, Tabulador, Insert, etc.
-    CLOSED: [2013-01-13 dom 21:24]
-*** DONE Funciones para convertir de teclas valor a texto y viceversa
-    CLOSED: [2013-01-14 lun 21:13]
-*** DONE Implementar un manejador de atajos de teclado
-    CLOSED: [2013-01-20 dom 20:06]
-*** DONE Página para pruebas de atajos de teclado
-    CLOSED: [2013-01-20 dom 20:06]
-*** TODO Probrar en distintos navegadores (Safari, Chrome, Firefox, IE)
-** TODO Implementar prueba de concepto con KineticJS [9/10]
+** TODO Ajustar la posición del editor
+   SCHEDULED: <2013-03-11 lun>
+   - Parece que el problema proviene del group
+   - A lo mejor hay que pensar en quitar el group e implementar el render del nodo de otra forma
+** TODO Librería para carga de ficheros
+   DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
+** TODO Prueba de carga de un MM de FreeMind
+   DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
+   - Implementar un parse XML de FreeMind
+** TODO Copiar las implementaciones al src como modulos del proyecto
+** TODO Implementación de la primera interface
+
+* Pendiente de planificar
+** TODO Pellizco. Multitouch. 
+** TODO Zoom 
+   - Ejemplo muy muy bueno http://sney2002.github.com/canvas-event-js/example-zoom.html
+   - En sistemas touch el zoom en un pellizco. 
+** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
+** TODO Estudiar en profundidad como funciona un sistema ya implementado.
+** TODO JsMin como compresor de código JavaScript
+** TODO JsLint/JsHint para validar código
+** TODO Documentar teclado.js
+** TODO Diseñar la página móvil
+** TODO Scroll dentro del canvas??
+** TODO Pensar como crear una presentación a partir del árbol
+   - reveal.js puede ser una opción
+
+** TODO Evaluar la posibilidad de utilizar Web workers 
+   - Utiliza Web Workers http://arborjs.org/ https://github.com/samizdatco/arbor
+
+** TODO Probar editores para interfaces
+   - http://pencil.evolus.vn/ 
+   - http://www.balsamiq.com/
+   
+** TODO Implementar un Undo.
+
+
+* Pendiente de poner el WunderList
+
+* Realizado
+** DONE Implementar prueba de concepto con KineticJS [10/10]
+   CLOSED: [2013-04-22 lun 17:17]
 *** DONE Dibujar un nodo / texto
     CLOSED: [2012-12-28 dom 19:48]
 *** DONE Ejemplo de funcionamiento del sistema de eventos
@@ -41,50 +62,45 @@
     CLOSED: [2013-02-07 jue 20:58]
 *** DONE interacción
     CLOSED: [2013-03-17 dom 02:22] DEADLINE: <2013-03-17 dom> SCHEDULED: <2013-03-17 dom> 
-*** TODO Pruebas con eventos touch 
-** TODO Ajustar la posición del editor
-   SCHEDULED: <2013-03-11 lun>
-   - Parece que el problema proviene del group
-   - A lo mejor hay que pensar en quitar el group e implementar el render del nodo de otra forma
-** TODO Librería para carga de ficheros
-   DEADLINE: <2013-03-31 dom> SCHEDULED: <2013-03-11 lun>
-** TODO Prueba de carga de un MM de FreeMind
-   DEADLINE: <2013-03-31 dom> SCHEDULED: <2013-03-11 lun>
-   - Implementar un parse XML de FreeMind
-** TODO Una vez terminada la prueba de concepto. [0/3] 
-*** TODO Copiar las implementaciones al src como modulos del proyecto
-*** TODO Dividir las clases en dos. Por ejemplo Nodo y Nodo.render
-*** TODO Preparar el render para que tome distintos Layouts
-    - Por defecto, se dibujará en el forma arborea.
-    - Layout Radial.
+*** DONE Pruebas con eventos touch 
+    CLOSED: [2013-04-22 lun 17:17]
+** DONE Mejoras visuales el nodo
+   CLOSED: [2013-04-22 lun 17:15]
+** DONE Mejoras visuales las aristas
+   CLOSED: [2013-04-22 lun 17:15]
 
-** TODO bug en el test del processable. REVISAR.
+** DONE bug en el test del processable. REVISAR.
+   CLOSED: [2013-04-13 sáb 16:07]
 
+** DONE Escenario ajustable al contenedor
+   CLOSED: [2013-04-22 lun 17:04]
+** DONE Crear una nueva capa para el grid
+   CLOSED: [2013-04-22 lun 17:04]
+** DONE Modificar el render para poder disponer de más de uno.
+   CLOSED: [2013-04-22 lun 17:05]
 
-* Pendiente de planificar
-** TODO Pellizco. Multitouch. 
-** TODO Zoom 
-   - Ejemplo muy muy bueno http://sney2002.github.com/canvas-event-js/example-zoom.html
-   - En sistemas touch el zoom en un pellizco. 
-** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
-** TODO Estudiar en profundidad como funciona un sistema ya implementado.
-** TODO JsMin como compresor de código JavaScript
-** TODO JsLint/JsHint para validar código
-** TODO Documentar tecla.js
-** TODO Diseñar la página móvil
-** TODO Scroll dentro del canvas??
-** TODO Pensar como crear una presentación a partir del árbol
-   - reveal.js puede ser una opción
+** DONE Probar los ejemplos con ... [4/4]
+   CLOSED: [2013-03-17 dom 03:30] SCHEDULED: <2013-03-03 dom>
+*** DONE Google Chrome
+    CLOSED: [2013-01-13 dom 20:12]
+*** DONE Firefox
+    CLOSED: [2013-01-13 dom 19:58]
+*** DONE Safari
+    CLOSED: [2013-02-20 mié 19:18]
+*** DONE Internet Explorer 9 
+    CLOSED: [2013-03-12 mar 19:18]
+** DONE Crear libería para manejo de teclado [5/5]
+   CLOSED: [2013-03-17 dom 20:06]
+*** DONE Buscar constantes de teclado. Escape, Tabulador, Insert, etc.
+    CLOSED: [2013-01-13 dom 21:24]
+*** DONE Funciones para convertir de teclas valor a texto y viceversa
+    CLOSED: [2013-01-14 lun 21:13]
+*** DONE Implementar un manejador de atajos de teclado
+    CLOSED: [2013-01-20 dom 20:06]
+*** DONE Página para pruebas de atajos de teclado
+*** DONE Probrar en distintos navegadores (Safari, Chrome, Firefox, IE)
+    CLOSED: [2013-03-17 dom 20:06]
 
-** TODO Evaluar la posibilidad de utilizar Web workers 
-   - Utiliza Web Workers http://arborjs.org/ https://github.com/samizdatco/arbor
-
-** TODO Probar editores para interfaces
-   - http://pencil.evolus.vn/ 
-   - http://www.balsamiq.com/
-   
-
-* Pendiente de poner el WunderList
 ** DONE El nodo que esta en modo edición debe tener el foco.
    CLOSED: [2013-03-10 dom 02:46] DEADLINE: <2013-03-10 dom> SCHEDULED: <2013-03-10 dom>
 
@@ -95,8 +111,9 @@
    CLOSED: [2013-03-10 dom 03:43] SCHEDULED: <2013-03-10 dom>
    - Crear un MM con 100, 1000 y/o 10000 para ver como se comporta el sistema.
 
+** DONE Terminada la prueba de interacción.
+   CLOSED: [2013-03-17 dom 03:31]
 
-* Realizado
 ** DONE Permitir la opción de borrado de nodos
    CLOSED: [2013-03-10 dom 01:14] DEADLINE: <2013-03-10 dom> SCHEDULED: <2013-03-10 dom>
 

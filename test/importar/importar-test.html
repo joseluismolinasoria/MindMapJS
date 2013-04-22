@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prueba de importación de ficheros freeMind</title>
+    <script src="../../src/MindMapJS.js"></script>
+    <script src="../../src/klass.js"></script>
+    <script src="../../src/pubsub.js"></script>
+    <script src="../../src/importar.js"></script>
+    <script src="./importar-test.html.js"></script>
+    <style>
+      .salida {
+        background-color: grey;
+        color : white;
+        float: left;
+        width: 48%;
+        padding : 5px
+      }
+
+      .salidaJSON {
+        background-color: grey;
+        color : white;
+        float: right;
+        width: 48%;
+        padding : 5px
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="ficheros" name="ficheros[]" />  <br/>
+    <div style="margin-top: 5px;">
+      <div class="salida">TEXTO</div>
+      <div class="salidaJSON">JSON</div>      
+    </div>
+    <div style="clear : both;"></div>
+    <div style="margin-top: 5px;">
+      <output id="salida" class="salida" >&nbsp;</output>
+      <output id="salidaJSON" class="salidaJSON" >&nbsp;</output>
+    </div>
+
+  </body>
+</html>
+
