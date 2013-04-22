@@ -32,11 +32,13 @@
           MM.add('hijo1').add('hijo2').add('hijo3')
               .next().add('hijo11').add('hijo12')
               .next().add('hijo111').add('hijo112').add('hijo113').add('hijo114');
-          MM.render('contenedor', 400);
+          var render = new MM.Render('contenedor');
+          render.dibujar();
+          
       };
     </script>
   </head>
   <body>
-    <div id="contenedor" style="border: 1px solid red"></div>
+    <div id="contenedor" style="height:600px"></div>
   </body>
 </html>

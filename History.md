@@ -38,3 +38,4 @@
   * Escenario ajustable al contenedor
   * Capa de grid
   * Mejoras visuales en el Nodo y Arista
+  * Corrección de los ejemplos 6, 7 y 8 de kineticjs para uso de la nueva clase MM.Render

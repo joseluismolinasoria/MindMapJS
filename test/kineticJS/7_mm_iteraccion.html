@@ -34,8 +34,7 @@
       window.onload = function () {
           MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
           render = new MM.Render('contenedor');
-//          render.init('contenedor');
-//          MM.render('contenedor', 600);
+          render.dibujar();
           MM.teclado.atajos.add('left', MM.padre, MM);
           MM.teclado.atajos.add('right', MM.next, MM);
           MM.teclado.atajos.add('up', MM.prevHermano, MM);

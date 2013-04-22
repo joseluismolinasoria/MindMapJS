@@ -2,6 +2,8 @@
 #+STARTUP:  
     
 * Planificado
+** TODO (Bug) Al borrar el raíz y crear un nuevo árbol se rompe todo.
+   DEADLINE: <2013-04-27 sáb>
 ** TODO Ajustar la posición del editor
    SCHEDULED: <2013-03-11 lun>
    - Parece que el problema proviene del group
@@ -13,6 +15,8 @@
    - Implementar un parse XML de FreeMind
 ** TODO Copiar las implementaciones al src como modulos del proyecto
 ** TODO Implementación de la primera interface
+
+** TODO Exploración a imagenes
 
 * Pendiente de planificar
 ** TODO Pellizco. Multitouch. 
@@ -40,6 +44,9 @@
 
 
 * Pendiente de poner el WunderList
+** DONE (Bug) Revisar los ejemplos que han dejado de funcionar
+   CLOSED: [2013-04-22 lun 17:39] DEADLINE: <2013-04-22 lun>
+
 
 * Realizado
 ** DONE Implementar prueba de concepto con KineticJS [10/10]
