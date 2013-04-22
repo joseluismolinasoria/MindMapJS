@@ -2,8 +2,6 @@
 #+STARTUP:  
     
 * Planificado
-** TODO (Bug) Al borrar el raíz y crear un nuevo árbol se rompe todo.
-   DEADLINE: <2013-04-27 sáb>
 ** TODO Ajustar la posición del editor
    SCHEDULED: <2013-03-11 lun>
    - Parece que el problema proviene del group
@@ -17,6 +15,7 @@
 ** TODO Implementación de la primera interface
 
 ** TODO Exploración a imagenes
+
 
 * Pendiente de planificar
 ** TODO Pellizco. Multitouch. 
@@ -46,6 +45,9 @@
 * Pendiente de poner el WunderList
 ** DONE (Bug) Revisar los ejemplos que han dejado de funcionar
    CLOSED: [2013-04-22 lun 17:39] DEADLINE: <2013-04-22 lun>
+
+** DONE (Bug) Al borrar el raíz y crear un nuevo árbol se rompe todo.
+   CLOSED: [2013-04-22 lun 18:45] DEADLINE: <2013-04-27 sáb>
 
 
 * Realizado

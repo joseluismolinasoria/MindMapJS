@@ -124,7 +124,7 @@ MM = function (mm) {
 
     mm.root = function () {
         this.eventos.on ( 'root', this.foco, this.arbol );
-        this.ponerFoco ( this.arbol )
+        this.ponerFoco ( this.arbol );
     }.chain();
 
 
@@ -164,6 +164,7 @@ MM.Render = function() {
     render.prototype.subscripciones = [];
 
     render.prototype.dibujar = function ( ) {
+	this.escenario.clear();
         new Grid(this.capaGrid, this.width, this.height);
         new Borde(this.capaGrid, this.width, this.height);
 
@@ -176,11 +177,12 @@ MM.Render = function() {
         this.suscribrirEventos();
         MM.root();
         this.escenario.draw();
-        this.renderAristas()
+        this.renderAristas();
         idSubPre = idSubPost = null;
     };
 
     render.prototype.suscribrirEventos = function ( ) {
+	this.desuscribrirEventos(); // evitamos dobles subscripciones
         // this.eventos.subscribir('root', cambiarFoco);
         // this.eventos.subscribir('padre', cambiarFoco);
         // this.eventos.subscribir('next', cambiarFoco);

@@ -46,6 +46,7 @@
       };
 
       function cargarFichero(evt) {
+        render.desuscribrirEventos();
         var imp = new MM.importar.FreeMind();
         var file = evt.target.files[0];
         imp.cargar(file);
