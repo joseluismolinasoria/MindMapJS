@@ -19,10 +19,10 @@ MM.PubSub = MM.Class.extend(function() {
     /** @lends MM.PubSub.prototype */
     var p = {};
     var on = {};
-    var idSub = 1;
+    var idSus = 1;
 
     /**
-     * @desc Realiza la notificación a los subscriptores de que se a producido
+     * @desc Realiza la notificación a los suscriptores de que se a producido
      * una publicación o evento.
      * @param evento {string}    nombre del evento o publicación a notificar
      * @param args   {*}         argumentos para la función callback
@@ -42,15 +42,15 @@ MM.PubSub = MM.Class.extend(function() {
     };
 
     /**
-     * @desc Pemite la subscripción a una publicación o evento. Donde el parametro func es
+     * @desc Pemite la suscripción a una publicación o evento. Donde el parametro func es
      * la función a ejecutar en el caso de que se produzca la notificación y contexto el
      * contexto de ejecución para la función callback
-     * @param evento   {string}   nombre del evento o publicación en la que deseamos subscribirnos
+     * @param evento   {string}   nombre del evento o publicación en la que deseamos suscribirnos
      * @param func     {function} función callback
      * @param contexto {object}   contexto de ejecución de la función callback
-     * @return {null|number} null en caso de fallo o *idSub* el identificador de subscripción
+     * @return {null|number} null en caso de fallo o *idSus* el identificador de suscripción
      */
-    p.subscribir = function( evento, func, contexto ) {
+    p.suscribir = function( evento, func, contexto ) {
         if ( !evento || !func )
             return null;
 
@@ -59,17 +59,17 @@ MM.PubSub = MM.Class.extend(function() {
 
         contexto = contexto || this;
 
-        on[evento].push({ id : idSub, contexto: contexto, funcion: func });
+        on[evento].push({ id : idSus, contexto: contexto, funcion: func });
 
-        return idSub++;
+        return idSus++;
     };
 
     /**
-     * @desc realiza una dessubscripción a un evento o notificación
-     * @param id   {number} identificador de subscripción
-     * @return {null|number} null si no se ha podido realizar la dessubscripción
+     * @desc realiza una dessuscripción a un evento o notificación
+     * @param id   {number} identificador de suscripción
+     * @return {null|number} null si no se ha podido realizar la dessuscripción
      */
-    p.desSubscribir = function (id) {
+    p.desSuscribir = function (id) {
         for (var evento in on)
             if ( on[evento] )
                 for (var i = 0, len = on[evento].length; i < len; i++)

@@ -6,15 +6,13 @@
    SCHEDULED: <2013-03-11 lun>
    - Parece que el problema proviene del group
    - A lo mejor hay que pensar en quitar el group e implementar el render del nodo de otra forma
-** TODO Librería para carga de ficheros
-   DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
-** TODO Prueba de carga de un MM de FreeMind
-   DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
-   - Implementar un parse XML de FreeMind
 ** TODO Copiar las implementaciones al src como modulos del proyecto
 ** TODO Implementación de la primera interface
 
-** TODO Exploración a imagenes
+** TODO Exportación a imagenes
+
+** TODO Pasar la funcionalidad de carga a MM
+** TODO Pasar los atajos de teclado a la librería MM
 
 
 * Pendiente de planificar
@@ -43,14 +41,20 @@
 
 
 * Pendiente de poner el WunderList
+** DONE Librería para carga de ficheros
+   CLOSED: [2013-04-22 lun 21:36] DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
+** DONE Prueba de carga de un MM de FreeMind
+   CLOSED: [2013-04-22 lun 21:36] DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
+   - Implementar un parse XML de FreeMind
+
+
+* Realizado
 ** DONE (Bug) Revisar los ejemplos que han dejado de funcionar
    CLOSED: [2013-04-22 lun 17:39] DEADLINE: <2013-04-22 lun>
 
 ** DONE (Bug) Al borrar el raíz y crear un nuevo árbol se rompe todo.
    CLOSED: [2013-04-22 lun 18:45] DEADLINE: <2013-04-27 sáb>
 
-
-* Realizado
 ** DONE Implementar prueba de concepto con KineticJS [10/10]
    CLOSED: [2013-04-22 lun 17:17]
 *** DONE Dibujar un nodo / texto

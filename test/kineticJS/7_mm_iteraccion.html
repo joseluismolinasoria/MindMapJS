@@ -45,9 +45,17 @@
           document.getElementById('ficheros').addEventListener('change', cargarFichero, false);
       };
 
+      var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
+         render.desuscribrirEventos();
+      });
+      var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
+         render.dibujar();
+      });
+
+      var imp = new MM.importar.FreeMind();
+
       function cargarFichero(evt) {
-        render.desuscribrirEventos();
-        var imp = new MM.importar.FreeMind();
+        if ( evt.target.files.length === 0 ) return;
         var file = evt.target.files[0];
         imp.cargar(file);
       };

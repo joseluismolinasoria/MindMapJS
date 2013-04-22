@@ -115,10 +115,10 @@ MM.importar.XML = function() {
 	 * @param encoding {[string]} Codifiación del fichero
 	 */
 	cargar : function (file, encoding) {
-	    MM.importar.evento.subscribir ( "cargado", cargado, this);
-            MM.importar.evento.subscribir ( "error/seguridad", errorCarga, this );
-            MM.importar.evento.subscribir ( "error/lectura", errorCarga, this );
-	    MM.importar.evento.subscribir ( "error/encoding", errorCarga, this );
+	    this.idSusCargado = MM.importar.evento.suscribir ( "cargado", cargado, this);
+            this.idSusErrorSeg = MM.importar.evento.suscribir ( "error/seguridad", errorCarga, this );
+            this.idSusErrorLec = MM.importar.evento.suscribir ( "error/lectura", errorCarga, this );
+	    this.idSusErrorEnc = MM.importar.evento.suscribir ( "error/encoding", errorCarga, this );
 	    MM.importar.texto(file, encoding);
 	}
     });
@@ -128,6 +128,10 @@ MM.importar.XML = function() {
 	MM.importar.evento.on ( 'xml/parseado', xmlDoc );
 	var json = procesar (xmlDoc.documentElement);
 	MM.importar.evento.on ( 'xml/procesado', json );
+	MM.importar.evento.desSuscribir(this.idSusCargado);
+	MM.importar.evento.desSuscribir(this.idSusErrorSeg);
+	MM.importar.evento.desSuscribir(this.idSusErrorLec);
+	MM.importar.evento.desSuscribir(this.idSusErrorEnc);
     };
 
     var procesar = function ( elemento ) {
@@ -198,7 +202,7 @@ MM.importar.FreeMind = function() {
 	 * @param file {File} Fichero que deseamos cargar
 	 */
 	cargar : function (file, encoding) {
-	    MM.importar.evento.subscribir ( "xml/procesado", procesado, this);
+	    this.idSus = MM.importar.evento.suscribir ( "xml/procesado", procesado, this);
 	    this._super(file, encoding);
 	}
     });
@@ -210,7 +214,10 @@ MM.importar.FreeMind = function() {
 	}
 	var raiz = obj.hijos[0];
 	MM.nuevo(raiz["TEXT"]);
+	MM.importar.evento.on("freeMind/raiz", raiz["TEXT"]);
 	procesarHijos(raiz);
+	MM.importar.evento.on("freeMind/procesado");
+	MM.importar.evento.desSuscribir(this.idSus);
 	raiz = null;
     };
 

@@ -161,49 +161,49 @@ MM.Render = function() {
     });
 
     render.prototype.aristas = [];
-    render.prototype.subscripciones = [];
+    render.prototype.suscripciones = [];
 
-    render.prototype.dibujar = function ( ) {
-	this.escenario.clear();
+    render.prototype.dibujar = function () {
+	this.capaGrid.removeChildren();
         new Grid(this.capaGrid, this.width, this.height);
         new Borde(this.capaGrid, this.width, this.height);
 
         MM.arbol.elemento.reparto = {y0: 0, y1: this.height};
-        var idSubPre = MM.arbol.subscribir('preOrden', MM.Class.bind(this, preRecorrido) );
-        var idSubPost = MM.arbol.subscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
+        var idSusPre = MM.arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
+        var idSusPost = MM.arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
         MM.arbol.preOrden();
-        MM.arbol.desSubscribir(idSubPre);
-        MM.arbol.desSubscribir(idSubPost);
+        MM.arbol.desSuscribir(idSusPre);
+        MM.arbol.desSuscribir(idSusPost);
         this.suscribrirEventos();
         MM.root();
         this.escenario.draw();
         this.renderAristas();
-        idSubPre = idSubPost = null;
+        idSusPre = idSusPost = null;
     };
 
     render.prototype.suscribrirEventos = function ( ) {
-	this.desuscribrirEventos(); // evitamos dobles subscripciones
-        // this.eventos.subscribir('root', cambiarFoco);
-        // this.eventos.subscribir('padre', cambiarFoco);
-        // this.eventos.subscribir('next', cambiarFoco);
-        // this.eventos.subscribir('nextHermano', cambiarFoco);
-        // this.eventos.subscribir('prevHermano', cambiarFoco);
-        this.subscripciones.push ( MM.eventos.subscribir('ponerFoco', cambiarFoco) );
-        this.subscripciones.push ( MM.eventos.subscribir('add', this.nuevoNodo, this) );
-        this.subscripciones.push ( MM.eventos.subscribir('borrar', this.borrarNodo, this) );
-        this.subscripciones.push ( MM.eventos.subscribir('nuevo/pre', function () {
+	this.desuscribrirEventos(); // evitamos dobles suscripciones
+        // this.eventos.suscribir('root', cambiarFoco);
+        // this.eventos.suscribir('padre', cambiarFoco);
+        // this.eventos.suscribir('next', cambiarFoco);
+        // this.eventos.suscribir('nextHermano', cambiarFoco);
+        // this.eventos.suscribir('prevHermano', cambiarFoco);
+        this.suscripciones.push ( MM.eventos.suscribir('ponerFoco', cambiarFoco) );
+        this.suscripciones.push ( MM.eventos.suscribir('add', this.nuevoNodo, this) );
+        this.suscripciones.push ( MM.eventos.suscribir('borrar', this.borrarNodo, this) );
+        this.suscripciones.push ( MM.eventos.suscribir('nuevo/pre', function () {
             MM.arbol.elemento.nodo.destroy();
         }) );
-        this.subscripciones.push ( MM.eventos.subscribir('nuevo/post', function () {
+        this.suscripciones.push ( MM.eventos.suscribir('nuevo/post', function () {
             this.dibujar();
         }, this) );
     };
 
     render.prototype.desuscribrirEventos = function ( ) {
-        this.subscripciones.forEach ( function ( idSub ) {
-            MM.eventos.desSubscribir(idSub);
+        this.suscripciones.forEach ( function ( idSus ) {
+            MM.eventos.desSuscribir(idSus);
         });
-        this.subscripciones = [];
+        this.suscripciones = [];
     };
 
     render.prototype.renderAristas = function () {
@@ -333,193 +333,6 @@ MM.Render = function() {
     return render;
 }();
 
-
-
-
-
-
-
-
-//// OLD
-//
-//// extendemos el modulo MM para el render
-//MM = function (mm) {
-//    mm.aristas = [];
-//
-//    mm.render = function (contenedor, height) {
-//        var width = Math.floor((document.getElementById(contenedor).clientWidth / 100) * 98); // 98%
-//
-//        this.escenario = new Kinetic.Stage({
-//            container: contenedor,
-//            width: width,
-//            height: height
-//        });
-//
-//        this.width = width;
-//        this.height = height;
-//        this.devicePixelRatio = getDevicePixelRatio();
-//        this.capaGrid = new Kinetic.Layer();
-//        new Grid(this.capaGrid, width, height);
-//        new Borde(this.capaGrid, width, height);
-//        this.escenario.add(this.capaGrid);
-//
-//        this.capaNodos = new Kinetic.Layer();
-//        this.capaAristas = new Kinetic.Layer();
-//        this.escenario.add(this.capaAristas);
-//
-//        mm.arbol.elemento.reparto = {y0: 0, y1: height};
-//        mm.arbol.subscribir('preOrden', preRecorrido);
-//        mm.arbol.subscribir('postPreOrden', postRecorrido);
-//        this.arbol.preOrden();
-//
-//        this.escenario.add(this.capaNodos);
-//
-////        this.eventos.subscribir('root', cambiarFoco);
-////        this.eventos.subscribir('padre', cambiarFoco);
-////        this.eventos.subscribir('next', cambiarFoco);
-////        this.eventos.subscribir('nextHermano', cambiarFoco);
-////        this.eventos.subscribir('prevHermano', cambiarFoco);
-//        this.eventos.subscribir('ponerFoco', cambiarFoco);
-//        this.eventos.subscribir('add', nuevoNodo);
-//        this.eventos.subscribir('borrar', this.borrarNodo, this);
-//        this.eventos.subscribir('nuevo/pre', function () {
-//            mm.arbol.elemento.nodo.destroy();
-//        });
-//        this.eventos.subscribir('nuevo/post', function () {
-//            mm.arbol.elemento.reparto = {y0: 0, y1: height};
-//            mm.arbol.preOrden();
-//            mm.capaNodos.draw();
-////	    mm.renderAristas();
-//        });
-//        this.root();
-//    };
-//
-//    mm.renderAristas = function () {
-//        if (!this.capaAristas)
-//            return;
-//        this.capaAristas.clear();
-//        this.aristas.forEach(function (arista) {
-//            arista.render();
-//        });
-//    };
-//
-//    var nuevoNodo = function (padre, hijo) {
-//        repartoEspacio(padre);
-//        mm.aristas.push(new Arista(mm.capaAristas, padre.elemento, hijo.elemento, '3'));
-//        mm.renderAristas();
-//        mm.capaNodos.draw();
-//    };
-//
-//    var repartoEspacio = function (padre) {
-//        var p = mm.arbol.profundidad(padre.elemento.id);
-//        var r = padre.elemento.reparto;
-//
-//        posicionarNodo(padre, p);
-//
-//        var y0 = r.y0;
-//        var division = (r.y1 - r.y0) / padre.hijos.length;
-//        division = (division < 22) ? 22 : division; // TODO: Quitar la constante 22 por la altura del padre
-//
-//        padre.hijos.forEach(function (hijo) {
-//            hijo.elemento.reparto = {y0: y0, y1: y0 + division};
-//            posicionarNodo(hijo, p + 1);
-//            y0 += division;
-//        });
-//
-//        p = r = y0 = division = null;
-//    };
-//
-//    var posicionarNodo = function (arbol, profundidad) {
-//        var e = arbol.elemento;
-//        var r = e.reparto;
-//        var x = 10 + (150 * profundidad);
-//        var y = r.y0 + ((r.y1 - r.y0) / 2) - 11; // TODO: Quitar la constante de 11 por la mitad e la altura
-//
-//        if (e.nodo !== null) {
-//            e.nodo.setX(x);
-//            e.nodo.setY(y);
-//        } else {
-//            e.nodo = new Nodo(mm.escenario, mm.capaNodos, arbol,
-//                { x: x, y: y, text: e.texto});
-//        }
-//        e = r = x = y = null;
-//    };
-//
-//    var preRecorrido = function (nodo) {
-//        repartoEspacio(nodo);
-//    };
-//
-//    var postRecorrido = function (nodo) {
-//        var elemento = nodo.elemento;
-//        nodo.hijos.forEach(function (hijo) {
-//            var arista = new Arista(mm.capaAristas, elemento, hijo.elemento, '3');
-//            mm.aristas.push(arista);
-//            arista = null;
-//        });
-//        elemento = null;
-//    };
-//
-//    var getDevicePixelRatio = function () {
-//        if (window.devicePixelRatio)
-//            return window.devicePixelRatio;
-//        return 1;
-//    };
-//
-//    var buscarArista = function (padre, hijo) {
-//        for (var i = 0; i < mm.aristas.length; i++) {
-//            if (padre.elemento.id === mm.aristas[i].elementoOrigen.id &&
-//                hijo.elemento.id === mm.aristas[i].elementoDestino.id) {
-//                return i;
-//            }
-//        }
-//        return null;
-//    };
-//
-//    var borrarArista = function (padre, hijo) {
-//        for (var i = 0; i < mm.aristas.length; i++) {
-//            if (padre.elemento.id === mm.aristas[i].elementoOrigen.id &&
-//                hijo.elemento.id === mm.aristas[i].elementoDestino.id) {
-//                return mm.aristas.splice(i, 1);
-//            }
-//        }
-//        return null;
-//    };
-//
-//    var borrarHijo = function (padre, hijo) {
-//        for (var i = 0; i < padre.hijos.length; i++) {
-//            if (padre.hijos[i].elemento.id === hijo.elemento.id) {
-//                return padre.hijos.splice(i, 1);
-//            }
-//        }
-//        return null;
-//    };
-//
-//    mm.borrarNodo = function (padre, borrado) {
-//        // recorremos los hijos. i no incrementa por que después de borrar queda un elemento menos
-//        for (var i = 0; i < borrado.hijos.length; i) {
-//            this.borrarNodo(borrado, borrado.hijos[i]);
-//        }
-//
-//        // borramos los elementos gráficos relacionados
-//        borrarArista(padre, borrado);
-//        borrado.elemento.nodo.destroy();
-//
-//        // importante borrar el hijo borrado para evitar errores en el pintado
-//        borrarHijo(padre, borrado);
-//        repartoEspacio(padre);
-//        mm.renderAristas();
-//        mm.capaNodos.draw();
-//        i = null;
-//    };
-//
-//    var cambiarFoco = function (anterior, siguiente) {
-//        anterior.elemento.nodo.quitarFoco();
-//        siguiente.elemento.nodo.ponerFoco();
-//    };
-//
-//
-//    return mm;
-//}(MM);
 
 // MM.escenario.setScale(1.5);
 // Ojo para escalar bien hay que escalar también las aristas.

@@ -40,3 +40,5 @@
   * Mejoras visuales en el Nodo y Arista
   * Corrección de los ejemplos 6, 7 y 8 de kineticjs para uso de la nueva clase MM.Render
   * Corregido Bug en el borrado del nodo Raíz.
+  * Se da por concluida la primera versión de carga de ficheros. 
+

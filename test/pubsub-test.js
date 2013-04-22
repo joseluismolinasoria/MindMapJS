@@ -15,8 +15,8 @@ describe('PubSub', function(){
 
     describe('Evento', function(){
 	var evt = new Evento ();
-	var idSubEvento = null;
-	var idSubPostEvento = null;
+	var idSusEvento = null;
+	var idSusPostEvento = null;
 
 	it('Pubsub Debe ser objecto', function(){
 	    PubSub.should.be.a('function');
@@ -30,27 +30,27 @@ describe('PubSub', function(){
 	it('evt debe tener el contador a 0', function(){
 	    evt.should.have.property('cont', 0);
 	});
-	it('evt lanzamos el evento sin subscripciones y el contador no incrementa', function(){
+	it('evt lanzamos el evento sin suscripciones y el contador no incrementa', function(){
 	    evt.evento();
 	    evt.cont.should.equal(0);
 	});
-	it('evt subscribimos al evento y la sucripción incrementa el contador', function(){
-	    idSubEvento = evt.subscribir('evento', function () {});
-	    idSubPostEvento = evt.subscribir('postEvento', function () { this.cont++;});
-   	    idSubEvento.should.equal(1);
-   	    idSubPostEvento.should.equal(2);
+	it('evt suscribimos al evento y la sucripción incrementa el contador', function(){
+	    idSusEvento = evt.suscribir('evento', function () {});
+	    idSusPostEvento = evt.suscribir('postEvento', function () { this.cont++;});
+   	    idSusEvento.should.equal(1);
+   	    idSusPostEvento.should.equal(2);
 	});
-	it('evt lanzamos el evento con las subscripciones y el contador incrementa', function(){
+	it('evt lanzamos el evento con las suscripciones y el contador incrementa', function(){
 	    evt.evento();
 	    evt.cont.should.equal(1);
 	});
-	it('evt desubscribimos los eventos', function(){
-	    idSubEvento = evt.desSubscribir(idSubEvento);
-	    idSubEvento.should.equal(1);
-	    idSubEvento = evt.desSubscribir(idSubPostEvento);
-	    idSubEvento.should.equal(2);
+	it('evt desuscribimos los eventos', function(){
+	    idSusEvento = evt.desSuscribir(idSusEvento);
+	    idSusEvento.should.equal(1);
+	    idSusEvento = evt.desSuscribir(idSusPostEvento);
+	    idSusEvento.should.equal(2);
 	});
-	it('evt lanzamos el evento con las subscripciones eliminadas y el contador no debe incrementar', function(){
+	it('evt lanzamos el evento con las suscripciones eliminadas y el contador no debe incrementar', function(){
 	    evt.evento();
 	    evt.cont.should.equal(1);
 	});

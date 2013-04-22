@@ -2,12 +2,12 @@ var imp = new MM.importar.XML();
 
 function cargarFichero(evt) {
     var file = evt.target.files[0];
-    MM.importar.evento.subscribir("xml/parseado", function ( xmlDoc ) {
+    MM.importar.evento.suscribir("xml/parseado", function ( xmlDoc ) {
 
         document.getElementById('salida').innerHTML = "";
 	recorrer ( xmlDoc.documentElement );
     });
-    MM.importar.evento.subscribir("xml/procesado", function ( json ) {
+    MM.importar.evento.suscribir("xml/procesado", function ( json ) {
         document.getElementById('salidaJSON').innerHTML = JSON.stringify(json);
     });
 
