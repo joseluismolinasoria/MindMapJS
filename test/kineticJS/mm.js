@@ -140,10 +140,12 @@ MM = function (mm) {
 
 MM.Render = function() {
     var render = MM.Class.extend({
-        init : function (contenedor) {
+        init : function (contenedor, claseNodo, claseArista) {
             this.width = Math.floor((document.getElementById(contenedor).clientWidth / 100) * 98); // 98%
             this.height = Math.floor((document.getElementById(contenedor).clientHeight / 100) * 98); // 98%
             this.devicePixelRatio = getDevicePixelRatio();
+	    this.Nodo = claseNodo || MM.Globo;
+	    this.Arista = claseArista || MM.Arista;
 
             this.escenario = new Kinetic.Stage({
                 container: contenedor,
@@ -217,7 +219,7 @@ MM.Render = function() {
 
     render.prototype.nuevoNodo = function (padre, hijo) {
         this.repartoEspacio(padre);
-        this.aristas.push(new Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
+        this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
         this.renderAristas();
         this.capaNodos.draw();
     };
@@ -244,14 +246,14 @@ MM.Render = function() {
     render.prototype.posicionarNodo = function (arbol, profundidad) {
         var elemento = arbol.elemento;
         var reparto = elemento.reparto;
-        var x = 10 + (150 * profundidad);
+        var x = 25 + (150 * profundidad); // reformular esto 10 el ancho del nodo
         var y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - 11; // TODO: Quitar la constante de 11 por la mitad e la altura
 
         if (elemento.nodo !== null) {
             elemento.nodo.setX(x);
             elemento.nodo.setY(y);
         } else {
-            elemento.nodo = new Nodo(this, arbol, { x: x, y: y, text: elemento.texto});
+            elemento.nodo = new this.Nodo(this, arbol, { x: x, y: y, text: elemento.texto});
         }
         elemento = reparto = x = y = null;
     };
@@ -263,7 +265,7 @@ MM.Render = function() {
     var postRecorrido = function (nodo) {
         var elemento = nodo.elemento;
         nodo.hijos.forEach(function (hijo) {
-            var arista = new Arista(this.capaAristas, elemento, hijo.elemento, '3');
+            var arista = new this.Arista(this.capaAristas, elemento, hijo.elemento, '3');
             this.aristas.push(arista);
             arista = null;
         }, this);
@@ -333,6 +335,17 @@ MM.Render = function() {
     return render;
 }();
 
+
+MM.randomHSLColor = function () {
+    var rand = function (max, min) {
+	return parseInt(Math.random() * (max-min+1), 10) + min;
+    };
+
+    var h = rand(1, 360);  // Tonalidad 1-360
+    var s = rand(30, 100); // saturación 30-100%
+    var l = rand(20, 50);  // brillo 20-50%
+    return { h: h, s: s, l:l };
+};
 
 // MM.escenario.setScale(1.5);
 // Ojo para escalar bien hay que escalar también las aristas.

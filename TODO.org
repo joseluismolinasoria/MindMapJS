@@ -14,6 +14,7 @@
 ** TODO Pasar la funcionalidad de carga a MM
 ** TODO Pasar los atajos de teclado a la librería MM
 
+** TODO Cambiar el modo de reparto de espacios por uno más equilibrado
 
 * Pendiente de planificar
 ** TODO Pellizco. Multitouch. 
@@ -41,14 +42,19 @@
 
 
 * Pendiente de poner el WunderList
+** DONE Incorporar colores aleatorios a los nodos
+   CLOSED: [2013-04-28 dom 11:50]
+** DONE Crear un nuevo render más optimo para un número grande de nodos
+   CLOSED: [2013-04-28 dom 11:50]
+
+
+* Realizado
 ** DONE Librería para carga de ficheros
    CLOSED: [2013-04-22 lun 21:36] DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
 ** DONE Prueba de carga de un MM de FreeMind
    CLOSED: [2013-04-22 lun 21:36] DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
    - Implementar un parse XML de FreeMind
 
-
-* Realizado
 ** DONE (Bug) Revisar los ejemplos que han dejado de funcionar
    CLOSED: [2013-04-22 lun 17:39] DEADLINE: <2013-04-22 lun>
 

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      canvas {
+        border: 1px solid blue;
+      }
+    </style>
+    <script src="../../lib/kinetic-v4.4.3.min.js"></script>
+    <script src="../../src/MindMapJS.js"></script>
+    <script src="../../src/dom.js"></script>
+    <script src="../../src/properties.js"></script>
+    <script src="../../src/chain.js"></script>
+    <script src="../../src/processable.js"></script>
+    <script src="../../src/klass.js"></script>
+    <script src="../../src/pubsub.js"></script>
+    <script src="../../src/arbol-n.js"></script>
+    <script src="../../src/teclado.js"></script>
+    <script src="../../src/importar.js"></script>
+    <script src="grid.js"></script>
+    <script src="borde.js"></script>
+    <script src="mensaje.js"></script>
+    <script src="arista.js"></script>
+    <script src="nodo.js"></script>
+    <script src="mm.js"></script>
+
+    <script>
+      var render;
+      window.onload = function () {
+          MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
+          render = new MM.Render('contenedor', MM.NodoSimple, MM.Rama);
+          render.dibujar();
+          MM.teclado.atajos.add('left', MM.padre, MM);
+          MM.teclado.atajos.add('right', MM.next, MM);
+          MM.teclado.atajos.add('up', MM.prevHermano, MM);
+          MM.teclado.atajos.add('down', MM.nextHermano, MM);
+          MM.teclado.atajos.add('ins', MM.add, MM);
+          MM.teclado.atajos.add('del', MM.borrar, MM);
+          MM.teclado.atajos.add('home', MM.root, MM);
+          document.getElementById('ficheros').addEventListener('change', cargarFichero, false);
+      };
+
+      var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
+         render.desuscribrirEventos();
+      });
+      var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
+         render.dibujar();
+      });
+
+      var imp = new MM.importar.FreeMind();
+
+      function cargarFichero(evt) {
+        if ( evt.target.files.length === 0 ) return;
+        var file = evt.target.files[0];
+        imp.cargar(file);
+      };
+
+    </script>
+  </head>
+  <body>
+      <div style="background-color: grey;">
+	<button onclick="MM.add('Nuevo');">Nuevo</button>
+	<button onclick="MM.borrar();">Borrar</button>
+	<button onclick="MM.root();">Raiz</button>
+	<button onclick="MM.padre();">Padre</button>
+	<button onclick="MM.next();">Hijo</button>
+	<button onclick="MM.prevHermano();">Arriba</button>
+	<button onclick="MM.nextHermano();">Abajo</button>
+	<input type="file" id="ficheros" name="ficheros[]" />
+      </div>
+      <div id="contenedor" style="height:600px">
+      </div>
+      <div id="posicion" style="background-color: grey;">
+	-Cursores- Desplazamiento por los nodos. 
+	-Insert- Crear un nuevo hijo.
+	-Supr- Borrar el nodo.
+	-Home- Ir al nodo Raíz.
+      </div>
+      <div id="posicionNodos" style="background-color: grey;">&nbsp;</div>
+      <div id="posicionAristas" style="background-color: grey;">&nbsp;</div>
+  </body>
+</html>

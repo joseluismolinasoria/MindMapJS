@@ -1,4 +1,4 @@
-0.0.1 / 2013-04-22 (abierta)
+0.0.1 / 2013-04-28 (abierta)
 ============================
 
   * Primera release
@@ -41,4 +41,6 @@
   * Corrección de los ejemplos 6, 7 y 8 de kineticjs para uso de la nueva clase MM.Render
   * Corregido Bug en el borrado del nodo Raíz.
   * Se da por concluida la primera versión de carga de ficheros. 
+  * Incorporación de colores aleatorios a los nodos
+  * Creación de un nuevo render más óptimo en espacio
 
