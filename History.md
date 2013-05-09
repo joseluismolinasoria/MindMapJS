@@ -1,4 +1,4 @@
-0.0.1 / 2013-04-28 (abierta)
+0.0.1 / 2013-05-09 (abierta)
 ============================
 
   * Primera release
@@ -43,4 +43,8 @@
   * Se da por concluida la primera versión de carga de ficheros. 
   * Incorporación de colores aleatorios a los nodos
   * Creación de un nuevo render más óptimo en espacio
-
+  * Ajuste de la posición de editores de nodos
+  * Incorporación de los atajos de teclado a la librería
+  * Input en el nuevo render lineal
+  * Foco en el nuevo render lineal.
+  * Evitar que se ejecuten las opciones por defecto en los atajos del teclado

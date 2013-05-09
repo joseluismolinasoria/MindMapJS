@@ -1,7 +1,7 @@
 /**
  * @file teclado.js Librería para el porcesado y control del teclado
  * @author José Luis Molina Soria
- * @version 20130316
+ * @version 20130508
  */
 
 if ( typeof module !== 'undefined' ) {
@@ -120,6 +120,10 @@ MM.teclado.keyDown = function (e){
 	}
     } else { 
 	var nombreAtajo = MM.teclado.atajos.calcular(nombre);
+	if ( MM.teclado.atajos.definidos[nombreAtajo] ) { 
+	    evt.preventDefault(); 
+	    evt.stopPropagation();
+	}
 	MM.teclado.atajos.lanzar(nombreAtajo);
     };
     evt = key = nombre = nombreAtajo = null;

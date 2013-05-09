@@ -2,19 +2,16 @@
 #+STARTUP:  
     
 * Planificado
-** TODO Ajustar la posición del editor
-   SCHEDULED: <2013-03-11 lun>
-   - Parece que el problema proviene del group
-   - A lo mejor hay que pensar en quitar el group e implementar el render del nodo de otra forma
 ** TODO Copiar las implementaciones al src como modulos del proyecto
 ** TODO Implementación de la primera interface
 
 ** TODO Exportación a imagenes
 
 ** TODO Pasar la funcionalidad de carga a MM
-** TODO Pasar los atajos de teclado a la librería MM
-
 ** TODO Cambiar el modo de reparto de espacios por uno más equilibrado
+
+** TODO Ajustar la linea inferior cuando se edita el nodo
+   
 
 * Pendiente de planificar
 ** TODO Pellizco. Multitouch. 
@@ -42,13 +39,36 @@
 
 
 * Pendiente de poner el WunderList
-** DONE Incorporar colores aleatorios a los nodos
-   CLOSED: [2013-04-28 dom 11:50]
-** DONE Crear un nuevo render más optimo para un número grande de nodos
-   CLOSED: [2013-04-28 dom 11:50]
+
 
 
 * Realizado
+** DONE Crear un nuevo render más optimo para un número grande de nodos
+   CLOSED: [2013-04-28 dom 11:50]
+
+** DONE Cambiar el editor del nodo por un input
+   CLOSED: [2013-05-06 lun 20:48]
+** DONE Ajustar la posición del editor
+   CLOSED: [2013-05-06 lun 20:48] DEADLINE: <2013-05-06 lun> SCHEDULED: <2013-03-11 lun>
+   - Parece que el problema proviene del group
+   - A lo mejor hay que pensar en quitar el group e implementar el render del nodo de otra forma
+** DONE Pasar los atajos de teclado a la librería MM
+   CLOSED: [2013-05-08 mié 09:48]
+
+** DONE Ver como poner el foco 
+   CLOSED: [2013-04-30 mar 11:47]
+   - No de ve claro desde que se ha introducido los colores.
+   - En el nuevo render puede ser un globo
+
+** DONE Añadir al manejador de eventos el evt.preventDefault();
+   CLOSED: [2013-05-08 mié 09:24] DEADLINE: <2013-05-07 mar>
+   - Comprobar funcionamiento y si funciona bien dejarlo
+   - También se puede combinar con event.stopPropagation();
+
+** DONE Incorporar colores aleatorios a los nodos
+   CLOSED: [2013-04-28 dom 11:50]
+
+
 ** DONE Librería para carga de ficheros
    CLOSED: [2013-04-22 lun 21:36] DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>
 ** DONE Prueba de carga de un MM de FreeMind

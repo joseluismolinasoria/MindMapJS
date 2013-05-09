@@ -347,5 +347,16 @@ MM.randomHSLColor = function () {
     return { h: h, s: s, l:l };
 };
 
+// definición de atajos de teclado
+(function(){
+    MM.teclado.atajos.add('left', MM.padre, MM);
+    MM.teclado.atajos.add('right', MM.next, MM);
+    MM.teclado.atajos.add('up', MM.prevHermano, MM);
+    MM.teclado.atajos.add('down', MM.nextHermano, MM);
+    MM.teclado.atajos.add('ins', MM.add, MM);
+    MM.teclado.atajos.add('del', MM.borrar, MM);
+    MM.teclado.atajos.add('home', MM.root, MM);
+}());
+
 // MM.escenario.setScale(1.5);
 // Ojo para escalar bien hay que escalar también las aristas.

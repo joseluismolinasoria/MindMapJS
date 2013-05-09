@@ -69,14 +69,16 @@ MM.Rama = MM.Arista.extend({
 	c.beginPath();
 	c.moveTo(this.x1, this.y1);
 	c.bezierCurveTo (this.c1x, this.c1y, this.c2x, this.c2y, this.x2, this.y2);
-	c.strokeStyle = this.elementoDestino.nodo.kText.getFill(); 
+	c.strokeStyle = this.elementoOrigen.nodo.color; 
 	c.lineWidth = this.tamano;
 	c.lineTo(this.x3, this.y3);
 	c.stroke();
-	
-	// c.strokeStyle = this.elementoDestino.nodo.kText.getFill(); 
-	// c.lineTo(this.x3, this.y3);
-	// c.stroke();
+	c.beginPath();
+	c.moveTo(this.x2, this.y2);
+	c.strokeStyle = this.elementoDestino.nodo.color; 
+	c.lineWidth = this.tamano;
+	c.lineTo(this.x3, this.y3);
+	c.stroke();
 	c = null;
     }
 });

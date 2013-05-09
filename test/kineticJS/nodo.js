@@ -3,7 +3,7 @@ MM.NodoSimple = Mensaje.extend({
         x: 0,
         y: 0,
         text: '',
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: 'helvetica',
         fill: '#555',
         width: 'auto',
@@ -38,6 +38,22 @@ MM.NodoSimple = Mensaje.extend({
             }
 	});
 
+	this.rect = new Kinetic.Blob({
+            points: [ {	x: 0, y: 0 }, 
+		      { x: this.kText.getWidth(), y: 0 }, 
+		      {	x: this.kText.getWidth(), y: this.kText.getHeight() }, 
+		      {	x: 0, y: this.kText.getHeight() } ],
+            stroke: this.color,
+            strokeWidth: 2,
+            fill: this.colorFondo,
+            shadowColor: 'black',
+            shadowBlur: 5,
+            shadowOffset: [3, 3],
+            shadowOpacity: 0.5,
+            tension: 0.3
+	});
+
+
 	this.line = new Kinetic.Line({
             points: [{x:0, y: this.kText.getHeight()},
 		     {x:this.kText.getWidth(), y:this.kText.getHeight()}],
@@ -46,9 +62,11 @@ MM.NodoSimple = Mensaje.extend({
             lineCap: 'round',
             lineJoin: 'round'
 	});
+	this.group.add(this.rect);
 	this.group.add(this.line);
         this.group.add(this.kText);
         this.capa.add(this.group);
+	this.rect.hide();
 
         var bindEditar = MM.Class.bind(this, this.editar);
         var bindNOP = MM.Class.bind(this, this.nop);
@@ -67,14 +85,15 @@ MM.NodoSimple = Mensaje.extend({
 
 
     ponerFoco : function () {
-//	this.ktext.setFill('#5268F2');
-//	this.ktext.setShadowColor('blue');
+	this.kText.setFontStyle('bold');
+	this.kText.setText('<' + this.arbol.elemento.texto + '>' );
 	this.capa.draw();
     },
 
     quitarFoco : function () {
-//	this.ktext.setFill('#555');
-//	this.ktext.setShadowColor('black');
+	this.kText.setFontStyle('normal');
+	this.kText.setLineHeight(1);
+	this.kText.setText(this.arbol.elemento.texto);
 	this.capa.draw();
     },
 
@@ -103,17 +122,22 @@ MM.NodoSimple = Mensaje.extend({
     },
 
     editar: function () {
+	console.log(this.kText.getOffset());
+	console.log(this.kText.getAbsolutePosition());
+	console.log(this.kText.getPosition());
+	console.log(this.getX() + "-" + this.getY());
 	MM.teclado.atajos.activo = false;
-        var textarea = new MM.DOM.create('textarea',
+        var input = new MM.DOM.create('input',
             { 'id': 'editNodo',
-                'innerHTML': this.getText(),
-                'style': 'position: absolute; ' +
+              'value': this.arbol.elemento.texto,
+              'style': 'position: absolute; ' +
                     'top : ' + this.getY() + 'px; ' +
                     'left: ' + this.getX() + 'px; ' +
-                    'width: ' + this.getWidth() + 'px; ' +
-                    'height: ' + this.getHeight() + 'px; ' +
+                    'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
+	            'min-width: 50px; ' +
+//                    'height: ' + this.getHeight() + 'px; ' +
                     'border: 3px solid ' + this.color + '; ' +
-                    'border-radius: 5px' +
+                    'border-radius: 5px;' +
                     'background-color: ' + this.colorFondo + '; ' +
                     'color: ' + this.color + '; ' +
                     'font-family: ' + this.kText.getFontFamily() + '; ' +
@@ -121,23 +145,25 @@ MM.NodoSimple = Mensaje.extend({
                     'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; height:auto;'
             });
         var self = this;
-        textarea.onblur = function () {
-            self.setText(this.value);
+        input.onblur = function () {
+	    self.arbol.elemento.texto = this.value;
             self.group.setWidth(self.kText.getWidth());
             self.group.setHeight(self.kText.getHeight());
+	    self.line.setPoints ( [ { x: 0, y: self.kText.getHeight()}, { x: self.kText.getWidth(), y: self.kText.getHeight()} ] );
 	    MM.ponerFoco(self.arbol);
             this.remove();
 	    MM.teclado.atajos.activo = true;
         };
-        document.body.appendChild(textarea);
-        textarea.select();
-        textarea.focus();
+	this.escenario.content.appendChild(input);
+        input.select();
+        input.focus();
     },
 
     nop: function () {
     },
 
     destroy : function () {
+	this.rect.destroy();
 	this.kText.destroy();
 	this.group.destroy();
         delete this.kText;
@@ -149,49 +175,28 @@ MM.Globo = MM.NodoSimple.extend({
     init: function (render, arbol, propiedades) {
 	this._super(render, arbol, propiedades);
 
-	this.rect = new Kinetic.Blob({
-            points: [{
-		x: 0,
-		y: 0
-            }, {
-		x: this.kText.getWidth(),
-		y: 0
-            }, {
-		x: this.kText.getWidth(),
-		y: this.kText.getHeight()
-            }, {
-		x: 0,
-		y: this.kText.getHeight()
-            }],
-            stroke: this.color,
-            strokeWidth: 2,
-            fill: this.colorFondo,
-            shadowColor: this.Color,
-            shadowBlur: 5,
-            shadowOffset: [3, 3],
-            shadowOpacity: 0.5,
-            tension: 0.3
-	});
-
-        this.group.add(this.rect);
-	this.group.children[1].moveUp();
+	this.line.hide();
+	this.rect.show();
 
         var bindEditar = MM.Class.bind(this, this.editar);
-//        var bindNOP = MM.Class.bind(this, this.nop);
 	var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
         this.group.on('click tap', bindPonerFoco);
         this.group.on('dblclick  dbltap', bindEditar);
     },
 
     ponerFoco : function () {
-	this.rect.setStroke('#5268F2');
-	this.rect.setShadowColor('blue');
+	this.rect.setStroke(this.colorFondo);
+	this.rect.setFill(this.color);
+	this.rect.setShadowColor(this.color);
+	this.kText.setFill(this.colorFondo);
 	this.capa.draw();
     },
 
     quitarFoco : function () {
-	this.rect.setStroke('#555');
+	this.rect.setStroke(this.color);
+	this.rect.setFill(this.colorFondo);
 	this.rect.setShadowColor('black');
+	this.kText.setFill(this.color);
 	this.capa.draw();
     },
 
@@ -226,15 +231,9 @@ MM.Globo = MM.NodoSimple.extend({
             this.remove();
 	    MM.teclado.atajos.activo = true;
         };
-        document.body.appendChild(textarea);
+	this.escenario.content.appendChild(textarea);
         textarea.select();
         textarea.focus();
-    },
-
-    destroy : function () {
-	this.rect.destroy();
-	delete this.rect;
-	this._super();
     }
 
 });
