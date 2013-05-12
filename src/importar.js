@@ -1,7 +1,7 @@
 /**
  * @file importar.js Contiene toda la funcionalidad con respecto a la carga y/o importacion de ficheros.
  * @author José Luis Molina Soria
- * @version 20130401
+ * @version 20130512
  */
 
 if ( typeof module !== 'undefined' ) {
@@ -90,6 +90,7 @@ MM.importar = function() {
         if (evt.target.error.name == "EncodingError")
             evento.on ( "error/encoding", evt );
     };
+
 
     return {
 	evento : evento,

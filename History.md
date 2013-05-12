@@ -1,4 +1,4 @@
-0.0.1 / 2013-05-09 (abierta)
+0.0.1 / 2013-05-12 (abierta)
 ============================
 
   * Primera release
@@ -48,3 +48,4 @@
   * Input en el nuevo render lineal
   * Foco en el nuevo render lineal.
   * Evitar que se ejecuten las opciones por defecto en los atajos del teclado
+  * Incorporada funcionalidad de importación FreeMind al MM

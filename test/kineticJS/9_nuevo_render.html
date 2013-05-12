@@ -30,29 +30,10 @@
     <script src="mm.js"></script>
 
     <script>
-      var render;
       window.onload = function () {
           MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
-          render = new MM.Render('contenedor', MM.NodoSimple, MM.Rama);
-          render.dibujar();
-          document.getElementById('ficheros').addEventListener('change', cargarFichero, false);
+          MM.renderizar('contenedor', MM.NodoSimple, MM.Rama);
       };
-
-      var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
-         render.desuscribrirEventos();
-      });
-      var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
-         render.dibujar();
-      });
-
-      var imp = new MM.importar.FreeMind();
-
-      function cargarFichero(evt) {
-        if ( evt.target.files.length === 0 ) return;
-        var file = evt.target.files[0];
-        imp.cargar(file);
-      };
-
     </script>
   </head>
   <body>
@@ -64,7 +45,7 @@
 	<button onclick="MM.next();">Hijo</button>
 	<button onclick="MM.prevHermano();">Arriba</button>
 	<button onclick="MM.nextHermano();">Abajo</button>
-	<input type="file" id="ficheros" name="ficheros[]" />
+	<button onclick="MM.cargarFreeMind();">Cargar fichero FreeMind</button>
       </div>
       <div id="contenedor" style="height:600px">
       </div>

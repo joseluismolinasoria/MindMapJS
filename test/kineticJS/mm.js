@@ -135,6 +135,37 @@ MM = function (mm) {
 
     mm.nuevo( "Idea Central" );
 
+    mm.render = null;
+
+    mm.renderizar = function ( contenedor, claseNodo, claseArista ) {
+	mm.render = new MM.Render ( contenedor, claseNodo, claseArista );
+	mm.render.renderizar();
+    };
+
+
+    mm.cargarFreeMind = function () {
+	var importer = new MM.importar.FreeMind();
+
+	var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
+            MM.render.desuscribrirEventos();
+	});
+	var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
+            MM.render.dibujar();
+	});
+
+	var input = MM.DOM.create('input', {
+	    'type' : 'file',
+	    'id'   : 'ficheros'
+	});
+	input.addEventListener("change", function(evt) {
+	    if ( input.files.length !== 0 )
+		importer.cargar(input.files[0]);
+	}, false);
+	input.click();
+
+    };
+
+
     return mm;
 }(MM);
 
@@ -182,6 +213,8 @@ MM.Render = function() {
         this.renderAristas();
         idSusPre = idSusPost = null;
     };
+
+    render.prototype.renderizar = render.prototype.dibujar;
 
     render.prototype.suscribrirEventos = function ( ) {
 	this.desuscribrirEventos(); // evitamos dobles suscripciones

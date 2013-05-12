@@ -16,8 +16,8 @@ MM.DOM = {};
  * @param {object} objecto con los atributos que deseamos en el elemento DOM
  * @param {object} elemento DOM
  */
-MM.DOM.create = function(name, prop) {
-    var e = document.createElement(name);
+MM.DOM.create = function(tagName, prop) {
+    var e = document.createElement(tagName);
     
     // recorremos el objeto que nos han pasado como parámetro...
     for (var name in prop) {
@@ -29,7 +29,7 @@ MM.DOM.create = function(name, prop) {
 
     e.remove = function () {
 	this.parentNode.removeChild(this);
-    }
+    };
 
     return e; 
 };

@@ -7,7 +7,6 @@
 
 ** TODO Exportación a imagenes
 
-** TODO Pasar la funcionalidad de carga a MM
 ** TODO Cambiar el modo de reparto de espacios por uno más equilibrado
 
 ** TODO Ajustar la linea inferior cuando se edita el nodo
@@ -39,6 +38,8 @@
 
 
 * Pendiente de poner el WunderList
+** DONE Pasar la funcionalidad de carga a MM
+   CLOSED: [2013-05-12 dom 13:19]
 
 
 
