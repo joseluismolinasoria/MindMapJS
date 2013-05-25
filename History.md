@@ -49,3 +49,11 @@
   * Foco en el nuevo render lineal.
   * Evitar que se ejecuten las opciones por defecto en los atajos del teclado
   * Incorporada funcionalidad de importación FreeMind al MM
+  * Copiar las implementaciones al src como modulos del proyecto
+  * Funciones de colores en un modulo concreto
+  * Zoom (in/out/reset).
+
+
+
+
+

@@ -92,6 +92,7 @@ MM.teclado.keyUp = function (e){
 	MM.teclado.atajos.window = false;
     }
     evt = key = null;
+    return true;
 };
 
 /**
@@ -125,8 +126,10 @@ MM.teclado.keyDown = function (e){
 	    evt.stopPropagation();
 	}
 	MM.teclado.atajos.lanzar(nombreAtajo);
+	return false;
     };
     evt = key = nombre = nombreAtajo = null;
+    return true;
 };
 
 

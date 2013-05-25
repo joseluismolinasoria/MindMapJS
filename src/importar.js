@@ -107,8 +107,7 @@ MM.importar = function() {
  */
 MM.importar.XML = function() {
 
-    /** @lends MM.importar.XML.prototype */
-    var f = MM.Class.extend({
+    var f = MM.Class.extend( /** @lends MM.importar.XML.prototype */{
 
 	/**
 	 * @desc Proceso de carga de un fichero XML
@@ -195,8 +194,8 @@ MM.importar.XML = function() {
  */
 MM.importar.FreeMind = function() {
 
-    /** @lends MM.importar.FreeMind.prototype */
-    var f = MM.importar.XML.extend({
+    
+    var f = MM.importar.XML.extend(/** @lends MM.importar.FreeMind.prototype */{
 
 	/**
 	 * @desc Proceso de carga de un fichero FreeMind

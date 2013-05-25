@@ -11,7 +11,7 @@ if ( typeof module !== 'undefined' ) {
 
 /**
  * @class MM.Arbol
- * @classdesc Implementación de árbol eneario. El constructor de la clase árból recibe un elemento y 
+ * @classdesc Implementación de árbol eneario. El constructor de la clase árbol recibe un elemento y 
  * un array de árboles hijo.
  * @constructor MM.Arbol 
  * @param {*}     elemento  elemento del árbol

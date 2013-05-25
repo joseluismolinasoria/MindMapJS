@@ -2,15 +2,20 @@
 #+STARTUP:  
     
 * Planificado
-** TODO Copiar las implementaciones al src como modulos del proyecto
 ** TODO Implementación de la primera interface
 
 ** TODO Exportación a imagenes
 
+** TODO Exportar a freeMind 
+** TODO Exportar a Dot-language
+   - http://en.wikipedia.org/wiki/DOT_(graph_description_language)
 ** TODO Cambiar el modo de reparto de espacios por uno más equilibrado
 
 ** TODO Ajustar la linea inferior cuando se edita el nodo
    
+** TODO Si MM es mayor que el espacio de dibujo => escalar
+** TODO Cuando se escala la posición del editor no es correcta
+
 
 * Pendiente de planificar
 ** TODO Pellizco. Multitouch. 
@@ -38,12 +43,20 @@
 
 
 * Pendiente de poner el WunderList
+
+* Realizado
+** DONE Funciones de colores (pasar a un modulo concreto
+   CLOSED: [2013-05-24 vie 12:17]
+
+** DONE Escalar. ZoomIn - ZoomOut y teclas de función
+   CLOSED: [2013-05-24 vie 12:18]
+** DONE Copiar las implementaciones al src como modulos del proyecto
+   CLOSED: [2013-05-24 vie 12:17]
+
 ** DONE Pasar la funcionalidad de carga a MM
    CLOSED: [2013-05-12 dom 13:19]
 
 
-
-* Realizado
 ** DONE Crear un nuevo render más optimo para un número grande de nodos
    CLOSED: [2013-04-28 dom 11:50]
 
@@ -68,7 +81,6 @@
 
 ** DONE Incorporar colores aleatorios a los nodos
    CLOSED: [2013-04-28 dom 11:50]
-
 
 ** DONE Librería para carga de ficheros
    CLOSED: [2013-04-22 lun 21:36] DEADLINE: <2013-04-27 sáb> SCHEDULED: <2013-03-11 lun>

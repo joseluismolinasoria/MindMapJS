@@ -11,7 +11,7 @@
         border: 1px solid blue;
       }
     </style>
-    <script src="../../lib/kinetic-v4.4.3.js"></script>
+    <script src="../../lib/kinetic-v4.4.3.min.js"></script>
     <script src="../../src/MindMapJS.js"></script>
     <script src="../../src/dom.js"></script>
     <script src="../../src/properties.js"></script>
@@ -20,13 +20,14 @@
     <script src="../../src/klass.js"></script>
     <script src="../../src/pubsub.js"></script>
     <script src="../../src/arbol-n.js"></script>
+    <script src="../../src/teclado.js"></script>
+    <script src="../../src/importar.js"></script>
     <script src="grid.js"></script>
     <script src="borde.js"></script>
     <script src="mensaje.js"></script>
     <script src="arista.js"></script>
     <script src="nodo.js"></script>
     <script src="mm.js"></script>
-
     <script>
       window.onload = function () {
         var ini = (new Date()).getTime();
@@ -37,8 +38,7 @@
 		MM.add('hijo'+ i + '-' + j);
             }
          }
-	 var render = new MM.Render('contenedor');
-         render.dibujar();
+	MM.renderizar('contenedor');
         var fin = (new Date()).getTime();
         alert (fin-ini);
 
