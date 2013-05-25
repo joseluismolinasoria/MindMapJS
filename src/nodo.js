@@ -179,20 +179,15 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
      * @desc Pone el nodo en modo edición
      */
     editar: function () {
-	console.log(this.kText.getOffset());
-	console.log(this.kText.getAbsolutePosition());
-	console.log(this.kText.getPosition());
-	console.log(this.getX() + "-" + this.getY());
 	MM.teclado.atajos.activo = false;
         var input = new MM.DOM.create('input',
             { 'id': 'editNodo',
               'value': this.arbol.elemento.texto,
               'style': 'position: absolute; ' +
-                    'top : ' + this.getY() + 'px; ' +
-                    'left: ' + this.getX() + 'px; ' +
+                    'top : ' + (this.getY() * MM.render.getEscala()) + 'px; ' +
+                    'left: ' + (this.getX() * MM.render.getEscala()) + 'px; ' +
                     'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
 	            'min-width: 50px; ' +
-//                    'height: ' + this.getHeight() + 'px; ' +
                     'border: 3px solid ' + this.color + '; ' +
                     'border-radius: 5px;' +
                     'background-color: ' + this.colorFondo + '; ' +
@@ -289,8 +284,8 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
             { 'id': 'editNodo',
                 'innerHTML': this.getText(),
                 'style': 'position: absolute; ' +
-                    'top : ' + this.getY() + 'px; ' +
-                    'left: ' + this.getX() + 'px; ' +
+                    'top : ' + (this.getY() * MM.render.getEscala()) + 'px; ' +
+                    'left: ' + (this.getX() * MM.render.getEscala())  + 'px; ' +
                     'width: ' + this.getWidth() + 'px; ' +
                     'height: ' + this.getHeight() + 'px; ' +
                     'border: ' + this.rect.getStrokeWidth() + 'px solid ' + this.rect.getStroke() + '; ' +

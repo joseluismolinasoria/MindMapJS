@@ -14,7 +14,6 @@
 ** TODO Ajustar la linea inferior cuando se edita el nodo
    
 ** TODO Si MM es mayor que el espacio de dibujo => escalar
-** TODO Cuando se escala la posición del editor no es correcta
 
 
 * Pendiente de planificar
@@ -44,7 +43,11 @@
 
 * Pendiente de poner el WunderList
 
+
 * Realizado
+** DONE Cuando se escala la posición del editor no es correcta
+   CLOSED: [2013-05-25 sáb 11:05]
+
 ** DONE Funciones de colores (pasar a un modulo concreto
    CLOSED: [2013-05-24 vie 12:17]
 
@@ -55,7 +58,6 @@
 
 ** DONE Pasar la funcionalidad de carga a MM
    CLOSED: [2013-05-12 dom 13:19]
-
 
 ** DONE Crear un nuevo render más optimo para un número grande de nodos
    CLOSED: [2013-04-28 dom 11:50]

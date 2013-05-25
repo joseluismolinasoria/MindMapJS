@@ -52,7 +52,7 @@
   * Copiar las implementaciones al src como modulos del proyecto
   * Funciones de colores en un modulo concreto
   * Zoom (in/out/reset).
-
+  * Cuando se escala la posición del editor no es correcta
 
 
 
