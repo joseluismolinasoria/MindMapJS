@@ -81,7 +81,7 @@ MM = function (mm) {
      * @instance
      */
     mm.add = function ( texto ) {
-        texto = texto || "Nuevo";
+        texto = texto || "Nueva idea";
         var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, nodo: null } );
         this.foco.hijos.push ( nuevo );
         this.eventos.on ( 'add', this.foco, nuevo );
@@ -279,7 +279,7 @@ MM = function (mm) {
             MM.render.desuscribrirEventos();
 	});
 	var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
-            MM.render.dibujar();
+            MM.render.renderizar();
 	});
 
 	var input = MM.DOM.create('input', {

@@ -17,11 +17,14 @@
 MM.Render = function() {
     var render = MM.Class.extend(/** @lends MM.Render.prototype */{
         init : function (contenedor, claseNodo, claseArista) {
+	    /** @prop {Element} contenedor Elemento DOM. Contenedor del escenario */
+            this.contenedor = document.getElementById(contenedor);
+
 	    /** @prop {number} width Ancho en pixeles del MM. Calculado a partir del contenedor  */
-            this.width = Math.floor((document.getElementById(contenedor).clientWidth / 100) * 98); // 98%
+            this.width = this.contenedor.clientWidth - 2; // -2px
 
 	    /** @prop {number} height Alto en pixeles del MM. Calculado a partir del contenedor */
-            this.height = Math.floor((document.getElementById(contenedor).clientHeight / 100) * 98); // 98%
+            this.height = this.contenedor.clientHeight - 2; // -2px
 
 	    /** @prop {number} devicePixelRatio Pixel Ratio del dispositivo. */
             this.devicePixelRatio = getDevicePixelRatio();
@@ -36,8 +39,17 @@ MM.Render = function() {
             this.escenario = new Kinetic.Stage({
                 container: contenedor,
                 width: this.width,
-                height: this.height
+                height: this.height/*,
+		draggable: true,
+		dragBoundFunc: function (pos) {
+                    MM.render.offset = pos;
+		    MM.render.renderAristas();
+                    return pos;
+		}*/
+
             });
+
+	    this.offset = {x:0, y:0};
 
 	    /** @prop {Kinetic.Layer} capaGrid Capa donde se dibujará el grid o rejilla del MM */
             this.capaGrid = new Kinetic.Layer();
@@ -69,7 +81,7 @@ MM.Render = function() {
     render.prototype.renderizar = function () {
 	this.capaGrid.removeChildren();
         new MM.Grid(this.capaGrid, this.width, this.height);
-        new MM.Borde(this.capaGrid, this.width, this.height);
+//        new MM.Borde(this.capaGrid, this.width, this.height);
 
         MM.arbol.elemento.reparto = {y0: 0, y1: this.height};
         var idSusPre = MM.arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
@@ -148,6 +160,7 @@ MM.Render = function() {
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
         this.renderAristas();
         this.capaNodos.draw();
+	hijo.elemento.nodo.editar();
     };
 
     /**

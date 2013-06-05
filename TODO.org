@@ -1,9 +1,12 @@
 #+TITLE: Projecto Fin de Carrera (MindMapJS)
 #+STARTUP:  
-    
-* Planificado
-** TODO Implementación de la primera interface
 
+* Planificado
+** TODO probar para mover el escenario
+   - stage.getContent().addEventListener('touchmove', function(evt) {
+   -    stage.setPosition(touchX, touchY);
+   -    stage.getChildren().batchDraw();
+   - });
 ** TODO Exportación a imagenes
 
 ** TODO Exportar a freeMind 
@@ -15,19 +18,28 @@
    
 ** TODO Si MM es mayor que el espacio de dibujo => escalar
 
+** TODO El tamaño de la fuente debe ir en proporción al ratioPixel
+** TODO El reparto debe realizarse en función de la escala.
+** TODO ZoomIO-Out con pellizco 
+   - Ejemplo muy muy bueno http://sney2002.github.com/canvas-event-js/example-zoom.html
+   - En sistemas touch el zoom en un pellizco. 
+
+** TODO Scroll con el touchMove
+
+** TODO javascript:void(null) en los enlaces
+
+** TODO Crear una página o un modo debug para la página
+
+** TODO Modo Activo/Inactivo del controlador de teclado falla
+
 
 * Pendiente de planificar
 ** TODO Pellizco. Multitouch. 
-** TODO Zoom 
-   - Ejemplo muy muy bueno http://sney2002.github.com/canvas-event-js/example-zoom.html
-   - En sistemas touch el zoom en un pellizco. 
 ** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
 ** TODO Estudiar en profundidad como funciona un sistema ya implementado.
 ** TODO JsMin como compresor de código JavaScript
 ** TODO JsLint/JsHint para validar código
-** TODO Documentar teclado.js
 ** TODO Diseñar la página móvil
-** TODO Scroll dentro del canvas??
 ** TODO Pensar como crear una presentación a partir del árbol
    - reveal.js puede ser una opción
 
@@ -42,6 +54,29 @@
 
 
 * Pendiente de poner el WunderList
+** DONE Documentar teclado.js
+   CLOSED: [2013-05-29 mié 11:31]
+
+** DONE Implementación de la primera interface
+   CLOSED: [2013-06-04 mar 08:58]
+
+** DONE Incluir enlace a Githup
+   CLOSED: [2013-06-04 mar 08:58]
+** DONE Incluir enlace al JSDOC. Documentación de la API.
+   CLOSED: [2013-06-04 mar 08:58]
+
+** DONE Incorporar Firebug lite para poder depurar 
+   CLOSED: [2013-06-04 mar 08:59]
+   - <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
+
+** DONE El editor en formato TextArea queda un poco basto mejorarlo
+   CLOSED: [2013-06-05 mié 18:25]
+
+** DONE Poner la botonera en una hilera vertical de 2 en 2 botones
+   CLOSED: [2013-06-05 mié 18:50]
+
+** DONE Nueva idea por defecto editable
+   CLOSED: [2013-06-05 mié 19:06]
 
 
 * Realizado

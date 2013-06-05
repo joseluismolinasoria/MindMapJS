@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html debug="false">
+  <head>
+    <title>::MindMapJS::</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" href="css/kickstart/kickstart.css" media="all" /> 
+    <link rel="stylesheet" type="text/css" href="css/MM.css" media="all" />
+<!--    <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
+<!--    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="lib/kickstart.js"></script> 
+
+    <script src="lib/kinetic-v4.5.3.min.js"></script>
+    <script src="src/MindMapJS.js"></script>
+    <script src="src/properties.js"></script>
+    <script src="src/chain.js"></script>
+    <script src="src/processable.js"></script>
+    <script src="src/klass.js"></script>
+    <script src="src/pubsub.js"></script>
+    <script src="src/arbol-n.js"></script>
+    <script src="src/dom.js"></script>
+    <script src="src/teclado.js"></script>
+    <script src="src/importar.js"></script>
+    <script src="src/grid.js"></script>
+    <script src="src/borde.js"></script>
+    <script src="src/mensaje.js"></script>
+    <script src="src/arista.js"></script>
+    <script src="src/nodo.js"></script>
+    <script src="src/color.js"></script>
+    <script src="src/render.js"></script>
+    <script src="src/mm.js"></script>
+    <script src="src/atajos.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+	<li>
+	  <a href="#">M<span>ind</span>M<span>ap</span>JS</a>
+	</li>
+	<li>
+	  <a href="#ayuda">Ayuda</a>
+	</li>
+	<li>
+	  <a href="#datosProyecto">Datos del proyecto</a>
+	</li>
+      </ul>
+    </nav>
+
+    <ul class="button-bar" style="position:fixed; top: 40px; right: 30px; left:auto; z-index:1000">
+      <li class="first"><a onclick="MM.nuevo(); return false;"><i class="icon-file"></i></a></li>
+      <li><a onclick="MM.add('Nuevo'); return false;"><i class="icon-plus"></i></a></li>
+      <li><a onclick="MM.borrar(); return false;"><i class="icon-minus"></i></a></li>
+      <li class="last"><a onclick="alert('editar'); return false;"><i class="icon-edit"></i></a></li>
+    </ul>
+    <ul class="button-bar" style="position:fixed; top: 71px; right: 30px; left:auto; z-index:1000">
+      <li class="first"><a onclick="MM.render.zoomIn(); return false;"><i class="icon-zoom-in"></i></a></li>
+      <li><a onclick="MM.render.zoomOut(); return false;"><i class="icon-zoom-out"></i></a></li>
+      <li><a onclick="MM.cargarFreeMind(); return false;"><i class="icon-upload-alt"></i></a></li>
+      <li class="last"><a href=""><i class="icon-download-alt"></i></a></li>
+    </ul>
+    <div id="contenedorEditor" class="fullSize"></div>
+
+    <footer id="footer" class="grid flex">
+      <div class="center"> 
+	Proyecto realizado por D. José Luis Molina Soria - Tutor D. Juan Antonio Falgueras Cano
+      </div>
+      <div class="col_4">
+	<a name="teclado"></a>
+	<h5>Atajos de teclado</h5>
+	&lt;Cursores&gt; Desplazamiento por los nodos.<br/>
+	&lt;Insert&gt; Crear un nuevo hijo.<br/>
+	&lt;Supr&gt; Borrar el nodo.<br/>
+	&lt;Home&gt; Ir al nodo Raíz.<br/>
+	&lt;Ctrl++&gt; Zoom in.<br/>
+	&lt;Ctrl+-&gt; Zoom out.<br/>
+	&lt;Ctrl+0&gt; Reset Zoom.
+      </div>
+      <div class="col_8">
+	<a name="datosProyecto"></a>
+	<h5>Datos del proyecto</h5>
+	Editor de mapas mentales Online con HTML5 y Javascripts (MindMapJS)<br/>
+	Autor Sr. D. José Luis Molina Soria<br/>
+	Tutor de proyecto Sr. D. Juan Antonio Falgueras Cano<br/>
+	Número de orden 5336<br/>
+	Autorizado el 3 de abril de 2013
+      </div>
+    </footer>
+  </body>
+  
+  <script>
+    window.onload = function () {
+    MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
+    MM.renderizar('contenedorEditor');
+    };
+  
+    
+  </script>
+</html>

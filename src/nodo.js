@@ -202,9 +202,9 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             self.group.setWidth(self.kText.getWidth());
             self.group.setHeight(self.kText.getHeight());
 	    self.line.setPoints ( [ { x: 0, y: self.kText.getHeight()}, { x: self.kText.getWidth(), y: self.kText.getHeight()} ] );
-	    MM.ponerFoco(self.arbol);
-            this.remove();
 	    MM.teclado.atajos.activo = true;
+            this.remove();
+	    MM.ponerFoco(self.arbol);
         };
 	this.escenario.content.appendChild(input);
         input.select();
@@ -286,18 +286,20 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
                 'style': 'position: absolute; ' +
                     'top : ' + (this.getY() * MM.render.getEscala()) + 'px; ' +
                     'left: ' + (this.getX() * MM.render.getEscala())  + 'px; ' +
-                    'width: ' + this.getWidth() + 'px; ' +
-                    'height: ' + this.getHeight() + 'px; ' +
-                    'border: ' + this.rect.getStrokeWidth() + 'px solid ' + this.rect.getStroke() + '; ' +
-                    'border-radius: 5px' +
-                    'background-color: ' + this.rect.getFill() + '; ' +
-                    'color: ' + this.kText.getFill() + '; ' +
+                    'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
+	            'min-width: 50px; ' +
+                    'height: 2em; ' +
+                    'border: 3px solid ' + this.color + '; ' +
+                    'border-radius: 5px;' +
+                    'background-color: ' + this.colorFondo + '; ' +
+                    'color: ' + this.color + '; ' +
                     'font-family: ' + this.kText.getFontFamily() + '; ' +
                     'font-size: ' + this.kText.getFontSize() + 'pt; ' +
-                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; height:auto;'
+                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden;'
             });
         var self = this;
         textarea.onblur = function () {
+	    self.arbol.elemento.texto = this.value;
             self.setText(this.value);
             self.group.setWidth(self.kText.getWidth());
             self.group.setHeight(self.kText.getHeight());
@@ -305,9 +307,10 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
 				    { x: self.kText.getWidth(),	y: 0 }, 
 				    { x: self.kText.getWidth(),	y: self.kText.getHeight() }, 
 				    { x: 0, y: self.kText.getHeight() } ] );
-	    MM.ponerFoco(self.arbol);
-            this.remove();
 	    MM.teclado.atajos.activo = true;
+            this.remove();
+	    MM.ponerFoco(self.arbol);
+	    window.focus();
         };
 	this.escenario.content.appendChild(textarea);
         textarea.select();

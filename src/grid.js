@@ -24,9 +24,13 @@ MM.Grid = MM.Class.extend(/** @lends MM.Grid.prototype */{
      * @desc Función de pintado de la rejilla
      */
     render: function () {
-	for ( var x = 100; x <= this.width; x += 100 ) {
+	var minWidth = -2*this.width;
+	var maxWidth = 2*this.width;
+	var minHeight = -2*this.height;
+	var maxHeight = 2*this.height;
+	for ( var x = minWidth; x <= 2*this.width; x += 100 ) {
 	     this.capa.add( new Kinetic.Line({
-		points: [x, 0, x, this.height],
+		points: [x, minHeight, x, maxHeight],
 		stroke: 'grey',
 		strokeWidth: 1,
 		lineCap: 'round',
@@ -34,9 +38,9 @@ MM.Grid = MM.Class.extend(/** @lends MM.Grid.prototype */{
 		dashArray: [0.8, 5]
 	    }));
 	} 
-	for ( var y = 100; y <= this.width; y += 100 ) {
+	for ( var y = -2*this.height; y <= 2*this.height; y += 100 ) {
 	     this.capa.add( new Kinetic.Line({
-		points: [0, y, this.width, y],
+		points: [minWidth, y, maxWidth, y],
 		stroke: 'grey',
 		strokeWidth: 1,
 		lineCap: 'round',
@@ -44,7 +48,7 @@ MM.Grid = MM.Class.extend(/** @lends MM.Grid.prototype */{
 		dashArray: [0.8, 5]
 	    }));
 	} 
-	x = y = null;
+	x = y = minWidth = maxWidth = minHeight = maxHeight = null;
     }
 });
 

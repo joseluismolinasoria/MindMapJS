@@ -29,10 +29,14 @@ MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
     calcularPuntos: function () {
 	var nodoOrigen = this.elementoOrigen.nodo;
 	var nodoDestino = this.elementoDestino.nodo;
-	this.x1 = (nodoOrigen.getX() + nodoOrigen.getWidth() / 2) * MM.render.getEscala();
-	this.y1 = (nodoOrigen.getY() + nodoOrigen.getHeight() / 2) * MM.render.getEscala();
-	this.x2 = (nodoDestino.getX() + nodoDestino.getWidth() / 2) * MM.render.getEscala();
-	this.y2 = (nodoDestino.getY() + nodoDestino.getHeight() / 2) * MM.render.getEscala();
+	this.x1 = (nodoOrigen.getX() + MM.render.offset.x + nodoOrigen.getWidth() / 2) 
+	    * MM.render.getEscala();
+	this.y1 = (nodoOrigen.getY() + MM.render.offset.y + nodoOrigen.getHeight() / 2) 
+	    * MM.render.getEscala();
+	this.x2 = (nodoDestino.getX() + MM.render.offset.x + nodoDestino.getWidth() / 2) 
+	    * MM.render.getEscala();
+	this.y2 = (nodoDestino.getY() + MM.render.offset.y + nodoDestino.getHeight() / 2) 
+	    * MM.render.getEscala();
 	this.c1x = this.x1 + (this.x2-this.x1)/2;
 	this.c1y = this.y1;
 	this.c2x = this.x1 + (this.x2-this.x1)/2;
@@ -79,12 +83,18 @@ MM.Rama = MM.Arista.extend(/** @lends MM.Rama.prototype */{
     calcularPuntos: function () {
 	var nodoOrigen = this.elementoOrigen.nodo;
 	var nodoDestino = this.elementoDestino.nodo;
-	this.x1 = (nodoOrigen.getX() + nodoOrigen.getWidth()) * MM.render.getEscala();
-	this.y1 = (nodoOrigen.getY() + nodoOrigen.getHeight()) * MM.render.getEscala();
-	this.x2 = nodoDestino.getX() * MM.render.getEscala();
-	this.y2 = (nodoDestino.getY() + nodoDestino.getHeight()) * MM.render.getEscala();
-	this.x3 = (nodoDestino.getX() + nodoDestino.getWidth()) * MM.render.getEscala();
-	this.y3 = (nodoDestino.getY() + nodoDestino.getHeight()) * MM.render.getEscala();
+	this.x1 = (nodoOrigen.getX() + MM.render.offset.x + nodoOrigen.getWidth()) 
+	    * MM.render.getEscala();
+	this.y1 = (nodoOrigen.getY() + MM.render.offset.y + nodoOrigen.getHeight()) 
+	    * MM.render.getEscala();
+	this.x2 = nodoDestino.getX() + MM.render.offset.x 
+	    * MM.render.getEscala();
+	this.y2 = (nodoDestino.getY() + MM.render.offset.y + nodoDestino.getHeight()) 
+	    * MM.render.getEscala();
+	this.x3 = (nodoDestino.getX() + MM.render.offset.x + nodoDestino.getWidth()) 
+	    * MM.render.getEscala();
+	this.y3 = (nodoDestino.getY() + MM.render.offset.x + nodoDestino.getHeight()) 
+	    * MM.render.getEscala();
 	this.c1x = this.x1 + (this.x2-this.x1)/2;
 	this.c1y = this.y1;
 	this.c2x = this.x1 + (this.x2-this.x1)/2;

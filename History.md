@@ -53,6 +53,16 @@
   * Funciones de colores en un modulo concreto
   * Zoom (in/out/reset).
   * Cuando se escala la posición del editor no es correcta
+  * Documentar teclado.js
+  * Implementación de la primera interface
+  * Incluir enlace a Githup
+  * Incluir enlace al JSDOC. Documentación de la API.
+  * Incorporar Firebug lite para poder depurar 
+  * El editor en formato TextArea queda un poco basto mejorarlo
+  * Poner la botonera en una hilera vertical de 2 en 2 botones
+  * Nueva idea por defecto editable
+
+
 
 
 
