@@ -28,14 +28,14 @@ MM.importar = function() {
      */
     var texto = function (file, encoding) {
         if (file) {
-	    var reader = new FileReader();
-	    reader.onloadstart = cargarInicio;
-	    reader.onprogress = progreso;
-	    reader.onload = cargado;
-	    reader.onabort = abortado;
-	    reader.onerror = error;
-	    reader.onloadend = cargarFin;
-	    reader.readAsText(file, encoding || "UTF-8");
+            var reader = new FileReader();
+            reader.onloadstart = cargarInicio;
+            reader.onprogress = progreso;
+            reader.onload = cargado;
+            reader.onabort = abortado;
+            reader.onerror = error;
+            reader.onloadend = cargarFin;
+            reader.readAsText(file, encoding || "UTF-8");
         }
     };
 
@@ -45,14 +45,14 @@ MM.importar = function() {
      */
     var dataURL = function (file) {
         if (file) {
-	    var reader = new FileReader();
-	    reader.onloadstart = cargarInicio;
-	    reader.onprogress = progreso;
-	    reader.onload = cargado;
-	    reader.onabort = abortado;
-	    reader.onerror = error;
-	    reader.onloadend = cargarFin;
-	    reader.readAsDataURL(file);
+            var reader = new FileReader();
+            reader.onloadstart = cargarInicio;
+            reader.onprogress = progreso;
+            reader.onload = cargado;
+            reader.onabort = abortado;
+            reader.onerror = error;
+            reader.onloadend = cargarFin;
+            reader.readAsDataURL(file);
         }
     };
 
@@ -71,8 +71,9 @@ MM.importar = function() {
     var progreso = function (evt) {
         if (evt.lengthComputable) {
             var porcentaje = (evt.loaded / evt.total) * 100;
-            if (porcentaje < 100)
+            if (porcentaje < 100) {
                 evento.on("progreso", porcentaje, evt);
+            }
         }
     };
 
@@ -81,21 +82,25 @@ MM.importar = function() {
     };
 
     var error = function (evt) {
-        if (evt.target.error.name == "NotFoundError")
+        if (evt.target.error.name === "NotFoundError") {
             return;
-        if (evt.target.error.name == "SecurityError")
+        }
+        if (evt.target.error.name === "SecurityError") {
             evento.on ( "error/seguridad", evt );
-        if (evt.target.error.name == "NotReadableError")
+        }
+        if (evt.target.error.name === "NotReadableError") {
             evento.on ( "error/lectura", evt );
-        if (evt.target.error.name == "EncodingError")
+        }
+        if (evt.target.error.name === "EncodingError") {
             evento.on ( "error/encoding", evt );
+        }
     };
 
 
     return {
-	evento : evento,
-	texto : texto,
-	dataURL : dataURL
+        evento : evento,
+        texto : texto,
+        dataURL : dataURL
     };
 }();
 
@@ -109,77 +114,78 @@ MM.importar.XML = function() {
 
     var f = MM.Class.extend( /** @lends MM.importar.XML.prototype */{
 
-	/**
-	 * @desc Proceso de carga de un fichero XML
-	 * @param file     {File}     Fichero que deseamos cargar
-	 * @param encoding {[string]} Codifiación del fichero
-	 */
-	cargar : function (file, encoding) {
-	    this.idSusCargado = MM.importar.evento.suscribir ( "cargado", cargado, this);
+        /**
+         * @desc Proceso de carga de un fichero XML
+         * @param file       {File}     Fichero que deseamos cargar
+         * @param [encoding] {String} Codifiación del fichero
+         */
+        cargar : function (file, encoding) {
+            this.idSusCargado = MM.importar.evento.suscribir ( "cargado", cargado, this);
             this.idSusErrorSeg = MM.importar.evento.suscribir ( "error/seguridad", errorCarga, this );
             this.idSusErrorLec = MM.importar.evento.suscribir ( "error/lectura", errorCarga, this );
-	    this.idSusErrorEnc = MM.importar.evento.suscribir ( "error/encoding", errorCarga, this );
-	    MM.importar.texto(file, encoding);
-	}
+            this.idSusErrorEnc = MM.importar.evento.suscribir ( "error/encoding", errorCarga, this );
+            MM.importar.texto(file, encoding);
+        }
     });
 
     var cargado = function ( datos, evt ) {
-	var xmlDoc = getXmlDoc ( datos );
-	MM.importar.evento.on ( 'xml/parseado', xmlDoc );
-	var json = procesar (xmlDoc.documentElement);
-	MM.importar.evento.on ( 'xml/procesado', json );
-	MM.importar.evento.desSuscribir(this.idSusCargado);
-	MM.importar.evento.desSuscribir(this.idSusErrorSeg);
-	MM.importar.evento.desSuscribir(this.idSusErrorLec);
-	MM.importar.evento.desSuscribir(this.idSusErrorEnc);
+        var xmlDoc = getXmlDoc ( datos );
+        MM.importar.evento.on ( 'xml/parseado', xmlDoc );
+        var json = procesar (xmlDoc.documentElement);
+        MM.importar.evento.on ( 'xml/procesado', json );
+        MM.importar.evento.desSuscribir(this.idSusCargado);
+        MM.importar.evento.desSuscribir(this.idSusErrorSeg);
+        MM.importar.evento.desSuscribir(this.idSusErrorLec);
+        MM.importar.evento.desSuscribir(this.idSusErrorEnc);
     };
 
     var procesar = function ( elemento ) {
-	var obj = { 
-	    nombre : elemento.nodeName,
-	    hijos : []
-	};
+        var obj = { 
+            nombre : elemento.nodeName,
+            hijos : []
+        };
+        var i;
 
-	// establecemos los atributos del nodo 
-	if ( elemento.attributes ) {
-	    for ( var i = 0; i < elemento.attributes.length; i++ ) {
-		obj[elemento.attributes[i].name] = elemento.attributes[i].value;
-	    }
-	}
-	// procesamos los hijos del elemento
-	if ( elemento.childNodes ) {
-	    for ( i = 0 ; i < elemento.childNodes.length; i++) {
-		if ( elemento.childNodes[i].nodeType === 3 ) {
-		    obj.texto = elemento.childNodes[i].nodeValue;
-		} else if ( elemento.childNodes[i].nodeType === 1 ) {
-			obj.hijos.push ( procesar(elemento.childNodes[i]) );
-		}
-	    }
-	}
-	i = null;
-	return obj;
+        // establecemos los atributos del nodo 
+        if ( elemento.attributes ) {
+            for ( i = 0; i < elemento.attributes.length; i++ ) {
+                obj[elemento.attributes[i].name] = elemento.attributes[i].value;
+            }
+        }
+        // procesamos los hijos del elemento
+        if ( elemento.childNodes ) {
+            for ( i = 0 ; i < elemento.childNodes.length; i++) {
+                if ( elemento.childNodes[i].nodeType === 3 ) {
+                    obj.texto = elemento.childNodes[i].nodeValue;
+                } else if ( elemento.childNodes[i].nodeType === 1 ) {
+                        obj.hijos.push ( procesar(elemento.childNodes[i]) );
+                }
+            }
+        }
+        i = null;
+        return obj;
     };
 
 
     var errorCarga = function ( evt ) {
-	console.log ( evt ); // TODO procesar errores
+        console.log ( evt ); // TODO procesar errores
     };
 
     var getXmlDoc = function ( datos ) {
-	var xmlDoc, parser;
-	if (window.DOMParser) {
+        var xmlDoc, parser;
+        if (window.DOMParser) {
             parser = new DOMParser();
             xmlDoc = parser.parseFromString ( datos, "text/xml" );
-	} else { // Sólo para IE < 9
+        } else { // Sólo para IE < 9
             xmlDoc = new ActiveXObject ( "Microsoft.XMLDOM" );
             xmlDoc.async = false;
             xmlDoc.loadXML ( datos );
-	    // document.write("Error code: " + xmlDoc.parseError.errorCode);
-	    // document.write("Error reason: " + xmlDoc.parseError.reason);
-	    // document.write("Error line: " + xmlDoc.parseError.line);
-	}
-	parser = null;
-	return xmlDoc;
+            // document.write("Error code: " + xmlDoc.parseError.errorCode);
+            // document.write("Error reason: " + xmlDoc.parseError.reason);
+            // document.write("Error line: " + xmlDoc.parseError.line);
+        }
+        parser = null;
+        return xmlDoc;
     };
 
     return f;
@@ -197,52 +203,53 @@ MM.importar.FreeMind = function() {
     
     var f = MM.importar.XML.extend(/** @lends MM.importar.FreeMind.prototype */{
 
-	/**
-	 * @desc Proceso de carga de un fichero FreeMind
-	 * @param file {File} Fichero que deseamos cargar
-	 */
-	cargar : function (file, encoding) {
-	    this.idSus = MM.importar.evento.suscribir ( "xml/procesado", procesado, this);
-	    this._super(file, encoding);
-	}
+        /**
+         * @desc Proceso de carga de un fichero FreeMind
+         * @param file {File} Fichero que deseamos cargar
+         */
+        cargar : function (file, encoding) {
+            this.idSus = MM.importar.evento.suscribir ( "xml/procesado", procesado, this);
+            this._super(file, encoding);
+        }
     });
 
     var procesado = function ( obj ) {
-	if ( obj.nombre !== 'map' || obj.hijos.length !== 1 ) {
-	    MM.importar.evento.on("freeMind/error", "No se trata de un fichero FreeMind válido");
-	    return;
-	}
-	var raiz = obj.hijos[0];
-	MM.nuevo(raiz["TEXT"]);
-	MM.importar.evento.on("freeMind/raiz", raiz["TEXT"]);
-	procesarHijos(raiz);
-	MM.importar.evento.on("freeMind/procesado");
-	MM.importar.evento.desSuscribir(this.idSus);
-	raiz = null;
+        if ( obj.nombre !== 'map' || obj.hijos.length !== 1 ) {
+            MM.importar.evento.on("freeMind/error", "No se trata de un fichero FreeMind válido");
+            return;
+        }
+        var raiz = obj.hijos[0];
+        MM.nuevo(raiz.TEXT);
+        MM.importar.evento.on("freeMind/raiz", raiz.TEXT);
+        procesarHijos(raiz);
+        MM.importar.evento.on("freeMind/procesado");
+        MM.importar.evento.desSuscribir(this.idSus);
+        raiz = null;
     };
 
     var procesarHijo = function ( obj ) {
-	MM.add(obj["TEXT"]).next().lastHermano();
-	procesarHijos( obj );
-	MM.padre();
+        MM.add(obj.TEXT).next().lastHermano();
+        procesarHijos( obj );
+        MM.padre();
     };
 
 
     var procesarHijos = function ( obj ) {
-    	for ( var i = 0; i < obj.hijos.length; i++ ) {
-    	    if ( obj.hijos[i]["nombre"] === "node" ) {
-		procesarHijo(obj.hijos[i]);
-    	    }
-    	}
-	i = null;
+        for ( var i = 0; i < obj.hijos.length; i++ ) {
+            if ( obj.hijos[i].nombre === "node" ) {
+                procesarHijo(obj.hijos[i]);
+            }
+        }
+        i = null;
     };
 
     return f;
 }();
 
 
-if ( typeof module !== 'undefined' ) 
+if ( typeof module !== 'undefined' ) {
     module.exports = MM.importar;
+}
 
 
 
@@ -250,37 +257,37 @@ if ( typeof module !== 'undefined' )
 // {
 //     try //Internet Explorer
 //     {
-// 	xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-// 	xmlDoc.async=false;
-// 	xmlDoc.load(dname); 	
-// 	if (xmlDoc.parseError.errorCode != 0)
-// 	{
-// 	    alert("Error in line " + xmlDoc.parseError.line +
-// 		  " position " + xmlDoc.parseError.linePos +
-// 		  "\nError Code: " + xmlDoc.parseError.errorCode +
-// 		  "\nError Reason: " + xmlDoc.parseError.reason +
-// 		  "Error Line: " + xmlDoc.parseError.srcText);
-// 	    return(null);
-// 	}
+//      xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+//      xmlDoc.async=false;
+//      xmlDoc.load(dname);     
+//      if (xmlDoc.parseError.errorCode != 0)
+//      {
+//          alert("Error in line " + xmlDoc.parseError.line +
+//                " position " + xmlDoc.parseError.linePos +
+//                "\nError Code: " + xmlDoc.parseError.errorCode +
+//                "\nError Reason: " + xmlDoc.parseError.reason +
+//                "Error Line: " + xmlDoc.parseError.srcText);
+//          return(null);
+//      }
 //     }
 //     catch(e)
 //     {
-// 	try //Firefox
-// 	{
-// 	    xmlDoc=document.implementation.createDocument("","",null);
-// 	    xmlDoc.async=false;
-// 	    xmlDoc.load(dname);
-// 	    if (xmlDoc.documentElement.nodeName=="parsererror")
-// 	    {
-// 		alert(xmlDoc.documentElement.childNodes[0].nodeValue);
-// 		return(null);
-// 	    }
-// 	}
-// 	catch(e) {alert(e.message)}
+//      try //Firefox
+//      {
+//          xmlDoc=document.implementation.createDocument("","",null);
+//          xmlDoc.async=false;
+//          xmlDoc.load(dname);
+//          if (xmlDoc.documentElement.nodeName=="parsererror")
+//          {
+//              alert(xmlDoc.documentElement.childNodes[0].nodeValue);
+//              return(null);
+//          }
+//      }
+//      catch(e) {alert(e.message)}
 //     }
 //     try
 //     {
-// 	return(xmlDoc);
+//      return(xmlDoc);
 //     }
 //     catch(e) {alert(e.message)}
 //     return(null);

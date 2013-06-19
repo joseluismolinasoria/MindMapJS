@@ -13,19 +13,21 @@
 Function.prototype.processable = function (prefn, postfn) {
     var fn = this;
     return function () {
+	var postRet;
         if (prefn) {
             prefn.apply(this, arguments);
         }
-        var ret = fn.apply(this, arguments);	
-	
+        var ret = fn.apply(this, arguments);    
+        
         if (postfn) {
-            var postRet = postfn.apply(this, arguments);
+            postRet = postfn.apply(this, arguments);
         }
-	return (postRet === undefined)? ret : postRet;
+        return (postRet === undefined)? ret : postRet;
     };
 };
 
-if ( typeof module !== 'undefined' ) 
+if ( typeof module !== 'undefined' ) {
     module.exports = Function.prototype.procesable;
+}
 
 

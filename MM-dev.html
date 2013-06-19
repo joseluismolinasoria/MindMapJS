@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
     <script type="text/javascript" src="lib/kickstart.js"></script> 
 
-    <script src="lib/kinetic-v4.4.3.min.js"></script>
+    <script src="lib/kinetic-v4.5.4.min.js"></script>
     <script src="src/MindMapJS.js"></script>
     <script src="src/properties.js"></script>
     <script src="src/chain.js"></script>
@@ -31,6 +31,7 @@
     <script src="src/render.js"></script>
     <script src="src/mm.js"></script>
     <script src="src/atajos.js"></script>
+    <script src="src/exportar.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -58,7 +59,7 @@
     </ul>
     <ul class="button-bar" style="position:fixed; top: 133px; right: 30px; left:auto; z-index:2">
       <li class="first"><a href="#" onclick="MM.cargarFreeMind(); return false;"><i class="icon-upload-alt"></i></a></li>
-      <li class="last"><a href="#"><i class="icon-download-alt"></i></a></li>
+      <li class="last"><a href="#" onclick="MM.exportar.freemind.grabar(); return false;"><i class="icon-download-alt"></i></a></li>
     </ul>
 
     <div id="contenedorEditor" tabindex="1"></div>

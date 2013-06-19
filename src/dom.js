@@ -17,18 +17,19 @@ MM.DOM = {};
  * @param {object} elemento DOM
  */
 MM.DOM.create = function(tagName, prop) {
-    var e = document.createElement(tagName);
+    var e = window.document.createElement(tagName);
     
     // recorremos el objeto que nos han pasado como parámetro...
     for (var name in prop) {
-	if ( name === 'innerHTML' )
-	    e[name] = prop[name];
-	else
-	    e.setAttribute(name, prop[name]);
+        if ( name === 'innerHTML' ) {
+            e[name] = prop[name];
+	} else {
+            e.setAttribute(name, prop[name]);
+	}
     }
 
     e.remove = function () {
-	this.parentNode.removeChild(this);
+        this.parentNode.removeChild(this);
     };
 
     return e; 

@@ -13,5 +13,5 @@ Function.prototype.chain = function() {
   return function() {
     var ret = self.apply(this, arguments);
     return ret === undefined ? this : ret;
-  }
+  };
 };

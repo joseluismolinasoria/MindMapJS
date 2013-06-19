@@ -17,47 +17,47 @@
 MM.Render = function() {
     var render = MM.Class.extend(/** @lends MM.Render.prototype */{
         init : function (contenedor, claseNodo, claseArista) {
-	    /** @prop {Element} contenedor Elemento DOM. Contenedor del escenario */
-            this.contenedor = document.getElementById(contenedor);
+            /** @prop {Element} contenedor Elemento DOM. Contenedor del escenario */
+            this.contenedor = window.document.getElementById(contenedor);
 
-	    /** @prop {number} width Ancho en pixeles del MM. Calculado a partir del contenedor  */
+            /** @prop {number} width Ancho en pixeles del MM. Calculado a partir del contenedor  */
             this.width = this.contenedor.clientWidth - 2; // -2px
 
-	    /** @prop {number} height Alto en pixeles del MM. Calculado a partir del contenedor */
+            /** @prop {number} height Alto en pixeles del MM. Calculado a partir del contenedor */
             this.height = this.contenedor.clientHeight - 2; // -2px
 
-	    /** @prop {number} devicePixelRatio Pixel Ratio del dispositivo. */
+            /** @prop {number} devicePixelRatio Pixel Ratio del dispositivo. */
             this.devicePixelRatio = getDevicePixelRatio();
 
-	    /** @prop {MM.Globo|MM.NodoSimple} Nodo Clase de renderizado de nodos. Por defecto, MM.Globo */
-	    this.Nodo = claseNodo || MM.Globo;
+            /** @prop {MM.Globo|MM.NodoSimple} Nodo Clase de renderizado de nodos. Por defecto, MM.Globo */
+            this.Nodo = claseNodo || MM.Globo;
 
-	    /** @prop {MM.Arista|MM.Rama} Arista Clase de renderizado de aristas. Por defecto, MM.Arista */
-	    this.Arista = claseArista || MM.Arista;
+            /** @prop {MM.Arista|MM.Rama} Arista Clase de renderizado de aristas. Por defecto, MM.Arista */
+            this.Arista = claseArista || MM.Arista;
 
-	    /** @prop {Kinetic.Stage} escenario Escenario donde irán cubicadas las capas de dibujo (Layers | Canvas). */
+            /** @prop {Kinetic.Stage} escenario Escenario donde irán cubicadas las capas de dibujo (Layers | Canvas). */
             this.escenario = new Kinetic.Stage({
                 container: contenedor,
                 width: this.width,
                 height: this.height/*,
-		draggable: true,
-		dragBoundFunc: function (pos) {
+                draggable: true,
+                dragBoundFunc: function (pos) {
                     MM.render.offset = pos;
-		    MM.render.renderAristas();
+                    MM.render.renderAristas();
                     return pos;
-		}*/
+                }*/
 
             });
 
-	    this.offset = {x:0, y:0};
+            this.offset = {x:0, y:0};
 
-	    /** @prop {Kinetic.Layer} capaGrid Capa donde se dibujará el grid o rejilla del MM */
+            /** @prop {Kinetic.Layer} capaGrid Capa donde se dibujará el grid o rejilla del MM */
             this.capaGrid = new Kinetic.Layer();
 
-	    /** @prop {Kinetic.Layer} capaNodos Capa donde se dibujarán los nodos del MM */
+            /** @prop {Kinetic.Layer} capaNodos Capa donde se dibujarán los nodos del MM */
             this.capaNodos = new Kinetic.Layer();
 
-	    /** @prop {Kinetic.Layer} capaAristas Capa donde se dibujarán las aristas del MM */
+            /** @prop {Kinetic.Layer} capaAristas Capa donde se dibujarán las aristas del MM */
             this.capaAristas = new Kinetic.Layer();
 
             this.escenario.add(this.capaGrid);
@@ -66,10 +66,10 @@ MM.Render = function() {
         }
     });
 
-    /** @prop {[MM.Arista|MM.Rama]} aristas Conjunto de aristas renderizadas en el MM */
+    /** @prop {Array} aristas Conjunto de aristas (MM.Arista o MM.Rama) renderizadas en el MM */
     render.prototype.aristas = [];
     
-    /** @prop {[number]} suscripciones Array de id de suscripciones (id de eventos) */
+    /** @prop {Array} suscripciones Array de id de suscripciones (id de eventos) */
     render.prototype.suscripciones = [];
 
     /**
@@ -79,7 +79,7 @@ MM.Render = function() {
      * @instance
      */
     render.prototype.renderizar = function () {
-	this.capaGrid.removeChildren();
+        this.capaGrid.removeChildren();
         new MM.Grid(this.capaGrid, this.width, this.height);
 //        new MM.Borde(this.capaGrid, this.width, this.height);
 
@@ -94,7 +94,7 @@ MM.Render = function() {
         this.escenario.draw();
         this.renderAristas();
 
-	MM.definirAtajos();
+        MM.definirAtajos();
 
         idSusPre = idSusPost = null;
     };
@@ -106,7 +106,7 @@ MM.Render = function() {
      * @instance
      */
     render.prototype.suscribrirEventos = function ( ) {
-	this.desuscribrirEventos(); // evitamos dobles suscripciones
+        this.desuscribrirEventos(); // evitamos dobles suscripciones
         this.suscripciones.push ( MM.eventos.suscribir('ponerFoco', cambiarFoco) );
         this.suscripciones.push ( MM.eventos.suscribir('add', this.nuevoNodo, this) );
         this.suscripciones.push ( MM.eventos.suscribir('borrar', this.borrarNodo, this) );
@@ -138,8 +138,7 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.renderAristas = function () {
-        if (!this.capaAristas)
-            return;
+        if (!this.capaAristas) { return; }
         this.capaAristas.clear();
         this.aristas.forEach(function (arista) {
             arista.render();
@@ -160,7 +159,7 @@ MM.Render = function() {
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
         this.renderAristas();
         this.capaNodos.draw();
-	hijo.elemento.nodo.editar();
+        hijo.elemento.nodo.editar();
     };
 
     /**
@@ -228,8 +227,9 @@ MM.Render = function() {
     };
 
     var getDevicePixelRatio = function () {
-        if ( window.devicePixelRatio )
+        if ( window.devicePixelRatio ) {
             return window.devicePixelRatio;
+	}
         return 1;
     };
 
@@ -322,8 +322,8 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.getEscala = function () {
-	var scale = MM.render.escenario.getScale();
-	return scale.x;
+        var scale = MM.render.escenario.getScale();
+        return scale.x;
     };
 
 
@@ -334,10 +334,10 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.zoomIn = function () {
-	var scale = MM.render.getEscala();
-	MM.render.escenario.setScale({ x:scale +0.05, y:scale + 0.05});
-	MM.render.capaNodos.draw();
-	MM.render.renderAristas();
+        var scale = MM.render.getEscala();
+        MM.render.escenario.setScale({ x:scale +0.05, y:scale + 0.05});
+        MM.render.capaNodos.draw();
+        MM.render.renderAristas();
     };
 
     /**
@@ -347,12 +347,12 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.zoomOut = function () {
-	var scale = MM.render.getEscala();
-	if ( scale.x !== 0.05 ) {
-	    MM.render.escenario.setScale({ x:scale - 0.05, y:scale - 0.05});
-	    MM.render.capaNodos.draw();
-	    MM.render.renderAristas();
-	}
+        var scale = MM.render.getEscala();
+        if ( scale.x !== 0.05 ) {
+            MM.render.escenario.setScale({ x:scale - 0.05, y:scale - 0.05});
+            MM.render.capaNodos.draw();
+            MM.render.renderAristas();
+        }
     };
 
     /**
@@ -362,9 +362,9 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.zoomReset = function () {
-	MM.render.escenario.setScale({x:1, y:1});
-	MM.render.capaNodos.draw();
-	MM.render.renderAristas();
+        MM.render.escenario.setScale({x:1, y:1});
+        MM.render.capaNodos.draw();
+        MM.render.renderAristas();
     };
 
     /**
@@ -376,10 +376,12 @@ MM.Render = function() {
      * @inner
      */
     var cambiarFoco = function (anterior, siguiente) {
-        if ( anterior !== null && anterior.elemento.nodo !== null )
+        if ( anterior !== null && anterior.elemento.nodo !== null ) {
             anterior.elemento.nodo.quitarFoco();
-        if ( siguiente !== null && siguiente.elemento.nodo !== null )
+	}
+        if ( siguiente !== null && siguiente.elemento.nodo !== null ) {
             siguiente.elemento.nodo.ponerFoco();
+	}
     };
 
     return render;

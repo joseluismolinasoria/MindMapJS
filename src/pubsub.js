@@ -30,13 +30,14 @@ MM.PubSub = MM.Class.extend(function() {
      * otro caso retorna true
      */
     p.on = function( evento ) {
-        if (!on[evento])
+        if (!on[evento]) {
             return false;
-	var args = Array.prototype.slice.call(arguments, 1);
+        }
+        var args = Array.prototype.slice.call(arguments, 1);
         on[evento].forEach(function (evt){
             evt.funcion.apply(evt.contexto, args);
         });
-	args = null;
+        args = null;
 
         return true;
     };
@@ -51,11 +52,13 @@ MM.PubSub = MM.Class.extend(function() {
      * @return {null|number} null en caso de fallo o *idSus* el identificador de suscripción
      */
     p.suscribir = function( evento, func, contexto ) {
-        if ( !evento || !func )
+        if ( !evento || !func ) {
             return null;
+        }
 
-        if (!on[evento])
+        if (!on[evento]) {
             on[evento] = [];
+        }
 
         contexto = contexto || this;
 
@@ -70,19 +73,22 @@ MM.PubSub = MM.Class.extend(function() {
      * @return {null|number} null si no se ha podido realizar la dessuscripción
      */
     p.desSuscribir = function (id) {
-        for (var evento in on)
-            if ( on[evento] )
-                for (var i = 0, len = on[evento].length; i < len; i++)
+        for (var evento in on) {
+            if ( on[evento] ) {
+                for (var i = 0, len = on[evento].length; i < len; i++) {
                     if (on[evento][i].id === id) {
                         on[evento].splice(i, 1);
                         return id;
                     }
-
+                }
+            }
+        }
         return null;
     };
 
     return p;
 }());
 
-if ( typeof module !== 'undefined' ) 
+if ( typeof module !== 'undefined' ) {
     module.exports = MM.PubSub;
+}

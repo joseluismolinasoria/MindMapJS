@@ -8,10 +8,10 @@
     <link rel="stylesheet" type="text/css" href="css/kickstart/kickstart.css" media="all" /> 
     <link rel="stylesheet" type="text/css" href="css/MM.css" media="all" />
 <!--    <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
-<!--    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
     <script type="text/javascript" src="lib/kickstart.js"></script> 
 
-    <script src="lib/kinetic-v4.5.3.min.js"></script>
+    <script src="lib/kinetic-v4.4.3.min.js"></script>
     <script src="src/MindMapJS.js"></script>
     <script src="src/properties.js"></script>
     <script src="src/chain.js"></script>
@@ -35,39 +35,44 @@
   <body>
     <nav class="navbar">
       <ul>
+	<li><a href="#">M<span>ind</span>M<span>ap</span>JS</a></li>
+	<li><a href="#" onclick="ayuda(true);"><i class="icon-question-sign"></i> Ayuda</a></li>
+	<li><a href="#" onclick="datosDelProyecto(true);"><i class="icon-info-sign"></i> Datos del proyecto</a></li>
+	<li><a href="https://github.com/joseluismolinasoria/MindMapJS" target="_black"><i class="icon-github-alt"></i> Github</a></li>
 	<li>
-	  <a href="#">M<span>ind</span>M<span>ap</span>JS</a>
-	</li>
-	<li>
-	  <a href="#ayuda">Ayuda</a>
-	</li>
-	<li>
-	  <a href="#datosProyecto">Datos del proyecto</a>
-	</li>
+	  <a href="docs/jsdocs/MM.html" target="_black"><i class="icon-align-left"></i> API</a></li>
       </ul>
     </nav>
 
-    <ul class="button-bar" style="position:fixed; top: 40px; right: 30px; left:auto; z-index:1000">
-      <li class="first"><a onclick="MM.nuevo(); return false;"><i class="icon-file"></i></a></li>
-      <li><a onclick="MM.add('Nuevo'); return false;"><i class="icon-plus"></i></a></li>
-      <li><a onclick="MM.borrar(); return false;"><i class="icon-minus"></i></a></li>
-      <li class="last"><a onclick="alert('editar'); return false;"><i class="icon-edit"></i></a></li>
+    <ul class="button-bar" style="position:fixed; top: 40px; right: 30px; left:auto; z-index:2">
+      <li class="first"><a href="#" onclick="MM.nuevo(); return false;"><i class="icon-file"></i></a></li>
+      <li class="last"><a href="#" onclick="alert('editar'); return false;"><i class="icon-edit"></i></a></li>
     </ul>
-    <ul class="button-bar" style="position:fixed; top: 71px; right: 30px; left:auto; z-index:1000">
-      <li class="first"><a onclick="MM.render.zoomIn(); return false;"><i class="icon-zoom-in"></i></a></li>
-      <li><a onclick="MM.render.zoomOut(); return false;"><i class="icon-zoom-out"></i></a></li>
-      <li><a onclick="MM.cargarFreeMind(); return false;"><i class="icon-upload-alt"></i></a></li>
-      <li class="last"><a href=""><i class="icon-download-alt"></i></a></li>
+    <ul class="button-bar" style="position:fixed; top: 71px; right: 30px; left:auto; z-index:2">
+      <li class="first"><a href="#" onclick="MM.add(); return false;"><i class="icon-plus"></i></a></li>
+      <li class="last"><a href="#" onclick="MM.borrar(); return false;"><i class="icon-minus"></i></a></li>
     </ul>
-    <div id="contenedorEditor" class="fullSize"></div>
+    <ul class="button-bar" style="position:fixed; top: 102px; right: 30px; left:auto; z-index:2">
+      <li class="first"><a href="#" onclick="MM.render.zoomIn(); return false;"><i class="icon-zoom-in"></i></a></li>
+      <li class="last"><a href="#" onclick="MM.render.zoomOut(); return false;"><i class="icon-zoom-out"></i></a></li>
+    </ul>
+    <ul class="button-bar" style="position:fixed; top: 133px; right: 30px; left:auto; z-index:2">
+      <li class="first"><a href="#" onclick="MM.cargarFreeMind(); return false;"><i class="icon-upload-alt"></i></a></li>
+      <li class="last"><a href="#"><i class="icon-download-alt"></i></a></li>
+    </ul>
 
-    <footer id="footer" class="grid flex">
-      <div class="center"> 
-	Proyecto realizado por D. José Luis Molina Soria - Tutor D. Juan Antonio Falgueras Cano
+    <div id="contenedorEditor" tabindex="1"></div>
+
+    <footer id="footer"> 
+      <div class="center">
+	Realizado por D. José Luis Molina Soria - Tutor D. Juan Antonio Falgueras Cano
       </div>
+    </footer>
+
+
+    <div id="ayuda" class="deslizable" onclick="ayuda(false);">
       <div class="col_4">
-	<a name="teclado"></a>
-	<h5>Atajos de teclado</h5>
+	<h4><i class="icon-desktop"></i> Atajos de teclado</h4>
 	&lt;Cursores&gt; Desplazamiento por los nodos.<br/>
 	&lt;Insert&gt; Crear un nuevo hijo.<br/>
 	&lt;Supr&gt; Borrar el nodo.<br/>
@@ -77,15 +82,21 @@
 	&lt;Ctrl+0&gt; Reset Zoom.
       </div>
       <div class="col_8">
-	<a name="datosProyecto"></a>
-	<h5>Datos del proyecto</h5>
+	<h4><i class="icon-tablet"></i> Touch</h4>
+	Crear la documentación para manejo táctil
+      </div>
+    </div>
+    <div id="datosDelProyecto" class="deslizable" onclick="datosDelProyecto(false);">
+      <div class="col_12">
+	<h4><i class="icon-info-sign"></i> Datos del proyecto</h4>
 	Editor de mapas mentales Online con HTML5 y Javascripts (MindMapJS)<br/>
 	Autor Sr. D. José Luis Molina Soria<br/>
 	Tutor de proyecto Sr. D. Juan Antonio Falgueras Cano<br/>
 	Número de orden 5336<br/>
 	Autorizado el 3 de abril de 2013
       </div>
-    </footer>
+   </div>
+
   </body>
   
   <script>
@@ -94,6 +105,37 @@
     MM.renderizar('contenedorEditor');
     };
   
+    function ayuda(mostrar) {
+      var e = document.getElementById('ayuda');
+      if ( mostrar ) {
+        if ( e.style.top !== "25px" ) {
+          datosDelProyecto(false);
+          e.style.top = "25px";
+          var t = setTimeout(function(){ayuda(false);},5000);
+        }
+      } else {
+        if ( e.style.top !== "-250px" ) {
+          e.style.top = "-250px";
+          if ( t ) window.clearTimeout(t);        
+        }
+      }
+    }
+
+    function datosDelProyecto(mostrar) {
+      var e = document.getElementById('datosDelProyecto');
+      if ( mostrar ) {
+        if ( e.style.top !== "25px" ) {
+          ayuda(false);
+          e.style.top = "25px";
+          var t = setTimeout(function(){datosDelProyecto(false);},5000);
+        }
+      } else {
+        if ( e.style.top !== "-250px" ) {
+          e.style.top = "-250px";
+          if ( t ) window.clearTimeout(t);        
+        }
+      }
+    }
     
   </script>
 </html>

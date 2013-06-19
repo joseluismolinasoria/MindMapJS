@@ -74,22 +74,29 @@ MM.teclado.tecla = {
  * @param {event} e Instancia de evento de teclado
  */
 MM.teclado.keyUp = function (e){
-    if ( !MM.teclado.atajos.activo ) 
-	return true;
-    var evt = e ? e : event;
+    // console.log ( 'keyUp activo: ' + MM.teclado.atajos.activo );
+    // console.log ( 'keyUp eventPhase: ' + e.eventPhase );
+    // console.log ( 'keyUp type: ' + e.type );
+    // console.log ( 'keyUp cancelable: ' + e.cancelable );
+    if ( !MM.teclado.atajos.activo ) {
+        return true;
+    }
+    //console.log ( 'keyUp activo: ' + MM.teclado.atajos.activo );
+
+    var evt = e ? e : window.event;
     var key = window.Event ? evt.which : evt.keyCode;
     
     if ( MM.teclado.tecla.esControl(key) ) {
-	MM.teclado.atajos.ctrl = false;
+        MM.teclado.atajos.ctrl = false;
     }
     if ( MM.teclado.tecla.esAlt(key) ) {
-	MM.teclado.atajos.alt = false;
+        MM.teclado.atajos.alt = false;
     }
     if ( MM.teclado.tecla.esShift(key) ) {
-	MM.teclado.atajos.shift = false;
+        MM.teclado.atajos.shift = false;
     }
     if ( MM.teclado.tecla.esWindow(key) ) {
-	MM.teclado.atajos.window = false;
+        MM.teclado.atajos.window = false;
     }
     evt = key = null;
     return true;
@@ -100,34 +107,42 @@ MM.teclado.keyUp = function (e){
  * @param {event} e Instancia de evento de teclado
  */
 MM.teclado.keyDown = function (e){
-    if ( !MM.teclado.atajos.activo ) 
-	return true;
-    var evt = e ? e : event;
+    // console.log ( 'keyDown activo: ' + MM.teclado.atajos.activo );
+    // console.log ( 'keyDown eventPhase: ' + e.eventPhase );
+    // console.log ( 'keyDown type: ' + e.type );
+    // console.log ( 'keyDown cancelable: ' + e.cancelable );
+    if ( !MM.teclado.atajos.activo ) {
+        return true;
+    }
+    // console.log ( 'keyDown activo: ' + MM.teclado.atajos.activo );
+    
+    var evt = e ? e : window.event;
     var key = window.Event ? evt.which : evt.keyCode;
     var nombre = MM.teclado.tecla.nombre(key);
+    var nombreAtajo; 
 
     if ( MM.teclado.tecla.esModificador(key) ) {
-	if ( MM.teclado.tecla.esControl(key) ) {
-	    MM.teclado.atajos.ctrl = true;
-	}
-	if ( MM.teclado.tecla.esAlt(key) ) {
-	    MM.teclado.atajos.alt = true;
-	}
-	if ( MM.teclado.tecla.esShift(key) ) {
-	    MM.teclado.atajos.shift = true;
-	}
-	if ( MM.teclado.tecla.esWindow(key) ) {
-	    MM.teclado.atajos.window = true;
-	}
+        if ( MM.teclado.tecla.esControl(key) ) {
+            MM.teclado.atajos.ctrl = true;
+        }
+        if ( MM.teclado.tecla.esAlt(key) ) {
+            MM.teclado.atajos.alt = true;
+        }
+        if ( MM.teclado.tecla.esShift(key) ) {
+            MM.teclado.atajos.shift = true;
+        }
+        if ( MM.teclado.tecla.esWindow(key) ) {
+            MM.teclado.atajos.window = true;
+        }
     } else { 
-	var nombreAtajo = MM.teclado.atajos.calcular(nombre);
-	if ( MM.teclado.atajos.definidos[nombreAtajo] ) { 
-	    evt.preventDefault(); 
-	    evt.stopPropagation();
-	}
-	MM.teclado.atajos.lanzar(nombreAtajo);
-	return false;
-    };
+        nombreAtajo = MM.teclado.atajos.calcular(nombre);
+        if ( MM.teclado.atajos.definidos[nombreAtajo] ) { 
+            evt.preventDefault(); 
+            evt.stopPropagation();
+        }
+        MM.teclado.atajos.lanzar(nombreAtajo);
+        return false;
+    }
     evt = key = nombre = nombreAtajo = null;
     return true;
 };
@@ -140,9 +155,9 @@ MM.teclado.keyDown = function (e){
  **/ 
 MM.teclado.tecla.nombre = function ( key ) {
     for (var name in this) {
-	if ( key === this[name] ) {
-	    return name;
-	}
+        if ( key === this[name] ) {
+            return name;
+        }
     }
     return String.fromCharCode(key);
 };
@@ -154,7 +169,7 @@ MM.teclado.tecla.nombre = function ( key ) {
  * @return {integer} valor asociado al nombre 
  **/ 
 MM.teclado.tecla.valor = function ( nombre ) {
-    return this[name];
+    return this[nombre];
 };
 
 /**
@@ -165,7 +180,7 @@ MM.teclado.tecla.valor = function ( nombre ) {
  **/     
 MM.teclado.tecla.esModificador = function ( key ) {
     return key === this.ctrl || key === this.alt || key === this.shift ||
-	key === this.leftWindow || key === this.rightWindow;
+        key === this.leftWindow || key === this.rightWindow;
 };
 
 /**
@@ -204,9 +219,6 @@ MM.teclado.tecla.esWindow = function ( key ) {
     return key === this.leftWindow || key === this.rightWindow;
 };
 
-
-
-
 /**
  * Espacio de nombre manejos de atajos de teclado. P.E.: "Ctrl+Alt+i"
  * @namespace MM.teclado.atajos
@@ -237,21 +249,21 @@ MM.teclado.atajos.add = function ( atajo, f, contexto ) {
  * @return {string | null} Nombre del atajo de teclado o null si no existe
  **/                 
 MM.teclado.atajos.calcular = function ( nombre ) {
-    var reKey = new RegExp("\\+" + nombre + "\$", "i" );
+    var reKey = new RegExp("\\+" + nombre + "$", "i" );
     var reCtrl = /ctrl\+/i;
     var reAlt = /alt\+/i;
     var reShift = /shift\+/i;
     var reWindow = /window\+/i;
     
     for (var name in this.definidos) {
-	if ( nombre === name ) return name;
+        if ( nombre === name ) { return name; }
         if( reKey.test(name) && 
-	    ( this.ctrl?reCtrl.test(name):!reCtrl.test(name)) && 
-	    ( this.alt?reAlt.test(name):!reAlt.test(name)) && 
-	    ( this.shift?reShift.test(name):!reShift.test(name)) && 
-	    ( this.window?reWindow.test(name):!reWindow.test(name)) ) {
-	    return name;
-	}
+            ( this.ctrl?reCtrl.test(name):!reCtrl.test(name)) && 
+            ( this.alt?reAlt.test(name):!reAlt.test(name)) && 
+            ( this.shift?reShift.test(name):!reShift.test(name)) && 
+            ( this.window?reWindow.test(name):!reWindow.test(name)) ) {
+            return name;
+        }
     }
     reKey = reCtrl = reAlt = reShift = reWindow = null;
     return null;
@@ -264,7 +276,7 @@ MM.teclado.atajos.calcular = function ( nombre ) {
  **/                 
 MM.teclado.atajos.lanzar = function (atajo) {
     if ( this.definidos[atajo] ) {
-	this.definidos[atajo].apply(this.contextos[atajo], []);
+        this.definidos[atajo].apply(this.contextos[atajo], []);
     }
 };
 
@@ -273,6 +285,6 @@ if ( typeof module !== 'undefined' ) {
 }
 
 if ( window ) {
-    window.addEventListener ("keyup", MM.teclado.tecla.keyUp, true);
+    window.addEventListener ("keyup", MM.teclado.keyUp, true);
     window.addEventListener ("keydown", MM.teclado.keyDown, true);
 }

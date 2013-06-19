@@ -19,8 +19,8 @@ if ( typeof module !== 'undefined' ) {
  */
 MM.Arbol = MM.PubSub.extend( /** @lends MM.Arbol.prototype */ {
     init: function(elemento, hijos) {
-	this.elemento = elemento;
-	this.hijos = hijos || [];
+        this.elemento = elemento;
+        this.hijos = hijos || [];
     }
 });
 
@@ -40,20 +40,34 @@ MM.Arbol.prototype.preOrden = function () {
     return a;
 };
 
+
+MM.Arbol.prototype.generalPreOrden = function ( generador, operacion ) {
+    this.on('preOrden', this);
+    var generado = generador(this.elemento);
+    this.hijos.forEach(function (hijo) {
+        operacion ( generado, hijo.generalPreOrden(generador, operacion) );
+    });
+
+    this.on('postPreOrden', this);
+    return generado;
+};
+
+
 /**
  * @desc Recorrido inOrden del arbol-n. inorden( a ) = inorden( a1 ), e, inorden( a2 ), ..., inorden( an )
  * @return {array} array de elementos resultados del recorrido inorden
  */
 MM.Arbol.prototype.inOrden = function () {
-    if (this.ordenNodo() == 0)
+    if (this.ordenNodo() === 0) {
         return [this.elemento];
+    }
     var a = [];
     this.hijos.forEach(function (hijo, idx) {
         a = a.concat(hijo.inOrden());
-        if (idx == 0) {
+        if (idx === 0) {
             a = a.concat(this.elemento);
-	    this.on('inOrden', this);
-	}
+            this.on('inOrden', this);
+        }
     }, this);
     this.on('postInOrden', this);
     return a;
@@ -130,7 +144,7 @@ MM.Arbol.prototype.esHoja = function () {
  */
 MM.Arbol.prototype.elementEqual = function (elemento){
     return elemento === this.elemento;
-}
+};
 
 /**
  * @desc realiza una búsqueda en el árbol para encontrar un elemento dado. 
@@ -139,14 +153,16 @@ MM.Arbol.prototype.elementEqual = function (elemento){
  * @return {MM.Arbol} devuelve el árbol cuyo elemento coincide o null en caso de no encontrarlo
  */
 MM.Arbol.prototype.buscar = function (elemento) {
-    if ( this.elementEqual (elemento) )
+    if ( this.elementEqual (elemento) ) {
         return this;
+    }
 
     var arbol = null;
     this.hijos.forEach(function (hijo) {
         var encontrado = hijo.buscar(elemento);
-        if ( encontrado != null )
+        if ( encontrado !== null ) {
             arbol = encontrado;
+	}
         encontrado = null;
     });
     return arbol;
@@ -159,14 +175,16 @@ MM.Arbol.prototype.buscar = function (elemento) {
  * @return {number} 
  */
 MM.Arbol.prototype.profundidad = function (elemento) {
-    if ( this.elementEqual(elemento) )
-	return 0;
+    if ( this.elementEqual(elemento) ) {
+        return 0;
+    }
 
     var profundidad = -1;
     this.hijos.forEach(function (hijo) {
-	var p = hijo.profundidad(elemento);
-        if  ( p != -1 ) 
-	    profundidad = p + 1; 
+        var p = hijo.profundidad(elemento);
+        if  ( p !== -1 ) {
+            profundidad = p + 1; 
+	}
     });
     return profundidad;
 };
@@ -177,22 +195,26 @@ MM.Arbol.prototype.profundidad = function (elemento) {
  * @return {MM.Arbol} árbol padre o null en caso de no tener
  */
 MM.Arbol.prototype.padreDe = function (elemento) {
-    if ( this.elementEqual(elemento) ) 
-	return null;
+    if ( this.elementEqual(elemento) ) {
+        return null;
+    }
     
     var padre = false;
     this.hijos.forEach(function (hijo) {
-	if ( hijo.elementEqual(elemento) )
-	    padre = this;
+        if ( hijo.elementEqual(elemento) ) {
+            padre = this;
+	}
     }, this);
 
-    if ( padre )
-	return this;
+    if ( padre ) {
+        return this;
+    }
     
     padre = null;
     this.hijos.forEach(function (hijo) {
-	if ( padre === null )
-	    padre = hijo.padreDe (elemento);
+        if ( padre === null ) {
+            padre = hijo.padreDe (elemento);
+	}
     });
     
     return padre;
@@ -206,14 +228,14 @@ MM.Arbol.prototype.padreDe = function (elemento) {
 MM.Arbol.prototype.borrar = function (elemento) {
     var padre = this.padreDe(elemento);
     var hijoBorrado = null;
-    if ( padre != null ) {
-	for (var i = 0 ; i <= padre.hijos.length; i++ ) {
-	    if ( padre.hijos[i].elementEqual(elemento) ) { 
-		hijoBorrado = padre.hijos[i];
-		padre.hijos.splice(i, 1);
-		break;
-	    }
-	}
+    if ( padre !== null ) {
+        for (var i = 0 ; i <= padre.hijos.length; i++ ) {
+            if ( padre.hijos[i].elementEqual(elemento) ) { 
+                hijoBorrado = padre.hijos[i];
+                padre.hijos.splice(i, 1);
+                break;
+            }
+        }
     }
     padre = null;
     return hijoBorrado;
@@ -221,10 +243,10 @@ MM.Arbol.prototype.borrar = function (elemento) {
 
 
 // Azúcar sintáctico
-var ArbolN = (function (elemento) { 
-    hijos = Array.prototype.slice.call(arguments, 1);
+var ArbolN = function (elemento) { 
+    var hijos = Array.prototype.slice.call(arguments, 1);
     return new MM.Arbol (elemento, hijos);
-});
+};
 
 if ( typeof module !== 'undefined' ) {
     module.exports.ArbolN = ArbolN;

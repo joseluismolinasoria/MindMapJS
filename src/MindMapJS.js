@@ -1,7 +1,8 @@
 /**
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
- * @version 0.0.1
+ * @version @@version
+ * @date    @@date
  */
 
 /**

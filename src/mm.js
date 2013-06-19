@@ -1,9 +1,8 @@
 /**
- * @file mm.js Implementación del MM
+ * @File mm.js Implementación del MM
  * @author José Luis Molina Soria
  * @version 20130520
  */
-
 MM = function (mm) {
 
     /** 
@@ -28,7 +27,7 @@ MM = function (mm) {
     /** 
      * @desc Genera un nuevo Mapa mental. Eliminar el Mapa mental existente hasta el momento.
      *       Resetea el contador de nodos. 
-     * @param {string} ideaCentral Texto de la idea central. Por cefecto 'Idea Central'
+     * @param {String} ideaCentral Texto de la idea central. Por cefecto 'Idea Central'
      * @method nuevo
      * @memberof MM
      * @instance
@@ -48,18 +47,18 @@ MM = function (mm) {
 
         idNodos = 1;
 
-	/** 
-	 * @prop {MM.PubSub} eventos Gestor de eventos del Mapa mental
-	 * @memberof MM
-	 * @inner
-	 */
+        /** 
+         * @prop {MM.PubSub} eventos Gestor de eventos del Mapa mental
+         * @memberof MM
+         * @inner
+         */
         this.eventos = new MM.PubSub();
 
-	/** 
-	 * @prop {MM.Arbol} arbol Arbol-eneario que representa al Mapa mental.
-	 * @memberof MM
-	 * @inner
-	 */
+        /** 
+         * @prop {MM.Arbol} arbol Arbol-eneario que representa al Mapa mental.
+         * @memberof MM
+         * @inner
+         */
         this.arbol = this.foco = new MM.Arbol(
             { id: idNodos++,
               texto: ideaCentral || 'Idea Central',
@@ -130,10 +129,9 @@ MM = function (mm) {
      * @instance
      */
     mm.padre = function () {
-        if ( !this.foco )
-            return;
+        if ( !this.foco ) { return; }
         var padre = this.arbol.padreDe ( this.foco.elemento.id );
-        if ( padre != null ) {
+        if ( padre !== null ) {
             this.eventos.on ( 'padre', this.foco, padre );
             this.ponerFoco ( padre );
         }
@@ -151,9 +149,9 @@ MM = function (mm) {
     mm.nextHermano = function () {
         var padre = this.arbol.padreDe ( this.foco.elemento.id );
 
-        if ( padre == null ) { return; }
+        if ( padre === null ) { return; }
 
-        for ( var i = 0; i < padre.hijos.length; i++ )
+        for ( var i = 0; i < padre.hijos.length; i++ ) {
             if ( padre.hijos[i].elementEqual ( this.foco.elemento.id ) ) {
                 if ( i === padre.hijos.length - 1 ) {
                     this.eventos.on ( 'nextHermano', this.foco, padre.hijos[0] );
@@ -164,7 +162,7 @@ MM = function (mm) {
                 }
                 break;
             }
-
+        }
         padre = null;
     }.chain();
 
@@ -179,10 +177,10 @@ MM = function (mm) {
     mm.prevHermano = function () {
         var padre = this.arbol.padreDe ( this.foco.elemento.id );
 
-        if ( padre == null ) { return; }
+        if ( padre === null ) { return; }
 
-        for ( var i = 0; i < padre.hijos.length; i++ )
-            if ( padre.hijos[i].elementEqual ( this.foco.elemento.id ) ) {
+        for ( var i = 0; i < padre.hijos.length; i++ ) {
+            if ( padre.hijos[i].elementEqual ( this.foco.elemento.id ) ) { 
                 if ( i === 0 ) {
                     this.eventos.on ( 'prevHermano', this.foco, padre.hijos[padre.hijos.length - 1] );
                     this.ponerFoco ( padre.hijos[padre.hijos.length - 1] );
@@ -192,6 +190,7 @@ MM = function (mm) {
                 }
                 return;
             }
+        }
         padre = null;
     }.chain();
 
@@ -205,7 +204,7 @@ MM = function (mm) {
     mm.lastHermano = function () {
         var padre = this.arbol.padreDe ( this.foco.elemento.id );
 
-        if ( padre == null ) { return; }
+        if ( padre === null ) { return; }
 
         if ( padre.hijos.length >= 1 ) {
             this.ponerFoco ( padre.hijos[padre.hijos.length - 1] );
@@ -260,8 +259,8 @@ MM = function (mm) {
      * @instance
      */
     mm.renderizar = function ( contenedor, claseNodo, claseArista ) {
-	mm.render = new MM.Render ( contenedor, claseNodo, claseArista );
-	mm.render.renderizar();
+        mm.render = new MM.Render ( contenedor, claseNodo, claseArista );
+        mm.render.renderizar();
     };
 
 
@@ -273,24 +272,25 @@ MM = function (mm) {
      * @instance
      */
     mm.cargarFreeMind = function () {
-	var importer = new MM.importar.FreeMind();
+        var importer = new MM.importar.FreeMind();
 
-	var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
+        var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
             MM.render.desuscribrirEventos();
-	});
-	var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
+        });
+        var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
             MM.render.renderizar();
-	});
+        });
 
-	var input = MM.DOM.create('input', {
-	    'type' : 'file',
-	    'id'   : 'ficheros'
-	});
-	input.addEventListener("change", function(evt) {
-	    if ( input.files.length !== 0 )
-		importer.cargar(input.files[0]);
-	}, false);
-	input.click();
+        var input = MM.DOM.create('input', {
+            'type' : 'file',
+            'id'   : 'ficheros'
+        });
+        input.addEventListener("change", function(evt) {
+            if ( input.files.length !== 0 ) {
+                importer.cargar(input.files[0]);
+            }
+        }, false);
+        input.click();
 
     };
 

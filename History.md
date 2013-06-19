@@ -1,4 +1,13 @@
-0.0.1 / 2013-05-12 (abierta)
+0.1.0 / 2013-06-19 (abierta)
+============================
+  * Nuevo README.md explicando como crear el proyecto.
+  * Incorporar GruntJs para automatizar tareas.
+  * JsHint para validar código
+  * Uglify como compresor de código JavaScript
+  * Exportar a freeMind
+  * Modo Activo/Inactivo del controlador de teclado falla
+
+0.0.1 / 2013-05-12 (cerrada)
 ============================
 
   * Primera release

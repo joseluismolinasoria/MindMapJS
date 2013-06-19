@@ -2,6 +2,20 @@
 #+STARTUP:  
 
 * Planificado
+** TODO Implementar un Undo.
+   - https://coderwall.com/p/rdzera
+   - https://github.com/ArthurClemens/Javascript-Undo-Manager
+   - https://github.com/shichuan/javascript-patterns/blob/master/design-patterns/command.html (patrón comando)
+** TODO Tab/Enter para editar el nodo actual y Tab para Salir
+** TODO Teclas del Vi
+** TODO Plegado de subramas.
+** TODO Opciones flotantes entorno al nodo seleccionado
+** TODO Unión de ramas
+** TODO Descripciones largas????
+** TODO Implementación de un clase de notificación de mensajes. 
+   - Esta clase creará onfly una ventana con el mensaje a notificar. 
+   - Implementación de distintos tipos de notitifación.
+   - Mirar HTMLKickStart.
 ** TODO probar para mover el escenario
    - stage.getContent().addEventListener('touchmove', function(evt) {
    -    stage.setPosition(touchX, touchY);
@@ -9,7 +23,6 @@
    - });
 ** TODO Exportación a imagenes
 
-** TODO Exportar a freeMind 
 ** TODO Exportar a Dot-language
    - http://en.wikipedia.org/wiki/DOT_(graph_description_language)
 ** TODO Cambiar el modo de reparto de espacios por uno más equilibrado
@@ -30,15 +43,14 @@
 
 ** TODO Crear una página o un modo debug para la página
 
-** TODO Modo Activo/Inactivo del controlador de teclado falla
+** TODO Orientación de los nodos a la derecha o izquierda. 
+
 
 
 * Pendiente de planificar
 ** TODO Pellizco. Multitouch. 
 ** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
 ** TODO Estudiar en profundidad como funciona un sistema ya implementado.
-** TODO JsMin como compresor de código JavaScript
-** TODO JsLint/JsHint para validar código
 ** TODO Diseñar la página móvil
 ** TODO Pensar como crear una presentación a partir del árbol
    - reveal.js puede ser una opción
@@ -50,10 +62,43 @@
    - http://pencil.evolus.vn/ 
    - http://www.balsamiq.com/
    
-** TODO Implementar un Undo.
+** TODO Guardar los datos en el localStorage. Sesiones persistentes. (idea de Galacho).
+Yo sigo en mis trece: ¿sería mucha marimorena montar un workspace local que mantuviera 
+los mapas de un usuario - asumiendo la volatilidad de este sistema - y que uno pudiera 
+importar/exportar contenidos? (Utilizando Storage/IndexDB para guardar los árboles como 
+objetos, etc)
+
 
 
 * Pendiente de poner el WunderList
+** DONE Nuevo README.md explicando como crear el proyecto.
+   CLOSED: [2013-06-19 mié 08:29]
+
+** DONE Incorporar GruntJs para automatizar tareas
+   CLOSED: [2013-06-17 lun 11:53]
+
+** DONE JsHint para validar código
+   CLOSED: [2013-06-17 lun 11:52]
+** DONE Uglify como compresor de código JavaScript
+   CLOSED: [2013-06-17 lun 11:53]
+** DONE Exportar a freeMind 
+   CLOSED: [2013-06-14 vie 08:32]
+window.URL = window.URL || window.webkitURL;
+var blob = new Blob(['body { color: red; }'], {type: 'text/css'});
+var link = document.createElement('a');
+link.download="nombre.txt";
+link.href = window.URL.createObjectURL(blob);
+link.click();
+SEGUNDA FORMA
+http://stackoverflow.com/questions/7160720/create-a-file-using-javascript-in-chrome-on-client-side
+- librería alternativa para filesystem https://github.com/ebidel/idb.filesystem.js
+
+** DONE Modo Activo/Inactivo del controlador de teclado falla
+   CLOSED: [2013-06-14 vie 08:31]
+
+
+
+* Realizado
 ** DONE Documentar teclado.js
    CLOSED: [2013-05-29 mié 11:31]
 
@@ -78,8 +123,6 @@
 ** DONE Nueva idea por defecto editable
    CLOSED: [2013-06-05 mié 19:06]
 
-
-* Realizado
 ** DONE Cuando se escala la posición del editor no es correcta
    CLOSED: [2013-05-25 sáb 11:05]
 

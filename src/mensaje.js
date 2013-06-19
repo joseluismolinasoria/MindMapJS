@@ -22,22 +22,22 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @memberof MM.Mensaje
      */
     defecto: {
-	x: 5,
-	y: 5,
-	text: '',
-	fontSize: 14,
-	fontFamily: 'helvetica',
-	fill: '#555',
-	width: 'auto',
-	align: 'center'
+        x: 5,
+        y: 5,
+        text: '',
+        fontSize: 14,
+        fontFamily: 'helvetica',
+        fill: '#555',
+        width: 'auto',
+        align: 'center'
     },
 
     init: function(escenario, capa, propiedades) {
-	this.escenario = escenario;
-	this.capa = capa;
-	var prop = MM.Properties.add(this.defecto, propiedades);
-	this.kText = new Kinetic.Text(prop);
-	capa.add ( this.kText );
+        this.escenario = escenario;
+        this.capa = capa;
+        var prop = MM.Properties.add(this.defecto, propiedades);
+        this.kText = new Kinetic.Text(prop);
+        capa.add ( this.kText );
     },
 
     /**
@@ -45,8 +45,8 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @param {String} texto Nuevo texto
      */
     setText: function (texto) {
-	this.kText.setText(texto);
-	this.capa.draw();
+        this.kText.setText(texto);
+        this.capa.draw();
     },
 
     /**
@@ -54,7 +54,7 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @return {String} texto actual del mensaje
      */
     getText: function () {
-	return this.kText.getText();
+        return this.kText.getText();
     },
 
     /**
@@ -62,8 +62,8 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @param {number} x Posición en el eje x del texto
      */
     setX: function (x) { 
-	this.kText.setX(x);
-	this.capa.draw();
+        this.kText.setX(x);
+        this.capa.draw();
     },
 
     /**
@@ -71,7 +71,7 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @return {number} posición X del mensaje.
      */
     getX: function () {
-	return this.kText.getAbsolutePosition().x;
+        return this.kText.getAbsolutePosition().x;
     },
 
     /**
@@ -79,8 +79,8 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @param {number} x Posición en el eje x del texto
      */
     setY: function (y) { 
-	this.kText.setY(y);
-	this.capa.draw();
+        this.kText.setY(y);
+        this.capa.draw();
     },
 
     /**
@@ -88,7 +88,7 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @return {number} posición Y del mensaje.
      */
     getY: function () {
-	return this.kText.getAbsolutePosition().y;
+        return this.kText.getAbsolutePosition().y;
     },
 
     /**
@@ -96,7 +96,7 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @return {number} Ancho del texto.
      */
     getWidth: function () {
-	return this.kText.getWidth();
+        return this.kText.getWidth();
     },
 
     /**
@@ -104,7 +104,7 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
      * @return {number} Alto del texto.
      */
     getHeight: function () {
-	return this.kText.getHeight();
+        return this.kText.getHeight();
     }
 
 });
