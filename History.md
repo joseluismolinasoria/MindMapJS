@@ -1,4 +1,7 @@
-0.1.0 / 2013-06-19 (abierta)
+0.1.1 / 2013-07-12 (abierta)
+============================
+
+0.1.0 / 2013-06-19 (cerrada)
 ============================
   * Nuevo README.md explicando como crear el proyecto.
   * Incorporar GruntJs para automatizar tareas.
@@ -6,6 +9,10 @@
   * Uglify como compresor de código JavaScript
   * Exportar a freeMind
   * Modo Activo/Inactivo del controlador de teclado falla
+  * Probar la depuración con el crhome 
+  * Cambiar la botonera se ve muy pequeña en tablets
+  * Implementar un Undo.
+
 
 0.0.1 / 2013-05-12 (cerrada)
 ============================

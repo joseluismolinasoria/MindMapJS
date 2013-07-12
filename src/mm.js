@@ -14,6 +14,13 @@ MM = function (mm) {
     var idNodos = 1;
 
     /** 
+     * @prop {MM.UndoManager} undoManager es el manejador de acciones hacer/deshacer (undo/redo)
+     * @memberof MM
+     * @inner
+     */
+    mm.undoManager = new MM.UndoManager(10);
+
+    /** 
      * @desc Sobreescritura del método "equal" del MM.Arbol. La comparación se realiza a 
      *       nivel de identificador.  
      * @method elementEqual 
@@ -83,6 +90,7 @@ MM = function (mm) {
         texto = texto || "Nueva idea";
         var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, nodo: null } );
         this.foco.hijos.push ( nuevo );
+	this.undoManager.add(new MM.comandos.Insertar(this.foco.elemento.id, nuevo.elemento.id, texto) );
         this.eventos.on ( 'add', this.foco, nuevo );
         nuevo = null;
     }.chain();
@@ -103,6 +111,7 @@ MM = function (mm) {
         var borrar = this.foco;
         this.padre();
         this.arbol.borrar ( borrar.elemento.id );
+	this.undoManager.add(new MM.comandos.Borrar(this.foco, borrar));
         this.eventos.on ( 'borrar', this.foco, borrar );
         borrar = null;
     }.chain();

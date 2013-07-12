@@ -31,3 +31,4 @@ MM.definirAtajos = function() {
     MM.teclado.atajos.add('del', MM.borrar, MM);
     // definir Ctrl+Enter para editar el nodo actual
 };
+

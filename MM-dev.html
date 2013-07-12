@@ -29,38 +29,56 @@
     <script src="src/nodo.js"></script>
     <script src="src/color.js"></script>
     <script src="src/render.js"></script>
+    <script src="src/undoManager.js"></script>
+    <script src="src/comandosHacerDeshacer.js"></script>
     <script src="src/mm.js"></script>
     <script src="src/atajos.js"></script>
-    <script src="src/exportar.js"></script>
+    <script src="src/demo.js"></script>
   </head>
   <body>
     <nav class="navbar">
       <ul>
 	<li><a href="#">M<span>ind</span>M<span>ap</span>JS</a></li>
-	<li><a href="#" onclick="ayuda(true);"><i class="icon-question-sign"></i> Ayuda</a></li>
-	<li><a href="#" onclick="datosDelProyecto(true);"><i class="icon-info-sign"></i> Datos del proyecto</a></li>
+	<li><a href="#" onclick="MM.demo.ayuda(true);"><i class="icon-question-sign"></i> Ayuda</a></li>
+	<li><a href="#" onclick="MM.demo.datosDelProyecto(true);"><i class="icon-info-sign"></i> Datos del proyecto</a></li>
 	<li><a href="https://github.com/joseluismolinasoria/MindMapJS" target="_black"><i class="icon-github-alt"></i> Github</a></li>
 	<li>
 	  <a href="docs/jsdocs/MM.html" target="_black"><i class="icon-align-left"></i> API</a></li>
       </ul>
     </nav>
 
-    <ul class="button-bar" style="position:fixed; top: 40px; right: 30px; left:auto; z-index:2">
-      <li class="first"><a href="#" onclick="MM.nuevo(); return false;"><i class="icon-file"></i></a></li>
-      <li class="last"><a href="#" onclick="alert('editar'); return false;"><i class="icon-edit"></i></a></li>
-    </ul>
-    <ul class="button-bar" style="position:fixed; top: 71px; right: 30px; left:auto; z-index:2">
-      <li class="first"><a href="#" onclick="MM.add(); return false;"><i class="icon-plus"></i></a></li>
-      <li class="last"><a href="#" onclick="MM.borrar(); return false;"><i class="icon-minus"></i></a></li>
-    </ul>
-    <ul class="button-bar" style="position:fixed; top: 102px; right: 30px; left:auto; z-index:2">
-      <li class="first"><a href="#" onclick="MM.render.zoomIn(); return false;"><i class="icon-zoom-in"></i></a></li>
-      <li class="last"><a href="#" onclick="MM.render.zoomOut(); return false;"><i class="icon-zoom-out"></i></a></li>
-    </ul>
-    <ul class="button-bar" style="position:fixed; top: 133px; right: 30px; left:auto; z-index:2">
-      <li class="first"><a href="#" onclick="MM.cargarFreeMind(); return false;"><i class="icon-upload-alt"></i></a></li>
-      <li class="last"><a href="#" onclick="MM.exportar.freemind.grabar(); return false;"><i class="icon-download-alt"></i></a></li>
-    </ul>
+    <span id="botonera">
+      <button class="large" title="Nuevo mapa mental" onclick="MM.nuevo(); return false;">
+	<i class="icon-file"></i>
+      </button>
+      <button class="large" title="Editar nodo actual" onclick="MM.render.editar(); return false;">
+	<i class="icon-edit"></i>
+      </button><br />
+      <button class="large" title="Crear un nuevo nodo hijo" onclick="MM.add(); return false;">
+	<i class="icon-plus"></i>
+      </button>
+      <button class="large" title="Borrar el nodo actual" onclick="MM.borrar(); return false;">
+	<i class="icon-minus"></i>
+      </button><br />
+      <button class="large" id="btnHacer" title="Hacer ..." onclick="MM.demo.hacer(); return false;">
+	<i class="icon-repeat"></i>
+      </button>
+      <button class="large" id="btnDeshacer" title="Deshacer ..." onclick="MM.demo.deshacer(); return false;">
+	<i class="icon-undo"></i>
+      </button><br />
+      <button class="large" title="Zoom in (ampliar)" onclick="MM.render.zoomIn(); return false;">
+	<i class="icon-zoom-in"></i>
+      </button>
+      <button class="large" title="Zoom out (encoger)" onclick="MM.render.zoomOut(); return false;">
+	<i class="icon-zoom-out"></i>
+      </button><br />
+      <button class="large" title="Cargar fichero FreeMind" onclick="MM.cargarFreeMind(); return false;">
+	<i class="icon-upload-alt"></i>
+      </button>
+      <button class="large" title="Exportar a fichero FreeMind" onclick="MM.exportar.freemind.grabar(); return false;">
+	<i class="icon-download-alt"></i>
+      </button><br />
+    </span>
 
     <div id="contenedorEditor" tabindex="1"></div>
 
@@ -71,7 +89,7 @@
     </footer>
 
 
-    <div id="ayuda" class="deslizable" onclick="ayuda(false);">
+    <div id="ayuda" class="deslizable" onclick="MM.demo.ayuda(false);">
       <div class="col_4">
 	<h4><i class="icon-desktop"></i> Atajos de teclado</h4>
 	&lt;Cursores&gt; Desplazamiento por los nodos.<br/>
@@ -87,7 +105,7 @@
 	Crear la documentación para manejo táctil
       </div>
     </div>
-    <div id="datosDelProyecto" class="deslizable" onclick="datosDelProyecto(false);">
+    <div id="datosDelProyecto" class="deslizable" onclick="MM.demo.datosDelProyecto(false);">
       <div class="col_12">
 	<h4><i class="icon-info-sign"></i> Datos del proyecto</h4>
 	Editor de mapas mentales Online con HTML5 y Javascripts (MindMapJS)<br/>
@@ -98,45 +116,5 @@
       </div>
    </div>
 
-  </body>
-  
-  <script>
-    window.onload = function () {
-    MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
-    MM.renderizar('contenedorEditor');
-    };
-  
-    function ayuda(mostrar) {
-      var e = document.getElementById('ayuda');
-      if ( mostrar ) {
-        if ( e.style.top !== "25px" ) {
-          datosDelProyecto(false);
-          e.style.top = "25px";
-          var t = setTimeout(function(){ayuda(false);},5000);
-        }
-      } else {
-        if ( e.style.top !== "-250px" ) {
-          e.style.top = "-250px";
-          if ( t ) window.clearTimeout(t);        
-        }
-      }
-    }
-
-    function datosDelProyecto(mostrar) {
-      var e = document.getElementById('datosDelProyecto');
-      if ( mostrar ) {
-        if ( e.style.top !== "25px" ) {
-          ayuda(false);
-          e.style.top = "25px";
-          var t = setTimeout(function(){datosDelProyecto(false);},5000);
-        }
-      } else {
-        if ( e.style.top !== "-250px" ) {
-          e.style.top = "-250px";
-          if ( t ) window.clearTimeout(t);        
-        }
-      }
-    }
-    
-  </script>
+  </body>  
 </html>

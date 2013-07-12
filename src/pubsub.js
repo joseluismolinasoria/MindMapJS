@@ -14,12 +14,16 @@ if ( typeof module !== 'undefined' ) {
  * @classdesc Implementación del patrón Publish/Subscribe
  * @constructor MM.PubSub
  */
-MM.PubSub = MM.Class.extend(function() {
+MM.PubSub = MM.Class.extend(/** @lends MM.PubSub.prototype */{
 
-    /** @lends MM.PubSub.prototype */
-    var p = {};
-    var on = {};
-    var idSus = 1;
+    eventos : {},
+
+    idSus : 1,
+
+    init : function () {
+	this.eventos = {};
+	this.idSus = 1;
+    },
 
     /**
      * @desc Realiza la notificación a los suscriptores de que se a producido
@@ -29,18 +33,18 @@ MM.PubSub = MM.Class.extend(function() {
      * @return {boolean} Si el evento no es un nombre valido retorna false en
      * otro caso retorna true
      */
-    p.on = function( evento ) {
-        if (!on[evento]) {
+    on : function( evento ) {
+        if (!this.eventos[evento]) {
             return false;
         }
         var args = Array.prototype.slice.call(arguments, 1);
-        on[evento].forEach(function (evt){
+        this.eventos[evento].forEach(function (evt){
             evt.funcion.apply(evt.contexto, args);
         });
         args = null;
 
         return true;
-    };
+    },
 
     /**
      * @desc Pemite la suscripción a una publicación o evento. Donde el parametro func es
@@ -51,43 +55,40 @@ MM.PubSub = MM.Class.extend(function() {
      * @param contexto {object}   contexto de ejecución de la función callback
      * @return {null|number} null en caso de fallo o *idSus* el identificador de suscripción
      */
-    p.suscribir = function( evento, func, contexto ) {
+    suscribir : function( evento, func, contexto ) {
         if ( !evento || !func ) {
             return null;
         }
 
-        if (!on[evento]) {
-            on[evento] = [];
+        if (!this.eventos[evento]) {
+            this.eventos[evento] = [];
         }
 
         contexto = contexto || this;
-
-        on[evento].push({ id : idSus, contexto: contexto, funcion: func });
-
-        return idSus++;
-    };
+        this.eventos[evento].push({ id : this.idSus, contexto: contexto, funcion: func });
+        return this.idSus++;
+    },
 
     /**
      * @desc realiza una dessuscripción a un evento o notificación
      * @param id   {number} identificador de suscripción
      * @return {null|number} null si no se ha podido realizar la dessuscripción
      */
-    p.desSuscribir = function (id) {
-        for (var evento in on) {
-            if ( on[evento] ) {
-                for (var i = 0, len = on[evento].length; i < len; i++) {
-                    if (on[evento][i].id === id) {
-                        on[evento].splice(i, 1);
+    desSuscribir : function (id) {
+        for (var evento in this.eventos) {
+            if ( this.eventos[evento] ) {
+                for (var i = 0, len = this.eventos[evento].length; i < len; i++) {
+                    if (this.eventos[evento][i].id === id) {
+                        this.eventos[evento].splice(i, 1);
                         return id;
                     }
                 }
             }
         }
         return null;
-    };
-
-    return p;
-}());
+    }
+    
+});
 
 if ( typeof module !== 'undefined' ) {
     module.exports = MM.PubSub;

@@ -2,15 +2,17 @@
 #+STARTUP:  
 
 * Planificado
-** TODO Implementar un Undo.
-   - https://coderwall.com/p/rdzera
-   - https://github.com/ArthurClemens/Javascript-Undo-Manager
-   - https://github.com/shichuan/javascript-patterns/blob/master/design-patterns/command.html (patrón comando)
-** TODO Tab/Enter para editar el nodo actual y Tab para Salir
-** TODO Teclas del Vi
+** TODO Undo movimiento
+** TODO Undo Plegado y desplegado
+** TODO Undo Nuevo
+** TODO Pellizco. Multitouch. 
+   - http://alxgbsn.co.uk/2011/08/16/event-delegation-for-touch-events-in-javascript/
+** TODO Ver que le pasa al intentar cargar un fichero en la tableta. 
+** TODO Nuevos atajos de teclado + Teclas del Vi
 ** TODO Plegado de subramas.
 ** TODO Opciones flotantes entorno al nodo seleccionado
-** TODO Unión de ramas
+** TODO Unión de ramas 
+** TODO Enlaces entre ramas (nodo raiz oculto)
 ** TODO Descripciones largas????
 ** TODO Implementación de un clase de notificación de mensajes. 
    - Esta clase creará onfly una ventana con el mensaje a notificar. 
@@ -47,8 +49,8 @@
 
 
 
+
 * Pendiente de planificar
-** TODO Pellizco. Multitouch. 
 ** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
 ** TODO Estudiar en profundidad como funciona un sistema ya implementado.
 ** TODO Diseñar la página móvil
@@ -71,6 +73,17 @@ objetos, etc)
 
 
 * Pendiente de poner el WunderList
+** DONE Probar la depuración con el crhome android
+   CLOSED: [2013-07-12 vie 19:49]
+   - http://www.android.es/herramientas-de-depuracion-remota-en-chrome-para-android.html#axzz2YoKXNQwV
+** DONE Cambiar la botonera se ve muy pequeña en tablets
+   CLOSED: [2013-07-12 vie 08:49]
+** DONE Implementar un Undo.
+   CLOSED: [2013-07-10 mié 09:10]
+   - https://coderwall.com/p/rdzera
+   - https://github.com/ArthurClemens/Javascript-Undo-Manager
+   - https://github.com/shichuan/javascript-patterns/blob/master/design-patterns/command.html (patrón comando)
+
 ** DONE Nuevo README.md explicando como crear el proyecto.
    CLOSED: [2013-06-19 mié 08:29]
 

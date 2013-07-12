@@ -1,7 +1,7 @@
 /**
  * @file render.js Implementación del render del MM
  * @author José Luis Molina Soria
- * @version 20130524
+ * @version 20130625
  */
 
 /**
@@ -159,7 +159,6 @@ MM.Render = function() {
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
         this.renderAristas();
         this.capaNodos.draw();
-        hijo.elemento.nodo.editar();
     };
 
     /**
@@ -328,6 +327,20 @@ MM.Render = function() {
 
 
     /**
+     * @desc Establece la escala a la que esta renderizada la imagen
+     * @param {number} escala Nueva escala.
+     * @memberof MM.Render 
+     * @method setEscala
+     * @inner
+     */
+    render.prototype.setEscala = function ( escala ) {
+        MM.render.escenario.setScale({x:escala, y:escala});
+        MM.render.capaNodos.draw();
+        MM.render.renderAristas();
+    };
+
+
+    /**
      * @desc Realiza un zoomIn al Mapa mental.
      * @memberof MM.Render 
      * @method zoomIn
@@ -335,9 +348,8 @@ MM.Render = function() {
      */
     render.prototype.zoomIn = function () {
         var scale = MM.render.getEscala();
-        MM.render.escenario.setScale({ x:scale +0.05, y:scale + 0.05});
-        MM.render.capaNodos.draw();
-        MM.render.renderAristas();
+	MM.render.setEscala(scale+0.05);
+	MM.undoManager.add ( new MM.comandos.Zoom(scale, scale+0.05) );
     };
 
     /**
@@ -348,10 +360,9 @@ MM.Render = function() {
      */
     render.prototype.zoomOut = function () {
         var scale = MM.render.getEscala();
-        if ( scale.x !== 0.05 ) {
-            MM.render.escenario.setScale({ x:scale - 0.05, y:scale - 0.05});
-            MM.render.capaNodos.draw();
-            MM.render.renderAristas();
+        if ( scale >= 0.05 ) {
+            MM.render.setEscala(scale - 0.05);
+	    MM.undoManager.add(new MM.comandos.Zoom(scale, scale-0.05) );
         }
     };
 
@@ -362,10 +373,10 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.zoomReset = function () {
-        MM.render.escenario.setScale({x:1, y:1});
-        MM.render.capaNodos.draw();
-        MM.render.renderAristas();
+	MM.render.setEscala(1);
+	MM.undoManager.add(new MM.comandos.Zoom(MM.render.getEscala(), 1) );
     };
+
 
     /**
      * @desc Cambia el foco de posición (nodo). Manejador del evento de cambio de foco del MM.
@@ -383,6 +394,18 @@ MM.Render = function() {
             siguiente.elemento.nodo.ponerFoco();
 	}
     };
+
+    /**
+     * @desc Pone en modo edición el nodo actual.
+     * @memberof MM.Render 
+     * @method editar
+     * @inner
+     */
+    render.prototype.editar = function () {
+	MM.foco.elemento.nodo.editar();
+//	MM.undoManager.add(new MM.comandos.editar(MM.foco.elemento.texto, nuevoTexto);
+    };
+
 
     return render;
 }();

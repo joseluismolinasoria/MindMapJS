@@ -2,7 +2,7 @@
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
  * @version 0.1.0
- * @date    2013-06-17
+ * @date    2013-07-12
  */
 
 /**
@@ -20,6 +20,8 @@ var MM = {};
 if ( typeof module !== 'undefined' ) {
     module.exports = MM;
 }
+
+
 ;/**
  * @file arbol-n.js Implementación de un árbol eneario 
  * @author José Luis Molina Soria
@@ -435,6 +437,7 @@ MM.definirAtajos = function() {
     MM.teclado.atajos.add('del', MM.borrar, MM);
     // definir Ctrl+Enter para editar el nodo actual
 };
+
 ;/**
  * @file borde.js Librería para pintar el borde del canvas
  * @author José Luis Molina Soria
@@ -513,6 +516,7 @@ Function.prototype.chain = function() {
     return ret === undefined ? this : ret;
   };
 };
+
 ;/**
  * @file color.js Funciones y utiles para manejo de colores.
  * @author José Luis Molina Soria
@@ -650,6 +654,207 @@ MM.color.hslToRgb = function ( hsl ) {
   var hsl = { h: 34, s: 78, l: 91 };
   
 */
+;MM.comandos = {};
+
+MM.comandos.Insertar=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function ( idPadre, idHijo, texto ) {
+	this._super('add', 
+		    function () {
+			var p = MM.arbol.buscar(idPadre);
+			var h = new MM.Arbol ( { id: idHijo, texto: texto, nodo: null } );
+			MM.ponerFoco(p);
+			p.hijos.push ( h );
+			MM.eventos.on ( 'add', p, h );
+			p = h = null;
+		    },
+		    function () {
+			var p = MM.arbol.buscar(idPadre);
+			var h = MM.arbol.buscar(idHijo);
+			MM.ponerFoco ( p );
+			MM.arbol.borrar ( idHijo );
+			MM.eventos.on ( 'borrar', p, h );
+			p = h = null;
+		    });
+    }
+});
+
+MM.comandos.Borrar=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function ( padre, hijo ) {
+	// generamos las funciones para crear una copia del subárbol.
+	var generador = function (elemento) {
+	    return new MM.Arbol( { id: elemento.id, texto: elemento.texto, nodo : null } );
+	};
+	var operador = function ( p, h ) {
+	    p.hijos.push(h);
+	};
+
+	var preRecorrido = function (nodo) {
+            MM.render.repartoEspacio(nodo);
+	};
+	
+	var postRecorrido = function (nodo) {
+            var elemento = nodo.elemento;
+            nodo.hijos.forEach(function (hijo) {
+		if ( MM.render.buscarArista(nodo, hijo) === null ) {
+		    var arista = new MM.render.Arista(MM.render.capaAristas, elemento, hijo.elemento, '3');
+		    MM.render.aristas.push(arista);
+		}
+		arista = null;
+            });
+            elemento = null;
+	};
+	
+	var idPadre = padre.elemento.id;
+	var subarbol = hijo.generalPreOrden(generador, operador);
+	this._super('borrar', 
+		    function () {
+			var padre = MM.arbol.buscar(idPadre);
+			MM.ponerFoco ( padre );
+			var hijo = MM.arbol.borrar ( subarbol.elemento.id );
+			MM.eventos.on ( 'borrar', padre, hijo );
+			padre = hijo = null;
+		    },
+		    function () {
+			var padre = MM.arbol.buscar(idPadre);
+			MM.ponerFoco(padre);
+			var hijo = subarbol.generalPreOrden(generador, operador);
+			padre.hijos.push ( hijo );
+			if ( MM.render )  {
+			    var idSusPre = padre.suscribir('preOrden', preRecorrido);
+			    var idSusPost = padre.suscribir('postPreOrden', postRecorrido);
+			    padre.preOrden();
+			    padre.desSuscribir(idSusPre);
+			    padre.desSuscribir(idSusPost);
+			    idSusPre = idSusPost = null;
+			    MM.render.renderAristas();
+			    MM.render.capaNodos.draw();
+			}
+			padre = hijo = null;
+		    });
+    }
+});
+
+// TODO pendiente
+MM.comandos.Nuevo=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function ( arbolOriginal ) {
+	this._super('nuevo', 
+		    function () {
+			// crear un nuevo árbol
+		    },
+		    function () {
+			// restaurar el árbol anterior
+		    });
+    }
+});
+
+MM.comandos.Editar=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function  ( id, original, nuevo) {
+	this._super('editar', 
+		    function () { 
+			var e = MM.arbol.buscar(id);
+			e.elemento.texto = nuevo;
+			if ( e.elemento.nodo )
+			    e.elemento.nodo.setText(nuevo);
+			e = null;
+		    },
+		    function () {
+			var e = MM.arbol.buscar(id);
+			e.elemento.texto = original;
+			e.elemento.nodo.setText(original);
+			e = null;
+		    });
+    }
+});
+
+MM.comandos.Zoom=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function (anterior, nuevo) {
+	this._super('zoom', 
+		    function () { 
+			MM.render.setEscala(nuevo);
+		    },
+		    function () {
+			MM.render.setEscala(anterior);
+		    });
+    }
+});
+
+
+;
+MM.demo = {};
+
+MM.demo.timerDeslizador = null;
+
+MM.demo.deslizar = function( id, ids ){
+    var min = "-500px";
+    var max = "25px";
+    var e = document.getElementById(id);
+    ids = ids || [];
+
+    if ( e.style.top === max ) {
+        e.style.top = min;
+    } else if ( e.style.top === min || e.style.top === "" ) {
+	ids.forEach ( function (item) {
+	    document.getElementById(item).style.top = min;
+	});
+        e.style.top = max;
+	if ( MM.demo.timerDeslizador ) {
+	    window.clearTimeout(MM.demo.timerDeslizador);
+	}
+        MM.demo.timerDeslizador = window.setTimeout(function(){if (e.style.top === max ) { e.style.top = min; } },5000);
+    }
+};
+
+
+MM.demo.ayuda = function () {
+    MM.demo.deslizar('ayuda', ['datosDelProyecto']);
+};
+
+MM.demo.datosDelProyecto = function (mostrar) {
+    MM.demo.deslizar('datosDelProyecto', ['ayuda']);
+};
+
+MM.demo.hacer = function(){
+    MM.undoManager.hacer();
+};
+
+MM.demo.deshacer = function(){
+    MM.undoManager.deshacer();
+};
+
+MM.demo.cambioUndoManager = function() {
+    var btnHacer = document.getElementById('btnHacer');
+    var btnDeshacer = document.getElementById('btnDeshacer');
+
+    if ( MM.undoManager.hacerNombre() === null ) {
+    	btnHacer.setAttribute('disabled', 'disabled');
+    	btnHacer.setAttribute('title', '');
+    } else {
+    	if ( btnHacer.hasAttribute('disabled') ) {
+    	    btnHacer.removeAttribute('disabled');
+    	}
+    	btnHacer.setAttribute('title', 'Hacer ' + MM.undoManager.hacerNombre());
+    }
+
+    if ( MM.undoManager.deshacerNombre() === null ) {
+    	btnDeshacer.setAttribute('disabled', 'disabled');
+    	btnDeshacer.setAttribute('title', '');
+    } else {
+    	if ( btnDeshacer.hasAttribute('disabled') ) {
+    	    btnDeshacer.removeAttribute('disabled');
+    	}
+    	btnDeshacer.setAttribute('title', 'Deshacer ' + MM.undoManager.deshacerNombre());
+    }
+
+    btnHacer = btnDeshacer = null;
+};
+
+
+window.onload = function () {
+    MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
+    MM.renderizar('contenedorEditor');
+    MM.undoManager.eventos.suscribir('cambio', MM.demo.cambioUndoManager );
+    MM.demo.cambioUndoManager();
+};
 ;/**
  * @file element.js Funcionalidad para manejo del DOM
  * @author José Luis Molina Soria
@@ -1314,6 +1519,13 @@ MM = function (mm) {
     var idNodos = 1;
 
     /** 
+     * @prop {MM.UndoManager} undoManager es el manejador de acciones hacer/deshacer (undo/redo)
+     * @memberof MM
+     * @inner
+     */
+    mm.undoManager = new MM.UndoManager(10);
+
+    /** 
      * @desc Sobreescritura del método "equal" del MM.Arbol. La comparación se realiza a 
      *       nivel de identificador.  
      * @method elementEqual 
@@ -1327,7 +1539,7 @@ MM = function (mm) {
     /** 
      * @desc Genera un nuevo Mapa mental. Eliminar el Mapa mental existente hasta el momento.
      *       Resetea el contador de nodos. 
-     * @param {string} ideaCentral Texto de la idea central. Por cefecto 'Idea Central'
+     * @param {String} ideaCentral Texto de la idea central. Por cefecto 'Idea Central'
      * @method nuevo
      * @memberof MM
      * @instance
@@ -1383,6 +1595,7 @@ MM = function (mm) {
         texto = texto || "Nueva idea";
         var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, nodo: null } );
         this.foco.hijos.push ( nuevo );
+	this.undoManager.add(new MM.comandos.Insertar(this.foco.elemento.id, nuevo.elemento.id, texto) );
         this.eventos.on ( 'add', this.foco, nuevo );
         nuevo = null;
     }.chain();
@@ -1403,6 +1616,7 @@ MM = function (mm) {
         var borrar = this.foco;
         this.padre();
         this.arbol.borrar ( borrar.elemento.id );
+	this.undoManager.add(new MM.comandos.Borrar(this.foco, borrar));
         this.eventos.on ( 'borrar', this.foco, borrar );
         borrar = null;
     }.chain();
@@ -1757,6 +1971,10 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         return this.group.getY();
     },
 
+    getGroup: function () {
+	return this.group;
+    },
+
     /**
      * @desc Ancho del nodo
      * @return {number} Ancho que ocupa el nodo.
@@ -1795,18 +2013,22 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
                     'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; height:auto;'
             });
         var self = this;
-        input.onblur = function () {
-            self.arbol.elemento.texto = this.value;
-            self.group.setWidth(self.kText.getWidth());
-            self.group.setHeight(self.kText.getHeight());
-            self.line.setPoints ( [ { x: 0, y: self.kText.getHeight()}, { x: self.kText.getWidth(), y: self.kText.getHeight()} ] );
-            MM.teclado.atajos.activo = true;
-            this.remove();
-            MM.ponerFoco(self.arbol);
-        };
+        input.onblur = MM.Class.bind(this, this.cerrarEdicion);
+
         this.escenario.content.appendChild(input);
         input.select();
         input.focus();
+    },
+
+    cerrarEdicion : function ( ) {
+	this.arbol.elemento.texto = this.value;
+        this.group.setWidth(this.kText.getWidth());
+        this.group.setHeight(this.kText.getHeight());
+        this.line.setPoints ( [ { x: 0, y: this.kText.getHeight() }, 
+				{ x: this.kText.getWidth(), y: this.kText.getHeight() } ] );
+        MM.teclado.atajos.activo = true;
+        this.remove();
+        MM.ponerFoco(this.arbol);
     },
 
     nop: function () {
@@ -1995,12 +2217,16 @@ if ( typeof module !== 'undefined' ) {
  * @classdesc Implementación del patrón Publish/Subscribe
  * @constructor MM.PubSub
  */
-MM.PubSub = MM.Class.extend(function() {
+MM.PubSub = MM.Class.extend(/** @lends MM.PubSub.prototype */{
 
-    /** @lends MM.PubSub.prototype */
-    var p = {};
-    var on = {};
-    var idSus = 1;
+    eventos : {},
+
+    idSus : 1,
+
+    init : function () {
+	this.eventos = {};
+	this.idSus = 1;
+    },
 
     /**
      * @desc Realiza la notificación a los suscriptores de que se a producido
@@ -2010,18 +2236,18 @@ MM.PubSub = MM.Class.extend(function() {
      * @return {boolean} Si el evento no es un nombre valido retorna false en
      * otro caso retorna true
      */
-    p.on = function( evento ) {
-        if (!on[evento]) {
+    on : function( evento ) {
+        if (!this.eventos[evento]) {
             return false;
         }
         var args = Array.prototype.slice.call(arguments, 1);
-        on[evento].forEach(function (evt){
+        this.eventos[evento].forEach(function (evt){
             evt.funcion.apply(evt.contexto, args);
         });
         args = null;
 
         return true;
-    };
+    },
 
     /**
      * @desc Pemite la suscripción a una publicación o evento. Donde el parametro func es
@@ -2032,43 +2258,40 @@ MM.PubSub = MM.Class.extend(function() {
      * @param contexto {object}   contexto de ejecución de la función callback
      * @return {null|number} null en caso de fallo o *idSus* el identificador de suscripción
      */
-    p.suscribir = function( evento, func, contexto ) {
+    suscribir : function( evento, func, contexto ) {
         if ( !evento || !func ) {
             return null;
         }
 
-        if (!on[evento]) {
-            on[evento] = [];
+        if (!this.eventos[evento]) {
+            this.eventos[evento] = [];
         }
 
         contexto = contexto || this;
-
-        on[evento].push({ id : idSus, contexto: contexto, funcion: func });
-
-        return idSus++;
-    };
+        this.eventos[evento].push({ id : this.idSus, contexto: contexto, funcion: func });
+        return this.idSus++;
+    },
 
     /**
      * @desc realiza una dessuscripción a un evento o notificación
      * @param id   {number} identificador de suscripción
      * @return {null|number} null si no se ha podido realizar la dessuscripción
      */
-    p.desSuscribir = function (id) {
-        for (var evento in on) {
-            if ( on[evento] ) {
-                for (var i = 0, len = on[evento].length; i < len; i++) {
-                    if (on[evento][i].id === id) {
-                        on[evento].splice(i, 1);
+    desSuscribir : function (id) {
+        for (var evento in this.eventos) {
+            if ( this.eventos[evento] ) {
+                for (var i = 0, len = this.eventos[evento].length; i < len; i++) {
+                    if (this.eventos[evento][i].id === id) {
+                        this.eventos[evento].splice(i, 1);
                         return id;
                     }
                 }
             }
         }
         return null;
-    };
-
-    return p;
-}());
+    }
+    
+});
 
 if ( typeof module !== 'undefined' ) {
     module.exports = MM.PubSub;
@@ -2076,7 +2299,7 @@ if ( typeof module !== 'undefined' ) {
 ;/**
  * @file render.js Implementación del render del MM
  * @author José Luis Molina Soria
- * @version 20130524
+ * @version 20130625
  */
 
 /**
@@ -2234,7 +2457,6 @@ MM.Render = function() {
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
         this.renderAristas();
         this.capaNodos.draw();
-        hijo.elemento.nodo.editar();
     };
 
     /**
@@ -2403,6 +2625,20 @@ MM.Render = function() {
 
 
     /**
+     * @desc Establece la escala a la que esta renderizada la imagen
+     * @param {number} escala Nueva escala.
+     * @memberof MM.Render 
+     * @method setEscala
+     * @inner
+     */
+    render.prototype.setEscala = function ( escala ) {
+        MM.render.escenario.setScale({x:escala, y:escala});
+        MM.render.capaNodos.draw();
+        MM.render.renderAristas();
+    };
+
+
+    /**
      * @desc Realiza un zoomIn al Mapa mental.
      * @memberof MM.Render 
      * @method zoomIn
@@ -2410,9 +2646,8 @@ MM.Render = function() {
      */
     render.prototype.zoomIn = function () {
         var scale = MM.render.getEscala();
-        MM.render.escenario.setScale({ x:scale +0.05, y:scale + 0.05});
-        MM.render.capaNodos.draw();
-        MM.render.renderAristas();
+	MM.render.setEscala(scale+0.05);
+	MM.undoManager.add ( new MM.comandos.Zoom(scale, scale+0.05) );
     };
 
     /**
@@ -2423,10 +2658,9 @@ MM.Render = function() {
      */
     render.prototype.zoomOut = function () {
         var scale = MM.render.getEscala();
-        if ( scale.x !== 0.05 ) {
-            MM.render.escenario.setScale({ x:scale - 0.05, y:scale - 0.05});
-            MM.render.capaNodos.draw();
-            MM.render.renderAristas();
+        if ( scale >= 0.05 ) {
+            MM.render.setEscala(scale - 0.05);
+	    MM.undoManager.add(new MM.comandos.Zoom(scale, scale-0.05) );
         }
     };
 
@@ -2437,10 +2671,10 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.zoomReset = function () {
-        MM.render.escenario.setScale({x:1, y:1});
-        MM.render.capaNodos.draw();
-        MM.render.renderAristas();
+	MM.render.setEscala(1);
+	MM.undoManager.add(new MM.comandos.Zoom(MM.render.getEscala(), 1) );
     };
+
 
     /**
      * @desc Cambia el foco de posición (nodo). Manejador del evento de cambio de foco del MM.
@@ -2458,6 +2692,18 @@ MM.Render = function() {
             siguiente.elemento.nodo.ponerFoco();
 	}
     };
+
+    /**
+     * @desc Pone en modo edición el nodo actual.
+     * @memberof MM.Render 
+     * @method editar
+     * @inner
+     */
+    render.prototype.editar = function () {
+	MM.foco.elemento.nodo.editar();
+//	MM.undoManager.add(new MM.comandos.editar(MM.foco.elemento.texto, nuevoTexto);
+    };
+
 
     return render;
 }();
@@ -2752,17 +2998,228 @@ if ( window ) {
     window.addEventListener ("keyup", MM.teclado.keyUp, true);
     window.addEventListener ("keydown", MM.teclado.keyDown, true);
 }
-;MM.UndoManager.execute({
-  execute: function(){
-    // do something
-  },
-  unexecute: function(){
-    // undo something
-  }
+;/**
+ * @file undoManager.js Implementación de un gestor de comandos hacer y deshacer
+ * @author José Luis Molina Soria
+ * @version 20130620
+ */
+
+if ( typeof module !== 'undefined' ) {
+    var MM = require('./MindMapJS.js');
+    MM.Class = require('./klass.js');
+    MM.PubSub = require('./pubsub.js');
+}
+
+/**
+ * @class MM.UndoManager
+ * @classdesc Gestor de comandos undo (hacer y deshacer).
+ * @constructor 
+ * @param maximo {integer} El máximo de comando en buffer. Por defecto, 10.
+ */  
+MM.UndoManager = MM.Class.extend(function() {
+    /** 
+     * @prop {Array} Comando del tipo Hacer / Deshacer
+     * @memberof MM.UndoManager
+     * @inner
+     */
+    var comandos = [];    // la lista de comandos
+
+    /** 
+     * @prop {integer} Tamaño máximo del buffer
+     * @memberof MM.UndoManager
+     * @inner
+     */
+    var maxComandos = 10; // número máximo de comandos en cola
+
+    /** 
+     * @prop {integer} Indice del comando actual
+     * @memberof MM.UndoManager
+     * @inner
+     */
+    var actual = -1;      // índice comando actual
+
+
+    var eventos = new MM.PubSub();
+
+
+    var init = function ( maximo ) {
+	maxComandos = maximo || 10;
+    };
+
+    /** 
+     * @desc Añade un nuevo comando a la pila de comandos. Si el tamaño del buffer sobrepasa el 
+     *       máximo fijado, entonces elimina el comando más antiguo. Si existiensen comandos por
+     *       encima del actual, estos serán eliminados.
+     * @param {MM.UndoManager.ComandoHacerDeshacer} Comando a añadir al buffer.
+     * @memberof MM.UndoManager
+     * @instance
+     */
+    var add = function (comando) {
+        borrarPorEncimaActual();
+        comandos.push(comando);
+        actual = comandos.length -1;
+        ajustarMaximo();
+	eventos.on('add');
+	eventos.on('cambio');
+    };
+
+    var borrarPorEncimaActual = function () {
+        if ( actual !== -1 && actual < comandos.length -1 ){
+            comandos = comandos.slice(0,actual+1);
+        }
+    };
+    
+    var ajustarMaximo = function () {
+        if ( actual === maxComandos ){
+            comandos.shift();
+            actual--;
+        }
+    };
+    
+    /**
+     * @desc Ejecuta el comando hacer correspondiente, según el comando actual. También hace avanzar
+     *       el puntero actual. El comando que se ejecuta o (hace) es el siguiente al comando actual. 
+     *       Si el comando actual es último no hay comando hacer, o no hay que hacer nada.
+     * @memberof MM.UndoManager
+     * @instance
+     */
+    var hacer = function () {
+        if ( comandos[actual+1] ) {
+            comandos[actual+1].hacer();
+            avanzar();
+	    eventos.on('hacer');
+	    eventos.on('cambio');
+        }
+    };
+
+    /**
+     * @desc Ejecuta el comando deshacer correspondiente, según el comando actual. También hace 
+     *       retroceder el puntero actual. 
+     * @memberof MM.UndoManager
+     * @instance
+     */    
+    var deshacer = function () {
+        if ( actual !== -1 ) {
+            comandos[actual].deshacer();
+            retroceder();
+	    eventos.on('deshacer');
+	    eventos.on('cambio');
+        }
+    };
+
+    var avanzar = function () {
+        if (actual < comandos.length - 1) {
+            actual++;
+	    eventos.on('avanzar');
+	    eventos.on('cambio');
+        }
+    };
+    
+    var retroceder = function () {
+        if (actual >= 0) {
+            actual--;
+	    eventos.on('retroceder');
+	    eventos.on('cambio');
+        }
+    };
+
+    /**
+     * @desc Calcula el nombre del comando a Hacer según la situación actual.
+     * @return {String} nombre del comando hacer.
+     * @memberof MM.UndoManager
+     * @instance
+     */        
+    var hacerNombre = function () {
+        if ( comandos[actual+1] ) {
+            return comandos[actual+1].nombre;
+        }
+        return null;
+    };
+
+    /**
+     * @desc Calcula el nombre del comando a deshacer según la situación actual.
+     * @return {String} nombre del comando deshacer.
+     * @memberof MM.UndoManager
+     * @instance
+     */            
+    var deshacerNombre = function () {
+        if ( actual !== -1 ) {
+            return comandos[actual].nombre;
+        }
+        return null;
+    };
+
+
+    /**
+     * @desc Genera un array con los nombres de los comandos
+     * @return {Array} Array con los nombres de los comandos
+     * @memberof MM.UndoManager
+     * @instance
+     */            
+    var nombres = function () {
+	return comandos.map(function (c) { return c.nombre; });
+    };
+    
+    return {
+	init : init, 
+	nombres : nombres,
+        hacerNombre : hacerNombre,
+	deshacerNombre: deshacerNombre,
+	/**
+	 * @desc Indica el indice actual dentro de la lista de comandos.
+	 * @return {Integer} indice actual
+	 * @memberof MM.UndoManager
+	 * @instance
+	 */
+        actual : function () { return actual; },
+        add : add,
+        hacer : hacer,
+        deshacer : deshacer,
+        /** 
+         * @prop {MM.PubSub} eventos Gestor de eventos del undoManager
+         * @memberof MM.UndoManager
+         * @instance
+         */
+	eventos : eventos
+    };
+}());
+
+/**
+ * @class MM.UndoManager.ComandoHacerDeshacer
+ * @classdesc Clase base para el comportamiento de una comando hacer/deshacer (undo/redo).
+ * @constructor 
+ * @param {string} nombre Nombre del comando
+ * @param {function} hacerCallBack Función a ejecutar en el hacer.
+ * @param {function} deshacerCallBack Función a ejecutar en el deshacer
+ */  
+MM.UndoManager.ComandoHacerDeshacer = MM.Class.extend(
+/** @lends MM.UndoManager.ComandoHacerDeshacer.prototype */{
+    init: function (nombre, hacerCallBack, deshacerCallBack) {
+        this.nombre = nombre;
+	this.hacerCallBack = hacerCallBack;
+        this.deshacerCallBack = deshacerCallBack;
+    },
+
+    /**
+     * @desc Ejecuta el comando hacer
+     * @memberof MM.UndoManager.ComandoHacerDeshacer
+     * @instance
+     */
+    hacer : function () {
+	this.hacerCallBack();
+    },
+
+    /**
+     * @desc Ejecuta el comando deshacer
+     * @memberof MM.UndoManager.ComandoHacerDeshacer
+     * @instance
+     */
+    deshacer : function () {
+	this.deshacerCallBack();
+    }
 });
 
-//call unexecute of prev. command
-CommandManager.undo(); 
-//call execute of prev. command
 
-CommandManager.redo(); 
+if ( typeof module !== 'undefined' ) {
+    module.exports.UndoManager = MM.UndoManager;
+}

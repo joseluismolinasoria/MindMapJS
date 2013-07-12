@@ -2,8 +2,12 @@ var PubSub = require("../src/pubsub.js");
 
 describe('PubSub', function(){
     var Evento = PubSub.extend({
+
+	cont : 0,
+
 	init: function() {
 	    this.cont = 0;
+	    this.eventos = {};
 	},
  
 	evento: function () {
@@ -55,5 +59,43 @@ describe('PubSub', function(){
 	    evt.cont.should.equal(1);
 	});
     });
+
+    describe('Con dos manejadores de eventos', function(){
+	var evt1;
+	var evt2;
+ 	var idSusEvento1 = null;
+	var idSusPostEvento1 = null;
+	var idSusEvento2 = null;
+	var idSusPostEvento2 = null;
+
+	it('Creamos dos manejadores eventos', function(){
+	    evt1 = new Evento ();
+	    evt2 = new Evento ();
+	});
+	it('Los contadores deben estar inicializados', function(){
+	    evt1.cont.should.equal(0);
+	    evt2.cont.should.equal(0);
+	});
+	it('Creamos nos suscribimos a los eventos del manejador 1', function(){
+	    idSusEvento1 = evt1.suscribir('evento', function () {});
+	    idSusPostEvento1 = evt1.suscribir('postEvento', function () { this.cont++; } );
+   	    idSusEvento1.should.equal(1); 
+   	    idSusPostEvento1.should.equal(2);
+	    console.log ( evt1.eventos );
+	});
+	it('Creamos nos suscribimos a los eventos del manejador 2', function(){
+	    idSusEvento2 = evt2.suscribir('evento', function () {});
+	    idSusPostEvento2 = evt2.suscribir('postEvento', function () { this.cont--; } );    
+   	    idSusEvento2.should.equal(1);
+   	    idSusPostEvento2.should.equal(2);
+	    console.log ( evt1.eventos );
+	});
+	it('Lanzamos el evento del manejador1', function(){
+	    evt1.evento();
+	    evt1.cont.should.equal(1);
+	    evt2.cont.should.equal(0);
+	});
+    });
+
 
 });

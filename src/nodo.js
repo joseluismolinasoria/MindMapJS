@@ -159,6 +159,10 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         return this.group.getY();
     },
 
+    getGroup: function () {
+	return this.group;
+    },
+
     /**
      * @desc Ancho del nodo
      * @return {number} Ancho que ocupa el nodo.
@@ -197,18 +201,22 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
                     'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; height:auto;'
             });
         var self = this;
-        input.onblur = function () {
-            self.arbol.elemento.texto = this.value;
-            self.group.setWidth(self.kText.getWidth());
-            self.group.setHeight(self.kText.getHeight());
-            self.line.setPoints ( [ { x: 0, y: self.kText.getHeight()}, { x: self.kText.getWidth(), y: self.kText.getHeight()} ] );
-            MM.teclado.atajos.activo = true;
-            this.remove();
-            MM.ponerFoco(self.arbol);
-        };
+        input.onblur = MM.Class.bind(this, this.cerrarEdicion);
+
         this.escenario.content.appendChild(input);
         input.select();
         input.focus();
+    },
+
+    cerrarEdicion : function ( ) {
+	this.arbol.elemento.texto = this.value;
+        this.group.setWidth(this.kText.getWidth());
+        this.group.setHeight(this.kText.getHeight());
+        this.line.setPoints ( [ { x: 0, y: this.kText.getHeight() }, 
+				{ x: this.kText.getWidth(), y: this.kText.getHeight() } ] );
+        MM.teclado.atajos.activo = true;
+        this.remove();
+        MM.ponerFoco(this.arbol);
     },
 
     nop: function () {

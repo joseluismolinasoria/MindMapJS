@@ -15,3 +15,4 @@ Function.prototype.chain = function() {
     return ret === undefined ? this : ret;
   };
 };
+

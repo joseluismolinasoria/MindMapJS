@@ -1,6 +1,6 @@
 {
   "name"            : "MindMapJS",
-  "version"         : "0.1.0",
+  "version"         : "0.1.1",
   "description"	    : "Editor de mapas mentales en JavaScript",
   "keywords"        : ["MindMap", "Editor"],
   "homepage"        : "https://github.com/joseluismolinasoria/MindMapJS",

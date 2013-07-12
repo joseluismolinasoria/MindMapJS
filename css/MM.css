@@ -161,7 +161,7 @@ a.callout{cursor:pointer;}
 }
 
 .deslizable {
-    top: -250px;
+    top: -500px; /* -250 / 768 */
     left: 0;
     padding-left:20px;
     padding-right:20px;
@@ -169,7 +169,6 @@ a.callout{cursor:pointer;}
     margin:0;
     border-top:1px solid #ddd;
     color:#888;
-    height: 250px;
     width: 100%;
     position: fixed;
     background:#eee;
@@ -178,3 +177,24 @@ a.callout{cursor:pointer;}
     -webkit-transition: top 1.5s; /* Safari */
 }
 
+#botonera {
+    border: 1px solid #ddd; 
+    background-color:#eee; 
+    padding:5px; 
+    position: fixed; 
+    top: 40px; 
+    right: 30px; 
+    z-index:2; 
+    box-shadow: 3px 3px 3px #888;
+    min-width : 130px;
+}
+
+#botonera button {
+    border-radius: 40%; 
+    padding: 8px 20px;
+    width: 57px;
+}
+
+button:disabled {
+    color : #ddd;
+}
