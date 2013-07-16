@@ -8,8 +8,17 @@
 ** TODO Pellizco. Multitouch. 
    - http://alxgbsn.co.uk/2011/08/16/event-delegation-for-touch-events-in-javascript/
 ** TODO Ver que le pasa al intentar cargar un fichero en la tableta. 
-** TODO Nuevos atajos de teclado + Teclas del Vi
+** TODO Cuando se edita poner un película sobre el canvas.
 ** TODO Plegado de subramas.
+** TODO Nuevos atajos de teclado + Teclas del Vi
+   - <Tab> para moverse por lo niveles. Cuando llega a un nodo hijo crea un nuevo nodo hijo. Cuando llega a un nodo plegado lo despliega
+   - <Enter> para entrar y salir del modo de edición
+   - <Escape> para salir del modo de edición
+   - <Shift+Enter> para crear un hermano
+   - <Shift+Tab> para crear hijo
+   - <Shift++> para plegar
+   - <Shift+-> para desplegar
+** TODO Búsqueda de nodos. 
 ** TODO Opciones flotantes entorno al nodo seleccionado
 ** TODO Unión de ramas 
 ** TODO Enlaces entre ramas (nodo raiz oculto)
@@ -73,6 +82,11 @@ objetos, etc)
 
 
 * Pendiente de poner el WunderList
+** DONE Control de edición con Enter. 
+   CLOSED: [2013-07-16 mar 09:17]
+** DONE Undo de Edición
+   CLOSED: [2013-07-16 mar 09:17]
+
 ** DONE Probar la depuración con el crhome android
    CLOSED: [2013-07-12 vie 19:49]
    - http://www.android.es/herramientas-de-depuracion-remota-en-chrome-para-android.html#axzz2YoKXNQwV

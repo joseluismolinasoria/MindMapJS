@@ -387,6 +387,8 @@ MM.Render = function() {
      * @inner
      */
     var cambiarFoco = function (anterior, siguiente) {
+	if ( enEdicion ) 
+	    MM.render.editar();
         if ( anterior !== null && anterior.elemento.nodo !== null ) {
             anterior.elemento.nodo.quitarFoco();
 	}
@@ -396,14 +398,31 @@ MM.Render = function() {
     };
 
     /**
-     * @desc Pone en modo edición el nodo actual.
+     * @desc Entra y sale de modo de edición. 
      * @memberof MM.Render 
      * @method editar
      * @inner
      */
+    var enEdicion = false;
     render.prototype.editar = function () {
-	MM.foco.elemento.nodo.editar();
-//	MM.undoManager.add(new MM.comandos.editar(MM.foco.elemento.texto, nuevoTexto);
+	if ( enEdicion ) {
+	    enEdicion = false;
+	    MM.foco.elemento.nodo.cerrarEdicion();
+	} else {
+	    enEdicion = true;
+	    MM.foco.elemento.nodo.editar();
+	}
+    };
+
+    /**
+     * @desc Indicar si el nodo actual
+     * @memberof MM.Render
+     * @return Devuelve true cuando el nodo actual ha entrado en modo edición y false en otro caso.
+     * @method modoEdicion
+     * @inner
+     */    
+    render.prototype.modoEdicion = function() {
+	return enEdicion;
     };
 
 

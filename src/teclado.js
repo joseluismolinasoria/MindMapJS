@@ -74,14 +74,10 @@ MM.teclado.tecla = {
  * @param {event} e Instancia de evento de teclado
  */
 MM.teclado.keyUp = function (e){
-    // console.log ( 'keyUp activo: ' + MM.teclado.atajos.activo );
-    // console.log ( 'keyUp eventPhase: ' + e.eventPhase );
-    // console.log ( 'keyUp type: ' + e.type );
-    // console.log ( 'keyUp cancelable: ' + e.cancelable );
+
     if ( !MM.teclado.atajos.activo ) {
         return true;
     }
-    //console.log ( 'keyUp activo: ' + MM.teclado.atajos.activo );
 
     var evt = e ? e : window.event;
     var key = window.Event ? evt.which : evt.keyCode;
@@ -107,14 +103,9 @@ MM.teclado.keyUp = function (e){
  * @param {event} e Instancia de evento de teclado
  */
 MM.teclado.keyDown = function (e){
-    // console.log ( 'keyDown activo: ' + MM.teclado.atajos.activo );
-    // console.log ( 'keyDown eventPhase: ' + e.eventPhase );
-    // console.log ( 'keyDown type: ' + e.type );
-    // console.log ( 'keyDown cancelable: ' + e.cancelable );
     if ( !MM.teclado.atajos.activo ) {
         return true;
     }
-    // console.log ( 'keyDown activo: ' + MM.teclado.atajos.activo );
     
     var evt = e ? e : window.event;
     var key = window.Event ? evt.which : evt.keyCode;

@@ -21,6 +21,13 @@ MM = function (mm) {
     mm.undoManager = new MM.UndoManager(10);
 
     /** 
+     * @prop {MM.PubSub} eventos Gestor de eventos del Mapa mental
+     * @memberof MM
+     * @inner
+     */
+    mm.eventos = new MM.PubSub();
+
+    /** 
      * @desc Sobreescritura del método "equal" del MM.Arbol. La comparación se realiza a 
      *       nivel de identificador.  
      * @method elementEqual 
@@ -53,13 +60,6 @@ MM = function (mm) {
         }
 
         idNodos = 1;
-
-        /** 
-         * @prop {MM.PubSub} eventos Gestor de eventos del Mapa mental
-         * @memberof MM
-         * @inner
-         */
-        this.eventos = new MM.PubSub();
 
         /** 
          * @prop {MM.Arbol} arbol Arbol-eneario que representa al Mapa mental.

@@ -26,9 +26,24 @@ MM.definirAtajos = function() {
     MM.teclado.atajos.add('up', MM.prevHermano, MM);
     MM.teclado.atajos.add('down', MM.nextHermano, MM);
 
-    // teclas de operciones
+    // teclas de operaciones
     MM.teclado.atajos.add('ins', MM.add, MM);
     MM.teclado.atajos.add('del', MM.borrar, MM);
-    // definir Ctrl+Enter para editar el nodo actual
+
+    // teclas de edición
+    MM.teclado.atajos.add('enter', MM.render.editar, MM);
+
+    // teclas de plegado / desplegado
+    MM.teclado.atajos.add('shift++', function() { alert('desplegar'); }, MM );
+    MM.teclado.atajos.add('shift+-', function() { alert('plegar'); }, MM );
+
+   // - <Tab> para moverse por lo niveles. Cuando llega a un nodo hijo crea un nuevo nodo hijo. Cuando llega a un nodo plegado lo despliega
+   // - <Enter> para entrar y salir del modo de edición
+   // - <Escape> para salir del modo de edición
+   // - <Shift+Enter> para crear un hermano
+   // - <Shift+Tab> para crear hijo
+   // - <Shift++> para plegar
+   // - <Shift+-> para desplegar
+
 };
 

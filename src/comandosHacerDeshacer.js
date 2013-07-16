@@ -2,7 +2,7 @@ MM.comandos = {};
 
 MM.comandos.Insertar=MM.UndoManager.ComandoHacerDeshacer.extend({
     init: function ( idPadre, idHijo, texto ) {
-	this._super('add', 
+	this._super('Añadir nuevo hijo ' + texto, 
 		    function () {
 			var p = MM.arbol.buscar(idPadre);
 			var h = new MM.Arbol ( { id: idHijo, texto: texto, nodo: null } );
@@ -50,7 +50,7 @@ MM.comandos.Borrar=MM.UndoManager.ComandoHacerDeshacer.extend({
 	
 	var idPadre = padre.elemento.id;
 	var subarbol = hijo.generalPreOrden(generador, operador);
-	this._super('borrar', 
+	this._super('Borrar ' + subarbol.elemento.texto, 
 		    function () {
 			var padre = MM.arbol.buscar(idPadre);
 			MM.ponerFoco ( padre );
@@ -93,7 +93,7 @@ MM.comandos.Nuevo=MM.UndoManager.ComandoHacerDeshacer.extend({
 
 MM.comandos.Editar=MM.UndoManager.ComandoHacerDeshacer.extend({
     init: function  ( id, original, nuevo) {
-	this._super('editar', 
+	this._super('Editar ' + original, 
 		    function () { 
 			var e = MM.arbol.buscar(id);
 			e.elemento.texto = nuevo;
@@ -112,7 +112,7 @@ MM.comandos.Editar=MM.UndoManager.ComandoHacerDeshacer.extend({
 
 MM.comandos.Zoom=MM.UndoManager.ComandoHacerDeshacer.extend({
     init: function (anterior, nuevo) {
-	this._super('zoom', 
+	this._super('Zoom', 
 		    function () { 
 			MM.render.setEscala(nuevo);
 		    },

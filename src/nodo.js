@@ -92,11 +92,11 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.capa.add(this.group);
         this.rect.hide();
 
-        var bindEditar = MM.Class.bind(this, this.editar);
+        var bindEditar = MM.Class.bind(MM.render, MM.render.editar);
         var bindNOP = MM.Class.bind(this, this.nop);
         var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
-        this.group.on('click tap', bindPonerFoco);
-        this.group.on('dblclick  dbltap', bindEditar);
+        this.group.on('click tab', bindPonerFoco);
+        this.group.on('dblclick dbltap', bindEditar);
         this.group.on('mouseout', bindNOP);
         this.group.on('mousemove', bindNOP);
         this.group.on('mousedown', bindNOP);
@@ -183,8 +183,9 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
      * @desc Pone el nodo en modo edición
      */
     editar: function () {
+	
         MM.teclado.atajos.activo = false;
-        var input = new MM.DOM.create('input',
+        this.input = new MM.DOM.create('input',
             { 'id': 'editNodo',
               'value': this.arbol.elemento.texto,
               'style': 'position: absolute; ' +
@@ -200,22 +201,22 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
                     'font-size: ' + this.kText.getFontSize() + 'pt; ' +
                     'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; height:auto;'
             });
-        var self = this;
-        input.onblur = MM.Class.bind(this, this.cerrarEdicion);
-
-        this.escenario.content.appendChild(input);
-        input.select();
-        input.focus();
+        
+        this.input.onblur = MM.Class.bind (MM.render, MM.render.editar);
+        this.escenario.content.appendChild(this.input);
+        this.input.select();
+        this.input.focus();
     },
 
     cerrarEdicion : function ( ) {
-	this.arbol.elemento.texto = this.value;
+	this.arbol.elemento.texto = this.input.value;
         this.group.setWidth(this.kText.getWidth());
         this.group.setHeight(this.kText.getHeight());
         this.line.setPoints ( [ { x: 0, y: this.kText.getHeight() }, 
 				{ x: this.kText.getWidth(), y: this.kText.getHeight() } ] );
         MM.teclado.atajos.activo = true;
-        this.remove();
+        this.input.remove();
+	delete this.input;
         MM.ponerFoco(this.arbol);
     },
 
@@ -255,10 +256,10 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.line.hide();
         this.rect.show();
 
-        var bindEditar = MM.Class.bind(this, this.editar);
-        var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
-        this.group.on('click tap', bindPonerFoco);
-        this.group.on('dblclick  dbltap', bindEditar);
+        // var bindEditar = MM.Class.bind(this, this.editar);
+        // var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
+        // this.group.on('click', bindPonerFoco);
+        // this.group.on('dblclick', bindEditar);
     },
 
     /**
@@ -287,13 +288,12 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
      * @desc Pone el nodo el modo edición.
      */
     editar: function () {
-        MM.teclado.atajos.activo = false;
-        var textarea = new MM.DOM.create('textarea',
+        this.textarea = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
                 'innerHTML': this.getText(),
                 'style': 'position: absolute; ' +
-                    'top : ' + (this.getY() * MM.render.getEscala()) + 'px; ' +
-                    'left: ' + (this.getX() * MM.render.getEscala())  + 'px; ' +
+                    'top : ' + ((this.getY()-5) * MM.render.getEscala()) + 'px; ' +
+                    'left: ' + ((this.getX()-5) * MM.render.getEscala())  + 'px; ' +
                     'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
                     'min-width: 50px; ' +
                     'height: 2em; ' +
@@ -305,24 +305,32 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
                     'font-size: ' + this.kText.getFontSize() + 'pt; ' +
                     'white-space: pre-wrap; word-wrap: break-word; overflow:hidden;'
             });
-        var self = this;
-        textarea.onblur = function () {
-            self.arbol.elemento.texto = this.value;
-            self.setText(this.value);
-            self.group.setWidth(self.kText.getWidth());
-            self.group.setHeight(self.kText.getHeight());
-            self.rect.setPoints ( [ { x: 0, y: 0  }, 
-                                    { x: self.kText.getWidth(), y: 0 }, 
-                                    { x: self.kText.getWidth(), y: self.kText.getHeight() }, 
-                                    { x: 0, y: self.kText.getHeight() } ] );
-            MM.teclado.atajos.activo = true;
-            this.remove();
-            MM.ponerFoco(self.arbol);
-            window.focus();
-        };
-        this.escenario.content.appendChild(textarea);
-        textarea.select();
-        textarea.focus();
+
+        this.textarea.onblur = MM.Class.bind (MM.render, MM.render.editar);
+        this.escenario.content.appendChild(this.textarea);
+        this.textarea.select();
+        this.textarea.focus();
+    },
+
+
+    cerrarEdicion : function () {
+	this.textarea.onblur = this.nop;
+	MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
+						      this.arbol.elemento.texto, 
+						      this.textarea.value ) );
+        this.arbol.elemento.texto = this.textarea.value;
+        this.setText(this.textarea.value);
+        this.group.setWidth(this.kText.getWidth());
+        this.group.setHeight(this.kText.getHeight());
+        this.rect.setPoints ( [ { x: 0, y: 0  }, 
+                                { x: this.kText.getWidth(), y: 0 }, 
+                                { x: this.kText.getWidth(), y: this.kText.getHeight() }, 
+                                { x: 0, y: this.kText.getHeight() } ] );
+        this.textarea.remove();
+	delete this.textarea;
+        MM.ponerFoco(this.arbol);
+        window.focus();
     }
+
 
 });

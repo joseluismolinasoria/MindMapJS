@@ -177,24 +177,3 @@ a.callout{cursor:pointer;}
     -webkit-transition: top 1.5s; /* Safari */
 }
 
-#botonera {
-    border: 1px solid #ddd; 
-    background-color:#eee; 
-    padding:5px; 
-    position: fixed; 
-    top: 40px; 
-    right: 30px; 
-    z-index:2; 
-    box-shadow: 3px 3px 3px #888;
-    min-width : 130px;
-}
-
-#botonera button {
-    border-radius: 40%; 
-    padding: 8px 20px;
-    width: 57px;
-}
-
-button:disabled {
-    color : #ddd;
-}

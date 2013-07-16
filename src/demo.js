@@ -43,13 +43,17 @@ MM.demo.deshacer = function(){
 MM.demo.cambioUndoManager = function() {
     var btnHacer = document.getElementById('btnHacer');
     var btnDeshacer = document.getElementById('btnDeshacer');
+    var iconHacer = document.getElementById('iconHacer');
+    var iconDeshacer = document.getElementById('iconDeshacer');
 
     if ( MM.undoManager.hacerNombre() === null ) {
     	btnHacer.setAttribute('disabled', 'disabled');
     	btnHacer.setAttribute('title', '');
+    	iconHacer.setAttribute('style', 'color: #ddd;');
     } else {
     	if ( btnHacer.hasAttribute('disabled') ) {
     	    btnHacer.removeAttribute('disabled');
+    	    iconHacer.removeAttribute('style');
     	}
     	btnHacer.setAttribute('title', 'Hacer ' + MM.undoManager.hacerNombre());
     }
@@ -57,9 +61,11 @@ MM.demo.cambioUndoManager = function() {
     if ( MM.undoManager.deshacerNombre() === null ) {
     	btnDeshacer.setAttribute('disabled', 'disabled');
     	btnDeshacer.setAttribute('title', '');
+    	iconDeshacer.setAttribute('style', 'color: #ddd;');
     } else {
     	if ( btnDeshacer.hasAttribute('disabled') ) {
     	    btnDeshacer.removeAttribute('disabled');
+	    iconDeshacer.removeAttribute('style');
     	}
     	btnDeshacer.setAttribute('title', 'Deshacer ' + MM.undoManager.deshacerNombre());
     }

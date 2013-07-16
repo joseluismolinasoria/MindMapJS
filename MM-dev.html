@@ -47,39 +47,6 @@
       </ul>
     </nav>
 
-    <span id="botonera">
-      <button class="large" title="Nuevo mapa mental" onclick="MM.nuevo(); return false;">
-	<i class="icon-file"></i>
-      </button>
-      <button class="large" title="Editar nodo actual" onclick="MM.render.editar(); return false;">
-	<i class="icon-edit"></i>
-      </button><br />
-      <button class="large" title="Crear un nuevo nodo hijo" onclick="MM.add(); return false;">
-	<i class="icon-plus"></i>
-      </button>
-      <button class="large" title="Borrar el nodo actual" onclick="MM.borrar(); return false;">
-	<i class="icon-minus"></i>
-      </button><br />
-      <button class="large" id="btnHacer" title="Hacer ..." onclick="MM.demo.hacer(); return false;">
-	<i class="icon-repeat"></i>
-      </button>
-      <button class="large" id="btnDeshacer" title="Deshacer ..." onclick="MM.demo.deshacer(); return false;">
-	<i class="icon-undo"></i>
-      </button><br />
-      <button class="large" title="Zoom in (ampliar)" onclick="MM.render.zoomIn(); return false;">
-	<i class="icon-zoom-in"></i>
-      </button>
-      <button class="large" title="Zoom out (encoger)" onclick="MM.render.zoomOut(); return false;">
-	<i class="icon-zoom-out"></i>
-      </button><br />
-      <button class="large" title="Cargar fichero FreeMind" onclick="MM.cargarFreeMind(); return false;">
-	<i class="icon-upload-alt"></i>
-      </button>
-      <button class="large" title="Exportar a fichero FreeMind" onclick="MM.exportar.freemind.grabar(); return false;">
-	<i class="icon-download-alt"></i>
-      </button><br />
-    </span>
-
     <div id="contenedorEditor" tabindex="1"></div>
 
     <footer id="footer"> 
@@ -88,7 +55,7 @@
       </div>
     </footer>
 
-
+    <!-- DIVS DESLIZABLES -->
     <div id="ayuda" class="deslizable" onclick="MM.demo.ayuda(false);">
       <div class="col_4">
 	<h4><i class="icon-desktop"></i> Atajos de teclado</h4>
@@ -105,6 +72,7 @@
 	Crear la documentación para manejo táctil
       </div>
     </div>
+
     <div id="datosDelProyecto" class="deslizable" onclick="MM.demo.datosDelProyecto(false);">
       <div class="col_12">
 	<h4><i class="icon-info-sign"></i> Datos del proyecto</h4>
@@ -114,7 +82,75 @@
 	Número de orden 5336<br/>
 	Autorizado el 3 de abril de 2013
       </div>
-   </div>
+    </div>
+    <!-- FIN DIVS DESLIZABLES -->
+// 33
+    <!-- BOTONERA -->
+    <ul class="button-bar" style="position:fixed; top: 40px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.nuevo(); return false;" title="Nuevo mapa mental">
+	  <i class="icon-file"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.render.editar(); return false;" title="Editar nodo actual">
+	  <i class="icon-edit"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 72px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.add(); return false;" title="Crear un nuevo nodo hijo">
+	  <i class="icon-plus"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.borrar(); return false;" title="Borrar el nodo actual">
+	  <i class="icon-minus"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 104px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" id="btnHacer" onclick="MM.demo.hacer(); return false;" title="Hacer ..." >
+	  <i id="iconHacer" class="icon-repeat"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" id="btnDeshacer" onclick="MM.demo.deshacer(); return false;" title="Deshacer ..." >
+	  <i id="iconDeshacer" class="icon-undo"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 136px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.render.zoomIn(); return false;"  title="Zoom in (agrandar)">
+	  <i class="icon-zoom-in"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.render.zoomOut(); return false;"  title="Zoom out (encoger)">
+	  <i class="icon-zoom-out"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 168px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.cargarFreeMind(); return false;" title="Cargar fichero FreeMind">
+	  <i class="icon-upload-alt"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.exportar.freemind.grabar(); return false;" title="Exportar a fichero FreeMind">
+	  <i class="icon-download-alt"></i>
+	</a>
+      </li>
+    </ul>
+    <!-- FIN DE BOTONERA -->
 
   </body>  
 </html>
