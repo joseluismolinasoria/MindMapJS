@@ -159,6 +159,8 @@ MM.Render = function() {
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
         this.renderAristas();
         this.capaNodos.draw();
+	MM.ponerFoco(hijo);
+	this.editar();
     };
 
     /**
@@ -425,6 +427,11 @@ MM.Render = function() {
 	return enEdicion;
     };
 
+    render.prototype.insertarSaltoDeLinea = function () {
+	if ( enEdicion ) {
+	    MM.foco.elemento.nodo.textarea.value = MM.foco.elemento.nodo.textarea.value + "\n";
+	}
+    };
 
     return render;
 }();

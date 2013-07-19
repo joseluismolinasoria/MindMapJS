@@ -1,8 +1,16 @@
-0.1.1 / 2013-07-16 (abierta)
+0.1.1 / 2013-07-19 (abierta)
 ============================
   * Control de edición con Enter. 
   * Undo de Edición
-
+  * Nuevos atajos de teclado
+    - Perparado para el plegado y despelegado aunque que no está implementado
+    - <Tab> para moverse por lo niveles. Cuando llega a un nodo hijo crea un nuevo nodo hijo. Cuando llega a un nodo plegado lo despliega
+    - <Enter> para entrar y salir del modo de edición
+    - <Escape> para salir del modo de edición
+    - <Shift+Enter> para crear un hermano. Si esta en modo de edición Abrir nueva línea.
+    - <Shift+Tab> para crear hijo
+    - <Shift++> para plegar
+    - <Shift+-> para desplegar
 
 0.1.0 / 2013-06-19 (cerrada)
 ============================

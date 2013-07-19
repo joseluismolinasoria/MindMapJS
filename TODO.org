@@ -2,6 +2,8 @@
 #+STARTUP:  
 
 * Planificado
+** TODO Weinre 
+   - https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS/Platform/Gaia/Weinre_As_Remote_Debugger
 ** TODO Undo movimiento
 ** TODO Undo Plegado y desplegado
 ** TODO Undo Nuevo
@@ -10,14 +12,6 @@
 ** TODO Ver que le pasa al intentar cargar un fichero en la tableta. 
 ** TODO Cuando se edita poner un película sobre el canvas.
 ** TODO Plegado de subramas.
-** TODO Nuevos atajos de teclado + Teclas del Vi
-   - <Tab> para moverse por lo niveles. Cuando llega a un nodo hijo crea un nuevo nodo hijo. Cuando llega a un nodo plegado lo despliega
-   - <Enter> para entrar y salir del modo de edición
-   - <Escape> para salir del modo de edición
-   - <Shift+Enter> para crear un hermano
-   - <Shift+Tab> para crear hijo
-   - <Shift++> para plegar
-   - <Shift+-> para desplegar
 ** TODO Búsqueda de nodos. 
 ** TODO Opciones flotantes entorno al nodo seleccionado
 ** TODO Unión de ramas 
@@ -82,6 +76,15 @@ objetos, etc)
 
 
 * Pendiente de poner el WunderList
+** DONE Nuevos atajos de teclado + Teclas del Vi [7/7]
+   CLOSED: [2013-07-19 vie 08:48]
+   [X] <Tab> para moverse por lo niveles. Cuando llega a un nodo hijo crea un nuevo nodo hijo. Cuando llega a un nodo plegado lo despliega
+   [X] <Enter> para entrar y salir del modo de edición
+   [X] <Escape> para salir del modo de edición
+   [X] <Shift+Enter> para crear un hermano. Si esta en modo de edición Abrir nueva línea.
+   [X] <Shift+Tab> para crear hijo
+   [X] <Shift++> para plegar
+   [X] <Shift+-> para desplegar
 ** DONE Control de edición con Enter. 
    CLOSED: [2013-07-16 mar 09:17]
 ** DONE Undo de Edición

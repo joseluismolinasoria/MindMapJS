@@ -11,7 +11,7 @@ if ( typeof module !== 'undefined' ) {
 /**
  * Espacio de nombre para el proceso y control del teclado 
  * @namespace MM.teclado
- * @property {MM.teclado.tecla}   tecla  - Funciones y constantes de tecla
+ * @property {MM.teclado.tecla}	  tecla	 - Funciones y constantes de tecla
  * @property {MM.teclado.atajos}  atajos - Manejador de atajos de teclado. P.E.: "Ctrl+Alt+i"
  */
 MM.teclado = {};
@@ -23,15 +23,15 @@ MM.teclado = {};
  */
 MM.teclado.tecla = {
     // teclas de función
-    f1  : 112,
-    f2  : 113,
-    f3  : 114,
-    f4  : 115,
-    f5  : 116,
-    f6  : 117,
-    f7  : 118,
-    f8  : 119,
-    f9  : 120,
+    f1	: 112,
+    f2	: 113,
+    f3	: 114,
+    f4	: 115,
+    f5	: 116,
+    f6	: 117,
+    f7	: 118,
+    f8	: 119,
+    f9	: 120,
     f10 : 121,
     f11 : 122,
     f12 : 123,
@@ -39,9 +39,9 @@ MM.teclado.tecla = {
     // modificadores
     shift : 16,
     ctrl  : 17,
-    alt   : 18,
-    leftWindow : 91,
-    rightWindow : 92,
+    alt	  : 18,
+    leftMeta : 91,
+    rightMeta : 92,
     
     // bloqueos
     scrolllock : 145,
@@ -65,38 +65,19 @@ MM.teclado.tecla = {
     tab : 9,
     enter : 13,
     esc : 27,
+    escape : 27,
     space : 32
 };
 
-
-/**
- * @desc Manejador de teclado para el evento keyUp
- * @param {event} e Instancia de evento de teclado
- */
-MM.teclado.keyUp = function (e){
-
-    if ( !MM.teclado.atajos.activo ) {
-        return true;
-    }
-
-    var evt = e ? e : window.event;
-    var key = window.Event ? evt.which : evt.keyCode;
-    
-    if ( MM.teclado.tecla.esControl(key) ) {
-        MM.teclado.atajos.ctrl = false;
-    }
-    if ( MM.teclado.tecla.esAlt(key) ) {
-        MM.teclado.atajos.alt = false;
-    }
-    if ( MM.teclado.tecla.esShift(key) ) {
-        MM.teclado.atajos.shift = false;
-    }
-    if ( MM.teclado.tecla.esWindow(key) ) {
-        MM.teclado.atajos.window = false;
-    }
-    evt = key = null;
-    return true;
+// Cada navegador tiene mapeado el teclado de forma diferente 
+// para ajustarse a esta excepciones utlizamos las siguiente
+MM.teclado.tecla.excepciones = {
+//  Firefox      Chrome      Safari     Teclado Numérico
+    171: '+',    187: '+',   221: '+',  107: '+',
+    173: '-',    189: '-',   191: '-',  109: '-', 
+                                         96: '0'
 };
+
 
 /**
  * @desc Manejador de teclado para el evento keyDown
@@ -104,35 +85,25 @@ MM.teclado.keyUp = function (e){
  */
 MM.teclado.keyDown = function (e){
     if ( !MM.teclado.atajos.activo ) {
-        return true;
+	return true;
     }
     
     var evt = e ? e : window.event;
     var key = window.Event ? evt.which : evt.keyCode;
-    var nombre = MM.teclado.tecla.nombre(key);
-    var nombreAtajo; 
+    var nombre = MM.teclado.tecla.nombre(key, evt);
 
     if ( MM.teclado.tecla.esModificador(key) ) {
-        if ( MM.teclado.tecla.esControl(key) ) {
-            MM.teclado.atajos.ctrl = true;
-        }
-        if ( MM.teclado.tecla.esAlt(key) ) {
-            MM.teclado.atajos.alt = true;
-        }
-        if ( MM.teclado.tecla.esShift(key) ) {
-            MM.teclado.atajos.shift = true;
-        }
-        if ( MM.teclado.tecla.esWindow(key) ) {
-            MM.teclado.atajos.window = true;
-        }
+	evt = key = nombre = nombreAtajo = null;
+	return true;
     } else { 
-        nombreAtajo = MM.teclado.atajos.calcular(nombre);
-        if ( MM.teclado.atajos.definidos[nombreAtajo] ) { 
-            evt.preventDefault(); 
-            evt.stopPropagation();
-        }
-        MM.teclado.atajos.lanzar(nombreAtajo);
-        return false;
+	var nombreAtajo = MM.teclado.atajos.calcular(nombre, evt);
+	if ( MM.teclado.atajos.definidos[nombreAtajo] ) { 
+	    evt.preventDefault(); 
+	    evt.stopPropagation();
+	}
+	MM.teclado.atajos.lanzar(nombreAtajo);
+	evt = key = nombre = nombreAtajo = null;
+	return false;
     }
     evt = key = nombre = nombreAtajo = null;
     return true;
@@ -145,11 +116,17 @@ MM.teclado.keyDown = function (e){
  * @return {string} nombre asociado a una tecla
  **/ 
 MM.teclado.tecla.nombre = function ( key ) {
-    for (var name in this) {
-        if ( key === this[name] ) {
-            return name;
-        }
+    
+    if ( this.excepciones[key]) {
+     	return this.excepciones[key];
     }
+
+    for (var name in this) {
+	if ( key === this[name] ) {
+	    return name;
+	}
+    }
+
     return String.fromCharCode(key);
 };
     
@@ -165,20 +142,20 @@ MM.teclado.tecla.valor = function ( nombre ) {
 
 /**
  * @desc Test para saber si una tecla es un modificador o no. Se trata de un 
- * modificador si la tecla es Ctrl o Alt o Shift o Window
+ * modificador si la tecla es Ctrl o Alt o Shift o Meta
  * @param {integer} key Tecla a comprobar
  * @return {boolean} true si es un modificador y false en otro caso
- **/     
+ **/	 
 MM.teclado.tecla.esModificador = function ( key ) {
     return key === this.ctrl || key === this.alt || key === this.shift ||
-        key === this.leftWindow || key === this.rightWindow;
+	key === this.leftMeta || key === this.rightMeta;
 };
 
 /**
  * @desc Comprueba si latecla es Ctrl
  * @param {integer} key Tecla a comprobar
  * @return {boolean} true si la tecla es Ctrl
- **/     
+ **/	 
 MM.teclado.tecla.esControl = function ( key ) {
     return key === this.ctrl;
 };
@@ -187,7 +164,7 @@ MM.teclado.tecla.esControl = function ( key ) {
  * @desc Comprueba si la tecla es Alt
  * @param {integer} key Tecla a comprobar
  * @return {boolean} true si la tecla es Alt
- **/         
+ **/	     
 MM.teclado.tecla.esAlt = function ( key ) {
     return key === this.alt;
 };
@@ -196,7 +173,7 @@ MM.teclado.tecla.esAlt = function ( key ) {
  * @desc Comprueba si la una tecla es Shift (Mayúsculas)
  * @param {integer} key Tecla a comprobar
  * @return {boolean} true si la tecla es Shift (Mayúsculas)
- **/             
+ **/		 
 MM.teclado.tecla.esShift = function ( key ) {
     return key === this.shift;
 };
@@ -205,9 +182,9 @@ MM.teclado.tecla.esShift = function ( key ) {
  * @desc Comprueba si la una tecla es Window
  * @param {integer} key Tecla a comprobar
  * @return {boolean} true si la tecla es Window
- **/                 
-MM.teclado.tecla.esWindow = function ( key ) {
-    return key === this.leftWindow || key === this.rightWindow;
+ **/		     
+MM.teclado.tecla.esMeta = function ( key ) {
+    return key === this.leftMeta || key === this.rightMeta;
 };
 
 /**
@@ -228,7 +205,7 @@ MM.teclado.atajos = {
  * @desc Añade una definición de atajo de teclado
  * @param {string} atajo Nombre del atajo de teclado a añadir al control de atajos
  * @param {function} f Función a ejecutar cuando se de el atajo
- **/                 
+ **/		     
 MM.teclado.atajos.add = function ( atajo, f, contexto ) {
     this.definidos[atajo] = f;
     this.contextos[atajo] = contexto || this;
@@ -237,24 +214,26 @@ MM.teclado.atajos.add = function ( atajo, f, contexto ) {
 /**
  * @desc Calcula si existe una atajo para el estado actual de los modficiadores y una tecla dada
  * @param {string} nombre Nombre de tecla pulsada
+ * @param {object} evt Evento de teclado
  * @return {string | null} Nombre del atajo de teclado o null si no existe
- **/                 
-MM.teclado.atajos.calcular = function ( nombre ) {
+ **/		     
+MM.teclado.atajos.calcular = function ( nombre, evt ) {
+
     var reKey = new RegExp("\\+" + nombre + "$", "i" );
     var reCtrl = /ctrl\+/i;
     var reAlt = /alt\+/i;
     var reShift = /shift\+/i;
-    var reWindow = /window\+/i;
+    var reWindow = /meta\+/i;
     
     for (var name in this.definidos) {
-        if ( nombre === name ) { return name; }
-        if( reKey.test(name) && 
-            ( this.ctrl?reCtrl.test(name):!reCtrl.test(name)) && 
-            ( this.alt?reAlt.test(name):!reAlt.test(name)) && 
-            ( this.shift?reShift.test(name):!reShift.test(name)) && 
-            ( this.window?reWindow.test(name):!reWindow.test(name)) ) {
-            return name;
-        }
+	if ( nombre === name ) { return name; }
+	if( reKey.test(name) && 
+	    ( evt.ctrlKey?reCtrl.test(name):!reCtrl.test(name)) && 
+	    ( (evt.altKey || evt.altGraphKey)?reAlt.test(name):!reAlt.test(name)) && 
+	    ( evt.shiftKey?reShift.test(name):!reShift.test(name)) && 
+	    ( evt.metaKey?reWindow.test(name):!reWindow.test(name)) ) {
+	    return name;
+	}
     }
     reKey = reCtrl = reAlt = reShift = reWindow = null;
     return null;
@@ -264,10 +243,10 @@ MM.teclado.atajos.calcular = function ( nombre ) {
  * @desc Lanza la función asociada al atajo de teclado
  * @param {string} atajo Nombre del atajo de teclado
  * @param {object} contexto de ejecución de la función asociada al atajo de teclado
- **/                 
+ **/		     
 MM.teclado.atajos.lanzar = function (atajo) {
     if ( this.definidos[atajo] ) {
-        this.definidos[atajo].apply(this.contextos[atajo], []);
+	this.definidos[atajo].apply(this.contextos[atajo], []);
     }
 };
 
@@ -276,6 +255,6 @@ if ( typeof module !== 'undefined' ) {
 }
 
 if ( window ) {
-    window.addEventListener ("keyup", MM.teclado.keyUp, true);
     window.addEventListener ("keydown", MM.teclado.keyDown, true);
 }
+
