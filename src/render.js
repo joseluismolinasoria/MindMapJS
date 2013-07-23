@@ -442,7 +442,7 @@ MM.Render = function() {
 	if ( enEdicion ) {
 	    var editor = MM.foco.elemento.nodo.editor;
 	    editor.value = editor.value + "\n";
-	    editor.style.height = (parseFloat(editor.style.height) + 1.25) + "em";
+	    MM.foco.elemento.nodo.setTamanoEditor();
 	}
 	editor = null;
     };

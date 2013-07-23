@@ -1,4 +1,4 @@
-0.1.1 / 2013-07-19 (abierta)
+0.1.1 / 2013-07-23 (abierta)
 ============================
   * Control de edición con Enter. 
   * Undo de Edición
@@ -15,6 +15,7 @@
   * Bug: el undo no fuciona por la edición en el add de nodos
   * Cuando se edita poner un película sobre el canvas.
   * Aunmentar el textArea al introducir un salto de línea 
+  * Aumentar el ancho del textArea mientras escribe
 
 
 0.1.0 / 2013-06-19 (cerrada)

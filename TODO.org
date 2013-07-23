@@ -2,7 +2,6 @@
 #+STARTUP:  
 
 * Planificado
-** TODO Aumentar el ancho del textArea mientras escribe
 ** TODO Cambiar la ayuda de la página
 ** TODO Weinre 
    - https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS/Platform/Gaia/Weinre_As_Remote_Debugger
@@ -76,6 +75,10 @@ objetos, etc)
 
 
 * Pendiente de poner el WunderList
+** DONE Aumentar el ancho del textArea mientras escribe
+   CLOSED: [2013-07-23 mar 11:51]
+
+
 ** DONE Incluir tecla para Nuevo
    CLOSED: [2013-07-22 lun 12:33]
    - <Ctrl+n> puede ser una opción
