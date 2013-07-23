@@ -18,9 +18,15 @@ MM.definirAtajos = function() {
     MM.teclado.atajos.add('Ctrl+0', MM.render.zoomReset, MM);
 
 
+    var addEdicion = function () {
+	MM.add();
+	MM.render.editar();
+    };
+
     // teclas de operaciones
-    MM.teclado.atajos.add('ins', MM.add, MM);
-    MM.teclado.atajos.add('Shift+Tab', MM.add, MM);
+    MM.teclado.atajos.add('Shift+n', MM.nuevo, MM);
+    MM.teclado.atajos.add('ins', addEdicion, MM);
+    MM.teclado.atajos.add('Shift+Tab', addEdicion, MM);
     MM.teclado.atajos.add('del', MM.borrar, MM);
 
     // teclas de edición
@@ -29,6 +35,7 @@ MM.definirAtajos = function() {
 	    MM.render.insertarSaltoDeLinea();
 	} else {
 	    MM.padre().add();
+	    MM.render.editar();
 	}
     }, MM);
     MM.teclado.atajos.add('enter', MM.render.editar, MM);
@@ -52,7 +59,7 @@ MM.definirAtajos = function() {
 	    MM.render.editar();
 	} else {
 	    if ( MM.foco.esHoja() ) { // Si estamos en el último nivel añadimos un nuevo nodo hijo
-		MM.add(); 
+		addEdicion();
 	    } else { // navegamos por los niveles
 		MM.next();
 	    }

@@ -2,6 +2,8 @@
 #+STARTUP:  
 
 * Planificado
+** TODO Aumentar el ancho del textArea mientras escribe
+** TODO Cambiar la ayuda de la página
 ** TODO Weinre 
    - https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS/Platform/Gaia/Weinre_As_Remote_Debugger
 ** TODO Undo movimiento
@@ -10,7 +12,6 @@
 ** TODO Pellizco. Multitouch. 
    - http://alxgbsn.co.uk/2011/08/16/event-delegation-for-touch-events-in-javascript/
 ** TODO Ver que le pasa al intentar cargar un fichero en la tableta. 
-** TODO Cuando se edita poner un película sobre el canvas.
 ** TODO Plegado de subramas.
 ** TODO Búsqueda de nodos. 
 ** TODO Opciones flotantes entorno al nodo seleccionado
@@ -48,12 +49,11 @@
 
 ** TODO Crear una página o un modo debug para la página
 
+
+* Pendiente de planificar
 ** TODO Orientación de los nodos a la derecha o izquierda. 
 
 
-
-
-* Pendiente de planificar
 ** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
 ** TODO Estudiar en profundidad como funciona un sistema ya implementado.
 ** TODO Diseñar la página móvil
@@ -76,6 +76,18 @@ objetos, etc)
 
 
 * Pendiente de poner el WunderList
+** DONE Incluir tecla para Nuevo
+   CLOSED: [2013-07-22 lun 12:33]
+   - <Ctrl+n> puede ser una opción
+** DONE Bug: el undo no fuciona por la edición en el add de nodos
+   CLOSED: [2013-07-22 lun 12:22]
+** DONE Cuando se edita poner un película sobre el canvas.
+   CLOSED: [2013-07-19 vie 12:49]
+   - opacity = 0.5
+** DONE Aunmentar el textArea al introducir un salto de línea 
+   CLOSED: [2013-07-19 vie 09:29]
+   - parseFloat("1.1em") = 1.1
+
 ** DONE Nuevos atajos de teclado + Teclas del Vi [7/7]
    CLOSED: [2013-07-19 vie 08:48]
    [X] <Tab> para moverse por lo niveles. Cuando llega a un nodo hijo crea un nuevo nodo hijo. Cuando llega a un nodo plegado lo despliega

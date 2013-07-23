@@ -179,45 +179,55 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         return this.group.getHeight();
     },
 
+
     /**
-     * @desc Pone el nodo en modo edición
+     * @desc Pone el nodo el modo edición.
      */
     editar: function () {
-	
-        MM.teclado.atajos.activo = false;
-        this.input = new MM.DOM.create('input',
+        this.editor = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
-              'value': this.arbol.elemento.texto,
-              'style': 'position: absolute; ' +
-                    'top : ' + (this.getY() * MM.render.getEscala()) + 'px; ' +
-                    'left: ' + (this.getX() * MM.render.getEscala()) + 'px; ' +
+                'innerHTML': this.getText(),
+                'style': 'position: absolute; ' +
+                    'top : ' + ((this.getY()-5) * MM.render.getEscala()) + 'px; ' +
+                    'left: ' + ((this.getX()-5) * MM.render.getEscala())  + 'px; ' +
                     'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
                     'min-width: 50px; ' +
+                    'height: 2em; ' +
                     'border: 3px solid ' + this.color + '; ' +
                     'border-radius: 5px;' +
                     'background-color: ' + this.colorFondo + '; ' +
                     'color: ' + this.color + '; ' +
                     'font-family: ' + this.kText.getFontFamily() + '; ' +
                     'font-size: ' + this.kText.getFontSize() + 'pt; ' +
-                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; height:auto;'
+                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden;'
             });
-        
-        this.input.onblur = MM.Class.bind (MM.render, MM.render.editar);
-        this.escenario.content.appendChild(this.input);
-        this.input.select();
-        this.input.focus();
+
+        this.editor.onblur = MM.Class.bind (MM.render, MM.render.editar);
+        this.escenario.content.appendChild(this.editor);
+        this.editor.select();
+        this.editor.focus();
     },
 
-    cerrarEdicion : function ( ) {
-	this.arbol.elemento.texto = this.input.value;
+    /**
+     * @desc Cierra el modo de edición
+     */
+    cerrarEdicion : function () {
+	this.editor.onblur = this.nop;
+	MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
+						      this.arbol.elemento.texto, 
+						      this.editor.value ) );
+        this.arbol.elemento.texto = this.editor.value;
+        this.setText(this.editor.value);
         this.group.setWidth(this.kText.getWidth());
         this.group.setHeight(this.kText.getHeight());
-        this.line.setPoints ( [ { x: 0, y: this.kText.getHeight() }, 
-				{ x: this.kText.getWidth(), y: this.kText.getHeight() } ] );
-        MM.teclado.atajos.activo = true;
-        this.input.remove();
-	delete this.input;
+        this.rect.setPoints ( [ { x: 0, y: 0  }, 
+                                { x: this.kText.getWidth(), y: 0 }, 
+                                { x: this.kText.getWidth(), y: this.kText.getHeight() }, 
+                                { x: 0, y: this.kText.getHeight() } ] );
+        this.editor.remove();
+	delete this.editor;
         MM.ponerFoco(this.arbol);
+        window.focus();
     },
 
     nop: function () {
@@ -255,11 +265,6 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
 
         this.line.hide();
         this.rect.show();
-
-        // var bindEditar = MM.Class.bind(this, this.editar);
-        // var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
-        // this.group.on('click', bindPonerFoco);
-        // this.group.on('dblclick', bindEditar);
     },
 
     /**
@@ -282,55 +287,6 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor('black');
         this.kText.setFill(this.color);
         this.capa.draw();
-    },
-
-    /**
-     * @desc Pone el nodo el modo edición.
-     */
-    editar: function () {
-        this.textarea = new MM.DOM.create('textarea',
-            { 'id': 'editNodo',
-                'innerHTML': this.getText(),
-                'style': 'position: absolute; ' +
-                    'top : ' + ((this.getY()-5) * MM.render.getEscala()) + 'px; ' +
-                    'left: ' + ((this.getX()-5) * MM.render.getEscala())  + 'px; ' +
-                    'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
-                    'min-width: 50px; ' +
-                    'height: 2em; ' +
-                    'border: 3px solid ' + this.color + '; ' +
-                    'border-radius: 5px;' +
-                    'background-color: ' + this.colorFondo + '; ' +
-                    'color: ' + this.color + '; ' +
-                    'font-family: ' + this.kText.getFontFamily() + '; ' +
-                    'font-size: ' + this.kText.getFontSize() + 'pt; ' +
-                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden;'
-            });
-
-        this.textarea.onblur = MM.Class.bind (MM.render, MM.render.editar);
-        this.escenario.content.appendChild(this.textarea);
-        this.textarea.select();
-        this.textarea.focus();
-    },
-
-
-    cerrarEdicion : function () {
-	this.textarea.onblur = this.nop;
-	MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
-						      this.arbol.elemento.texto, 
-						      this.textarea.value ) );
-        this.arbol.elemento.texto = this.textarea.value;
-        this.setText(this.textarea.value);
-        this.group.setWidth(this.kText.getWidth());
-        this.group.setHeight(this.kText.getHeight());
-        this.rect.setPoints ( [ { x: 0, y: 0  }, 
-                                { x: this.kText.getWidth(), y: 0 }, 
-                                { x: this.kText.getWidth(), y: this.kText.getHeight() }, 
-                                { x: 0, y: this.kText.getHeight() } ] );
-        this.textarea.remove();
-	delete this.textarea;
-        MM.ponerFoco(this.arbol);
-        window.focus();
     }
-
 
 });

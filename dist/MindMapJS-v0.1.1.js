@@ -2,7 +2,7 @@
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
  * @version 0.1.1
- * @date    2013-07-19
+ * @date    2013-07-23
  */
 
 /**
@@ -424,9 +424,15 @@ MM.definirAtajos = function() {
     MM.teclado.atajos.add('Ctrl+0', MM.render.zoomReset, MM);
 
 
+    var addEdicion = function () {
+	MM.add();
+	MM.render.editar();
+    };
+
     // teclas de operaciones
-    MM.teclado.atajos.add('ins', MM.add, MM);
-    MM.teclado.atajos.add('Shift+Tab', MM.add, MM);
+    MM.teclado.atajos.add('Shift+n', MM.nuevo, MM);
+    MM.teclado.atajos.add('ins', addEdicion, MM);
+    MM.teclado.atajos.add('Shift+Tab', addEdicion, MM);
     MM.teclado.atajos.add('del', MM.borrar, MM);
 
     // teclas de edición
@@ -435,6 +441,7 @@ MM.definirAtajos = function() {
 	    MM.render.insertarSaltoDeLinea();
 	} else {
 	    MM.padre().add();
+	    MM.render.editar();
 	}
     }, MM);
     MM.teclado.atajos.add('enter', MM.render.editar, MM);
@@ -458,7 +465,7 @@ MM.definirAtajos = function() {
 	    MM.render.editar();
 	} else {
 	    if ( MM.foco.esHoja() ) { // Si estamos en el último nivel añadimos un nuevo nodo hijo
-		MM.add(); 
+		addEdicion();
 	    } else { // navegamos por los niveles
 		MM.next();
 	    }
@@ -2032,45 +2039,55 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         return this.group.getHeight();
     },
 
+
     /**
-     * @desc Pone el nodo en modo edición
+     * @desc Pone el nodo el modo edición.
      */
     editar: function () {
-	
-        MM.teclado.atajos.activo = false;
-        this.input = new MM.DOM.create('input',
+        this.editor = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
-              'value': this.arbol.elemento.texto,
-              'style': 'position: absolute; ' +
-                    'top : ' + (this.getY() * MM.render.getEscala()) + 'px; ' +
-                    'left: ' + (this.getX() * MM.render.getEscala()) + 'px; ' +
+                'innerHTML': this.getText(),
+                'style': 'position: absolute; ' +
+                    'top : ' + ((this.getY()-5) * MM.render.getEscala()) + 'px; ' +
+                    'left: ' + ((this.getX()-5) * MM.render.getEscala())  + 'px; ' +
                     'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
                     'min-width: 50px; ' +
+                    'height: 2em; ' +
                     'border: 3px solid ' + this.color + '; ' +
                     'border-radius: 5px;' +
                     'background-color: ' + this.colorFondo + '; ' +
                     'color: ' + this.color + '; ' +
                     'font-family: ' + this.kText.getFontFamily() + '; ' +
                     'font-size: ' + this.kText.getFontSize() + 'pt; ' +
-                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; height:auto;'
+                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden;'
             });
-        
-        this.input.onblur = MM.Class.bind (MM.render, MM.render.editar);
-        this.escenario.content.appendChild(this.input);
-        this.input.select();
-        this.input.focus();
+
+        this.editor.onblur = MM.Class.bind (MM.render, MM.render.editar);
+        this.escenario.content.appendChild(this.editor);
+        this.editor.select();
+        this.editor.focus();
     },
 
-    cerrarEdicion : function ( ) {
-	this.arbol.elemento.texto = this.input.value;
+    /**
+     * @desc Cierra el modo de edición
+     */
+    cerrarEdicion : function () {
+	this.editor.onblur = this.nop;
+	MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
+						      this.arbol.elemento.texto, 
+						      this.editor.value ) );
+        this.arbol.elemento.texto = this.editor.value;
+        this.setText(this.editor.value);
         this.group.setWidth(this.kText.getWidth());
         this.group.setHeight(this.kText.getHeight());
-        this.line.setPoints ( [ { x: 0, y: this.kText.getHeight() }, 
-				{ x: this.kText.getWidth(), y: this.kText.getHeight() } ] );
-        MM.teclado.atajos.activo = true;
-        this.input.remove();
-	delete this.input;
+        this.rect.setPoints ( [ { x: 0, y: 0  }, 
+                                { x: this.kText.getWidth(), y: 0 }, 
+                                { x: this.kText.getWidth(), y: this.kText.getHeight() }, 
+                                { x: 0, y: this.kText.getHeight() } ] );
+        this.editor.remove();
+	delete this.editor;
         MM.ponerFoco(this.arbol);
+        window.focus();
     },
 
     nop: function () {
@@ -2108,11 +2125,6 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
 
         this.line.hide();
         this.rect.show();
-
-        // var bindEditar = MM.Class.bind(this, this.editar);
-        // var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
-        // this.group.on('click', bindPonerFoco);
-        // this.group.on('dblclick', bindEditar);
     },
 
     /**
@@ -2135,56 +2147,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor('black');
         this.kText.setFill(this.color);
         this.capa.draw();
-    },
-
-    /**
-     * @desc Pone el nodo el modo edición.
-     */
-    editar: function () {
-        this.textarea = new MM.DOM.create('textarea',
-            { 'id': 'editNodo',
-                'innerHTML': this.getText(),
-                'style': 'position: absolute; ' +
-                    'top : ' + ((this.getY()-5) * MM.render.getEscala()) + 'px; ' +
-                    'left: ' + ((this.getX()-5) * MM.render.getEscala())  + 'px; ' +
-                    'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
-                    'min-width: 50px; ' +
-                    'height: 2em; ' +
-                    'border: 3px solid ' + this.color + '; ' +
-                    'border-radius: 5px;' +
-                    'background-color: ' + this.colorFondo + '; ' +
-                    'color: ' + this.color + '; ' +
-                    'font-family: ' + this.kText.getFontFamily() + '; ' +
-                    'font-size: ' + this.kText.getFontSize() + 'pt; ' +
-                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden;'
-            });
-
-        this.textarea.onblur = MM.Class.bind (MM.render, MM.render.editar);
-        this.escenario.content.appendChild(this.textarea);
-        this.textarea.select();
-        this.textarea.focus();
-    },
-
-
-    cerrarEdicion : function () {
-	this.textarea.onblur = this.nop;
-	MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
-						      this.arbol.elemento.texto, 
-						      this.textarea.value ) );
-        this.arbol.elemento.texto = this.textarea.value;
-        this.setText(this.textarea.value);
-        this.group.setWidth(this.kText.getWidth());
-        this.group.setHeight(this.kText.getHeight());
-        this.rect.setPoints ( [ { x: 0, y: 0  }, 
-                                { x: this.kText.getWidth(), y: 0 }, 
-                                { x: this.kText.getWidth(), y: this.kText.getHeight() }, 
-                                { x: 0, y: this.kText.getHeight() } ] );
-        this.textarea.remove();
-	delete this.textarea;
-        MM.ponerFoco(this.arbol);
-        window.focus();
     }
-
 
 });
 ;/**
@@ -2407,9 +2370,13 @@ MM.Render = function() {
             /** @prop {Kinetic.Layer} capaAristas Capa donde se dibujarán las aristas del MM */
             this.capaAristas = new Kinetic.Layer();
 
+            this.capaTransparencia = new Kinetic.Layer({visible : false});
+
             this.escenario.add(this.capaGrid);
             this.escenario.add(this.capaAristas);
             this.escenario.add(this.capaNodos);
+	    this.escenario.add(this.capaTransparencia);
+
         }
     });
 
@@ -2507,7 +2474,6 @@ MM.Render = function() {
         this.renderAristas();
         this.capaNodos.draw();
 	MM.ponerFoco(hijo);
-	this.editar();
     };
 
     /**
@@ -2754,13 +2720,21 @@ MM.Render = function() {
      */
     var enEdicion = false;
     render.prototype.editar = function () {
+	var t = MM.render.capaTransparencia.canvas.element;
 	if ( enEdicion ) {
 	    enEdicion = false;
+	    t.style.background = 'transparent';
+	    t.style.opacity = 0; 
+	    t.style.display = 'none'; 
 	    MM.foco.elemento.nodo.cerrarEdicion();
 	} else {
 	    enEdicion = true;
 	    MM.foco.elemento.nodo.editar();
+	    t.style.background = 'white';
+	    t.style.opacity = 0.5;
+ 	    t.style.display = 'block'; 
 	}
+	t = null;
     };
 
     /**
@@ -2776,8 +2750,11 @@ MM.Render = function() {
 
     render.prototype.insertarSaltoDeLinea = function () {
 	if ( enEdicion ) {
-	    MM.foco.elemento.nodo.textarea.value = MM.foco.elemento.nodo.textarea.value + "\n";
+	    var editor = MM.foco.elemento.nodo.editor;
+	    editor.value = editor.value + "\n";
+	    editor.style.height = (parseFloat(editor.style.height) + 1.25) + "em";
 	}
+	editor = null;
     };
 
     return render;

@@ -11,6 +11,11 @@
     - <Shift+Tab> para crear hijo
     - <Shift++> para plegar
     - <Shift+-> para desplegar
+  * Incluir tecla para Nuevo
+  * Bug: el undo no fuciona por la edición en el add de nodos
+  * Cuando se edita poner un película sobre el canvas.
+  * Aunmentar el textArea al introducir un salto de línea 
+
 
 0.1.0 / 2013-06-19 (cerrada)
 ============================

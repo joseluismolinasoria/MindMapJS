@@ -60,9 +60,13 @@ MM.Render = function() {
             /** @prop {Kinetic.Layer} capaAristas Capa donde se dibujarán las aristas del MM */
             this.capaAristas = new Kinetic.Layer();
 
+            this.capaTransparencia = new Kinetic.Layer({visible : false});
+
             this.escenario.add(this.capaGrid);
             this.escenario.add(this.capaAristas);
             this.escenario.add(this.capaNodos);
+	    this.escenario.add(this.capaTransparencia);
+
         }
     });
 
@@ -160,7 +164,6 @@ MM.Render = function() {
         this.renderAristas();
         this.capaNodos.draw();
 	MM.ponerFoco(hijo);
-	this.editar();
     };
 
     /**
@@ -407,13 +410,21 @@ MM.Render = function() {
      */
     var enEdicion = false;
     render.prototype.editar = function () {
+	var t = MM.render.capaTransparencia.canvas.element;
 	if ( enEdicion ) {
 	    enEdicion = false;
+	    t.style.background = 'transparent';
+	    t.style.opacity = 0; 
+	    t.style.display = 'none'; 
 	    MM.foco.elemento.nodo.cerrarEdicion();
 	} else {
 	    enEdicion = true;
 	    MM.foco.elemento.nodo.editar();
+	    t.style.background = 'white';
+	    t.style.opacity = 0.5;
+ 	    t.style.display = 'block'; 
 	}
+	t = null;
     };
 
     /**
@@ -429,8 +440,11 @@ MM.Render = function() {
 
     render.prototype.insertarSaltoDeLinea = function () {
 	if ( enEdicion ) {
-	    MM.foco.elemento.nodo.textarea.value = MM.foco.elemento.nodo.textarea.value + "\n";
+	    var editor = MM.foco.elemento.nodo.editor;
+	    editor.value = editor.value + "\n";
+	    editor.style.height = (parseFloat(editor.style.height) + 1.25) + "em";
 	}
+	editor = null;
     };
 
     return render;
