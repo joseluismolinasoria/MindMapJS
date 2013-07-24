@@ -1,4 +1,4 @@
-0.1.1 / 2013-07-23 (abierta)
+0.1.1 / 2013-07-24 (abierta)
 ============================
   * Control de edición con Enter. 
   * Undo de Edición
@@ -16,6 +16,7 @@
   * Cuando se edita poner un película sobre el canvas.
   * Aunmentar el textArea al introducir un salto de línea 
   * Aumentar el ancho del textArea mientras escribe
+  * Función para saber el número de nodos hoja que tiene un árbol
 
 
 0.1.0 / 2013-06-19 (cerrada)

@@ -34,6 +34,9 @@ describe('ArbolN', function(){
 	it('el nodo raiz es hoja', function(){
 	    a.esHoja().should.be.true;
 	});
+	it ('el número de nodos hoja es 1', function() {
+	    a.numHojas().should.eql(1);
+	});
     });
 
     describe('con dos hijos', function(){
@@ -67,6 +70,9 @@ describe('ArbolN', function(){
 	});
 	it('el nodo raiz no es hoja', function(){
 	    a.esHoja().should.be.false;
+	});
+	it ('el número de nodos hoja es 2', function() {
+	    a.numHojas().should.eql(2);
 	});
     });
 
@@ -111,6 +117,9 @@ describe('ArbolN', function(){
 	});
 	it('su recorrido postOrden es [befcjklmghida] ', function(){
 	    a.postOrden().should.eql(['b', 'e', 'f', 'c', 'j', 'k', 'l', 'm', 'g', 'h', 'i', 'd', 'a']);
+	});
+	it ('el número de nodos hoja es 9', function() {
+	    a.numHojas().should.eql(9);
 	});
 	it('el nodo raiz no es hoja', function(){
             a.esHoja().should.be.false;

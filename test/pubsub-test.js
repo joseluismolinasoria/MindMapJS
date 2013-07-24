@@ -81,14 +81,12 @@ describe('PubSub', function(){
 	    idSusPostEvento1 = evt1.suscribir('postEvento', function () { this.cont++; } );
    	    idSusEvento1.should.equal(1); 
    	    idSusPostEvento1.should.equal(2);
-	    console.log ( evt1.eventos );
 	});
 	it('Creamos nos suscribimos a los eventos del manejador 2', function(){
 	    idSusEvento2 = evt2.suscribir('evento', function () {});
 	    idSusPostEvento2 = evt2.suscribir('postEvento', function () { this.cont--; } );    
    	    idSusEvento2.should.equal(1);
    	    idSusPostEvento2.should.equal(2);
-	    console.log ( evt1.eventos );
 	});
 	it('Lanzamos el evento del manejador1', function(){
 	    evt1.evento();

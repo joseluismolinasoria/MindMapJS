@@ -186,7 +186,6 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
     editar: function () {
 	var texto = this.getText();
 	var fc = this.calcularFilasColumnas(texto);
-	console.log ( fc );
         this.editor = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
               'innerHTML': texto,

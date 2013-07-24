@@ -75,9 +75,12 @@ objetos, etc)
 
 
 * Pendiente de poner el WunderList
+** DONE Función para saber el número de nodos hoja que tiene un árbol
+   CLOSED: [2013-07-24 mié 09:32]
+
+
 ** DONE Aumentar el ancho del textArea mientras escribe
    CLOSED: [2013-07-23 mar 11:51]
-
 
 ** DONE Incluir tecla para Nuevo
    CLOSED: [2013-07-22 lun 12:33]

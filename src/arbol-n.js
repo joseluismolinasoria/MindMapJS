@@ -139,6 +139,22 @@ MM.Arbol.prototype.esHoja = function () {
 };
 
 /**
+ * @desc calcula el número de nodos hoja que tiene un árbol o subárbol.
+ * @return {number} 
+ */
+MM.Arbol.prototype.numHojas = function () {
+    if ( this.esHoja() ) {
+	return 1;
+    }
+    var p = 0;
+    this.hijos.forEach(function (hijo) {
+        p = p + hijo.numHojas();
+    });
+    return p;
+};
+
+
+/**
  * @desc Comparador de elementos
  * @return {boolean} true si los elementos son iguales
  */
