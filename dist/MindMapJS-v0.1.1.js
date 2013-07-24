@@ -2,7 +2,7 @@
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
  * @version 0.1.1
- * @date    2013-07-23
+ * @date    2013-07-24
  */
 
 /**
@@ -161,6 +161,22 @@ MM.Arbol.prototype.altura = function () {
 MM.Arbol.prototype.esHoja = function () {
     return this.hijos.length === 0;
 };
+
+/**
+ * @desc calcula el número de nodos hoja que tiene un árbol o subárbol.
+ * @return {number} 
+ */
+MM.Arbol.prototype.numHojas = function () {
+    if ( this.esHoja() ) {
+	return 1;
+    }
+    var p = 0;
+    this.hijos.forEach(function (hijo) {
+        p = p + hijo.numHojas();
+    });
+    return p;
+};
+
 
 /**
  * @desc Comparador de elementos
@@ -1861,7 +1877,7 @@ MM = function (mm) {
 ;/**
  * @file nodo.js Librería para renderizar nodos del MM.
  * @author José Luis Molina Soria
- * @version 20130513
+ * @version 20130723
  */
 
 /**
@@ -2044,35 +2060,42 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
      * @desc Pone el nodo el modo edición.
      */
     editar: function () {
+	var texto = this.getText();
+	var fc = this.calcularFilasColumnas(texto);
         this.editor = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
-                'innerHTML': this.getText(),
+              'innerHTML': texto,
+              'rows' :  fc.filas,
+              'cols' : fc.columnas,
                 'style': 'position: absolute; ' +
                     'top : ' + ((this.getY()-5) * MM.render.getEscala()) + 'px; ' +
                     'left: ' + ((this.getX()-5) * MM.render.getEscala())  + 'px; ' +
-                    'width: ' + Math.floor((this.arbol.elemento.texto.length / 2)+2) + 'em; ' +
-                    'min-width: 50px; ' +
-                    'height: 2em; ' +
+	            'height: auto;' +
                     'border: 3px solid ' + this.color + '; ' +
                     'border-radius: 5px;' +
                     'background-color: ' + this.colorFondo + '; ' +
                     'color: ' + this.color + '; ' +
                     'font-family: ' + this.kText.getFontFamily() + '; ' +
                     'font-size: ' + this.kText.getFontSize() + 'pt; ' +
-                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden;'
+                    'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; resize:true;'
             });
-
-        this.editor.onblur = MM.Class.bind (MM.render, MM.render.editar);
+	this.handlerBlur = MM.Class.bind (MM.render, MM.render.editar);
+	this.handlerKeyUp = MM.Class.bind (this, this.setTamanoEditor);
+	this.editor.addEventListener('blur', this.handlerBlur );
+	this.editor.addEventListener('keyup', this.handlerKeyUp );
+//        this.editor.onblur = MM.Class.bind (MM.render, MM.render.editar);
         this.escenario.content.appendChild(this.editor);
         this.editor.select();
         this.editor.focus();
+	texto = null;
     },
 
     /**
      * @desc Cierra el modo de edición
      */
     cerrarEdicion : function () {
-	this.editor.onblur = this.nop;
+	this.editor.removeEventListener('blur', this.handlerBlur);
+	this.editor.removeEventListener('keyup', this.handlerKeyUp);
 	MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
 						      this.arbol.elemento.texto, 
 						      this.editor.value ) );
@@ -2088,6 +2111,23 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
 	delete this.editor;
         MM.ponerFoco(this.arbol);
         window.focus();
+    },
+
+    calcularFilasColumnas : function ( texto ) {
+	var lineas = texto.split("\n");
+	var c = 0, f = lineas.length;
+	lineas.forEach( function(linea) {
+	    if ( linea.length > c ) { c = linea.length; }
+	});
+	lineas = null;
+	return {filas: f, columnas: c+2 };
+    },
+
+    setTamanoEditor : function() {
+	var tamano = this.calcularFilasColumnas(this.editor.value);
+	this.editor.setAttribute('rows', tamano.filas );
+	this.editor.setAttribute('cols', tamano.columnas );
+	tamano = null;
     },
 
     nop: function () {
@@ -2752,7 +2792,7 @@ MM.Render = function() {
 	if ( enEdicion ) {
 	    var editor = MM.foco.elemento.nodo.editor;
 	    editor.value = editor.value + "\n";
-	    editor.style.height = (parseFloat(editor.style.height) + 1.25) + "em";
+	    MM.foco.elemento.nodo.setTamanoEditor();
 	}
 	editor = null;
     };
