@@ -219,8 +219,8 @@ MM.importar.FreeMind = function() {
             return;
         }
         var raiz = obj.hijos[0];
-        MM.nuevo(raiz.TEXT);
-        MM.importar.evento.on("freeMind/raiz", raiz.TEXT);
+        MM.nuevo(raiz.TEXT || raiz.text);
+        MM.importar.evento.on("freeMind/raiz", raiz.TEXT || raiz.text);
         procesarHijos(raiz);
         MM.importar.evento.on("freeMind/procesado");
         MM.importar.evento.desSuscribir(this.idSus);
@@ -228,7 +228,8 @@ MM.importar.FreeMind = function() {
     };
 
     var procesarHijo = function ( obj ) {
-        MM.add(obj.TEXT).next().lastHermano();
+        var texto = 
+        MM.add(obj.TEXT || obj.text).next().lastHermano();
         procesarHijos( obj );
         MM.padre();
     };

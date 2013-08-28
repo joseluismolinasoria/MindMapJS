@@ -144,6 +144,7 @@ MM.Arbol.prototype.esHoja = function () {
  */
 MM.Arbol.prototype.numHojas = function () {
     if ( this.esHoja() ) {
+	this.on('enHoja', this);
 	return 1;
     }
     var p = 0;

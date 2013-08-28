@@ -2,48 +2,76 @@
 #+STARTUP:  
 
 * Planificado
+** TODO Carga el valor de plegado
+** DONE Plegado de subramas.
+   CLOSED: [2013-08-08 jue 21:19]
+** DONE Salvar en el fichero el atributo plegado
+   CLOSED: [2013-08-28 mié 08:14]
+** DONE Undo Plegado y desplegado
+   CLOSED: [2013-08-27 mar 09:06]
+** DONE Ajustar los atajos de teclado a la nueva funcionalidad de plegado.
+   CLOSED: [2013-08-27 mar 08:31]
+** DONE Incluir un icono para poder plegar/desplegar con un click
+   CLOSED: [2013-08-27 mar 08:48]
+** DONE Tener en cuenta el desplazamiento y la escala a la hora de mostrar el editor
+   CLOSED: [2013-08-02 vie 11:58]
+** DONE Cambiar el modo de reparto de espacios por uno más equilibrado
+   CLOSED: [2013-07-24 mié 14:49]
+
+** DONE Ajustar la linea inferior cuando se edita el nodo
+   CLOSED: [2013-07-24 mié 14:49]
+   
+** DONE Rueda del ratón para hacer zoom
+   CLOSED: [2013-07-26 vie 10:24]
+
+
+** DONE El reparto debe realizarse en función del número de líneas del nodo
+   CLOSED: [2013-08-02 vie 09:43]
+
+** DONE Mover el escenario
+   CLOSED: [2013-08-02 vie 09:43]
+
+** DONE Crear una curva beizer para KineticJS
+   CLOSED: [2013-08-02 vie 09:44]
+
+
 ** TODO Cambiar la ayuda de la página
+** TODO Implementación de un clase de notificación de mensajes. 
+   - Esta clase creará onfly una ventana con el mensaje a notificar. 
+   - Implementación de distintos tipos de notitifación.
+   - Mirar HTMLKickStart.
 ** TODO Weinre 
    - https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS/Platform/Gaia/Weinre_As_Remote_Debugger
+
 ** TODO Undo movimiento
-** TODO Undo Plegado y desplegado
 ** TODO Undo Nuevo
+
 ** TODO Pellizco. Multitouch. 
    - http://alxgbsn.co.uk/2011/08/16/event-delegation-for-touch-events-in-javascript/
+** TODO Mover el escenario con el Touch
+   - stage.getContent().addEventListener('touchmove', function(evt) {
+   -    stage.setPosition(touchX, touchY);
+   -    stage.getChildren().batchDraw();
+   - });
+
+** TODO ZoomIO-Out con pellizco 
+   - Ejemplo muy muy bueno http://sney2002.github.com/canvas-event-js/example-zoom.html
+   - En sistemas touch el zoom en un pellizco. 
+
+
+** TODO Zoom con el ratón de forma focalizada
+
 ** TODO Ver que le pasa al intentar cargar un fichero en la tableta. 
-** TODO Plegado de subramas.
 ** TODO Búsqueda de nodos. 
 ** TODO Opciones flotantes entorno al nodo seleccionado
 ** TODO Unión de ramas 
 ** TODO Enlaces entre ramas (nodo raiz oculto)
 ** TODO Descripciones largas????
-** TODO Implementación de un clase de notificación de mensajes. 
-   - Esta clase creará onfly una ventana con el mensaje a notificar. 
-   - Implementación de distintos tipos de notitifación.
-   - Mirar HTMLKickStart.
-** TODO probar para mover el escenario
-   - stage.getContent().addEventListener('touchmove', function(evt) {
-   -    stage.setPosition(touchX, touchY);
-   -    stage.getChildren().batchDraw();
-   - });
 ** TODO Exportación a imagenes
 
 ** TODO Exportar a Dot-language
    - http://en.wikipedia.org/wiki/DOT_(graph_description_language)
-** TODO Cambiar el modo de reparto de espacios por uno más equilibrado
-
-** TODO Ajustar la linea inferior cuando se edita el nodo
-   
-** TODO Si MM es mayor que el espacio de dibujo => escalar
-
 ** TODO El tamaño de la fuente debe ir en proporción al ratioPixel
-** TODO El reparto debe realizarse en función de la escala.
-** TODO ZoomIO-Out con pellizco 
-   - Ejemplo muy muy bueno http://sney2002.github.com/canvas-event-js/example-zoom.html
-   - En sistemas touch el zoom en un pellizco. 
-
-** TODO Scroll con el touchMove
-
 ** TODO javascript:void(null) en los enlaces
 
 ** TODO Crear una página o un modo debug para la página
@@ -51,7 +79,6 @@
 
 * Pendiente de planificar
 ** TODO Orientación de los nodos a la derecha o izquierda. 
-
 
 ** TODO Implementar funciones para cambiar el estilo a los elementos del árbol
 ** TODO Estudiar en profundidad como funciona un sistema ya implementado.
@@ -75,16 +102,51 @@ objetos, etc)
 
 
 * Pendiente de poner el WunderList
+
+* Realizado
+** DONE Plegado de subramas.
+   CLOSED: [2013-08-08 jue 21:19]
+** DONE Salvar en el fichero el atributo plegado
+   CLOSED: [2013-08-28 mié 08:14]
+** DONE Undo Plegado y desplegado
+   CLOSED: [2013-08-27 mar 09:06]
+** DONE Ajustar los atajos de teclado a la nueva funcionalidad de plegado.
+   CLOSED: [2013-08-27 mar 08:31]
+** DONE Incluir un icono para poder plegar/desplegar con un click
+   CLOSED: [2013-08-27 mar 08:48]
+** DONE Tener en cuenta el desplazamiento y la escala a la hora de mostrar el editor
+   CLOSED: [2013-08-02 vie 11:58]
+** DONE Cambiar el modo de reparto de espacios por uno más equilibrado
+   CLOSED: [2013-07-24 mié 14:49]
+
+** DONE Ajustar la linea inferior cuando se edita el nodo
+   CLOSED: [2013-07-24 mié 14:49]
+   
+** DONE Rueda del ratón para hacer zoom
+   CLOSED: [2013-07-26 vie 10:24]
+
+** DONE El reparto debe realizarse en función del número de líneas del nodo
+   CLOSED: [2013-08-02 vie 09:43]
+
+** DONE Mover el escenario
+   CLOSED: [2013-08-02 vie 09:43]
+
+** DONE Crear una curva beizer para KineticJS
+   CLOSED: [2013-08-02 vie 09:44]
+
+
+
+
 ** DONE Función para saber el número de nodos hoja que tiene un árbol
    CLOSED: [2013-07-24 mié 09:32]
-
 
 ** DONE Aumentar el ancho del textArea mientras escribe
    CLOSED: [2013-07-23 mar 11:51]
 
+
 ** DONE Incluir tecla para Nuevo
    CLOSED: [2013-07-22 lun 12:33]
-   - <Ctrl+n> puede ser una opción
+   - <Shift+n> puede ser una opción
 ** DONE Bug: el undo no fuciona por la edición en el add de nodos
    CLOSED: [2013-07-22 lun 12:22]
 ** DONE Cuando se edita poner un película sobre el canvas.
@@ -145,8 +207,6 @@ http://stackoverflow.com/questions/7160720/create-a-file-using-javascript-in-chr
    CLOSED: [2013-06-14 vie 08:31]
 
 
-
-* Realizado
 ** DONE Documentar teclado.js
    CLOSED: [2013-05-29 mié 11:31]
 

@@ -39,10 +39,11 @@ MM.exportar.freemind = function() {
                                            'ID': 'ID_' + Math.floor((Math.random()*(10e+10))+1),
                                            'MODIFIED': time,
                                            'STYLE': 'bubble',
-                                           'TEXT': elemento.texto }); // hay que escapar el texto
+                                           'FOLDED': elemento.plegado,
+                                           'TEXT': elemento.texto });
         var edge = MM.DOM.create('edge', { 'STYLE' : "bezier",
                                            'COLOR' : MM.color.rgbToHexCSS(MM.color.hslToRgb(elemento.nodo.hslColor)) });
-	nodo.appendChild(edge);
+        nodo.appendChild(edge);
         time = null;
         return [nodo];
     };
@@ -58,7 +59,7 @@ MM.exportar.freemind = function() {
         window.URL = window.URL || window.webkitURL;
         if ( !window.URL ) {
             alert('Operación no soportada por su navegador');
-	}
+        }
         var blob = new Blob([generar()], {type: 'application/xml'});
         var link = window.document.createElement('a');
         link.download= MM.arbol.elemento.texto + ".mm";

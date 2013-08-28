@@ -43,7 +43,7 @@ MM.UndoManager = MM.Class.extend(function() {
 
 
     var init = function ( maximo ) {
-	maxComandos = maximo || 10;
+        maxComandos = maximo || 10;
     };
 
     /** 
@@ -59,8 +59,8 @@ MM.UndoManager = MM.Class.extend(function() {
         comandos.push(comando);
         actual = comandos.length -1;
         ajustarMaximo();
-	eventos.on('add');
-	eventos.on('cambio');
+        eventos.on('add');
+        eventos.on('cambio');
     };
 
     var borrarPorEncimaActual = function () {
@@ -87,8 +87,8 @@ MM.UndoManager = MM.Class.extend(function() {
         if ( comandos[actual+1] ) {
             comandos[actual+1].hacer();
             avanzar();
-	    eventos.on('hacer');
-	    eventos.on('cambio');
+            eventos.on('hacer');
+            eventos.on('cambio');
         }
     };
 
@@ -102,24 +102,24 @@ MM.UndoManager = MM.Class.extend(function() {
         if ( actual !== -1 ) {
             comandos[actual].deshacer();
             retroceder();
-	    eventos.on('deshacer');
-	    eventos.on('cambio');
+            eventos.on('deshacer');
+            eventos.on('cambio');
         }
     };
 
     var avanzar = function () {
         if (actual < comandos.length - 1) {
             actual++;
-	    eventos.on('avanzar');
-	    eventos.on('cambio');
+            eventos.on('avanzar');
+            eventos.on('cambio');
         }
     };
     
     var retroceder = function () {
         if (actual >= 0) {
             actual--;
-	    eventos.on('retroceder');
-	    eventos.on('cambio');
+            eventos.on('retroceder');
+            eventos.on('cambio');
         }
     };
 
@@ -157,20 +157,20 @@ MM.UndoManager = MM.Class.extend(function() {
      * @instance
      */            
     var nombres = function () {
-	return comandos.map(function (c) { return c.nombre; });
+        return comandos.map(function (c) { return c.nombre; });
     };
     
     return {
-	init : init, 
-	nombres : nombres,
+        init : init, 
+        nombres : nombres,
         hacerNombre : hacerNombre,
-	deshacerNombre: deshacerNombre,
-	/**
-	 * @desc Indica el indice actual dentro de la lista de comandos.
-	 * @return {Integer} indice actual
-	 * @memberof MM.UndoManager
-	 * @instance
-	 */
+        deshacerNombre: deshacerNombre,
+        /**
+         * @desc Indica el indice actual dentro de la lista de comandos.
+         * @return {Integer} indice actual
+         * @memberof MM.UndoManager
+         * @instance
+         */
         actual : function () { return actual; },
         add : add,
         hacer : hacer,
@@ -180,7 +180,7 @@ MM.UndoManager = MM.Class.extend(function() {
          * @memberof MM.UndoManager
          * @instance
          */
-	eventos : eventos
+        eventos : eventos
     };
 }());
 
@@ -196,7 +196,7 @@ MM.UndoManager.ComandoHacerDeshacer = MM.Class.extend(
 /** @lends MM.UndoManager.ComandoHacerDeshacer.prototype */{
     init: function (nombre, hacerCallBack, deshacerCallBack) {
         this.nombre = nombre;
-	this.hacerCallBack = hacerCallBack;
+        this.hacerCallBack = hacerCallBack;
         this.deshacerCallBack = deshacerCallBack;
     },
 
@@ -206,7 +206,7 @@ MM.UndoManager.ComandoHacerDeshacer = MM.Class.extend(
      * @instance
      */
     hacer : function () {
-	this.hacerCallBack();
+        this.hacerCallBack();
     },
 
     /**
@@ -215,7 +215,7 @@ MM.UndoManager.ComandoHacerDeshacer = MM.Class.extend(
      * @instance
      */
     deshacer : function () {
-	this.deshacerCallBack();
+        this.deshacerCallBack();
     }
 });
 

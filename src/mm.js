@@ -69,6 +69,7 @@ MM = function (mm) {
         this.arbol = this.foco = new MM.Arbol(
             { id: idNodos++,
               texto: ideaCentral || 'Idea Central',
+              plegado: false,
               nodo: null }
         );
         this.ponerFoco ( this.arbol );
@@ -88,9 +89,9 @@ MM = function (mm) {
      */
     mm.add = function ( texto ) {
         texto = texto || "Nueva idea";
-        var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, nodo: null } );
+        var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, plegado: false,  nodo: null } );
         this.foco.hijos.push ( nuevo );
-	this.undoManager.add(new MM.comandos.Insertar(this.foco.elemento.id, nuevo.elemento.id, texto) );
+        this.undoManager.add(new MM.comandos.Insertar(this.foco.elemento.id, nuevo.elemento.id, texto) );
         this.eventos.on ( 'add', this.foco, nuevo );
         nuevo = null;
     }.chain();
@@ -111,7 +112,7 @@ MM = function (mm) {
         var borrar = this.foco;
         this.padre();
         this.arbol.borrar ( borrar.elemento.id );
-	this.undoManager.add(new MM.comandos.Borrar(this.foco, borrar));
+        this.undoManager.add(new MM.comandos.Borrar(this.foco, borrar));
         this.eventos.on ( 'borrar', this.foco, borrar );
         borrar = null;
     }.chain();
@@ -270,6 +271,46 @@ MM = function (mm) {
     mm.renderizar = function ( contenedor, claseNodo, claseArista ) {
         mm.render = new MM.Render ( contenedor, claseNodo, claseArista );
         mm.render.renderizar();
+    };
+
+    /** 
+     * @desc Marca el nodo actual (foco) como plegado, si no establa plegado o como 
+     *       desplegado si estaba plegado. 
+     * @param {Boolean} plegado Si es true fuerza el plegado y si es false el desplegado
+     * @method plegadoRama
+     * @memberof MM
+     * @instance
+     */
+    mm.plegarRama = function (plegado, undo) {
+        //   - PLEGADO:      Se pliega toda la herencia del nodo.
+        //   - DESPLEGADO:   Se despliega sólo el nodo en cuestión.
+
+        plegado = plegado || !this.foco.elemento.plegado;
+        this.foco.elemento.plegado = plegado;
+        var plegar = function (a) {
+            a.hijos.forEach(function (h) {
+                h.elemento.plegado = true;
+                plegar(h);
+            });
+        };
+        var desplegar = function (a) {
+            var aPlegado = a.elemento.plegado;
+            a.hijos.forEach(function (h) {
+                h.elemento.plegado = ( !aPlegado && h.esHoja() )?false:h.elemento.plegado;
+                desplegar(h);
+            });
+            aPlegado = null;
+        };
+
+        if ( plegado ) { 
+            plegar(this.foco);
+        } else {
+            desplegar(this.foco);
+        }
+        this.render.dibujar();
+        if ( !undo ) { 
+            this.undoManager.add(new MM.comandos.Plegar(this.foco, plegado));
+        }
     };
 
 

@@ -29,14 +29,10 @@ MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
     calcularPuntos: function () {
         var nodoOrigen = this.elementoOrigen.nodo;
         var nodoDestino = this.elementoDestino.nodo;
-        this.x1 = (nodoOrigen.getX() + MM.render.offset.x + nodoOrigen.getWidth() / 2) 
-            * MM.render.getEscala();
-        this.y1 = (nodoOrigen.getY() + MM.render.offset.y + nodoOrigen.getHeight() / 2) 
-            * MM.render.getEscala();
-        this.x2 = (nodoDestino.getX() + MM.render.offset.x + nodoDestino.getWidth() / 2) 
-            * MM.render.getEscala();
-        this.y2 = (nodoDestino.getY() + MM.render.offset.y + nodoDestino.getHeight() / 2) 
-            * MM.render.getEscala();
+        this.x1 = (nodoOrigen.getX() + nodoOrigen.getWidth() - 5);
+        this.y1 = (nodoOrigen.getY() + nodoOrigen.getHeight() / 2);
+        this.x2 = (nodoDestino.getX() + 5); 
+        this.y2 = (nodoDestino.getY() + nodoDestino.getHeight() / 2);
         this.c1x = this.x1 + (this.x2-this.x1)/2;
         this.c1y = this.y1;
         this.c2x = this.x1 + (this.x2-this.x1)/2;
@@ -48,17 +44,44 @@ MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
      * @desc Función de pintado de la arista en función de los elementos pasados
      */   
     render: function () {
-        var c = this.context;
         this.calcularPuntos();
+        this.beizer = new Kinetic.Beizer({
+            stroke: '#555',
+            strokeWidth: this.tamano,
+            puntos : { start : {x: this.x1, y: this.y1},
+                       end: {x: this.x2, y: this.y2},
+                       control1: {x: this.c1x, y: this.c1y},
+                       control2: {x: this.c2x, y: this.c2y}}
+        });
+        this.capa.add(this.beizer);
+    },
 
-        c.beginPath();
-        c.moveTo(this.x1, this.y1);
-        c.bezierCurveTo (this.c1x, this.c1y, this.c2x, this.c2y, this.x2, this.y2);
-        c.strokeStyle = '#555';
-        c.lineWidth = this.tamano * MM.render.getEscala();
-        c.stroke();
-        c = null;
+    redraw: function () {
+        if ( this.elementoOrigen.plegado ) {
+            this.beizer.setVisible(false);
+        } else {
+            this.calcularPuntos();
+            this.beizer.setVisible(true);
+            this.beizer.setPuntos({ start : {x: this.x1, y: this.y1},
+                                    end: {x: this.x2, y: this.y2},
+                                    control1: {x: this.c1x, y: this.c1y},
+                                    control2: {x: this.c2x, y: this.c2y} });
+        }
+        this.capa.draw();
+    },
+
+    /**
+     * @desc Destruye la arista.
+     */
+    destroy : function () {
+        this.beizer.destroy();
+        delete this.beizer;
+        delete this.capa;
+        delete this.elementoOrigen;
+        delete this.elementoDestino;
     }
+
+    
 });
 
 

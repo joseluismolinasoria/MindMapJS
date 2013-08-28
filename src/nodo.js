@@ -27,12 +27,11 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         x: 0,
         y: 0,
         text: '',
-        fontSize: 12,
+        fontSize: 13,
         fontFamily: 'helvetica',
         fill: '#555',
         width: 'auto',
-        padding: 5,
-        align: 'center'
+        padding: 5
     },
 
     init: function (render, arbol, propiedades) {
@@ -43,6 +42,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.hslColor = MM.color.randomHslColor();
         this.colorFondo = MM.color.hslToCSS(this.hslColor, 40);
         this.color = MM.color.hslToCSS(this.hslColor);
+        this.aristas = [];
 
         var prop = MM.Properties.add(this.defecto, propiedades);
         prop.x = 0;
@@ -55,28 +55,64 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             y : propiedades.y,
             width: this.kText.getWidth(),
             height: this.kText.getHeight(),
-            draggable: true,
+            draggable: true, 
             dragBoundFunc: function (pos) {
-                render.renderAristas();
+                MM.render.renderAristas();
                 return pos;
             }
         });
 
+        var w = this.kText.getWidth();
+        var h = this.kText.getHeight();
+
         this.rect = new Kinetic.Blob({
             points: [ { x: 0, y: 0 }, 
-                      { x: this.kText.getWidth(), y: 0 }, 
-                      { x: this.kText.getWidth(), y: this.kText.getHeight() }, 
-                      { x: 0, y: this.kText.getHeight() } ],
+                      { x: w+17, y: 0 }, 
+                      { x: w+17, y: h }, 
+                      { x: 0, y: h } ],
             stroke: this.color,
             strokeWidth: 2,
             fill: this.colorFondo,
-            shadowColor: 'black',
+            shadowColor: this.color,
             shadowBlur: 5,
             shadowOffset: [3, 3],
             shadowOpacity: 0.5,
             tension: 0.3
         });
 
+        var t = 10;
+        var x = w + 5;
+        var y = (h - t) / 2;
+        var puntos = this.arbol.elemento.plegado?
+                [x, y, x + t, y, x + (t*0.5), y + t]:
+                [x, y, x, y + t, x + t, y + (t *0.5)];
+        this.triangle = new Kinetic.Polygon({
+            points: puntos,
+            fill: this.color,
+            visible: !this.arbol.esHoja()
+        });
+
+        this.triangle.on('mouseover', MM.Class.bind ( this, function() {
+            MM.render.contenedor.style.cursor = 'pointer';
+            if ( this.arbol.elemento.plegado ) {
+                MM.render.contenedor.setAttribute('title', 'desplegar');
+            } else {
+                MM.render.contenedor.setAttribute('title', 'plegar');
+            }
+        }));
+
+        this.triangle.on('mouseout', MM.Class.bind ( this, function() {
+            MM.render.contenedor.style.cursor = 'default';
+            MM.render.contenedor.setAttribute('title', '');
+        }));
+
+        this.triangle.on('click', MM.Class.bind ( this, function() {
+            MM.render.contenedor.style.cursor = 'default';
+            MM.render.contenedor.setAttribute('title', '');
+            //this.triangle.rotateDeg(180);
+            MM.ponerFoco ( this.arbol );
+            MM.plegarRama(!this.arbol.elemento.plegado);
+        }));
 
         this.line = new Kinetic.Line({
             points: [{x:0, y: this.kText.getHeight()},
@@ -87,6 +123,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             lineJoin: 'round'
         });
         this.group.add(this.rect);
+        this.group.add(this.triangle);
         this.group.add(this.line);
         this.group.add(this.kText);
         this.capa.add(this.group);
@@ -97,14 +134,15 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
         this.group.on('click tab', bindPonerFoco);
         this.group.on('dblclick dbltap', bindEditar);
-        this.group.on('mouseout', bindNOP);
-        this.group.on('mousemove', bindNOP);
-        this.group.on('mousedown', bindNOP);
-        this.group.on('mouseup', bindNOP);
-        this.group.on('mouseenter', bindNOP);
-        this.group.on('mouseLeave', bindNOP);
-        this.group.on('dragstart', bindNOP);
-        this.group.on('dragend', bindNOP);
+        // this.group.on('mouseout', bindNOP);
+        // this.group.on('mousemove', bindNOP);
+        // this.group.on('mousedown', bindNOP);
+        // this.group.on('mouseup', bindNOP);
+        // this.group.on('mouseenter', bindNOP);
+        // this.group.on('mouseLeave', bindNOP);
+        // this.group.on('dragstart', bindNOP);
+//      this.group.on('dragmove dragend', MM.Class.bind(MM.render, MM.render.renderAristas) );
+        h = w = t = x = y = null;
     },
 
 
@@ -126,6 +164,25 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.kText.setText(this.arbol.elemento.texto);
         this.capa.draw();
     },
+
+    /**
+     * @desc Pone el nodo visible o lo oculta en función del valor pasado
+     * @param {Boolean} valor Visible Si / No.
+     */
+    setVisible : function (valor) {
+        var w = this.kText.getWidth();
+        var h = this.kText.getHeight();
+        var t = 10;
+        var x = w + 5;
+        var y = (h - t) / 2;
+        this.triangle.setPoints ( this.arbol.elemento.plegado?
+                [x, y, x + t, y, x + (t*0.5), y + t]:
+                [x, y, x, y + t, x + t, y + (t *0.5)]);
+
+        this.triangle.setVisible(!this.arbol.esHoja());
+        this.group.setVisible(valor);
+    },
+
 
     /**
      * @desc Pone el nodo en la posición x
@@ -151,6 +208,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.group.setY(y);
     },
 
+
     /**
      * @desc Posición y del nodo.
      * @return {number} Posición y del nodo.
@@ -160,7 +218,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
     },
 
     getGroup: function () {
-	return this.group;
+        return this.group;
     },
 
     /**
@@ -179,22 +237,24 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         return this.group.getHeight();
     },
 
-
     /**
      * @desc Pone el nodo el modo edición.
      */
     editar: function () {
-	var texto = this.getText();
-	var fc = this.calcularFilasColumnas(texto);
+        var texto = this.getText();
+        var fc = this.calcularFilasColumnas(texto);
+        var top = (this.getY() * MM.render.getEscala() + MM.render.offset.y - 5); 
+        var left = (this.getX() * MM.render.getEscala() + MM.render.offset.x - 5);
+
         this.editor = new MM.DOM.create('textarea',
             { 'id': 'editNodo',
               'innerHTML': texto,
               'rows' :  fc.filas,
-              'cols' : fc.columnas,
+              'cols' : fc.columnas + 1,
                 'style': 'position: absolute; ' +
-                    'top : ' + ((this.getY()-5) * MM.render.getEscala()) + 'px; ' +
-                    'left: ' + ((this.getX()-5) * MM.render.getEscala())  + 'px; ' +
-	            'height: auto;' +
+                    'top : ' + top + 'px; ' +
+                    'left: ' + left  + 'px; ' +
+                    'height: auto;' +
                     'border: 3px solid ' + this.color + '; ' +
                     'border-radius: 5px;' +
                     'background-color: ' + this.colorFondo + '; ' +
@@ -203,55 +263,68 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
                     'font-size: ' + this.kText.getFontSize() + 'pt; ' +
                     'white-space: pre-wrap; word-wrap: break-word; overflow:hidden; resize:true;'
             });
-	this.handlerBlur = MM.Class.bind (MM.render, MM.render.editar);
-	this.handlerKeyUp = MM.Class.bind (this, this.setTamanoEditor);
-	this.editor.addEventListener('blur', this.handlerBlur );
-	this.editor.addEventListener('keyup', this.handlerKeyUp );
-//        this.editor.onblur = MM.Class.bind (MM.render, MM.render.editar);
+        this.handlerBlur = MM.Class.bind (MM.render, MM.render.editar);
+        this.handlerKeyUp = MM.Class.bind (this, this.setTamanoEditor);
+        this.editor.addEventListener('blur', this.handlerBlur );
+        this.editor.addEventListener('keyup', this.handlerKeyUp );
         this.escenario.content.appendChild(this.editor);
         this.editor.select();
         this.editor.focus();
-	texto = null;
+        texto = fc = top = left = null;
     },
 
     /**
      * @desc Cierra el modo de edición
      */
     cerrarEdicion : function () {
-	this.editor.removeEventListener('blur', this.handlerBlur);
-	this.editor.removeEventListener('keyup', this.handlerKeyUp);
-	MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
-						      this.arbol.elemento.texto, 
-						      this.editor.value ) );
+        this.editor.removeEventListener('blur', this.handlerBlur);
+        this.editor.removeEventListener('keyup', this.handlerKeyUp);
+        if ( this.arbol.elemento.texto !== this.editor.value ) {
+            MM.undoManager.add ( new MM.comandos.Editar ( this.arbol.elemento.id, 
+                                                          this.arbol.elemento.texto, 
+                                                          this.editor.value ) );
+        }
         this.arbol.elemento.texto = this.editor.value;
         this.setText(this.editor.value);
-        this.group.setWidth(this.kText.getWidth());
-        this.group.setHeight(this.kText.getHeight());
-        this.rect.setPoints ( [ { x: 0, y: 0  }, 
-                                { x: this.kText.getWidth(), y: 0 }, 
-                                { x: this.kText.getWidth(), y: this.kText.getHeight() }, 
-                                { x: 0, y: this.kText.getHeight() } ] );
+        var w = this.kText.getWidth();
+        var h = this.kText.getHeight();
+        this.group.setWidth(w);
+        this.group.setHeight(h);
+
+        this.rect.setPoints ( [ { x: 0, y: 0 }, 
+                                { x: w+17, y: 0 }, 
+                                { x: w+17, y: h }, 
+                                { x: 0, y: h } ] );
+
+        var t = 10;
+        var x = w + 5;
+        var y = (h - t) / 2;
+        this.triangle.setPoints ( this.arbol.elemento.plegado?
+                                  [x, y, x + t, y, x + (t*0.5), y + t]:
+                                  [x, y, x, y + t, x + t, y + (t *0.5)]);
         this.editor.remove();
-	delete this.editor;
+        delete this.editor;
         MM.ponerFoco(this.arbol);
+        MM.render.dibujar();
         window.focus();
+        t = x = y = w = h = null;
     },
 
     calcularFilasColumnas : function ( texto ) {
-	var lineas = texto.split("\n");
-	var c = 0, f = lineas.length;
-	lineas.forEach( function(linea) {
-	    if ( linea.length > c ) { c = linea.length; }
-	});
-	lineas = null;
-	return {filas: f, columnas: c+2 };
+        var lineas = texto.split("\n");
+        var c = 0, f = lineas.length;
+        lineas.forEach( function(linea) {
+            if ( linea.length > c ) { c = linea.length; }
+        });
+        lineas = null;
+        return {filas: f, columnas: c };
     },
 
     setTamanoEditor : function() {
-	var tamano = this.calcularFilasColumnas(this.editor.value);
-	this.editor.setAttribute('rows', tamano.filas );
-	this.editor.setAttribute('cols', tamano.columnas );
-	tamano = null;
+        var tamano = this.calcularFilasColumnas(this.editor.value);
+        this.editor.setAttribute('rows', tamano.filas );
+        this.editor.setAttribute('cols', tamano.columnas );
+        tamano = null;
     },
 
     nop: function () {
@@ -285,6 +358,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
  */
 MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
     init: function (render, arbol, propiedades) {
+        propiedades.fontSize = 12;
         this._super(render, arbol, propiedades);
 
         this.line.hide();
@@ -299,6 +373,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setFill(this.color);
         this.rect.setShadowColor(this.color);
         this.kText.setFill(this.colorFondo);
+        this.triangle.setFill(this.colorFondo);
         this.capa.draw();
     },
 
@@ -310,6 +385,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setFill(this.colorFondo);
         this.rect.setShadowColor('black');
         this.kText.setFill(this.color);
+        this.triangle.setFill(this.color);
         this.capa.draw();
     }
 

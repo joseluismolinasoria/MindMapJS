@@ -1,5 +1,19 @@
-0.1.2 / 2013-07-24 (abierta)
+0.1.3 / 2013-08-28 (abierta)
 ============================
+
+0.1.2 / 2013-08-28 (cerrada)
+============================
+  * Rueda del ratón para hacer zoom
+  * Ajustar la linea inferior cuando se edita el nodo
+  * El reparto debe realizarse en función del número de líneas del nodo
+  * Mover el escenario
+  * Crear una curva beizer para KineticJS
+  * Tener en cuenta el desplazamiento y la escala a la hora de mostrar el editor
+  * Plegado de subramas.
+  * Ajustar los atajos de teclado a la nueva funcionalidad de plegado.
+  * Incluir un icono para poder plegar/desplegar con un click
+  * Undo Plegado y desplegado
+  * Salvar en el fichero el atributo plegado
 
 
 0.1.1 / 2013-07-24 (cerrada)

@@ -1,7 +1,7 @@
 /**
  * @file render.js Implementación del render del MM
  * @author José Luis Molina Soria
- * @version 20130625
+ * @version 20130807
  */
 
 /**
@@ -39,16 +39,15 @@ MM.Render = function() {
             this.escenario = new Kinetic.Stage({
                 container: contenedor,
                 width: this.width,
-                height: this.height/*,
+                height: this.height,
                 draggable: true,
                 dragBoundFunc: function (pos) {
                     MM.render.offset = pos;
-                    MM.render.renderAristas();
                     return pos;
-                }*/
-
+                }
             });
 
+            //this.escenario.on('dragend', MM.Class.bind(this, this.dibujar) );
             this.offset = {x:0, y:0};
 
             /** @prop {Kinetic.Layer} capaGrid Capa donde se dibujará el grid o rejilla del MM */
@@ -65,8 +64,7 @@ MM.Render = function() {
             this.escenario.add(this.capaGrid);
             this.escenario.add(this.capaAristas);
             this.escenario.add(this.capaNodos);
-	    this.escenario.add(this.capaTransparencia);
-
+            this.escenario.add(this.capaTransparencia);
         }
     });
 
@@ -85,22 +83,146 @@ MM.Render = function() {
     render.prototype.renderizar = function () {
         this.capaGrid.removeChildren();
         new MM.Grid(this.capaGrid, this.width, this.height);
-//        new MM.Borde(this.capaGrid, this.width, this.height);
-
-        MM.arbol.elemento.reparto = {y0: 0, y1: this.height};
-        var idSusPre = MM.arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
-        var idSusPost = MM.arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
-        MM.arbol.preOrden();
-        MM.arbol.desSuscribir(idSusPre);
-        MM.arbol.desSuscribir(idSusPost);
+        this.dibujar();
         this.suscribrirEventos();
         MM.root();
+        MM.definirAtajos();
+    };
+
+
+    var numLineas = function (texto) {
+        return texto.split("\n").length;
+    };
+
+    var minimaAlturaNodo = function ( nodo ) {
+        return 35 + (numLineas(nodo.elemento.texto)-1) * 15;
+    };
+
+    render.prototype.calcularAlturas = function (arbol) {
+        var minAltura = function (a) {
+            if ( a.esHoja() || a.elemento.plegado ) {
+                return minimaAlturaNodo(a);
+            }
+            var p = 0;
+            a.hijos.forEach(function (h) {
+                p = p + minAltura(h);
+            });
+            return p;
+        };
+
+        var altura = 0;
+        if ( arbol.elemento.id === MM.arbol.elemento.id ) {
+            altura = minAltura(arbol);
+            altura = ( this.height <= altura ) ? altura : this.height / this.getEscala();
+        } else {
+            altura = arbol.elemento.reparto.y1 - arbol.elemento.reparto.y0;
+        }
+
+        var alturaHijos = arbol.hijos.map(minAltura);
+        var suma = alturaHijos.reduce ( function(ac, x) { return ac + x; }, 0 );
+        var division = (altura - suma) / arbol.hijos.length; 
+        alturaHijos = alturaHijos.map(function(x) { return x+division; });
+
+        minAltura = suma = division = null;
+        return { padre: altura, hijos: alturaHijos };
+    };
+
+    /**
+     * @desc Dibuja el MindMap a partir del estado actual del árbol. 
+     * @memberof MM.Render 
+     * @method dibujar
+     * @instance
+     */    
+    render.prototype.dibujar = function () {
+        var arbol = MM.arbol;
+        var idSusPre = arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
+        var idSusPost = arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
+        arbol.preOrden();
+        arbol.desSuscribir(idSusPre);
+        arbol.desSuscribir(idSusPost);
+        arbol = idSusPre = idSusPost = null;
         this.escenario.draw();
         this.renderAristas();
+    };
 
-        MM.definirAtajos();
+    var preRecorrido = function (nodo) {
+        this.repartoEspacio(nodo);
+    };
 
-        idSusPre = idSusPost = null;
+    var postRecorrido = function (nodo) {
+        var elemento = nodo.elemento;
+        nodo.hijos.forEach(function (hijo) {
+            var arista = this.buscarArista(nodo, hijo);
+            if ( arista === null ) {
+                arista = new this.Arista(this.capaAristas, elemento, hijo.elemento, '3');
+                this.aristas.push(arista);
+            }
+            arista = null;
+        }, this);
+        elemento = null;
+    };
+
+
+    /**
+     * @desc Se encarga de repartir el espacio entre los nodos hijos de un nodo padre dado. 
+     *       Cada Nodo tiene un espacio asignado en el que puede ser renderizado.
+     * @param {MM.Arbol} arbol Nodo padre de los nodos que deseamos organizar
+     * @memberof MM.Render 
+     * @method repartoEspacio
+     * @inner
+     */
+    render.prototype.repartoEspacio = function (arbol) {
+        var reparto = arbol.elemento.reparto;
+        var alturas = this.calcularAlturas (arbol);
+        if ( arbol.elemento.id === MM.arbol.elemento.id ) {
+            arbol.elemento.reparto = reparto = {y0: 0, y1: alturas.padre, 
+                                                xPadre : 0,  widthPadre: 0 };
+            this.posicionarNodo ( arbol );
+        }
+
+        var y0 = reparto.y0;
+        var widthPadre = arbol.elemento.nodo.getWidth();
+        var xPadre = arbol.elemento.nodo.getX();
+        arbol.hijos.forEach(function (hijo, i) {
+            hijo.elemento.reparto = {y0: y0, y1: y0 + alturas.hijos[i], 
+                                     xPadre : xPadre,  widthPadre: widthPadre };
+            this.posicionarNodo ( hijo );
+            y0 += alturas.hijos[i];
+        }, this);
+         
+        reparto = y0 = xPadre = widthPadre = null;
+    };
+
+    /**
+     * @desc Posiciona un nodo del arbol en función de la profundidad. Si el nodo no 
+     *       esta renderizado lo renderiza dentro del espacio asignado para él. 
+     * @param {MM.Arbol} arbol Nodo del arbol que deseamos prosicionar
+     * @memberof MM.Render 
+     * @method posicionarNodo
+     * @inner
+     */
+    render.prototype.posicionarNodo = function (arbol) {
+        var elemento = arbol.elemento;
+        var reparto = elemento.reparto;
+        var visible = true;
+        var x = 20;
+        if ( arbol.elemento.id !== MM.arbol.elemento.id ) {
+            x = reparto.xPadre + reparto.widthPadre + 75;
+            var padre = MM.arbol.padreDe(elemento.id);
+            visible = !(MM.arbol.padreDe(elemento.id).elemento.plegado && arbol.elemento.plegado);
+        }       
+        var y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - (minimaAlturaNodo(arbol) / 2); 
+
+        if (elemento.nodo === null) {
+            elemento.nodo = new this.Nodo(this, arbol, { x: x, y: y, text: elemento.texto});
+        }
+
+        y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - (elemento.nodo.getHeight() / 2); 
+        elemento.nodo.setX(x);
+        elemento.nodo.setY(y);
+        elemento.nodo.setVisible(visible);
+
+        elemento = reparto = x = y = null;
     };
 
     /**
@@ -111,15 +233,20 @@ MM.Render = function() {
      */
     render.prototype.suscribrirEventos = function ( ) {
         this.desuscribrirEventos(); // evitamos dobles suscripciones
-        this.suscripciones.push ( MM.eventos.suscribir('ponerFoco', cambiarFoco) );
-        this.suscripciones.push ( MM.eventos.suscribir('add', this.nuevoNodo, this) );
-        this.suscripciones.push ( MM.eventos.suscribir('borrar', this.borrarNodo, this) );
-        this.suscripciones.push ( MM.eventos.suscribir('nuevo/pre', function () {
+        var sus = this.suscripciones;
+        var e = MM.eventos;
+        sus.push ( e.suscribir('ponerFoco', cambiarFoco) );
+        sus.push ( e.suscribir('add', this.nuevoNodo, this) );
+        sus.push ( e.suscribir('borrar', this.borrarNodo, this) );
+        sus.push ( e.suscribir('nuevo/pre', function () {
             MM.arbol.elemento.nodo.destroy();
         }) );
-        this.suscripciones.push ( MM.eventos.suscribir('nuevo/post', function () {
+        sus.push ( e.suscribir('nuevo/post', function () {
             this.renderizar();
         }, this) );
+        this.contenedor.addEventListener("mousewheel", handlerWheel, false);
+        this.contenedor.addEventListener("DOMMouseScroll", handlerWheel, false);
+        sus = e = null;
     };
 
     /**
@@ -133,6 +260,8 @@ MM.Render = function() {
             MM.eventos.desSuscribir(idSus);
         });
         this.suscripciones = [];
+        this.contenedor.removeEventListener("mousewheel", handlerWheel);
+        this.contenedor.removeEventListener("DOMMouseScroll", handlerWheel);
     };
 
     /**
@@ -145,7 +274,7 @@ MM.Render = function() {
         if (!this.capaAristas) { return; }
         this.capaAristas.clear();
         this.aristas.forEach(function (arista) {
-            arista.render();
+            arista.redraw();
         });
     };
 
@@ -161,79 +290,14 @@ MM.Render = function() {
     render.prototype.nuevoNodo = function (padre, hijo) {
         this.repartoEspacio(padre);
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
-        this.renderAristas();
-        this.capaNodos.draw();
-	MM.ponerFoco(hijo);
-    };
-
-    /**
-     * @desc Se encarga de repartir el espacio entre los nodos hijos de un nodo padre dado. 
-     *       Cada Nodo tiene un espacio asignado en el que puede ser renderizado.
-     * @param {MM.Arbol} padre Nodo padre de los nodos que deseamos organizar
-     * @memberof MM.Render 
-     * @method repartoEspacio
-     * @inner
-     */
-    render.prototype.repartoEspacio = function (padre) {
-        var prof = MM.arbol.profundidad(padre.elemento.id);
-        var reparto = padre.elemento.reparto;
-
-        this.posicionarNodo ( padre, prof );
-
-        var y0 = reparto.y0;
-        var division = (reparto.y1 - reparto.y0) / padre.hijos.length;
-        division = (division < 22) ? 22 : division; // TODO: Quitar la constante 22 por la altura del padre
-
-        padre.hijos.forEach(function (hijo) {
-            hijo.elemento.reparto = {y0: y0, y1: y0 + division};
-            this.posicionarNodo ( hijo, prof + 1 );
-            y0 += division;
-        }, this);
-
-        prof = reparto = y0 = division = null;
-    };
-
-    /**
-     * @desc Posiciona un nodo del arbol en función de la profundidad. Si el nodo no esta renderizado lo renderiza
-     *       dentro del espacio asignado para él. 
-     * @param {MM.Arbol} arbol Nodo del arbol que deseamos prosicionar
-     * @memberof MM.Render 
-     * @method posicionarNodo
-     * @inner
-     */
-    render.prototype.posicionarNodo = function (arbol, profundidad) {
-        var elemento = arbol.elemento;
-        var reparto = elemento.reparto;
-        var x = 25 + (150 * profundidad); // reformular esto 10 el ancho del nodo
-        var y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - 11; // TODO: Quitar la constante de 11 por la mitad e la altura
-
-        if (elemento.nodo !== null) {
-            elemento.nodo.setX(x);
-            elemento.nodo.setY(y);
-        } else {
-            elemento.nodo = new this.Nodo(this, arbol, { x: x, y: y, text: elemento.texto});
-        }
-        elemento = reparto = x = y = null;
-    };
-
-    var preRecorrido = function (nodo) {
-        this.repartoEspacio(nodo);
-    };
-
-    var postRecorrido = function (nodo) {
-        var elemento = nodo.elemento;
-        nodo.hijos.forEach(function (hijo) {
-            var arista = new this.Arista(this.capaAristas, elemento, hijo.elemento, '3');
-            this.aristas.push(arista);
-            arista = null;
-        }, this);
-        elemento = null;
+        this.dibujar();
+        MM.ponerFoco(hijo);
     };
 
     var getDevicePixelRatio = function () {
         if ( window.devicePixelRatio ) {
             return window.devicePixelRatio;
-	}
+        }
         return 1;
     };
 
@@ -247,12 +311,14 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.buscarArista = function (padre, hijo) {
+        var a;
         for (var i = 0; i < this.aristas.length; i++) {
-            if (padre.elemento.id === this.aristas[i].elementoOrigen.id &&
-                hijo.elemento.id === this.aristas[i].elementoDestino.id) {
+            a = this.aristas[i];
+            if (padre.elemento.id === a.elementoOrigen.id && hijo.elemento.id === a.elementoDestino.id) {
                 return i;
             }
         }
+        a = null;
         return null;
     };
 
@@ -265,12 +331,15 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.borrarArista = function (padre, hijo) {
+        var a;
         for (var i = 0; i < this.aristas.length; i++) {
-            if (padre.elemento.id === this.aristas[i].elementoOrigen.id &&
-                hijo.elemento.id === this.aristas[i].elementoDestino.id) {
+            a = this.aristas[i];
+            if (padre.elemento.id === a.elementoOrigen.id && hijo.elemento.id === a.elementoDestino.id) {
+                a.destroy();
                 return this.aristas.splice(i, 1);
             }
         }
+        a = null;
         return null;
     };
 
@@ -311,9 +380,7 @@ MM.Render = function() {
 
         // importante borrar el hijo borrado para evitar errores en el pintado
         this.borrarHijo(padre, borrado);
-        this.repartoEspacio(padre);
-        this.renderAristas();
-        this.capaNodos.draw();
+        this.dibujar();
         i = null;
     };
 
@@ -340,8 +407,7 @@ MM.Render = function() {
      */
     render.prototype.setEscala = function ( escala ) {
         MM.render.escenario.setScale({x:escala, y:escala});
-        MM.render.capaNodos.draw();
-        MM.render.renderAristas();
+        MM.render.escenario.draw();
     };
 
 
@@ -353,8 +419,8 @@ MM.Render = function() {
      */
     render.prototype.zoomIn = function () {
         var scale = MM.render.getEscala();
-	MM.render.setEscala(scale+0.05);
-	MM.undoManager.add ( new MM.comandos.Zoom(scale, scale+0.05) );
+        MM.render.setEscala(scale+0.05);
+        MM.undoManager.add ( new MM.comandos.Zoom(scale, scale+0.05) );
     };
 
     /**
@@ -367,7 +433,7 @@ MM.Render = function() {
         var scale = MM.render.getEscala();
         if ( scale >= 0.05 ) {
             MM.render.setEscala(scale - 0.05);
-	    MM.undoManager.add(new MM.comandos.Zoom(scale, scale-0.05) );
+            MM.undoManager.add(new MM.comandos.Zoom(scale, scale-0.05) );
         }
     };
 
@@ -378,8 +444,8 @@ MM.Render = function() {
      * @inner
      */
     render.prototype.zoomReset = function () {
-	MM.render.setEscala(1);
-	MM.undoManager.add(new MM.comandos.Zoom(MM.render.getEscala(), 1) );
+        MM.render.setEscala(1);
+        MM.undoManager.add(new MM.comandos.Zoom(MM.render.getEscala(), 1) );
     };
 
 
@@ -392,14 +458,15 @@ MM.Render = function() {
      * @inner
      */
     var cambiarFoco = function (anterior, siguiente) {
-	if ( enEdicion ) 
-	    MM.render.editar();
+        if ( enEdicion ) {
+            MM.render.editar();
+        }
         if ( anterior !== null && anterior.elemento.nodo !== null ) {
             anterior.elemento.nodo.quitarFoco();
-	}
+        }
         if ( siguiente !== null && siguiente.elemento.nodo !== null ) {
             siguiente.elemento.nodo.ponerFoco();
-	}
+        }
     };
 
     /**
@@ -410,21 +477,22 @@ MM.Render = function() {
      */
     var enEdicion = false;
     render.prototype.editar = function () {
-	var t = MM.render.capaTransparencia.canvas.element;
-	if ( enEdicion ) {
-	    enEdicion = false;
-	    t.style.background = 'transparent';
-	    t.style.opacity = 0; 
-	    t.style.display = 'none'; 
-	    MM.foco.elemento.nodo.cerrarEdicion();
-	} else {
-	    enEdicion = true;
-	    MM.foco.elemento.nodo.editar();
-	    t.style.background = 'white';
-	    t.style.opacity = 0.5;
- 	    t.style.display = 'block'; 
-	}
-	t = null;
+        var t = MM.render.capaTransparencia.canvas.element;
+        if ( enEdicion ) {
+            enEdicion = false;
+            t.style.background = 'transparent';
+            t.style.opacity = 0; 
+            t.style.display = 'none'; 
+            MM.foco.elemento.nodo.cerrarEdicion();
+        } else {
+            enEdicion = true;
+            MM.foco.elemento.nodo.editar();
+            t.style.background = 'white';
+            t.style.opacity = 0.5;
+            t.style.display = 'block'; 
+        }
+        MM.atajosEnEdicion ( enEdicion );
+        t = null;
     };
 
     /**
@@ -435,18 +503,28 @@ MM.Render = function() {
      * @inner
      */    
     render.prototype.modoEdicion = function() {
-	return enEdicion;
+        return enEdicion;
     };
 
     render.prototype.insertarSaltoDeLinea = function () {
-	if ( enEdicion ) {
-	    var editor = MM.foco.elemento.nodo.editor;
-	    editor.value = editor.value + "\n";
-	    MM.foco.elemento.nodo.setTamanoEditor();
-	}
-	editor = null;
+        if ( enEdicion ) {
+            var editor = MM.foco.elemento.nodo.editor;
+            editor.value = editor.value + "\n";
+            MM.foco.elemento.nodo.setTamanoEditor();
+            editor = null;
+        }
     };
 
+    var handlerWheel = function (e) {
+      var positivo = (e.wheelDelta || -e.detail) > 0;
+      if ( positivo ) { // rueda hacia delante
+        MM.render.zoomIn();
+      } else { // rueda hacia atrás
+        MM.render.zoomOut();
+      }
+    };
+
+   
     return render;
 }();
 

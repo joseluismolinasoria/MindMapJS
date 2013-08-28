@@ -11,7 +11,8 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
     <script type="text/javascript" src="lib/kickstart.js"></script> 
 
-    <script src="lib/kinetic-v4.5.4.min.js"></script>
+    <script src="lib/kinetic-v4.6.0.min.js"></script>
+    <script src="src/beizer.js"></script>
     <script src="src/MindMapJS.js"></script>
     <script src="src/properties.js"></script>
     <script src="src/chain.js"></script>
@@ -22,6 +23,7 @@
     <script src="src/dom.js"></script>
     <script src="src/teclado.js"></script>
     <script src="src/importar.js"></script>
+    <script src="src/exportar.js"></script>
     <script src="src/grid.js"></script>
     <script src="src/borde.js"></script>
     <script src="src/mensaje.js"></script>
@@ -84,7 +86,7 @@
       </div>
     </div>
     <!-- FIN DIVS DESLIZABLES -->
-// 33
+
     <!-- BOTONERA -->
     <ul class="button-bar" style="position:fixed; top: 40px; right: 30px; left:auto; z-index:2">
       <li class="first">
@@ -127,6 +129,20 @@
 
     <ul class="button-bar" style="position:fixed; top: 136px; right: 30px; left:auto; z-index:2">
       <li class="first">
+	<a href="#" onclick="MM.plegarRama(true); return false;"  title="Plegar">
+	  <i class="icon-caret-down "></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.plegarRama(false); return false;"  title="Desplegar">
+	  <i class="icon-caret-right "></i>
+	</a>
+      </li>
+    </ul>
+
+
+    <ul class="button-bar" style="position:fixed; top: 168px; right: 30px; left:auto; z-index:2">
+      <li class="first">
 	<a href="#" onclick="MM.render.zoomIn(); return false;"  title="Zoom in (agrandar)">
 	  <i class="icon-zoom-in"></i>
 	</a>
@@ -138,7 +154,7 @@
       </li>
     </ul>
 
-    <ul class="button-bar" style="position:fixed; top: 168px; right: 30px; left:auto; z-index:2">
+    <ul class="button-bar" style="position:fixed; top: 200px; right: 30px; left:auto; z-index:2">
       <li class="first">
 	<a href="#" onclick="MM.cargarFreeMind(); return false;" title="Cargar fichero FreeMind">
 	  <i class="icon-upload-alt"></i>
