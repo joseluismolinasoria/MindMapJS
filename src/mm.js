@@ -74,7 +74,7 @@ MM = function (mm) {
         );
         this.ponerFoco ( this.arbol );
         this.eventos.on ( 'nuevo/post' );
-    };
+    }.chain();
 
     /** 
      * @desc Añade un nodo al Mapa mental. Se añade un hijo al elemento activo (que tiene el foco).

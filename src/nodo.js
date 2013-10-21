@@ -106,14 +106,15 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             MM.render.contenedor.setAttribute('title', '');
         }));
 
-        this.triangle.on('click', MM.Class.bind ( this, function() {
+	var clickTriangulo = MM.Class.bind ( this, function(evt) {
             MM.render.contenedor.style.cursor = 'default';
             MM.render.contenedor.setAttribute('title', '');
-            //this.triangle.rotateDeg(180);
             MM.ponerFoco ( this.arbol );
             MM.plegarRama(!this.arbol.elemento.plegado);
-        }));
-
+	    evt.cancelBubble = true;
+        });
+        this.triangle.on('click', clickTriangulo );
+	this.triangle.on('tap', clickTriangulo );
         this.line = new Kinetic.Line({
             points: [{x:0, y: this.kText.getHeight()},
                      {x:this.kText.getWidth(), y:this.kText.getHeight()}],
@@ -131,9 +132,13 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
 
         var bindEditar = MM.Class.bind(MM.render, MM.render.editar);
         var bindNOP = MM.Class.bind(this, this.nop);
-        var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
-        this.group.on('click tab', bindPonerFoco);
-        this.group.on('dblclick dbltap', bindEditar);
+        var bindPonerFoco = MM.Class.bind(this, function(evt) {
+	    MM.ponerFoco(this.arbol);
+	});
+        this.group.on('click', bindPonerFoco);
+	this.group.on('tap', bindPonerFoco);
+        this.group.on('dblclick', bindEditar);
+	this.group.on('dbltap', bindEditar);
         // this.group.on('mouseout', bindNOP);
         // this.group.on('mousemove', bindNOP);
         // this.group.on('mousedown', bindNOP);

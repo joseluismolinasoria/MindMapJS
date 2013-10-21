@@ -75,8 +75,64 @@ MM.demo.cambioUndoManager = function() {
 
 
 window.onload = function () {
-    MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
+    MM.nuevo('Como usar MindMapJS').add('Teclado').add('Ratón').add('Tablet');
+
+    // Teclado
+    MM.next();
+    MM.add('Zoom').add('Navegación').add('Plegado').add('Edición').add('Operaciones');
+    
+    // Teclado / Zoom
+    MM.next();
+    MM.add('<< Ctrl++ >> In').add('<< Ctrl+- >> Out').add('<< Ctrl+0 >> Reset');
+
+    // Teclado / Navegación
+    MM.nextHermano();
+    MM.add('<< Home >> Ir a Idea Central').add('<< Cursores >> Cambiar de nodo').add('<< Tab >> Siguiente nivel');
+
+    MM.nextHermano();
+    MM.add('<< Shift++ >>Desplegar').add('<< Shift+- >> Plegar');
+
+    // Teclado / Edición
+    MM.nextHermano();
+    MM.add('<< Enter >> Entrar/salir del modo de Edición').add('<< Escape >> Salir de Edición').add('<< Tab >> Salir del Edición');
+    
+    // Teclado / Operaciones
+    MM.nextHermano();
+    MM.add('<< Shift+n >> Nuevo Mapa Mental').add('<< Ins >> Nuevo hijo').add('<< Shift+Tab >> Nuevo hijo').add('<< del >> Borrar').add('<< Shift+Enter >> Nuevo hermano / Salto de línea');
+
+    // Ratón
+    MM.root().next().nextHermano().add('Click').add('Doble Click').add('Arrastrar');
+
+    // Ratón / Click
+    MM.next();
+    MM.add('Seleccionar Idea').add('Plegar/Desplegar');
+
+    // Ratón / Doble Click
+    MM.nextHermano();
+    MM.add('Editar');
+
+    // Ratón / Arrastrar
+    MM.nextHermano();
+    MM.add('Mover el escenario').add('Mover nodo');
+    
+
+    // Tablet
+    MM.root().next().nextHermano().nextHermano().add('Touch').add('Doble touch').add('Arrastrar');
+
+    // Tablet / Touch
+    MM.next();
+    MM.add('Seleccionar Idea');
+
+    // Tablet / Doble Touch
+    MM.nextHermano();
+    MM.add('Editar');
+
+    // Tablet / Arrastrar
+    MM.nextHermano();
+    MM.add('Mover el escenario').add('Mover nodo');
+
     MM.renderizar('contenedorEditor');
+
 //    MM.renderizar('contenedorEditor', MM.NodoSimple, MM.Rama);
     MM.undoManager.eventos.suscribir('cambio', MM.demo.cambioUndoManager );
     MM.demo.cambioUndoManager();
