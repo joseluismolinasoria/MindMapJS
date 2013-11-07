@@ -1,0 +1,57 @@
+#+TITLE: Fichero para elaboración de diagramas UML con PlantUML
+#+DATE: 04-11-2013
+#+AUTHOR: José Luis Molina Soria
+#+STARTUP: showall
+
+con C-c C-c compila y enlaza la imagen
+con C-c C-x C-v compila y crea un link a fichero de la imagen.
+
+#+begin_src plantuml :file casos-de-uso.png
+left to right direction
+:Usuario: --> (nuevo mapa mental)
+:Usuario: --> (insertar idea)
+(insertar idea) --> (hijo)
+(insertar idea) --> (hermano)
+:Usuario: --> (borrar idea)
+:Usuario: --> (editar idea)
+:Usuario: --> (zoom)
+(zoom) --> (in)
+(zoom) --> (out)
+:Usuario: --> (navegar)
+:Usuario: --> (mover idea)
+:Usuario: --> (mover mapa mental)
+:Usuario: --> (salvar/cargar mapa mental)
+:Usuario: --> (hacer/deshacer acciones)
+:Usuario: --> (plegado/desplegado de ramas)
+#+end_src
+
+#+results:
+[[file:casos-de-uso.png]]
+
+#+begin_src plantuml :file diagrama-de-objectos.png
+Object1 <|-- Object2
+Object1: someVar
+Object1: execute()
+Object2: getState()
+Object2: setState()
+Object2: state
+#+end_src
+
+#+results:
+[[file:diagrama-de-objectos.png]]
+
+#+begin_src plantuml :file diagrama-estados.png
+[*] --> Start
+Start -> State2
+State2 -> State3
+note right of State3: Notes can be\nattached to states
+State2 --> State4
+State4 -> Finish
+State3 --> Finish
+Finish --> [*]
+#+end_src
+
+#+results:
+[[file:diagrama-estados.png]]
+
+

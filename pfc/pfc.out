@@ -1,0 +1,54 @@
+\BOOKMARK [0][-]{chapter.1}{Introducci\363n}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Motivaci\363n}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Objetivos}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Organizaci\363n de la memoria}{chapter.1}% 4
+\BOOKMARK [0][-]{chapter.2}{Mapas mentales}{}% 5
+\BOOKMARK [1][-]{section.2.1}{\277Qu\351 es?}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.2}{Aplicaciones y beneficios.}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.3}{Partes de un mapa mental.}{chapter.2}% 8
+\BOOKMARK [2][-]{subsection.2.3.1}{Seg\372n su estructura.}{section.2.3}% 9
+\BOOKMARK [2][-]{subsection.2.3.2}{Por contenido.}{section.2.3}% 10
+\BOOKMARK [1][-]{section.2.4}{Elaboraci\363n.}{chapter.2}% 11
+\BOOKMARK [0][-]{chapter.3}{An\341lisis y Dise\361o}{}% 12
+\BOOKMARK [1][-]{section.3.1}{Metodolog\355a de an\341lisis \(UML-WAE\)}{chapter.3}% 13
+\BOOKMARK [2][-]{subsection.3.1.1}{UML}{section.3.1}% 14
+\BOOKMARK [1][-]{section.3.2}{Casos de uso.}{chapter.3}% 15
+\BOOKMARK [2][-]{subsection.3.2.1}{Nuevo mapa mental.}{section.3.2}% 16
+\BOOKMARK [2][-]{subsection.3.2.2}{Insertar idea.}{section.3.2}% 17
+\BOOKMARK [2][-]{subsection.3.2.3}{Borrar idea.}{section.3.2}% 18
+\BOOKMARK [2][-]{subsection.3.2.4}{Editar idea.}{section.3.2}% 19
+\BOOKMARK [2][-]{subsection.3.2.5}{Zoom.}{section.3.2}% 20
+\BOOKMARK [2][-]{subsection.3.2.6}{Navegar.}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.7}{Mover idea.}{section.3.2}% 22
+\BOOKMARK [2][-]{subsection.3.2.8}{Mover mapa mental.}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.3.2.9}{Salvar/cargar mapa mental.}{section.3.2}% 24
+\BOOKMARK [2][-]{subsection.3.2.10}{Hacer/deshacer acciones.}{section.3.2}% 25
+\BOOKMARK [2][-]{subsection.3.2.11}{Plegado/desplegado de ramas.}{section.3.2}% 26
+\BOOKMARK [1][-]{section.3.3}{Diagramas de Clase}{chapter.3}% 27
+\BOOKMARK [0][-]{chapter.4}{Implementaci\363n.}{}% 28
+\BOOKMARK [1][-]{section.4.1}{Metodolog\355a y etapas del desarrollo.}{chapter.4}% 29
+\BOOKMARK [2][-]{subsection.4.1.1}{Metodolog\355a de desarrollo \341gil.}{section.4.1}% 30
+\BOOKMARK [2][-]{subsection.4.1.2}{Etapas del desarrollo.}{section.4.1}% 31
+\BOOKMARK [0][-]{chapter.5}{Herramientas utilizadas}{}% 32
+\BOOKMARK [1][-]{section.5.1}{uglify}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.2}{jsHint}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.3}{KineticJS}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.4}{NodeJS}{chapter.5}% 36
+\BOOKMARK [2][-]{subsection.5.4.1}{Instalaci\363n de NodeJS}{section.5.4}% 37
+\BOOKMARK [2][-]{subsection.5.4.2}{Instalaci\363n del NPM}{section.5.4}% 38
+\BOOKMARK [2][-]{subsection.5.4.3}{Uso b\341sico de NPM}{section.5.4}% 39
+\BOOKMARK [1][-]{section.5.5}{GruntJs}{chapter.5}% 40
+\BOOKMARK [2][-]{subsection.5.5.1}{Caracter\355sticas}{section.5.5}% 41
+\BOOKMARK [2][-]{subsection.5.5.2}{Instalaci\363n}{section.5.5}% 42
+\BOOKMARK [2][-]{subsection.5.5.3}{Creando el Gruntfile}{section.5.5}% 43
+\BOOKMARK [2][-]{subsection.5.5.4}{Gruntfile.js de MindMapJS}{section.5.5}% 44
+\BOOKMARK [1][-]{section.5.6}{Github}{chapter.5}% 45
+\BOOKMARK [2][-]{subsection.5.6.1}{Crear el repositorio}{section.5.6}% 46
+\BOOKMARK [2][-]{subsection.5.6.2}{Fork/Pull request}{section.5.6}% 47
+\BOOKMARK [1][-]{section.5.7}{JSDoc}{chapter.5}% 48
+\BOOKMARK [1][-]{section.5.8}{Mocha}{chapter.5}% 49
+\BOOKMARK [2][-]{subsection.5.8.1}{Caracter\355sticas}{section.5.8}% 50
+\BOOKMARK [2][-]{subsection.5.8.2}{Ejemplo}{section.5.8}% 51
+\BOOKMARK [0][-]{chapter.6}{Manual de usuario}{}% 52
+\BOOKMARK [0][-]{chapter.7}{Conclusiones}{}% 53
+\BOOKMARK [-1][-]{chapter.7}{Bibliograf\355a}{}% 54

@@ -1,0 +1,159 @@
+\section{NodeJS}
+
+Basado en la máquina virtual JavaScript V8 de Google, NodeJS\footnote{La web oficial de NodeJS es nodejs.org} a supuesto una revolución en el mundo de la programación JavaScript, dando un salto de gigante desde el lado del cliente al servidor. Este enorme evolución, y de manos de V8, ha provocado la creación de un entorno de programación completo, en el cual se aglutina desde un REPL\footnote{Patrón Read-Eval-Print Loop} para pruebas y depuración interactiva hasta un gestor de paquetes y librerías NPM\footnote{La web oficial de NPM es npmjs.org} (Node Packaged Modules).
+
+\begin{wrapfigure}{l}{0.4\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{imagenes/nodejs-light}
+  \end{center}
+  \caption{Logo NodeJS}
+  \label{fig:nodejs}
+\end{wrapfigure}
+
+NodeJS nos permite crear aplicaciones de red escalables, alcanzando un alto rendimiento utilizando entrada/salida no bloqueante y un bucle de eventos en una sóla hebra. Es decir, que NodeJS se programa sobre un sólo hijo de ejecución y en el caso de que necesite operaciones de entrada/salida, creará una segunda hebra para evitar su bloqueo. En teoría NodeJS puede mantener tantas conexiones simultaneas abiertas como descriptores de fichero soporte el sistema operativo (en UNIX aproximadamente 65.000), en la realidad son bastantes menos (se calcula que entre 20.000 y 25.000). 
+
+Como ya se ha mencionado, y debido a que su arquitectura es usar un único hilo, sólo puede unas una CPU. Es el principal inconveniente que presenta la arquitectura de NodeJS.
+
+Sus principales objetivos son:
+\begin{itemize}
+\item Escribir aplicaciones eficientes en entrada y salida con un lenguaje dinámico.
+\item Soporte a miles de conexiones.
+\item Evitar las complicaciones de la programación paralela (Concurrencia vs paralelismo).
+\item Aplicaciones basadas en eventos y callbacks.
+\end{itemize}
+
+\subsection{Instalación de NodeJS}
+Existen varias formas de instalar NodeJS, por ejemplo, utilizando los repositorios del sistema operativo o instaladores. En mi caso, he utilizado la compilación del código fuente que esta alojado en GitHub\footnote{Repositorio de NodeJS https://github.com/joyent/node}. 
+
+Lo primero que tenemos debemos hacer es clonar el proyecto.
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ git clone git://github.com/joyent/node.git
+$ cd node
+\end{lstlisting}
+
+Una vez tengamos la copia del código fuente realizaremos un checkout de una versión estable.
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ git branch vXXXX Nombre
+$ git checkout Nombre
+\end{lstlisting}
+
+Ahora, ya estamos en disposición de compilar el fuente de la versión estable. 
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ ./configure --prefix=/usr/local 
+$ sudo make install
+\end{lstlisting}
+
+\subsection{Instalación del NPM}
+Como ya se ha comentado antes NPM\footnote{Node Packaged Module (NPM) web oficial npmjs.org} es el gestor de paquetes de NodeJS. En la versiones actuales ya viene instalado, pero eso no fue siempre así. También se puede optar por instalarse de sin
+NodeJS. Para ello, ejecutaremos el siguiente comando:
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ curl https://npmjs.org/install.sh | sh
+\end{lstlisting}
+
+\subsection{Uso básico de NPM}
+
+\subsubsection{Iniciar un proyecto nuevo}
+
+A continuación se muestra la secuencia de comandos necesaria para crear un proyecto.
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ mkdir hola
+$ cd hola
+$ npm init
+npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sane defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg> --save` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+name: (hola) 
+version: (0.0.0) 
+git repository: 
+author: 
+license: (BSD-2-Clause) 
+About to write to /tmp/hola/package.json:
+
+{
+  "name": "hola",
+  "version": "0.0.0",
+  "description": "Hola mundo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hola",
+    "mundo"
+  ],
+  "author": "",
+  "license": "BSD-2-Clause"
+}
+
+Is this ok? (yes) 
+\end{lstlisting}
+
+El comando \textbf{npm init} comenzará a realizarnos sobre los datos del proyecto como nombre, versión, etc. Una vez terminado, tendremos nuestro fichero de configuración (package.json) preparado.
+
+\subsubsection{Buscar paquetes y obtener información}
+
+El primer comando nos permite buscar paquetes interesantes o útiles a nuestro proyecto, y el segundo, para obtener una descripción más exhaustiva del mismo.
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ npm search <palabra>:
+$ npm info <paquete>
+\end{lstlisting}
+
+\subsubsection{Instalación de paquetes}
+
+Existen varias formas para instalar un paquete y/o librería. 
+
+De forma global \footnote{Con el modificador -g} para que lo puedan utilizar todas las librerías del sistema.
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ npm install <paquete> -g
+\end{lstlisting}
+
+De forma local\footnote{Sin el modificador -g}, es decir, sólo se podrá utilizar el proyecto actual.
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ npm install <package name>
+\end{lstlisting}
+
+También existen dos modificadores muy interesantes \textit{--save} para que se incluya (en el fichero package.json) la librería o paquete como dependencia del proyecto. Y el otro modificador es \textit{--save-dev} para que la dependencia sea de desarrollo. Así quedaría un fichero package.json después de haber incluido un paquete (colors) como dependencia y otro (grunt-cli) como dependencia de desarrollo.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+{
+  "name": "hola",
+  "version": "0.0.0",
+  "description": "Hola mundo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hola",
+    "mundo"
+  ],
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "colors": "~0.6.2"
+  },
+  "devDependencies": {
+    "grunt-cli": "~0.1.9"
+  }
+}
+\end{lstlisting}
+
+\subsubsection{Desinstalación de paquetes}
+
+Las instrucciones son la misma salvo por que el comando \textit{install} se sustituye por \textit{uninstall}.

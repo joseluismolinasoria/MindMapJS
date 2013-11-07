@@ -1,0 +1,104 @@
+\section{GruntJs}
+
+Se trata de una aplicación Node que está empaquetada y disponible en NPM. GruntJS es una herramienta versátil para la automatización de tareas mediante Javascript, evitándonos dentro de lo posible la realización de tareas repetitivas. Con un simple archivo de configuración nos permite realizar tareas tan diversas como minificar código, lanzar la suite de tests, etc.
+
+
+\subsection{Características}
+
+\begin{itemize}
+\item \textbf{Acceso a archivos:}
+	No tenemos que preocuparnos del acceso a archivos, sólo tratarlos.	
+\item \textbf{Automatización de tareas y conjunto de tareas:}
+	Podemos automatizar pequeñas tareas o mediante un conjunto de ellas automatizar tareas más complejas como la comprensión de una librería Javascript. 
+\item \textbf{Fácil instalación:}
+	Esta en NPM, la instalación es simplemente un npm install.
+\item \textbf{Plugins comunitarios:}
+	Existe un gran comunidad detrás creando plugins, que podemos utilizar utilizando NPM.
+\item \textbf{Multi-plataforma:}
+	Al ser una librería Node nos permite utilizarlo en cualquier plataforma que soporte Node.
+\end{itemize}
+
+\subsection{Instalación}
+La instalación de GruntJS no tiene complicación, ya que, al tratarse de una apliación Node y estar publicado en NPM sólo necesitamos como prerrequisito tener instalado Node y NPM.
+
+Lo primero es instalar el cliente de forma global con el comando:
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ npm install grunt-cli -g
+\end{lstlisting}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{imagenes/grunt-logo}
+  \end{center}
+  \caption{Logo GruntJS}
+  \label{fig:gruntjs}
+\end{wrapfigure}
+
+Y una vez instalado el cliente, en nuestro proyecto debemos ejecutar:
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ npm install grunt --save-dev
+\end{lstlisting}
+
+Ya tenemos agregado GruntJS a nuestro proyecto. Con los --save-dev le indicamos al NPM que lo añada a las dependencias del proyecto para desarrollo. Así inlcuirá las líneas pertinentes en nuestro fichero package.json.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+{
+  "name": "nombre",
+  "version": "0.0.1",
+  "dependencies": { 
+ 
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}
+\end{lstlisting}
+
+
+\subsection{Creando el Gruntfile}
+En el fichero Gruntfile.js será donde definamos las tareas que deseamos en nuestro proyecto. El esquema de fichero es:
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+module.exports = function(grunt) {
+ 
+  grunt.registerTask('default', 'Tarea Hola Mundo', function() {
+    grunt.log.write('Hola Mundo!').ok();
+  });
+ 
+};
+\end{lstlisting}
+
+Como se puede observar se trata de un modulo Node, que será llamado por grunt cuando lo ejecutemos. En el ejemplo, le hemos regristrado una tarea por defecto que imprime "Hola Mundo!". Ahora sólo tenemos que ejecutar el comando grunt para ver el resultado de nuestra tarea.
+
+GruntJS tiene un conjunto básico de plugins, nombrados grunt-contrib-XXXX, empaquetados en NPM y que podemos instalar fácilmente. 
+
+\subsection{Gruntfile.js de MindMapJS}
+
+El fichero de configuración de GruntJS utilizado para el proyecto es :
+
+\lstinputlisting{recursos/Gruntfile.js}
+
+Como se puede comprobar se han incorporados distintos plugins:
+
+\begin{itemize}
+\item \textbf{grunt-contrib-concat:} permite concatenar un conjunto de ficheros en nuestro caso los ficheros JavaScripts.
+\item \textbf{grunt-replace:} plugins para realizar operaciones de reemplazo dentro de un conjunto de ficheros.
+\item \textbf{grunt-contrib-uglify:} para comprimir y/o minimizar el código JavaScripts.
+\item \textbf{grunt-contrib-clean:} borrar un conjunto de ficheros o el contenido de un directorio.
+\item \textbf{grunt-contrib-jshint:} permite reliazar la verificación y validación de buenas prácticas establecidas en JavaScripts.
+\item \textbf{grunt-jsdoc:} compilar los comentarios JSDocs para generarla documentación HTML del API.
+\item \textbf{grunt-mocha-test:} tarea que lanza la suite de tests unitarios del proyecto.
+\end{itemize}
+
+Con estos plugins se han cubierto todas las necesidades de automatización de tareas del proyecto. Las tareas implementadas son:
+
+\begin{itemize}
+\item \textbf{dev:} que concatena el código fuente y realiza los reemplazo como fechas, versión, etc ...
+\item \textbf{full:} además de realizar las tareas propias de la tarea 'dev', minimiza y realiza los reemplazos de producción.
+\item \textbf{test:} lanza la suite de test
+\item \textbf{hint:} lanza la terea de validación de código JSHint.
+\item \textbf{jsdoc:} genera la documentación del API.
+\end{itemize}
+

@@ -1,0 +1,72 @@
+\section{Github}
+
+
+Todo proyecto que se precie debe estar sustentado con sistema de control de versiones, en nuestro caso ha sido Git\footnote{Web oficial de Git es git-scm.com}. Más concretamente se trata de un sistema distribuido de control de código fuente o SCM\footnote{SCM (Source Code Management)} creado por Linus Torvalds, a partir, de su propia experiencia en el desarrollo de los kernels de Linux. 
+
+Github\footnote{La web de Github es github.com} es una plataforma online pensada para el desarrollo colaborativo de proyectos, utilizando para ello Git. Github nos permite almacenar de forma pública\footnote{Github permite crear proyectos privados con cuentas de pago} nuestro código fuente, promoviendo el trabajo colaborativo entre profesionales. Así pues, otro profesional ajeno al proyecto puede solicitar cambios sugerir mejoras o reportar bugs.
+
+\begin{wrapfigure}{l}{0.4\textwidth}
+  \begin{center}
+    \includegraphics[width=0.48\textwidth]{imagenes/octocat}
+  \end{center}
+  \caption{Mascota de Github}
+	\label{fig:octocat}
+\end{wrapfigure}
+
+De las características mas resaltables de Github para el control de versiones, podemos enumerar las siguientes:
+\begin{itemize}
+\item \textbf{Wiki para el proyecto}, con el principal propósito de documentar nuestro proyecto Github nos proporciona una Wiki. 
+\item \textbf{Gráficas}, tiene un conjunto de gráficas detalladas para determinar el avance del proyecto y el progreso de cada colaborador del proyecto.
+\item \textbf{Página web del proyecto}, para presentar nuestro poryecto y/o repositorio 
+\end{itemize}
+
+Como sistemas de colaboración entre programadores tenemos el:
+\begin{itemize}
+\item \textbf{Fork}, con un fork podemos clonar un repositorio para realizar cambios que necesitemos, de forma que podamos adaptar el proyecto a nuestras necesidades concretas. Un fork nos permite colaborar con el proyecto original mediantes los pull requests.
+\item \textbf{Pull requests}, una vez realizados los cambios, y si lo vemos oportuno, podemos reportar las variaciones al proyecto original mediante un pull request. El pull request pueden ser cambios, mejoras en la funcionalidad, y/o correcciones, que deberá aprobar él/los programadores del proyecto original. 
+\end{itemize}
+
+\subsection{Crear el repositorio}
+Previo a la creación del repositorio debemos crearnos una cuenta de usuario en Github. una vez realizado, sólo debemos pulsar la opción de "new repository". Ahora, ya tenemos repositorio pero debemos dotarlo de contenido, y para ello, y desde una consola local realizaremos:
+
+\begin{itemize}
+\item Creamos el directorio del proyecto.
+\begin{lstlisting}[language=bash, numbers=none]
+$ mkdir ~/proyecto
+$ cd proyecto
+\end{lstlisting}
+
+\item Iniciamos el repositorio git
+\begin{lstlisting}[language=bash, numbers=none]
+$ git init
+\end{lstlisting}
+
+\item Creamos el fichero README.md. Se trata de un fichero con formato markdown\footnote{http://es.wikipedia.org/wiki/Markdown} en el cual hay que introducir un descripción del proyecto. Este fichero se visualizará en le página principal del repositorio. 
+
+\item Añadimos y confirmamos los cambios.
+\begin{lstlisting}[language=bash, numbers=none]
+$ git add .
+$ git commit -m 'primer commit'
+\end{lstlisting}
+
+\item Cambiamos el remote origin a la ruta de nuestro repositorio.
+\begin{lstlisting}[language=bash, numbers=none]
+$ git remote add origin https://github.com/usuario/proyecto.git
+\end{lstlisting}
+
+\item subimos los cambios al repositorio
+\begin{lstlisting}[language=bash, numbers=none]
+$ git push origin master
+\end{lstlisting}
+
+\end{itemize}
+
+\subsection{Fork/Pull request}
+
+Crear un fork de un proyecto utilizando Github es trivial. Tan sólo hay que ir al proyecto en cuestión y pulsar el botón de fork. Github crea una copia del proyecto de forma que si el proyecto original tiene la url https://github.com/usuariOriginal/proyecto.git y la copia tendrá la url https://github.com/usuario/proyecto.git. Ahora ya estamos en disposición de trabajar clonando el repositorio:
+
+\begin{lstlisting}[language=bash, numbers=none]
+$ git clone https://github.com/usuario/proyecto.git
+\end{lstlisting}
+
+Ya tenemos el repositorio listo para su uso. Si deseamos colaborar con el proyecto original debemos crear una rama\footnote{Operaciones a realizar: branch y checkout}, realizar los cambios y subirlos\footnote{Operaciones a realizar: commit y push} a nuestro fork de Github.  Desde Github procede realizar la revisión de los cambios y pulsar sobre la opción de "create a pull request for this comparison".

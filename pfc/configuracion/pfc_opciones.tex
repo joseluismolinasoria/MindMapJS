@@ -1,0 +1,147 @@
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,a4paper,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setcounter{tocdepth}{3}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{float}
+\usepackage{framed}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{longtable}
+\usepackage{color}
+\usepackage[bookmarks]{hyperref}
+\usepackage{listings}
+
+\pretolerance=2000
+\tolerance=3000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\theoremstyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhf{}
+    \fancyhead[LO]{\leftmark} % En las páginas impares, parte izquierda del encabezado, aparecer el nombre de capítulo
+    \fancyhead[RE]{\rightmark} % En las páginas pares, parte derecha del encabezado, aparecer el nombre de sección
+    \fancyhead[RO,LE]{\thepage} % Nmeros de página en las esquinas de los encabezados
+    \fancyfoot[RO]{José Luis Molina Soria}
+    \fancyfoot[LO]{Editor de mapas mentales online con HTML5 y Javascript}
+    \renewcommand{\chaptermark}[1]{\markboth{\textbf{\thechapter. #1}}{}} % Formato para el capítulo: N. Nombre
+    \renewcommand{\sectionmark}[1]{\markright{\textbf{\thesection. #1}}} % Formato para la sección: N.M. Nombre
+    \renewcommand{\headrulewidth}{0.6pt} % Ancho de la lnea horizontal bajo el encabezado
+    \renewcommand{\footrulewidth}{0.6pt} % Ancho de la lnea horizontal sobre el pie (que en este ejemplo est vaco)
+    \setlength{\headheight}{1.5\headheight} % Aumenta la altura del encabezado en una vez y media
+
+\usepackage{babel}
+\addto\shorthandsspanish{\spanishdeactivate{~<>}}
+
+\renewcommand{\chaptername}{Parte} 
+\renewcommand{\partname}{}
+\renewcommand{\bibname}{BIBLIOGRAFÍA}
+
+
+\makeatletter
+
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  \reset@font
+  \parindent \z@ 
+  \vspace*{10\p@}%
+  \hbox{%
+    \vbox{\hsize=2cm
+      \begin{tabular}{c}
+        \scshape \strut \@chapapp{} \\
+        \fbox{%
+          \vrule depth 10em width 0pt%
+          \vrule height 0pt depth 0pt width 1ex%
+          {\LARGE \bfseries \strut \thechapter}%
+          \vrule height 0pt depth 0pt width 1ex%
+          }
+      \end{tabular}%
+      }%
+    \vbox{%
+      \advance\hsize by -2cm
+      \hrule\par
+      \vskip 6pt%
+      \hspace{0em}%
+      \Huge \bfseries #1
+      }%
+    }%
+  \vskip 100\p@
+}
+\def\@makeschapterhead#1{%
+  \reset@font
+  \parindent \z@ 
+  \vspace*{10\p@}%
+ \hbox{%
+    \vbox{\hsize=2cm
+      \begin{tabular}{c}
+        \scshape \strut \vphantom{\@chapapp{}} \hphantom{\@chapapp{}} \\
+        \fbox{%
+          \vrule depth 10em width 0pt%
+          \vrule height 0pt depth 0pt width 1ex%
+          {\LARGE \bfseries \strut \hphantom{\thechapter}}%
+          \vrule height 0pt depth 0pt width 1ex%
+          }
+      \end{tabular}%
+      }%
+    \vbox{%
+      \advance\hsize by -2cm    
+      \hrule\par
+      \vskip 6pt%
+      \hspace{1em}%
+      \Huge \bfseries #1
+      }%
+    }%
+  \vskip 100\p@
+}
+
+
+\usepackage{tocloft}
+\renewcommand{\cftsecnumwidth}{3em}
+%\renewcommand{\cftsecfont}{3em}
+\renewcommand{\cftfignumwidth}{3em}
+\setlength{\cftbeforesecskip}{0.7em \@plus\p@}
+\setlength{\cftbeforefigskip}{0.4em \@plus\p@}
+\renewcommand{\baselinestretch}{1.5}
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   inputencoding=ansinew,
+   basicstyle=\linespread{0.90}\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
