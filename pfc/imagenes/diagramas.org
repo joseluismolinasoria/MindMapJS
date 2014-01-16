@@ -28,30 +28,700 @@ left to right direction
 #+results:
 [[file:casos-de-uso.png]]
 
-#+begin_src plantuml :file diagrama-de-objectos.png
-Object1 <|-- Object2
-Object1: someVar
-Object1: execute()
-Object2: getState()
-Object2: setState()
-Object2: state
+#+begin_src plantuml :file diagrama-clases-mm.png
+class MM << (M,#FF7700) Modulo >>
+class MM.DOM << (M,#FF00FF) Modulo >>
+class MM.importar << (M,#FF00FF) Modulo >>
+class MM.exportar << (M,#FF00FF) Modulo >>
+
+MM "1" *--> "1" MM.PubSub : eventos
+MM "1" *--> "1" MM.UndoManager : undoManager
+MM "1" *--> "1" MM.Arbol : arbol
+MM "1" *--> "1" MM.Render : render
+MM.PubSub <|-- MM.Arbol
+MM.Arbol "1" --> "0..n" MM.Arbol : hijos
+MM.Arbol "1" --> "1" Elemento : elemento
+MM.DOM <.. MM : Usa
+MM.exportar <.. MM : Usa
+MM.importar <.. MM : Usa
+
+class Elemento {
+  + id : Number
+  + texto : String
+  + plegado : Boolean
+  + nodo : MM.NodoSimple | MM.Globo
+}
+
+note right of MM : Modulo general de la aplicación. MM (MindMap)
+note bottom of MM.PubSub : Manejador de eventos
+note bottom of MM.UndoManager : Manejador para tareas de Hacer/Deshacer
+note bottom of MM.Render : Renderizador del MM
+note right of Elemento  
+  Un elemento puede ser cualquier objecto JavaScripts
+  En el mapa mental { id, texto, plegado,  nodo }
+end note
+note bottom of MM.DOM : Modulo para el manejo del DOM 
+
 #+end_src
 
 #+results:
-[[file:diagrama-de-objectos.png]]
+[[file:diagrama-clases-mm.png]]
 
-#+begin_src plantuml :file diagrama-estados.png
-[*] --> Start
-Start -> State2
-State2 -> State3
-note right of State3: Notes can be\nattached to states
-State2 --> State4
-State4 -> Finish
-State3 --> Finish
-Finish --> [*]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-class.png
+
+class "MM.Class" {
+  + init()
+  + extend ( Object obj )
+  + bind ( Object contexto, Function fn )
+}
 #+end_src
 
 #+results:
-[[file:diagrama-estados.png]]
+[[file:diagrama-clase-mm-class.png]]
 
+#+begin_src plantuml :file diagrama-clase-mm.png
+class MM << (M,#FF7700) Modulo >> {
+  - idNodo = 1
+  - undoManager : MM.UndoManager
+  - render : MM.Render
+  + eventos : MM.PubSub
+  + arbol : MM.Arbol
+
+  + nuevo (String texto) : MM
+  + add (String texto) : MM
+  + borrar () : MM
+  + next () : MM
+  + padre () : MM
+  + nextHermano () : MM 
+  + prevHermano () : MM
+  + lastHermano () : MM
+  + root () : MM
+  + ponerFoco (MM.Arbol)
+  + renderizar (DOMElement contenedor, MM.Nodo, MM.Arista)
+  + plegarRama (Boolean plegado, Boolean undo)
+  + cargarFreeMind ()
+  + salvarFreeMind ()
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-arbol.png
+class "MM.Arbol" {
+  + elemento : Object
+  + hijos : MM.Arbol[]
+
+  + init ( Elemento e, MM.Arbol[] hijos )
+  + preOrden()
+  + generalPreOrden ( Function generador, Function operacion );
+  + inOrden() 
+  + postOrden()
+  + ordenNodo() : Number
+  + orden() Number
+  + peso() : Number
+  + altura() : Number
+  + esHoja() : Boolean
+  + numHojas() : Number
+  + elementEqual (Elemento e) : boolean
+  + buscar (Elemento e) : MM.Arbol
+  + profundidad ( Elemento e ) : Number
+  + padreDe ( Elemento e ) : MM.Arbol
+  + borrar ( Elemento e ) : MM.Arbol
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-arbol.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-render.png
+class "MM.Render" {
+  + init ( DOMElement contenedor, MM.Nodo claseNodo, MM.Arista claseArista )
+  + contenedor : DOMElement
+  + width : Number
+  + height : Number
+  - devicePixelRatio : Float
+  + nodo : Clase Nodo
+  + arista: Clase Arista
+  - offset : { x : Number, y : Number }
+  + escenario : Kinetic.Stage
+  + capaGrid : Kinetic.Layer
+  + capaNodos : Kinetic.Layer
+  + capaAristas : Kinetic.Layer
+  - aristas : MM.Arista[]
+  + renderizar ()
+  - renderAristas ()
+  + suscripciones : Number[]
+  + dibujar()
+  - suscribirEventos ()
+  - dessusscribirEventos () 
+  + posicionarNodo ( MM.Arbol idea )
+  + repartoEspacio ( MM.Arbol idea )
+  + nuevoNodo ( MM.Arbol ideaPadre, MM.Arbol ideaHijo )
+  + buscarArista ( MM.Arbol ideaPadre, MM.Arbol ideaHijo )
+  + borrarArista ( MM.Arbol ideaPadre, MM.Arbol ideaHijo )
+  + borrarNodo ( MM.Arbol ideaPadre, MM.Arbol ideaBorrado )
+  + getEscala () : Number
+  + setEscala ( Number escala )
+  + zoomIn ()
+  + zoomOut ()
+  + zoomReset ()
+  - cambiarFoco ()
+  + editar ()
+  + modoEdicion () : boolean
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-render.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-dom.png
+class MM.DOM << (M,#FF7700) Modulo >>
+
+class "MM.DOM" {
+  + create(String tagName, Object prop)
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-dom.png]]
+
+
+#+begin_src plantuml :file diagrama-clases-mm-pubsub.png
+MM.PubSub "1" --> "0..n" Evento : eventos
+
+class Evento {
+  + id : Number
+  + contexto : Object
+  + funcionCallback : Function
+}
+
+note right of MM.PubSub  
+  Un evento esta identificado por un nombre y objeto Evento.
+  { nombreEvento1 : [{id, contexto, funcionCallback }],
+    ...
+    nombreEventoN : [{id, contexto, funcionCallback }]
+  } 
+end note
+
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clases-mm-pubsub.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-pubsub.png
+class "MM.PubSub" {
+  - idSus : Number = 1
+  - eventos : Object = {}
+  + init()
+  + on(String evento, Array argumentos) : Boolean
+  + suscribir(String evento, Function fn, Object contexto) : Number
+  + desSuscribir(Number id)
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-pubsub.png]]
+
+
+#+begin_src plantuml :file diagrama-clases-mm-undo.png
+MM.UndoManager "1" --> "0..n" MM.UndoManager.ComandoHacerDeshacer : comandos
+MM.UndoManager.ComandoHacerDeshacer <|-- MM.comandos.Insertar
+MM.UndoManager.ComandoHacerDeshacer <|-- MM.comandos.Borrar
+MM.UndoManager.ComandoHacerDeshacer <|-- MM.comandos.Nuevo
+MM.UndoManager.ComandoHacerDeshacer <|-- MM.comandos.Editar
+MM.UndoManager.ComandoHacerDeshacer <|-- MM.comandos.Zoom
+MM.UndoManager.ComandoHacerDeshacer <|-- MM.comandos.Plegar
+
+note left of MM.UndoManager.ComandoHacerDeshacer  
+  Abstracción de un ComandoHacerDeshacer. 
+  Un comando puede ser cualquier objecto javascript 
+  que tenga una función hacer y otra deshacer
+end note
+
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clases-mm-undo.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-undomanager.png
+class "MM.UndoManager" {
+  - maxComandos : Number = 10
+  - comando : MM.UndoManger.ComandoHacerDeshacer[]
+  - actual : Number = -1
+  + eventos : MM.PubSub
+
+  - borrarPorEncimaActual()
+  - ajustarMaximo()
+  - avanzar()
+  - retroceder()
+
+  + init (Number maximo)
+  + add (MM.UndoManger.ComandoHacerDeshacer comando)
+  + hacer()
+  + deshacer()
+  + hacerNombre() : String
+  + deshacerNombre() : String
+  + nombres() : String[]
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-undomanager.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-undomanager-comandohacerdeshacer.png
+class "MM.UndoManager.ComandoHacerDeshacer" {
+  + nombre : String
+  + hacerCallBack : Function 
+  + deshacerCallBack : Function 
+  + init(String nombre, Function hacerCallBack, Function deshacerCallBack)
+  + hacer()
+  + deshacer()
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-undomanager-comandohacerdeshacer.png]]
+
+
+#+begin_src plantuml :file diagrama-clases-mm-render.png
+class MM.Color << (M,#FF7700) Modulo >>
+
+MM.NodoSimple <|-- MM.Globo
+MM.Render <--o MM.NodoSimple : usa
+Kinetic.Text <--o MM.Mensaje : usa
+Kinetic.Text <--o MM.NodoSimple : usa
+Kinetic.Group <--o MM.NodoSimple : usa
+Kinetic.Blob <--o MM.NodoSimple : usa
+Kinetic.Layer <--o MM.NodoSimple : usa
+Kinetic.Stage <--o MM.NodoSimple : usa 
+MM.NodoSimple o--> MM.Color : usa
+MM.NodoSimple o--> MM.Arbol : usa
+MM.NodoSimple o--> MM.DOM : usa
+
+MM.Mensaje <|-- MM.NodoSimple
+
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clases-mm-render.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-mensaje.png
+class "MM.Mensaje" {
+  - defecto : Object
+  - escenario : Kinetic.Stage
+  - capa : Kinetic.Layer
+  + init (Kinetic.Stage escenario, Kinetic.Layer capa, Object propiedades)
+  + setText ( String texto )
+  + getText () : String
+  + setX ( Number x )
+  + getX () : Number
+  + setY ( Number y )
+  + getY () : Number
+  + getWidth () : Number
+  + getHeight () : Number
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-mensaje.png]]
+
+#+begin_src plantuml :file diagrama-clase-mm-nodosimple.png
+class "MM.NodoSimple" {
+  - defecto : Object
+  - render : MM.Render
+  - arbol : MM.Arbol 
+  - escenario : Kinetic.Stage
+  - capa : Kinetic.Layer
+  - hslColor : { h, s, l}
+  + colorFondo : String
+  + color : String
+
+  + init (MM.Render render, MM.Arbol idea, Object propiedades)
+  + ponerFoco()
+  + quitarFoco()
+  + setVisible(boolean valor)
+  + getGroup ()
+  + editar ()
+  + cerrarEdicion()
+  - calcularFilasColumnas (String texto)
+  - setTamanoEditor()
+  + destroy()
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-nodosimple.png]]
+
+#+begin_src plantuml :file diagrama-clase-mm-globo.png
+class "MM.Globo" {
+  + init (MM.Render render, MM.Arbol arbol, Object propiedades)
+  + ponerFoco()
+  + quitarFoco()
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-globo.png]]
+
+#+begin_src plantuml :file diagrama-clase-mm-color.png
+class MM.Color << (M,#FF7700) Modulo >> {
+  + randomHslColor() : Hsl
+  + addBrillo ( Hsl hsl, Number offsetBrillo ) : Hsl
+  + hslToCSS ( Hsl hsl, Numbre offsetBrillo ) : String
+  + rgbToCSS ( Rgb rgb ) : String
+  + rgbToHexCSS ( Rgb rgb ) : String
+  + intToHex ( Number valor, Number longitud )
+  + hue ( Rgb rgb, Number maximo, Number rango ) : Hue
+  + rgbToHsl ( Rgb rgb ) : Hsl
+  + hslToRgb ( Hsl hsl ) : Rgb
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-color.png]]
+
+
+#+begin_src plantuml :file diagrama-clases-mm-aristas.png
+MM.NodoSimple "2" <--o MM.Arista : Origen/Destino
+MM.Globo "2" <--o MM.Arista : Origen/Destino
+
+Kinetic.Beizer <--o MM.Arista : usa
+MM.Render <--o MM.Arista : usa
+MM.Arista o--> Kinetic.Stage : capa
+
+
+MM.Arista <|-- MM.Rama
+Kinetic.Beizer --|> Kinetic.Shape 
+Kinetic.Beizer *--> Puntos
+
+class Puntos { 
+    +start : {x,y}, 
+    +end :  {x,y},
+    +control1 : {x,y},
+    +control2 : {x,y}
+  }
+
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clases-mm-aristas.png]]
+
+#+begin_src plantuml :file diagrama-clase-kinetic-beizer.png
+class "Kinetic.Beizer" {
+  - __init ( Object config )
+  - drawFunc ( Canvas canvas )
+}
+note right Kinetic.Beizer 
+  El parámetro config tendrá cualquier valor 
+  válido para Kinetic.Shape, y además, un valor
+  de configuración "puntos" instancia de Puntos
+end note
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-kinetic-beizer.png]]
+
+#+begin_src plantuml :file diagrama-clase-mm-arista.png
+class "MM.Arista" {
+  + capa : Kinetic.Layer
+  + elementoOrigen : Elemento
+  + elementoDestino : Elemento
+  + tamano : Number 
+  + init ( capa, elementoOrigen, elementoDestino, Number tamano)
+  + calculcarPuntos()
+  + render()
+  + redraw()
+  + destroy()
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-arista.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-rama.png
+class "MM.Rama" {
+  + init ( capa, elementoOrigen, elementoDestino, Number tamano)
+  + calculcarPuntos()
+  + render()
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-rama.png]]
+
+#+begin_src plantuml :file diagrama-clases-mm-teclado.png
+class MM.teclado << (M,#FF7700) Modulo >>
+class MM.teclado.atajos << (M,#FF7700) Modulo >>
+class MM.teclado.tecla << (M,#FF7700) Modulo >>
+class MM.teclado.tecla.excepciones << (M,#FF7700) Modulo >>
+
+MM.teclado *--> MM.teclado.tecla : tiene
+MM.teclado *--> MM.teclado.atajos : tiene
+MM.teclado.tecla *--> MM.teclado.tecla.excepciones : tiene
+MM.teclado.atajos --> MM.teclado.tecla : usa
+MM.teclado.atajos --> MM.teclado.tecla.excepciones : usa
+MM.teclado.atajos "1" *--> "0..n" Atajo : tiene
+class Atajo {
+  + nombre : String 
+  + funcion : Function
+  + contexto : Object = this
+  + activo : Boolean = true 
+} 
+note bottom Atajo 
+  Los nombre de los atajos
+  son el tipo Modificadores+tecla.
+  P.e. Ctrl+i, Ctrl+Shift+i, etc...
+end note
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clases-mm-teclado.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-teclado.png
+class "MM.teclado" << (M,#FF7700) Modulo >> {
+  + tecla : MM.teclado.tecla  
+  + atajos : MM.teclado.atajos
+  + keyDown ( Event e ) : Boolean
+}
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-teclado.png]]
+
+
+#+begin_src plantuml :file diagrama-clase-mm-teclado-tecla.png
+class "MM.teclado.tecla" << (M,#FF7700) Modulo >> {
+  + nombre_tecla : Number = valor 
+  + excepciones : MM.teclado.tecla.excepciones
+  + nombre ( Number key ) : String
+  + valor ( String nombre ) : Number
+  + esModificador ( Number key ) : Boolean
+  + esControl ( Number key ) : Boolean
+  + esAlt ( Number key ) : Boolean
+  + esShift ( Number key ) : Boolean
+  + esMeta ( Number key ) : Boolean
+}
+note left MM.teclado.tecla 
+  Contiene todas las constantes de teclado 
+  estándar y excepciones
+end note
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-teclado-tecla.png]]
+
+#+begin_src plantuml :file diagrama-clase-mm-teclado-atajos.png
+class MM.teclado.atajos << (M,#FF7700) Modulo >> {
+  + activo : Boolean = true
+  + definidos : Atajos = {}
+  + ctrl : Boolean = false
+  + shift : Boolean = false
+  + alt : Boolean = false
+  + window : Boolean = false
+
+  + add ( String atajo, f, contexto )
+  + calcular ( String nombreTecla, Evento evt ) : String
+  + lanzar ( String atajo ) 
+  + activar ( String atajo, Boolean valor ) 
+}
+
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-clase-mm-teclado-atajos.png]]
+
+#+begin_src plantuml :file diagrama-seq-teclado.png
+usuario -> teclado.keyDown : key
+teclado.keyDown -> teclado.atajos : calcular 
+teclado.atajos -> teclado.atajos : lanzar
+usuario <- teclado.atajos : retornar
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-seq-teclado.png]]
+
+#+begin_src plantuml :file diagrama-seq-nuevo.png
+usuario -> mm : nuevo
+           mm -> mm.render : evento = nuevo/pre
+                 mm.render -> mm.render : destroy
+           mm <- mm.render 
+           mm -> mm.render : evento = nuevo/post
+                  mm.render -> mm.render : renderizar
+           mm <- mm.render
+usuario <- mm
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-seq-nuevo.png]]
+
+
+#+begin_src plantuml :file diagrama-seq-add.png
+usuario -> mm : add (nuevo hijo)
+           mm -> mm.render : evento = add
+                 mm.render -> mm.render : nuevo nodo
+                 mm.render -> mm.render : nueva arista 
+           mm <- mm.render
+usuario <- mm
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-seq-add.png]]
+
+
+#+begin_src plantuml :file diagrama-seq-borrar.png
+usuario -> mm : borrar
+           mm -> mm.render : evento = borrar
+                 mm.render -> mm.render : borrar hijos
+                 mm.render -> mm.render : borrar arista
+                 mm.render -> mm.render : dibujar
+                 mm.render -> mm.render : poner foco en el padre
+           mm <- mm.render
+usuario <- mm
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-seq-borrar.png]]
+
+
+#+begin_src plantuml :file diagrama-seq-navegacion.png
+usuario -> mm : next (ir al hijo)
+           mm -> mm.render : evento = next
+                 mm.render -> mm.render : poner foco
+           mm <- mm.render
+usuario <- mm
+usuario -> mm : padre (ir al padre)
+           mm -> mm.render : evento = padre 
+                 mm.render -> mm.render : poner foco
+           mm <- mm.render
+usuario <- mm
+usuario -> mm : nextHermano
+           mm -> mm.render : evento = nextHermano
+                 mm.render -> mm.render : poner foco
+           mm <- mm.render
+usuario <- mm
+usuario -> mm : prevHermano
+           mm -> mm.render : evento = prevHermano
+                 mm.render -> mm.render : poner foco
+           mm <- mm.render
+usuario <- mm
+usuario -> mm : lastHermano
+           mm -> mm.render : evento = lastHermano
+                 mm.render -> mm.render : poner foco
+           mm <- mm.render
+usuario <- mm
+usuario -> mm : root ( nodo raíz )
+           mm -> mm.render : evento =  root
+                 mm.render -> mm.render : poner foco
+           mm <- mm.render
+usuario <- mm
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-seq-navegacion.png]]
+
+#+begin_src plantuml :file diagrama-seq-plegar.png
+usuario -> mm : plegar
+           mm -> mm.render : dibujar
+           mm <- mm.render
+usuario <- mm
+usuario -> mm : desplegar
+           mm -> mm.render : dibujar
+           mm <- mm.render
+usuario <- mm
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-seq-plegar.png]]
+
+
+#+begin_src plantuml :file diagrama-seq-zoom.png
+usuario -> mm.render : zoomOut
+           mm.render -> mm.render : reducir la escala 0.05
+usuario <- mm.render
+usuario -> mm.render : zoomIn
+           mm.render -> mm.render : aumenta la escala 0.05
+usuario <- mm.render
+usuario -> mm.render : zoomReset
+           mm.render -> mm.render : escala a 1
+usuario <- mm.render
+#+end_src
+
+#+RESULTS:
+[[file:diagrama-seq-zoom.png]]
+
+
+// Diagrama de clases que faltan.
+// Falta el módulo Render 
+// Faltan los modulos de importación y exportación
+
+
+#+BEGIN_SRC ditaa :file undomangerEjecucion.png :exports code
+   /----------\  /----------\  /----------\  /----------\
+   |   cGRE   |  |   cGRE   |  |   cGRE   |  |   cGRE   |
+   | Comando1 +--+ Comando2 +--+ Comando3 +--+ Comando4 |
+   |          |  |          |  |          |  |          |
+   \----------/  \----------/  \----------/  \----------/
+                                                   ^ 
+                                                   |
+                                                Actual 
+Deshacer -> Comando4
+Hacer    -> null
+
+------------------------------------------------------------
+Ejecutamos deshacer
+
+   /----------\  /----------\  /----------\  /----------\
+   |   cGRE   |  |   cGRE   |  |   cGRE   |  |   cGRE   |
+   | Comando1 +--+ Comando2 +--+ Comando3 +--+ Comando4 |
+   |          |  |          |  |          |  |          |
+   \----------/  \----------/  \----------/  \----------/
+                                     ^ 
+                                     |
+                                   Actual 
+Deshacer -> Comando3
+Hacer    -> Comando4
+
+------------------------------------------------------------
+Ejecutamos deshacer 3 veces
+
+   /----------\  /----------\  /----------\  /----------\
+   |   cGRE   |  |   cGRE   |  |   cGRE   |  |   cGRE   |
+   | Comando1 +--+ Comando2 +--+ Comando3 +--+ Comando4 |
+   |          |  |          |  |          |  |          |
+   \----------/  \----------/  \----------/  \----------/
+^ 
+|
+Actual 
+
+Deshacer -> null
+Hacer    -> Comando1
+
+------------------------------------------------------------
+Ejecutamos hacer 4 veces
+   /----------\  /----------\  /----------\  /----------\
+   |   cGRE   |  |   cGRE   |  |   cGRE   |  |   cGRE   |
+   | Comando1 +--+ Comando2 +--+ Comando3 +--+ Comando4 |
+   |          |  |          |  |          |  |          |
+   \----------/  \----------/  \----------/  \----------/
+                                                   ^ 
+                                                   |
+                                                Actual 
+Deshacer -> Comando4
+Hacer    -> null
+#+END_SRC
+
+#+RESULTS:
+[[file:undomangerEjecucion.png]]
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2013.10.25)  6 NOV 2013 21:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.1.2)  15 JAN 2014 19:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -770,7 +770,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.57 ...}{\numberline {5.8}Mocha}{42}{section.5.8}
+l.66 ...{\numberline {6.6}NodeJS}{59}{section.6.6}
                                                    [2])
 \tf@toc=\write4
 \openout4 = `pfc.toc'.
@@ -780,22 +780,34 @@ LaTeX Info: Redefining \% on input line 5.
  [3] (./pfc.lof
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-)
+ [4])
 \tf@lof=\write5
 \openout5 = `pfc.lof'.
 
 )
-(./contenidos/01.00.Introduccion.tex [4] [5]
+(./contenidos/00.00.Abstract.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [5] [6]
 Cap\'{\i }tulo 1.
 
 Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 [][] 
  []
 
-) (./contenidos/01.01.Motivacion.tex [6
+) (./contenidos/01.00.MotivacionYObjetivos.tex [7
+
+] [8]
+Cap\'{\i }tulo 2.
+
+Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
+[][] 
+ []
+
+) (./contenidos/01.01.Motivacion.tex [9
 
 ]
-<imagenes/html5.png, id=334, 308.352pt x 209.1012pt>
+<imagenes/html5.png, id=448, 308.352pt x 209.1012pt>
 File: imagenes/html5.png Graphic file (type png)
  <use imagenes/html5.png>
 Package pdftex.def Info: imagenes/html5.png used on input line 13.
@@ -805,39 +817,40 @@ Overfull \hbox (45.52718pt too wide) in paragraph at lines 13--14
  [][] 
  []
 
-LaTeX Info: Redefining \. on input line 27.
-LaTeX Info: Redefining \% on input line 27.
-[7 <./imagenes/html5.png>]) (./contenidos/01.02.Objetivos.tex)
-(./contenidos/01.03.Organizacion.tex
-LaTeX Info: Redefining \. on input line 6.
-LaTeX Info: Redefining \% on input line 6.
- [8]) (./contenidos/02.00.MapasMentales.tex
+LaTeX Info: Redefining \. on input line 22.
+LaTeX Info: Redefining \% on input line 22.
+[10 <./imagenes/html5.png>]) (./contenidos/01.02.Objetivos.tex
+LaTeX Info: Redefining \. on input line 11.
+LaTeX Info: Redefining \% on input line 11.
+ [11])
+(./contenidos/01.03.Organizacion.tex) (./contenidos/02.00.Introduccion.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-[9] [10]
-Cap\'{\i }tulo 2.
+
+[12] [13]
+Cap\'{\i }tulo 3.
 
 Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 [][] 
  []
 
-) (./contenidos/02.01.QueEs.tex
-<imagenes/freemind.png, id=366, 699.61375pt x 672.5125pt>
+) (./contenidos/02.01.QueEs.tex [14
+
+]
+<imagenes/freemind.png, id=487, 699.61375pt x 672.5125pt>
 File: imagenes/freemind.png Graphic file (type png)
 
 <use imagenes/freemind.png>
 Package pdftex.def Info: imagenes/freemind.png used on input line 11.
 (pdftex.def)             Requested size: 409.71692pt x 393.85434pt.
-) (./contenidos/02.02.Aplicaciones.tex [11
-
-]
+) (./contenidos/02.02.Aplicaciones.tex
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
- [12 <./imagenes/freemind.png (PNG copy)>]) (./contenidos/02.03.Partes.tex
+ [15 <./imagenes/freemind.png (PNG copy)>]) (./contenidos/02.03.Partes.tex
 LaTeX Info: Redefining \. on input line 7.
 LaTeX Info: Redefining \% on input line 7.
- [13]
-<imagenes/Estructura2.png, id=382, 415.5525pt x 566.86781pt>
+ [16]
+<imagenes/Estructura2.png, id=498, 415.5525pt x 566.86781pt>
 File: imagenes/Estructura2.png Graphic file (type png)
 
 <use imagenes/Estructura2.png>
@@ -845,8 +858,8 @@ Package pdftex.def Info: imagenes/Estructura2.png used on input line 14.
 (pdftex.def)             Requested size: 273.14923pt x 372.62886pt.
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
- [14 <./imagenes/Estructura2.png>]
-<imagenes/Estructura1.png, id=391, 357.58594pt x 576.65437pt>
+ [17 <./imagenes/Estructura2.png>]
+<imagenes/Estructura1.png, id=509, 357.58594pt x 576.65437pt>
 File: imagenes/Estructura1.png Graphic file (type png)
 
 <use imagenes/Estructura1.png>
@@ -855,34 +868,33 @@ Package pdftex.def Info: imagenes/Estructura1.png used on input line 32.
 ) (./contenidos/02.04.Elaboracion.tex
 LaTeX Info: Redefining \. on input line 4.
 LaTeX Info: Redefining \% on input line 4.
- [15 <./imagenes/Estructura1.png>]
-<imagenes/Elaboracion.png, id=400, 491.58656pt x 478.78876pt>
+ [18 <./imagenes/Estructura1.png>]
+<imagenes/Elaboracion.png, id=518, 491.58656pt x 478.78876pt>
 File: imagenes/Elaboracion.png Graphic file (type png)
 
 <use imagenes/Elaboracion.png>
 Package pdftex.def Info: imagenes/Elaboracion.png used on input line 7.
 (pdftex.def)             Requested size: 318.66948pt x 310.38345pt.
-) (./contenidos/03.00.AnalisisYDiseno.tex
+) (./contenidos/03.00.MateriaslesYMetodos.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 
-[16 <./imagenes/Elaboracion.png>] [17]
-Cap\'{\i }tulo 3.
+[19 <./imagenes/Elaboracion.png>] [20]
+Cap\'{\i }tulo 4.
 
 Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 [][] 
  []
 
-) (./contenidos/03.01.MetodologiaUML.tex
-<imagenes/diagramas.png, id=410, 501.875pt x 274.02374pt>
+) (./contenidos/03.01.MetodologiaUML.tex [21
+
+]
+<imagenes/diagramas.png, id=531, 501.875pt x 274.02374pt>
 File: imagenes/diagramas.png Graphic file (type png)
 
 <use imagenes/diagramas.png>
 Package pdftex.def Info: imagenes/diagramas.png used on input line 15.
 (pdftex.def)             Requested size: 455.24411pt x 248.57591pt.
- [18
-
-]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 26.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
@@ -890,9 +902,9 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 26.
-LaTeX Info: Redefining \. on input line 44.
-LaTeX Info: Redefining \% on input line 44.
- [19 <./imagenes/diagramas.png>] <imagenes/claseestereotipo.png, id=422, 126.47
+LaTeX Info: Redefining \. on input line 36.
+LaTeX Info: Redefining \% on input line 36.
+ [22 <./imagenes/diagramas.png>] <imagenes/claseestereotipo.png, id=539, 126.47
 25pt x 60.225pt>
 File: imagenes/claseestereotipo.png Graphic file (type png)
 
@@ -900,7 +912,7 @@ File: imagenes/claseestereotipo.png Graphic file (type png)
 Package pdftex.def Info: imagenes/claseestereotipo.png used on input line 56.
 (pdftex.def)             Requested size: 91.04742pt x 43.35643pt.
 
-<imagenes/claseetiquetados.png, id=423, 214.8025pt x 106.3975pt>
+<imagenes/claseetiquetados.png, id=540, 214.8025pt x 106.3975pt>
 File: imagenes/claseetiquetados.png Graphic file (type png)
 
 <use imagenes/claseetiquetados.png>
@@ -908,61 +920,359 @@ Package pdftex.def Info: imagenes/claseetiquetados.png used on input line 64.
 (pdftex.def)             Requested size: 136.57462pt x 67.64932pt.
 LaTeX Info: Redefining \. on input line 68.
 LaTeX Info: Redefining \% on input line 68.
- [20 <./imagenes/claseestereotipo.png>]
-<imagenes/claserestricciones.png, id=430, 493.845pt x 125.46875pt>
+ [23]
+<imagenes/claserestricciones.png, id=547, 493.845pt x 125.46875pt>
 File: imagenes/claserestricciones.png Graphic file (type png)
 
 <use imagenes/claserestricciones.png>
 Package pdftex.def Info: imagenes/claserestricciones.png used on input line 72.
 
 (pdftex.def)             Requested size: 318.66948pt x 80.96213pt.
-LaTeX Info: Redefining \. on input line 87.
-LaTeX Info: Redefining \% on input line 87.
- [21 <./imagenes/claseetiquetados.png> <./imagenes/claserestricciones.png>]) (.
-/contenidos/03.02.CasosDeUso.tex
-<imagenes/casos-de-uso.png, id=439, 808.01875pt x 816.04875pt>
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+ [24 <./imagenes/claseestereotipo.png> <./imagenes/claseetiquetados.png> <./ima
+genes/claserestricciones.png>])
+(./contenidos/03.02.CasosDeUso.tex
+<imagenes/casos-de-uso.png, id=557, 808.01875pt x 816.04875pt>
 File: imagenes/casos-de-uso.png Graphic file (type png)
 
 <use imagenes/casos-de-uso.png>
 Package pdftex.def Info: imagenes/casos-de-uso.png used on input line 7.
 (pdftex.def)             Requested size: 455.24411pt x 459.7734pt.
-) (./contenidos/03.03.DiagramasDeClases.tex)
-(./contenidos/04.00.Implementacion.tex
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [22]
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [23 <./imagenes/casos-de-uso.png (PNG copy)>]
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [24]
-Cap\'{\i }tulo 4.
+LaTeX Info: Redefining \. on input line 17.
+LaTeX Info: Redefining \% on input line 17.
+ [25]
+LaTeX Info: Redefining \. on input line 17.
+LaTeX Info: Redefining \% on input line 17.
+ [26 <./imagenes/casos-de-uso.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 34.
+LaTeX Info: Redefining \% on input line 34.
+ [27]
+LaTeX Info: Redefining \. on input line 60.
+LaTeX Info: Redefining \% on input line 60.
+ [28]) (./contenidos/03.03.DiagramasDeClases.tex
+<imagenes/diagrama-clase-mm-class.png, id=575, 317.185pt x 199.74625pt>
+File: imagenes/diagrama-clase-mm-class.png Graphic file (type png)
 
-Overfull \hbox (10.44753pt too wide) in paragraph at lines 1--1
-[][] 
+<use imagenes/diagrama-clase-mm-class.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-class.png used on input lin
+e 19.
+(pdftex.def)             Requested size: 182.09486pt x 114.67642pt.
+LaTeX Info: Redefining \. on input line 27.
+LaTeX Info: Redefining \% on input line 27.
+ [29 <./imagenes/diagrama-clase-mm-class.png (PNG copy)>]
+<imagenes/diagrama-clases-mm-pubsub.png, id=583, 685.56125pt x 378.41376pt>
+File: imagenes/diagrama-clases-mm-pubsub.png Graphic file (type png)
+
+<use imagenes/diagrama-clases-mm-pubsub.png>
+Package pdftex.def Info: imagenes/diagrama-clases-mm-pubsub.png used on input l
+ine 43.
+(pdftex.def)             Requested size: 455.24411pt x 251.28976pt.
+LaTeX Info: Redefining \. on input line 57.
+LaTeX Info: Redefining \% on input line 57.
+ [30 <./imagenes/diagrama-clases-mm-pubsub.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-pubsub.png, id=589, 471.7625pt x 239.89626pt>
+File: imagenes/diagrama-clase-mm-pubsub.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-pubsub.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-pubsub.png used on input li
+ne 61.
+(pdftex.def)             Requested size: 227.62206pt x 115.7492pt.
+
+<imagenes/diagrama-clases-mm-undo.png, id=590, 935.495pt x 515.9275pt>
+File: imagenes/diagrama-clases-mm-undo.png Graphic file (type png)
+
+<use imagenes/diagrama-clases-mm-undo.png>
+Package pdftex.def Info: imagenes/diagrama-clases-mm-undo.png used on input lin
+e 85.
+(pdftex.def)             Requested size: 455.24411pt x 251.06688pt.
+LaTeX Info: Redefining \. on input line 95.
+LaTeX Info: Redefining \% on input line 95.
+ [31 <./imagenes/diagrama-clase-mm-pubsub.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-undomanager-comandohacerdeshacer.png, id=598, 521.9
+5pt x 239.89626pt>
+File: imagenes/diagrama-clase-mm-undomanager-comandohacerdeshacer.png Graphic f
+ile (type png)
+
+<use imagenes/diagrama-clase-mm-undomanager-comandohacerdeshacer.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-undomanager-comandohacerdes
+hacer.png used on input line 98.
+(pdftex.def)             Requested size: 318.66948pt x 146.46828pt.
+LaTeX Info: Redefining \. on input line 109.
+LaTeX Info: Redefining \% on input line 109.
+ [32 <./imagenes/diagrama-clases-mm-undo.png (PNG copy)> <./imagenes/diagrama-c
+lase-mm-undomanager-comandohacerdeshacer.png (PNG copy)>]
+<imagenes/undomangerEjecucion.png, id=604, 642.4pt x 786.94pt>
+File: imagenes/undomangerEjecucion.png Graphic file (type png)
+
+<use imagenes/undomangerEjecucion.png>
+Package pdftex.def Info: imagenes/undomangerEjecucion.png used on input line 11
+2.
+(pdftex.def)             Requested size: 318.66948pt x 390.38304pt.
+
+<imagenes/diagrama-clase-mm-undomanager.png, id=606, 441.65pt x 354.32375pt>
+File: imagenes/diagrama-clase-mm-undomanager.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-undomanager.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-undomanager.png used on inp
+ut line 121.
+(pdftex.def)             Requested size: 318.66948pt x 255.66977pt.
+LaTeX Info: Redefining \. on input line 130.
+LaTeX Info: Redefining \% on input line 130.
+ [33 <./imagenes/undomangerEjecucion.png (PNG copy)>]
+<imagenes/diagrama-clases-mm.png, id=615, 965.6075pt x 770.88pt>
+File: imagenes/diagrama-clases-mm.png Graphic file (type png)
+
+<use imagenes/diagrama-clases-mm.png>
+Package pdftex.def Info: imagenes/diagrama-clases-mm.png used on input line 152
+.
+(pdftex.def)             Requested size: 455.24411pt x 363.4311pt.
+LaTeX Info: Redefining \. on input line 159.
+LaTeX Info: Redefining \% on input line 159.
+ [34 <./imagenes/diagrama-clase-mm-undomanager.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 159.
+LaTeX Info: Redefining \% on input line 159.
+ [35 <./imagenes/diagrama-clases-mm.png (PNG copy)>]
+<imagenes/diagrama-clase-mm.png, id=626, 383.4325pt x 313.17pt>
+File: imagenes/diagrama-clase-mm.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm.png used on input line 172.
+
+(pdftex.def)             Requested size: 227.62206pt x 185.91554pt.
+LaTeX Info: Redefining \. on input line 184.
+LaTeX Info: Redefining \% on input line 184.
+ [36 <./imagenes/diagrama-clase-mm.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-arbol.png, id=633, 461.725pt x 392.46625pt>
+File: imagenes/diagrama-clase-mm-arbol.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-arbol.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-arbol.png used on input lin
+e 201.
+(pdftex.def)             Requested size: 318.66948pt x 270.86786pt.
+LaTeX Info: Redefining \. on input line 210.
+LaTeX Info: Redefining \% on input line 210.
+ [37 <./imagenes/diagrama-clase-mm-arbol.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-dom.png, id=639, 321.2pt x 177.66376pt>
+File: imagenes/diagrama-clase-mm-dom.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-dom.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-dom.png used on input line 
+235.
+(pdftex.def)             Requested size: 182.09486pt x 100.72449pt.
+
+Underfull \hbox (badness 1496) in paragraph at lines 245--246
+[]\OT1/cmr/m/n/12 La clase MM.Render es la encargada de pintar el mapa mental y
+ realizar los
  []
 
-) (./contenidos/04.01.MetodologiaDesarrollo.tex [25
+LaTeX Info: Redefining \. on input line 246.
+LaTeX Info: Redefining \% on input line 246.
+[38] <imagenes/diagrama-clase-mm-render.png, id=647, 544.0325pt x 587.19376pt>
+File: imagenes/diagrama-clase-mm-render.png Graphic file (type png)
 
-]
-LaTeX Info: Redefining \. on input line 38.
-LaTeX Info: Redefining \% on input line 38.
- [26])
-LaTeX Info: Redefining \. on input line 32.
-LaTeX Info: Redefining \% on input line 32.
- [27]
-(./contenidos/05.00.Herramientas.tex
+<use imagenes/diagrama-clase-mm-render.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-render.png used on input li
+ne 249.
+(pdftex.def)             Requested size: 295.90588pt x 319.39154pt.
+LaTeX Info: Redefining \. on input line 257.
+LaTeX Info: Redefining \% on input line 257.
+ [39 <./imagenes/diagrama-clase-mm-dom.png (PNG copy)> <./imagenes/diagrama-cla
+se-mm-render.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 277.
+LaTeX Info: Redefining \% on input line 277.
+
+[40]
+<imagenes/diagrama-clases-mm-render.png, id=660, 812.03375pt x 572.1375pt>
+File: imagenes/diagrama-clases-mm-render.png Graphic file (type png)
+
+<use imagenes/diagrama-clases-mm-render.png>
+Package pdftex.def Info: imagenes/diagrama-clases-mm-render.png used on input l
+ine 280.
+(pdftex.def)             Requested size: 455.24411pt x 320.75275pt.
+
+<imagenes/diagrama-clase-mm-mensaje.png, id=661, 507.8975pt x 316.18124pt>
+File: imagenes/diagrama-clase-mm-mensaje.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-mensaje.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-mensaje.png used on input l
+ine 291.
+(pdftex.def)             Requested size: 318.66948pt x 198.3847pt.
+LaTeX Info: Redefining \. on input line 300.
+LaTeX Info: Redefining \% on input line 300.
+ [41 <./imagenes/diagrama-clases-mm-render.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-nodosimple.png, id=670, 453.695pt x 392.46625pt>
+File: imagenes/diagrama-clase-mm-nodosimple.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-nodosimple.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-nodosimple.png used on inpu
+t line 310.
+(pdftex.def)             Requested size: 318.66948pt x 275.66469pt.
+LaTeX Info: Redefining \. on input line 319.
+LaTeX Info: Redefining \% on input line 319.
+ [42 <./imagenes/diagrama-clase-mm-mensaje.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-globo.png, id=678, 459.7175pt x 199.74625pt>
+File: imagenes/diagrama-clase-mm-globo.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-globo.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-globo.png used on input lin
+e 329.
+(pdftex.def)             Requested size: 273.14923pt x 118.68742pt.
+
+<imagenes/diagrama-clase-mm-color.png, id=680, 425.59pt x 280.04625pt>
+File: imagenes/diagrama-clase-mm-color.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-color.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-color.png used on input lin
+e 339.
+(pdftex.def)             Requested size: 227.62206pt x 149.78265pt.
+LaTeX Info: Redefining \. on input line 342.
+LaTeX Info: Redefining \% on input line 342.
+ [43 <./imagenes/diagrama-clase-mm-nodosimple.png (PNG copy)> <./imagenes/diagr
+ama-clase-mm-globo.png (PNG copy)>]
+<imagenes/diagrama-clases-mm-aristas.png, id=687, 903.375pt x 624.3325pt>
+File: imagenes/diagrama-clases-mm-aristas.png Graphic file (type png)
+
+<use imagenes/diagrama-clases-mm-aristas.png>
+Package pdftex.def Info: imagenes/diagrama-clases-mm-aristas.png used on input 
+line 351.
+(pdftex.def)             Requested size: 455.24411pt x 314.63286pt.
+
+<imagenes/diagrama-clase-kinetic-beizer.png, id=688, 337.26pt x 272.01625pt>
+File: imagenes/diagrama-clase-kinetic-beizer.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-kinetic-beizer.png>
+Package pdftex.def Info: imagenes/diagrama-clase-kinetic-beizer.png used on inp
+ut line 361.
+(pdftex.def)             Requested size: 227.62206pt x 183.59059pt.
+
+<imagenes/diagrama-clase-mm-arista.png, id=689, 477.785pt x 278.03876pt>
+File: imagenes/diagrama-clase-mm-arista.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-arista.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-arista.png used on input li
+ne 371.
+(pdftex.def)             Requested size: 318.66948pt x 185.44498pt.
+LaTeX Info: Redefining \. on input line 378.
+LaTeX Info: Redefining \% on input line 378.
+ [44 <./imagenes/diagrama-clase-mm-color.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 378.
+LaTeX Info: Redefining \% on input line 378.
+ [45 <./imagenes/diagrama-clases-mm-aristas.png (PNG copy)> <./imagenes/diagram
+a-clase-kinetic-beizer.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-rama.png, id=701, 477.785pt x 199.74625pt>
+File: imagenes/diagrama-clase-mm-rama.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-rama.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-rama.png used on input line
+ 390.
+(pdftex.def)             Requested size: 318.66948pt x 133.2258pt.
+LaTeX Info: Redefining \. on input line 399.
+LaTeX Info: Redefining \% on input line 399.
+ [46 <./imagenes/diagrama-clase-mm-arista.png (PNG copy)> <./imagenes/diagrama-
+clase-mm-rama.png (PNG copy)>]
+<imagenes/diagrama-clases-mm-teclado.png, id=708, 597.23125pt x 676.5275pt>
+File: imagenes/diagrama-clases-mm-teclado.png Graphic file (type png)
+
+<use imagenes/diagrama-clases-mm-teclado.png>
+Package pdftex.def Info: imagenes/diagrama-clases-mm-teclado.png used on input 
+line 404.
+(pdftex.def)             Requested size: 364.19667pt x 412.55728pt.
+LaTeX Info: Redefining \. on input line 413.
+LaTeX Info: Redefining \% on input line 413.
+ [47 <./imagenes/diagrama-clases-mm-teclado.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-teclado-atajos.png, id=716, 403.5075pt x 292.09125p
+t>
+File: imagenes/diagrama-clase-mm-teclado-atajos.png Graphic file (type png)
+ <use imagenes/diagrama-clase-mm-teclado-atajos.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-teclado-atajos.png used on 
+input line 421.
+(pdftex.def)             Requested size: 273.14923pt x 197.72801pt.
+
+<imagenes/diagrama-clase-mm-teclado-tecla.png, id=717, 365.365pt x 320.19624pt>
+File: imagenes/diagrama-clase-mm-teclado-tecla.png Graphic file (type png)
+<use imagenes/diagrama-clase-mm-teclado-tecla.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-teclado-tecla.png used on i
+nput line 437.
+(pdftex.def)             Requested size: 318.66948pt x 279.28668pt.
+
+<imagenes/diagrama-clase-mm-teclado.png, id=718, 285.065pt x 201.75375pt>
+File: imagenes/diagrama-clase-mm-teclado.png Graphic file (type png)
+
+<use imagenes/diagrama-clase-mm-teclado.png>
+Package pdftex.def Info: imagenes/diagrama-clase-mm-teclado.png used on input l
+ine 443.
+(pdftex.def)             Requested size: 318.66948pt x 225.53781pt.
+
+<imagenes/diagrama-seq-add.png, id=719, 347.2975pt x 285.065pt>
+File: imagenes/diagrama-seq-add.png Graphic file (type png)
+
+<use imagenes/diagrama-seq-add.png>
+Package pdftex.def Info: imagenes/diagrama-seq-add.png used on input line 454.
+(pdftex.def)             Requested size: 318.66948pt x 261.57571pt.
+
+<imagenes/diagrama-seq-borrar.png, id=720, 371.3875pt x 382.42876pt>
+File: imagenes/diagrama-seq-borrar.png Graphic file (type png)
+
+<use imagenes/diagrama-seq-borrar.png>
+Package pdftex.def Info: imagenes/diagrama-seq-borrar.png used on input line 46
+0.
+(pdftex.def)             Requested size: 318.66948pt x 328.15288pt.
+
+<imagenes/diagrama-seq-navegacion.png, id=721, 412.54124pt x 1031.855pt>
+File: imagenes/diagrama-seq-navegacion.png Graphic file (type png)
+
+<use imagenes/diagrama-seq-navegacion.png>
+Package pdftex.def Info: imagenes/diagrama-seq-navegacion.png used on input lin
+e 466.
+(pdftex.def)             Requested size: 318.66948pt x 797.06572pt.
+
+
+LaTeX Warning: Float too large for page by 124.22708pt on input line 469.
+
+) (./contenidos/04.00.Implementacion.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [28] [29]
+ [48 <./imagenes/diagrama-clase-mm-teclado-atajos.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [49 <./imagenes/diagrama-clase-mm-teclado-tecla.png (PNG copy)> <./imagenes/di
+agrama-clase-mm-teclado.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [50 <./imagenes/diagrama-seq-add.png (PNG copy)> <./imagenes/diagrama-seq-borr
+ar.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [51 <./imagenes/diagrama-seq-navegacion.png (PNG copy)>] [52]
 Cap\'{\i }tulo 5.
 
 Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 [][] 
  []
 
-) (./contenidos/05.01.NodeJS.tex
+) (./contenidos/04.01.MetodologiaDesarrollo.tex [53
+
+]
+LaTeX Info: Redefining \. on input line 31.
+LaTeX Info: Redefining \% on input line 31.
+ [54]
+LaTeX Info: Redefining \. on input line 51.
+LaTeX Info: Redefining \% on input line 51.
+ [55])
+(./contenidos/05.00.Resultados.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [56] [57]
+Cap\'{\i }tulo 6.
+
+Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
+[][] 
+ []
+
+) (./contenidos/05.01.NodeJS.tex [58
+
+]
 Package epstopdf Info: Source file: <imagenes/nodejs-light.eps>
 (epstopdf)                    date: 2013-10-21 21:17:07
 (epstopdf)                    size: 588530 bytes
@@ -975,16 +1285,16 @@ converted-to.pdf imagenes/nodejs-light.eps>
 (epstopdf)             \includegraphics on input line 7.
 Package epstopdf Info: Output file is already uptodate.
 
-<imagenes/nodejs-light-eps-converted-to.pdf, id=478, 187.70125pt x 51.19125pt>
+<imagenes/nodejs-light-eps-converted-to.pdf, id=773, 187.70125pt x 51.19125pt>
 File: imagenes/nodejs-light-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imagenes/nodejs-light-eps-converted-to.pdf>
 Package pdftex.def Info: imagenes/nodejs-light-eps-converted-to.pdf used on inp
 ut line 7.
 (pdftex.def)             Requested size: 91.04742pt x 24.83162pt.
- [30
-
-]
+LaTeX Info: Redefining \. on input line 22.
+LaTeX Info: Redefining \% on input line 22.
+ [59 <./imagenes/nodejs-light-eps-converted-to.pdf>]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/06/27 1.5pre1 listings language file
 )
@@ -1000,9 +1310,6 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <8> not available
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
-LaTeX Info: Redefining \. on input line 44.
-LaTeX Info: Redefining \% on input line 44.
- [31 <./imagenes/nodejs-light-eps-converted-to.pdf>]
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
@@ -1012,15 +1319,18 @@ File: ansinew.def 2008/03/30 v1.1d Input encoding file
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
-LaTeX Info: Redefining \. on input line 106.
-LaTeX Info: Redefining \% on input line 106.
- [32]
+LaTeX Info: Redefining \. on input line 71.
+LaTeX Info: Redefining \% on input line 71.
+ [60]
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
+LaTeX Info: Redefining \. on input line 127.
+LaTeX Info: Redefining \% on input line 127.
+ [61]
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
@@ -1028,16 +1338,13 @@ File: ansinew.def 2008/03/30 v1.1d Input encoding file
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 ))
 (./contenidos/05.02.GruntJS.tex
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [33]
+LaTeX Info: Redefining \. on input line 11.
+LaTeX Info: Redefining \% on input line 11.
+ [62]
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
-LaTeX Info: Redefining \. on input line 28.
-LaTeX Info: Redefining \% on input line 28.
- [34]
-<imagenes/grunt-logo.png, id=598, 286.78572pt x 338.40715pt>
+<imagenes/grunt-logo.png, id=889, 286.78572pt x 338.40715pt>
 File: imagenes/grunt-logo.png Graphic file (type png)
 
 <use imagenes/grunt-logo.png>
@@ -1106,18 +1413,22 @@ put line 42.
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
+LaTeX Info: Redefining \. on input line 54.
+LaTeX Info: Redefining \% on input line 54.
+ [63 <./imagenes/grunt-logo.png>] (/usr/share/texlive/texmf-dist/tex/latex/base
+/ansinew.def
+File: ansinew.def 2008/03/30 v1.1d Input encoding file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 81.
+
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
-LaTeX Info: Redefining \. on input line 81.
-LaTeX Info: Redefining \% on input line 81.
- [35 <./imagenes/grunt-logo.png>]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 81.
- (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
-File: ansinew.def 2008/03/30 v1.1d Input encoding file
-)
 (./recursos/Gruntfile.js
+LaTeX Info: Redefining \. on input line 26.
+LaTeX Info: Redefining \% on input line 26.
+ [64]
 LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 46.
 
 LaTeX Font Info:    No file OMScmtt.fd. on input line 46.
@@ -1126,13 +1437,13 @@ LaTeX Font Info:    No file OMScmtt.fd. on input line 46.
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead on input line 46.
 
-LaTeX Info: Redefining \. on input line 76.
-LaTeX Info: Redefining \% on input line 76.
-[36])
-LaTeX Info: Redefining \. on input line 91.
-LaTeX Info: Redefining \% on input line 91.
- [37]) (./contenidos/05.03.Github.tex
-<imagenes/octocat.png, id=772, 123.3408pt x 123.3408pt>
+LaTeX Info: Redefining \. on input line 103.
+LaTeX Info: Redefining \% on input line 103.
+[65])
+LaTeX Info: Redefining \. on input line 100.
+LaTeX Info: Redefining \% on input line 100.
+ [66]) (./contenidos/05.03.Github.tex
+<imagenes/octocat.png, id=1067, 123.3408pt x 123.3408pt>
 File: imagenes/octocat.png Graphic file (type png)
 
 <use imagenes/octocat.png>
@@ -1143,12 +1454,9 @@ Overfull \hbox (36.42035pt too wide) in paragraph at lines 10--11
  [] 
  []
 
-LaTeX Info: Redefining \. on input line 16.
-LaTeX Info: Redefining \% on input line 16.
-[38]
-LaTeX Info: Redefining \. on input line 34.
-LaTeX Info: Redefining \% on input line 34.
- [39 <./imagenes/octocat.png>]
+LaTeX Info: Redefining \. on input line 21.
+LaTeX Info: Redefining \% on input line 21.
+[67 <./imagenes/octocat.png>]
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
@@ -1158,6 +1466,9 @@ File: ansinew.def 2008/03/30 v1.1d Input encoding file
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
+LaTeX Info: Redefining \. on input line 52.
+LaTeX Info: Redefining \% on input line 52.
+ [68]
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
@@ -1168,34 +1479,34 @@ File: ansinew.def 2008/03/30 v1.1d Input encoding file
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 ))
 (./contenidos/05.04.JSDoc.tex
-LaTeX Info: Redefining \. on input line 5.
-LaTeX Info: Redefining \% on input line 5.
- [40]
 Underfull \hbox (badness 1810) in paragraph at lines 5--6
 []\OT1/cmr/m/n/12 Mediante una conjunto de etiquetas (@class, @function, etc) i
 ntroducidas como
  []
 
-<imagenes/codigoconjsdoc.png, id=814, 538.26094pt x 520.19344pt>
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+[69] <imagenes/codigoconjsdoc.png, id=1112, 538.26094pt x 520.19344pt>
 File: imagenes/codigoconjsdoc.png Graphic file (type png)
 
 <use imagenes/codigoconjsdoc.png>
 Package pdftex.def Info: imagenes/codigoconjsdoc.png used on input line 11.
 (pdftex.def)             Requested size: 318.66948pt x 307.97508pt.
-LaTeX Info: Redefining \. on input line 18.
-LaTeX Info: Redefining \% on input line 18.
- [41 <./imagenes/codigoconjsdoc.png>]
-<imagenes/jsdoc.png, id=824, 576.65437pt x 448.67625pt>
+
+<imagenes/jsdoc.png, id=1114, 576.65437pt x 448.67625pt>
 File: imagenes/jsdoc.png Graphic file (type png)
 
 <use imagenes/jsdoc.png>
 Package pdftex.def Info: imagenes/jsdoc.png used on input line 21.
 (pdftex.def)             Requested size: 318.66948pt x 247.95709pt.
 ) (./contenidos/05.05.Mocha.tex
-LaTeX Info: Redefining \. on input line 20.
-LaTeX Info: Redefining \% on input line 20.
- [42 <./imagenes/jsdoc.png>] <imagenes/mocha-logo.png, id=833, 491.90225pt x 49
-1.90225pt>
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+ [70 <./imagenes/codigoconjsdoc.png>]
+LaTeX Info: Redefining \. on input line 23.
+LaTeX Info: Redefining \% on input line 23.
+ [71 <./imagenes/jsdoc.png>]
+<imagenes/mocha-logo.png, id=1128, 491.90225pt x 491.90225pt>
 File: imagenes/mocha-logo.png Graphic file (type png)
 
 <use imagenes/mocha-logo.png>
@@ -1611,10 +1922,7 @@ put line 9.
 Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
 put line 40.
 
-LaTeX Info: Redefining \. on input line 47.
-LaTeX Info: Redefining \% on input line 47.
-[43 <./imagenes/mocha-logo.png>]
-<imagenes/mochaejecucion.png, id=852, 301.8778pt x 71.51718pt>
+<imagenes/mochaejecucion.png, id=1131, 301.8778pt x 71.51718pt>
 File: imagenes/mochaejecucion.png Graphic file (type png)
 
 <use imagenes/mochaejecucion.png>
@@ -1624,8 +1932,11 @@ Package pdftex.def Info: imagenes/mochaejecucion.png used on input line 53.
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2008/03/30 v1.1d Input encoding file
 )
-(./recursos/array1-test.js)
-<imagenes/mochaejecucion1.png, id=853, 293.59688pt x 89.58469pt>
+(./recursos/array1-test.js
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [72 <./imagenes/mocha-logo.png>])
+<imagenes/mochaejecucion1.png, id=1149, 293.59688pt x 89.58469pt>
 File: imagenes/mochaejecucion1.png Graphic file (type png)
 
 <use imagenes/mochaejecucion1.png>
@@ -1635,12 +1946,8 @@ Package pdftex.def Info: imagenes/mochaejecucion1.png used on input line 66.
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 
-[44 <./imagenes/mochaejecucion.png> <./imagenes/mochaejecucion1.png>]
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [45]
-[46]
-Cap\'{\i }tulo 6.
+[73 <./imagenes/mochaejecucion.png> <./imagenes/mochaejecucion1.png>] [74]
+Cap\'{\i }tulo 7.
 
 Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 [][] 
@@ -1648,16 +1955,16 @@ Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 
 ) (./contenidos/06.01.ParaDesarrolladores.tex)
 (./contenidos/06.02.ParaUsuarioFinal.tex) (./contenidos/07.00.Conclusiones.tex
-[47
+[75
 
-] [48]
-Cap\'{\i }tulo 7.
+] [76]
+Cap\'{\i }tulo 8.
 
 Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 [][] 
  []
 
-) (./contenidos/bibliografia.tex [49
+) (./contenidos/bibliografia.tex [77
 
 ]
 Overfull \hbox (14.9808pt too wide) in paragraph at lines 5--5
@@ -1667,55 +1974,50 @@ Overfull \hbox (14.9808pt too wide) in paragraph at lines 5--5
 
 LaTeX Warning: Empty `thebibliography' environment on input line 8.
 
-[50
+[78
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 48.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 48.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 50.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 50.
  (./pfc.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 48.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 48.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 50.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 50.
+Package rerunfilecheck Info: File `pfc.out' has not changed.
+(rerunfilecheck)             Checksum: 4ADB6B16001A716E187F3DF58FC61756;4340.
 
-
-Package rerunfilecheck Warning: File `pfc.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `pfc.out':
-(rerunfilecheck)             Before: 1D1F84B1B60FF9B143281A28BE15EA73;3531
-(rerunfilecheck)             After:  EE41572D3F5A591F7D2BDF1D11D85F32;3542.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 48.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 50.
  ) 
 Here is how much of TeX's memory you used:
- 10484 strings out of 493307
- 148949 string characters out of 6139904
- 399155 words of memory out of 5000000
- 13177 multiletter control sequences out of 15000+600000
+ 10758 strings out of 493307
+ 156598 string characters out of 6139906
+ 396060 words of memory out of 5000000
+ 13328 multiletter control sequences out of 15000+600000
  11111 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 39i,13n,47p,1796b,2311s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,13n,47p,1796b,2396s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on pfc.pdf (52 pages, 893739 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on pfc.pdf (80 pages, 1367283 bytes).
 PDF statistics:
- 1046 PDF objects out of 1200 (max. 8388607)
- 943 compressed objects within 10 object streams
- 447 named destinations out of 1000 (max. 500000)
- 523 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1358 PDF objects out of 1440 (max. 8388607)
+ 1196 compressed objects within 12 object streams
+ 539 named destinations out of 1000 (max. 500000)
+ 751 words of extra memory for PDF output out of 10000 (max. 10000000)
 

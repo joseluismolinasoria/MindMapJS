@@ -12,9 +12,8 @@ MM.DOM = {};
 
 /**
  * @desc función para la creación de elementos DOM de forma comoda. 
- * @param {string} nombre del elemento DOM que deseemos crear
- * @param {object} objecto con los atributos que deseamos en el elemento DOM
- * @param {object} elemento DOM
+ * @param {string} tagName Etíqueta del elemento DOM que deseemos crear
+ * @param {object} prop Propiedades con los atributos que deseamos en el elemento DOM
  */
 MM.DOM.create = function(tagName, prop) {
     var e = window.document.createElement(tagName);

@@ -1,26 +1,55 @@
 \select@language {spanish}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Esquema general de la especificaci\IeC {\'o}n HTML5 a diciembre de 2011}}{7}{figure.1.1}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Mapa mental de FreeMind}}{12}{figure.2.1}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Partes de un mapa mental}}{14}{figure.2.2}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Partes de un mapa mental considerando su contenido}}{15}{figure.2.3}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Mapa mental de elaboraci\IeC {\'o}n de mapas mentales}}{16}{figure.2.4}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Esquema general de la especificaci\IeC {\'o}n HTML5 a diciembre de 2011}}{10}{figure.2.1}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Esquema de diagramas}}{19}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Estereotipos}}{20}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Valores etiquetados}}{21}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Estereotipos}}{21}{figure.3.4}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Casos de uso}}{23}{figure.3.5}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Mapa mental de FreeMind}}{15}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Partes de un mapa mental}}{17}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Partes de un mapa mental considerando su contenido}}{18}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Mapa mental de elaboraci\IeC {\'o}n de mapas mentales}}{19}{figure.3.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema de diagramas}}{22}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Estereotipos}}{24}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Valores etiquetados}}{24}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Estereotipos}}{24}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Casos de uso}}{26}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Clase MM.Class}}{29}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Diagrama de clases pubsub}}{30}{figure.4.7}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Clase MM.PubSub}}{31}{figure.4.8}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Diagrama de clases undo}}{32}{figure.4.9}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Clase MM.UndoManager.ComandoHacerDeshacer}}{32}{figure.4.10}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Secuencia de ejecuci\IeC {\'o}n de UndoManager}}{33}{figure.4.11}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Clase MM.UndoManager}}{34}{figure.4.12}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Diagrama de clases MM}}{35}{figure.4.13}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Clase MM}}{36}{figure.4.14}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Clase MM.Arbol}}{37}{figure.4.15}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Modulo MM.DOM}}{39}{figure.4.16}
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Modulo MM.Render}}{39}{figure.4.17}
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Diagrama de clases nodo}}{41}{figure.4.18}
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Clase MM.Mensaje}}{42}{figure.4.19}
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Clase MM.NodoSimple}}{43}{figure.4.20}
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Clase MM.Globo}}{43}{figure.4.21}
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Modulo MM.Color}}{44}{figure.4.22}
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Diagrama de clases aristas}}{45}{figure.4.23}
+\contentsline {figure}{\numberline {4.24}{\ignorespaces Clase Kinetic Beizer}}{45}{figure.4.24}
+\contentsline {figure}{\numberline {4.25}{\ignorespaces Clase MM.Arista}}{46}{figure.4.25}
+\contentsline {figure}{\numberline {4.26}{\ignorespaces Clase MM.Rama}}{46}{figure.4.26}
+\contentsline {figure}{\numberline {4.27}{\ignorespaces Diagrama de clases teclado}}{47}{figure.4.27}
+\contentsline {figure}{\numberline {4.28}{\ignorespaces Modulo MM.teclado.atajos}}{48}{figure.4.28}
+\contentsline {figure}{\numberline {4.29}{\ignorespaces Clase MM.teclado.tecla}}{49}{figure.4.29}
+\contentsline {figure}{\numberline {4.30}{\ignorespaces Clase MM.teclado}}{49}{figure.4.30}
+\contentsline {figure}{\numberline {4.31}{\ignorespaces Diagrama de secuencia add}}{50}{figure.4.31}
+\contentsline {figure}{\numberline {4.32}{\ignorespaces Diagrama de secuencia borrar}}{50}{figure.4.32}
+\contentsline {figure}{\numberline {4.33}{\ignorespaces Diagrama de secuencia navegaci\IeC {\'o}n}}{51}{figure.4.33}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Logo NodeJS}}{31}{figure.5.1}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Logo GruntJS}}{35}{figure.5.2}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Mascota de Github}}{39}{figure.5.3}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Ejemplo de c\IeC {\'o}digo fuente documentado con JSDoc}}{41}{figure.5.4}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces P\IeC {\'a}gina generada por JSDoc}}{42}{figure.5.5}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Mocha}}{43}{figure.5.6}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Resultado de ejecutar mocha -R spec *.js}}{44}{figure.5.7}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Resultado de ejecutar mocha -R spec array1-test.js}}{44}{figure.5.8}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Logo NodeJS}}{59}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Logo GruntJS}}{63}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Mascota de Github}}{67}{figure.6.3}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Ejemplo de c\IeC {\'o}digo fuente documentado con JSDoc}}{70}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces P\IeC {\'a}gina generada por JSDoc}}{71}{figure.6.5}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Mocha}}{72}{figure.6.6}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Resultado de ejecutar mocha -R spec *.js}}{73}{figure.6.7}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Resultado de ejecutar mocha -R spec array1-test.js}}{73}{figure.6.8}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
