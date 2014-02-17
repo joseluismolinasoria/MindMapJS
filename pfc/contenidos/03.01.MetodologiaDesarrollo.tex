@@ -36,7 +36,15 @@ La metodología Ágil se adapta muy bien al desarrollo web. Por esto, y por las 
 
 Viendo la dependencia entre librerías a implementar, lo más apropiado, es seguir un diseño ascendente (bottom-up). Siempre que el estadio anterior haya sido verificado y comprobado su completud, se podrá afrontar con éxito la siguiente etapa. Dicho de otra forma, cada etapa es dependiente de la etapa inmediatamente anterior. Siempre siguiendo la metodología ágil se ha decidido afrontar el proyecto en dos fases:
 
-\textbf{Primera fase:} se encargará de llevar a buen término la implementación de las librerías JavaScripts necesarias para la aplicación. En cada ciclo tendremos que realizar una planificación, análisis de riesgos, implementación, pruebas unitarias y documentación de cada librería. La primera fase constará pues, de seis ciclos bien definidos. El orden de los ciclos es el que sigue:
+\textbf{Primera fase:} se encargará de llevar a buen término la implementación de las librerías Javascripts necesarias para la aplicación. En cada ciclo tendremos que realizar una planificación, análisis de riesgos, implementación, pruebas unitarias y documentación de cada librería. La primera fase constará pues, de seis ciclos bien definidos. El orden de los ciclos es el que sigue:
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/primeraVersion1}
+\caption{Versión inicial.}
+\label{fig:versioninicial1}
+\end{figure}
+
 
 \begin{itemize}
 \item \textbf{Librería base con soporte para herencia.} Esta librería debe tener toda la funcionalidad básica (bindings, curryings, etc) y debe estar muy optimizada ya que el perfecto funcionamiento de la aplicación dependerá en buena medida de ella.
@@ -52,4 +60,16 @@ Viendo la dependencia entre librerías a implementar, lo más apropiado, es segu
 \item Por último, las librerías propias del mapa y \textbf{prototipo} o primera versión. 
 \end{itemize}
 
-\textbf{Segunda fase:} una vez implementadas todas las librerías necesarias y una primera versión (inoperativa), nos encontramos en disposición de ir elaborando la aplicación. En esta fase, desde mi punto de vista, el modelo iterativo incremental se adapta a la perfección al proceso de refinamiento de la aplicación. Cada iteración con llevará la implementación de la funcionalidad, en la que nos enfoquemos, y su posterior evaluación y prueba.
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/primeraVersion2}
+\caption{Versión inicial.}
+\label{fig:versioninicial2}
+\end{figure}
+
+
+\textbf{Segunda fase:} una vez implementadas todas las librerías necesarias y una primera versión (inoperativa), nos encontramos en disposición de ir elaborando la aplicación. Revisión de aspectos visuales de la aplicación tales, como un editor ajustable, zoom, y mejoras en el funcionamiento en general. 
+
+\textbf{Tercera fase:} nuevas funcionalidades como plegado, hacer-deshacer y un mejor ajuste del en la redistribución de nodos y escalado.
+
+

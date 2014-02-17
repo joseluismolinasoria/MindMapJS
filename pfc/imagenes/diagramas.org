@@ -1,4 +1,4 @@
-#+TITLE: Fichero para elaboración de diagramas UML con PlantUML
+#+TITLE: Fichero para elaboración de diagramas UML con PlantUML y ditaa
 #+DATE: 04-11-2013
 #+AUTHOR: José Luis Molina Soria
 #+STARTUP: showall
@@ -725,3 +725,14 @@ Hacer    -> null
 #+RESULTS:
 [[file:undomangerEjecucion.png]]
 
+#+BEGIN_SRC ditaa :file prototipo1.png :cmdline -Er
+  +-----------+      +-----------+      +-----------+      +-----------+ 
+  | objeto1   |   +->| objeto2   |   +->| objeto3   |   +->| Object {} | 
+  | cGRE      |   |  | cBLU      |   |  | cPNK      |   |  | cRED      |  
+  |-----------|   |  |-----------|   |  |-----------|   |  |-----------| 
+  | prototype +---+  | prototype +---+  | prototype +---+  |  null     | 
+  +-----------+      +-----------+      +-----------+      +-----------+  
+#+END_SRC
+
+#+RESULTS:
+[[file:prototipo1.png]]

@@ -1,0 +1,349 @@
+\section{Javascript.}
+
+\subsection{Qué es.}
+
+Mozilla, los herederos directos de Netscape, definen javascript como:\footnote{MDN (Mozilla Developer Network)} \footnote{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/JavaScript\_Overview}
+
+\begin{quotation}
+JavaScript is a cross-platform, object-oriented scripting language. JavaScript is a small, lightweight language; it is not useful as a standalone language, but is designed for easy embedding in other products and applications, such as web browsers. Inside a host environment, JavaScript can be connected to the objects of its environment to provide programmatic control over them.
+\end{quotation}
+
+Definición que desde mi punto de vista se queda corta. Ya que Javascript es un lenguaje de scripting (que debe ser interpretado), imperativo, estructurado, orientado a objeto sin clases, débilmente tipado, dinámico, funcional y basado en prototipos.
+
+De C ha heredado que sea un lenguaje imperativo y estructurado con distinción entre sentencias y expresiones. A diferencia de C y Java el ámbito de las variables no son a nivel de bloque sino de función, es decir, que una variable definida dentro de una sentencia puede ser utilizada fuera de dicha sentencia, ya que el ámbito no lo define la sentencia sino la función que la contiene.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+var f = function (valor) {
+	if ( valor ) {
+		var resultado = 'Si';
+	} 
+	return resultado;
+};
+\end{lstlisting}
+
+Sin lugar a dudas se trata de un lenguaje orientado a objeto. Los arrays, números, funciones, cadenas, casi en su totalidad el lenguaje son objetos\footnote{Salvo los valores destacados null y undefined, el resto de valores javascripts son objetos}. Los objetos son array asociativos al cual podemos acceder a través de la notación objeto.campo o como si de un array se tratará. 
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+var f = function () {
+	var objeto = { 
+		campo0 : 0,
+		campo1 : 'una cadena' 
+	};
+	
+	var valorCampo0 = objeto.campo0;
+	valorCampo0 = objecto['campo0'];
+};
+\end{lstlisting}
+
+Es débilmente tipado, el tipo no va asociado a la variable si al valor que contiene. Por lo que podemos crear variables y asignarle un valor numérico y posteriormente una cadena. 
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+var f = function () {
+	var numero = 1;
+	numero++;
+	numero = '1';
+};
+\end{lstlisting}
+
+Se trata de un lenguaje funcional en el que una función es un objeto de primera clase. Esto significa que Javascript soporta el paso de funciones como argumentos a otras funciones, funciones que devuelve funciones, variables que almacenan funciones, creación de funciones anónimas, etc ...
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+function map(f, xs) {
+	var result = new Array();
+	for (var i = 0; i < xs.length; i++)
+		result.push(f.apply(null, [xs[i]]));
+	return result;
+}
+\end{lstlisting}
+
+Javascript no utiliza el mecanismos de clases para implementar la herencia, para ello hace uso de los prototipos. 
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+var Persona = function (){
+	this.nombre = 'Sin nombre';
+};
+
+Persona.prototype.setNombre = function () {
+	this.nombre;
+};
+
+var pepe = new Persona(); // pepe es una instancia de Persona 
+pepe.setNombre('Pepe');   // y contiene una copia del prototipo de Persona.
+\end{lstlisting}
+
+
+\subsection{Un poco de historia.}
+
+Cuando en 1996, el navegador Netscape introdujo su primer interprete de
+Javascript\footnote{Javascript fue un nombre por conveniencia legal. Originalmente se llamaba
+  LiveScript} nadie podía intuir la importancia que adquiriría años después. 
+
+Internet aun estaba en pañales, navegar era lento\footnote{La velocidad máxima de los modems de
+  usuario era 28.8Kbps} y los ordenadores personales poco potentes. En el mejor de los casos, el
+usuario tenía que esperar durante largo tiempo para poder interactuar con la web solicitada.  Las
+páginas comenzaban a ser más complejas, y la navegación más lenta, de ello surguió la necesidad de
+un lenguaje de programación que se ejecutará en el navegador del cliente. De esta forma, si el
+usuario introducía un valor incorrecto, en un formulario, no tendría que esperar a la respuesta del
+servidor, el mismo cliente podría dar una respuesta más rápida, indicando los errores existentes.
+
+Netscape Navigator 3.0 incorporó la primera versión del lenguaje, como ya se había comentado, y al
+mismo tiempo, o al poco, Microsofot lanzo JScript en su Internet Explorer 3. JScript no erá más que 
+una copia de Javascript al que le cambiaron el nombre para evitar problemas legales. De esta
+forma comienzan las divergencias entre las distintas versiones de Javascript, en esencia todas
+parten del mismo lenguaje y estandar, pero cada una aportaba sus mejoras provocando diferencias
+entre ellas. 
+
+La guerra entre las distintas versiones estaba servida. Todos deseaban que su versión fuera la
+aceptada por la comunidad y se popularizará. Bien intentando estandarizar su versión, o buscando
+que se evitará la guerra de tecnologías, Netscape decidió dar el paso, y en 1997 puso a disposición
+de ECMA\footnote{European Computer Manufacturers Association. Web oficial
+  http://www.ecma-international.org/} la especificación de Javascript1.1. ECMA creo el comité TC39
+del cual surgío el primer estándar que se denominó ECMA-262\footnote{Se puede encontrar la versión 5.1 en
+  http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf}, o más popularmente, 
+ECMAScript. 
+
+Durante mucho tiempo el estándar ECMAScript no fue el aceptado por todos los navegadores, ni que
+decir tiene que el más reacio al cambio fue el Internet Explorer de Microsoft. Es ahora, donde
+Microsoft a dado su brazo a torcer y poco a poco tiende al estándar ECMAScript facilitando al los
+desarrolladores la tarea.
+
+\subsection{Prototipos}
+
+Como se ha comentado con anterioridad Javascript no utiliza el mecanismos de clases\footnote{Paradigma sin clases} para implementar la herencia, para ello hace uso de los prototipos. Los prototipos son un paradigma de programación orientada a objetos en la cual instanciación de objetos se hace mediante la clonación de otros objetos. 
+
+Los objetos en cualquier lenguaje son un conjunto de propiedades y métodos. Pues bien, Javascript carece de métodos en su lugar existen propiedades que apuntan a funciones que hacen las veces de métodos. Además, cada objeto tiene un enlace interno a otro objeto llamado prototipo\footnote{prototype}. El prototipo de un objeto puede ser, o bien otro objeto, o bien el valor null. Es lo que se llama cadena de prototipos o cadena prototípica (ver figura\ref{fig:cadena-prototipos}). 
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.7\linewidth]{imagenes/prototipo1}
+\caption{Cadena prototípica de objetos}
+\label{fig:cadena-prototipos}
+\end{figure}
+
+Cómo se puede observar toda cadena de prototipo acaba con el prototipo de Object, cuyo prototipo es null. Veamos algunos ejemplo de cadenas prototípicas. 
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+> var objeto = { a : 1 }; \\ cadena prototípica de objeto --> Object.prototype --> null
+> Object.getPrototypeOf(o); 
+  Object {}
+> Object.getPrototypeOf(Object.getPrototypeOf(o));
+  null
+
+\\ cadena prototípica de una array --> Array.prototype --> Object.prototype --> null
+> var array = [1,2];
+> Object.getPrototypeOf(array);
+  []
+> Object.getPrototypeOf(Object.getPrototypeOf(array));
+  Object {}
+> Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(array)));
+  null
+\end{lstlisting}
+
+
+\subsubsection{Herencia de propiedades y métodos}
+
+Un objeto javascript es un conjunto de propiedades\footnote{Los métodos son propiedades que referencia a una función} que en el momento de la herencia se copian en el nuevo objeto o objeto hijo. Así pues, en el siguiente ejemplo podemos observar como se heredan las propiedades y los "métodos". 
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+> var a = { 
+	contador: 0, 
+	contar : function () { 
+		console.log('Contador ' + this.contador++); 
+	} 
+};
+> a.contar();
+  Contador 0
+> a.contar();
+  Contador 1
+
+> var b = Object.create(a); // Crea un objeto "b" que hereda de "a"
+> b.contador; // es una copia exacta de "a"
+  2
+> b.contar();
+  Contador 2
+> a.contar();  // una copia no el mismo
+  Contador 2
+
+// la cadena de prototipos de los objectos:
+// b.prototype --> a.prototype --> Object.prototype --> null
+\end{lstlisting}
+
+También hay que tener especial cuidado con la palabra reservada this que siempre apunta al objeto que está heredando y no al prototipo. 
+
+\subsubsection{Constructor, propiedad prototype y herencia}
+Todos los objetos poseen un único constructor. Un constructor es sólo una función que ha sido llamada con la palabra reservada new.
+
+Todo constructor tiene una propiedad prototype con la cual podemos definir el prototipo de todos los objetos creados con dicho constructor.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+> var Persona = function (nombre) { 
+	this.nombre = nombre;
+};
+
+> Persona.prototype = {
+	saluda : function () {
+		console.log('Hola soy ' + this.nombre);
+	}
+};
+
+> var pepe = new Persona ("pepe");
+> pepe.saluda()
+  Hola soy pepe
+
+/* prototipo de pepe --> Persona.prototype --> Object.prototype --> null */
+
+> var juan = new Persona ("juan");
+> juan.saluda()
+  Hola soy juan
+
+\end{lstlisting}
+
+En el siguiente, ejemplo se ilustra como se puede implementar la herencia en base a un constructor y las propiedades. Para ello, vamos a basarnos en el ejemplo anterior.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+> var Empleado = function (nombre, puesto) { 
+	this.nombre = nombre;
+	this.puesto = puesto;
+};
+> Empleado.prototype = new Persona('');
+// sobreescribimos saluda
+> Empleado.prototype.saluda = function () { 
+	console.log('Hola soy ' + this.nombre + ' ' + this.puesto );
+};
+
+> var pepe = new Empleado ('pepe', 'programador');
+> pepe.saluda();
+  Hola soy pepe programador
+> pepe instanceof Empleado
+  true
+> pepe instanceof Persona
+  true
+\end{lstlisting}
+
+\subsection{Ámbito de variable (Scope)}
+
+El ámbito de una variable\footnote{scope} es la zona del programa donde es accesible la variable. En JavaScript existen dos ámbitos: local y global.
+
+En el ámbito global, las variables son accesibles desde cualquier punto del programa. Salvo si existe una variable con él mismo nombre en el ámbito local. 
+
+Cuando hablamos de ámbito local, en Javascript, nos referimos a nivel de función. Es decir, que las variables declaradas dentro de la función serán accesibles sólo dentro de la propia función. 
+
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+var vbleGlobal = 'Soy una variable global';
+
+function fn (){
+	var vbleLocal = "Soy una variable local";
+	// vbleGlobal === 'Soy una variable global'
+}
+
+// vbleLocal === undefined 
+\end{lstlisting}
+
+
+\subsection{Patrón módulo}
+Popularizado por Douglas Crockford el patrón módulo es sin lugar a dudas el más utilizado dentro del mundo de Javascript. Su simplicidad encierra gran potencia y flexibilidad que han aprovechado multitud de librerías\footnote{Por citar algunas de las más populares: JQuery, Dojo y Undercore, entre otros}.  
+
+Para definir un módulo nos basamos principalmente en dos conceptos fundamentales: 
+\begin{itemize}
+\item El \textbf{ámbito local}, nos va a permitir crear funciones y variables locales al módulo, es decir, privadas a nuestro módulo. 
+\item Y en una \textbf{función auto-ejecutable} que retorna un objeto con el interfaz pública del módulo.
+\end{itemize}
+
+El siguiente módulo muestra un ejemplo básico de módulo\footnote{Módulo propuesto pro Douglas Crockford}.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+// El espacio de nombres en este ejemplo es la variable "modulo"
+var modulo = function () {
+  // variables privadas
+  var p1, p2;
+ 
+  // funciones privadas
+  function privado() {
+  }
+ 
+  // Interfaz publica
+  return {
+    variablePublica : null,
+    funcionPublica: function () {
+    }
+  }
+}();
+\end{lstlisting}
+
+
+Entre sus virtudes más destacadas están:
+\begin{itemize}
+\item Encapsulamiento bajo un \textbf{espacio de nombres}. Evitando colisiones de nombres con otras librerías.
+\item Permite y propicia una mejor organización del código permitiendo o facilitando la \textbf{reutilización}.
+\item Al quedar encapsulado bajo un espacio de nombre nos lleva a mantener un \textbf{contexto global limpio}. Sólo necesitamos de una variable global\footnote{Nos referimos al propio módulo}.
+\item Concepto simple y fácilmente extensible.
+\end{itemize}
+
+En MindMapJS no es una excepción, se ha utilizado un espacio de nombres MM.\footnote{Utilizado MM (MindMap) por comodidad.} Simplemente esto:
+\lstset{inputencoding=utf8/latin1}
+\lstinputlisting[language=JavaScript, numbers=left]{../src/MindMapJS.js}
+
+El modulo MM es tiene el interfaz de uso para la aplicación y sobre el que gira todo comportamiento. 
+
+
+\lstinputlisting[language=JavaScript, numbers=left]{../src/mm.js}
+
+Como se puede observar se ha utilizado incorporado una pequeña variación con respecto al módulo propuesto por Douglas Crockford. Se trata de un modulo extensible. Para ello, el espacio de nombre del módulo debe estar previamente definido y posteriormente se le pasa a la función auto-ejecutable para que extienda su interfaz. Un esquema de este módulo es:
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+// El espacio de nombres en este ejemplo es la variable "modulo"
+var modulo = {};
+
+modulo = function (m) {
+  // variables privadas
+  var p1, p2;
+ 
+  // funciones privadas
+  function privado() {
+  }
+ 
+  m.variablePublica = null;
+  
+  m.funcionPublica = function () {};
+ 
+  return m;
+}(modulo);
+
+modulo = function (m) { // extesion del modulo
+  // variables privadas solo accesibles en la extension
+  var p1_ext, p2_ext;
+ 
+  // funciones privadas
+  function privado_ext() {
+  }
+ 
+  m.variablePublica_ext = null;
+  
+  m.funcionPublica_ext = function () {};
+ 
+  return m;
+}(modulo);
+\end{lstlisting}
+
+Quedando el interfaz de nuestro módulo como la conjunción de los métodos y variables públicas definida en cada una de la extensiones.
+
+
+\subsection{Implementación de MM.Class con prototipos}
+
+* ya se ha hablado del él
+* implementación de clase
+* Constructor por defecto init 
+* sobreescritura de métodos.
+* Se puede extender 
+
+
+\lstinputlisting[language=JavaScript, numbers=left]{../src/klass.js}
+
+explicar la implementación del clases realizada en la aplicación incluir el klass.js y los test realizados para su verificación.
+
+
+ambito privado y público 
+
+
+\subsection{KineticJS}

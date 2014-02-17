@@ -4,8 +4,6 @@ Los diagramas de clases están ordenados por importancia y bloque funcional, sig
 perspectiva bottom-up siempre que sea posible.
 
 
-
-
 \subsubsection{Clase MM.Class}
 Como centro de todo el sistema de clases implementado está el MM.Class. Una abstracción del 
 patrón constructor que es eje de todas las clases implementadas en la aplicación. A partir 
@@ -20,8 +18,7 @@ a objetos puro y libre de clases.
 \caption{Clase MM.Class}
 \label{fig:diagrama-clase-mm-class}
 \end{figure}
-
-Los principales métodos son:
+Los principales métodos son:   
 \begin{itemize}
 \item \textbf{MM.Class.extend:} método que nos permite extender sobre una clase existente.
 \item \textbf{MM.Class.init:} Constructor para las clases.
@@ -29,8 +26,6 @@ Los principales métodos son:
 
 Cualquier método sobrescrito dispone en su clase una propiedad \underline{ }super que hace referencia al método sobrescrito, de forma
 podamos realizar una llamada al super (o padre).
-
-
 
 
 \subsection{Diagrama de clases PubSub}
@@ -307,9 +302,16 @@ Hereda de MM.Mensaje y representa un mensaje o idea subrayado. El nodo represent
 
 \begin{figure}[tbph]
 \centering
-\includegraphics[width=0.7\linewidth]{imagenes/diagrama-clase-mm-nodosimple}
+\includegraphics[width=0.6\linewidth]{imagenes/diagrama-clase-mm-nodosimple}
 \caption{Clase MM.NodoSimple}
 \label{fig:diagrama-clase-mm-nodosimple}
+\end{figure}
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/NodoSimple}
+\caption{Mapa mental con renderización de nodos simples}
+\label{fig:nodosimple}
 \end{figure}
 
 \begin{itemize}
@@ -329,6 +331,13 @@ Se trata de un nodo más elaborado. Representa al texto de la idea incluido en u
 \includegraphics[width=0.6\linewidth]{imagenes/diagrama-clase-mm-globo}
 \caption{Clase MM.Globo}
 \label{fig:diagrama-clase-mm-globo}
+\end{figure}
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.3\linewidth]{imagenes/NodoGlobo}
+\caption{Mapa mental con renderización de nodos globo}
+\label{fig:nodoglobo}
 \end{figure}
 
 \subsubsection{Módulo MM.Color.}
@@ -408,12 +417,11 @@ También hay que tener en cuenta que las aplicaciones webs no han sido pensadas 
 
 
 \subsubsection{Módulo MM.teclado.atajos}
-Un atajo esta compuesto por un nombre\footnote{Ctrl+i}, una función que será ejecutada 
+Un atajo esta compuesto por un nombre\footnote{Ctrl+i}, una función que será ejecutada cuando se
+detecte la pulsación de la secuencia de teclas. Un atajo puede estar activado o desactivado, es
+decir, que se ejecutará cuando se detecte el atajo de teclado o no. 
 
-El modulo de atajos se encarga de registrar las secuencias de teclado y lanzarlos cuando sea necesario. 
-
-pueden desactivarse y activarse
-
+El modulo de atajos registrar los atajos de teclados del sistema.
 
 
 \begin{figure}[tbph]
@@ -424,70 +432,50 @@ pueden desactivarse y activarse
 \end{figure}
 
 \begin{itemize}
-\item \textbf{MM.teclado.atajo} constructor de la clase.
-\item \textbf{MM.Arista.calcularPuntos:} calcula los puntos para dibujar la curva.
-\item \textbf{MM.Arista.render:} dibuja la curva beizer.
-\item \textbf{MM.Arista.rendraw:} redibuja la curva beizer para adaptarse a los cambios producidos en su entorno.
-\item \textbf{MM.Arista.destroy:} borra y destruye la arista.
+\item \textbf{MM.teclado.atajos.add:} añade un nuevo atajo de teclado al sistema.
+\item \textbf{MM.teclado.atajos.calcular:} calcula el atajo de teclado producido.
+\item \textbf{MM.teclado.atajos.lanzar:} lanza un atajo de teclado, es decir, la función asociada. 
+\item \textbf{MM.teclado.atajos.activar:} activa o desactiva un atajo de teclado 
 \end{itemize}
 
+\subsubsection{Módulo MM.teclado.tecla}
+Se trata de un conjunto de constantes de códigos de teclados. También incluye las posibles
+excepciones y discordancias que se producen entre los distintos navegadores y sistemas operativos.
 
 \begin{figure}[tbph]
 \centering
-\includegraphics[width=0.7\linewidth]{imagenes/diagrama-clase-mm-teclado-tecla}
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-clase-mm-teclado-tecla}
 \caption{Clase MM.teclado.tecla}
 \label{fig:diagrama-clase-mm-teclado-tecla}
 \end{figure}
+
+\begin{itemize}
+\item \textbf{MM.teclado.tecla.nombre:} calcula el nombre de una tecla en función de su código.
+\item \textbf{MM.teclado.tecla.valor:} nos devuelve el código de tecla en función del nombre.
+\item \textbf{MM.teclado.tecla.esModificador:} indica si un código de teclado es un modificador. 
+\item \textbf{MM.teclado.tecla.esControl:} indica si el código de teclado se corresponde con la tecla $<$Control$>$.
+\item \textbf{MM.teclado.tecla.esAlt:} indica si el código de teclado se corresponde con la tecla $<$Alt$>$.
+\item \textbf{MM.teclado.tecla.esShift:} indica si el código de teclado se corresponde con la tecla $<$Shift$>$.
+\item \textbf{MM.teclado.tecla.esMeta:} indica si el código de teclado se corresponde con la tecla $<$Meta$>$.
+\end{itemize}
+
+
+\subsubsection{Módulo MM.teclado}
+Módulo encargado de mantener el registro de atajos y manejar los eventos de teclado.
+
 \begin{figure}[tbph]
 \centering
-\includegraphics[width=0.7\linewidth]{imagenes/diagrama-clase-mm-teclado}
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-clase-mm-teclado}
 \caption{Clase MM.teclado}
 \label{fig:diagrama-clase-mm-teclado}
 \end{figure}
 
-
-
-\section{Diagramas de secuencia.}
+El sistema de control de teclado se encarga de recoger todos los eventos\footnote{Todos los eventos KeyDown del navegador.} de pulsación de teclas y revisar y calcular si se trata de un atajo registrado en el sistema y lanzar la función asociada a dicho atajo.
 
 \begin{figure}[tbph]
 \centering
-\includegraphics[width=0.7\linewidth]{imagenes/diagrama-seq-add}
-\caption{Diagrama de secuencia add}
-\label{fig:diagrama-seq-add}
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-seq-teclado}
+\caption{Diagrama de secuencia teclado}
+\label{fig:diagrama-seq-teclado}
 \end{figure}
-\begin{figure}[tbph]
-\centering
-\includegraphics[width=0.7\linewidth]{imagenes/diagrama-seq-borrar}
-\caption{Diagrama de secuencia borrar}
-\label{fig:diagrama-seq-borrar}
-\end{figure}
-\begin{figure}[tbph]
-\centering
-\includegraphics[width=0.7\linewidth]{imagenes/diagrama-seq-navegacion}
-\caption{Diagrama de secuencia navegación}
-\label{fig:diagrama-seq-navegacion}
-\end{figure}
-%\begin{figure}[tbph]
-%\centering
-%\includegraphics[width=0.7\linewidth]{imagenes/diagrama-seq-nuevo}
-%\caption{Diagrama de secuencia nuevo}
-%\label{fig:diagrama-seq-nuevo}
-%\end{figure}
-%\begin{figure}[tbph]
-%\centering
-%\includegraphics[width=0.7\linewidth]{imagenes/diagrama-seq-plegar}
-%\caption{Diagrama de secuencia plegar}
-%\label{fig:diagrama-seq-plegar}
-%\end{figure}
-%\begin{figure}[tbph]
-%\centering
-%\includegraphics[width=0.7\linewidth]{imagenes/diagrama-seq-teclado}
-%\caption{Diagrama de secuencia teclado}
-%\label{fig:diagrama-seq-teclado}
-%\end{figure}
-%\begin{figure}[tbph]
-%\centering
-%\includegraphics[width=0.7\linewidth]{imagenes/diagrama-seq-zoom}
-%\caption{Diagrama de secuencia Zoom}
-%\label{fig:diagrama-seq-zoom}
-%\end{figure}
+

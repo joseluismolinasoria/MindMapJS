@@ -14,13 +14,37 @@ El usuario debe de poder reiniciar el editor y empezar un nuevo mapa en cualquie
 
 Las acciones que desencadenará esta funcionalidad será un botón y/o la secuencia de teclas $<$Shift+n$>$.
 
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-seq-nuevo}
+\caption{Diagrama de secuencia nuevo}
+\label{fig:diagrama-seq-nuevo}
+\end{figure}
+
+
 \subsection{Insertar idea}
 Mediante el uso de teclado o ratón el usuario podrá crear nuevas ideas. Esta nueva idea podrá ser tanto hija como hermana de la idea actualmente seleccionada. Debe quedar distribuida en función de los nodos existentes en el mapa mental. 
 
 La secuencia de teclados designadas para la creación de ideas. Son $<$ins$>$ para ideas hijas y $<$Shift+Enter$>$ para crear una idea hermana. 
 
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-seq-add}
+\caption{Diagrama de secuencia add}
+\label{fig:diagrama-seq-add}
+\end{figure}
+
+
 \subsection{Borrar idea}
 Con el teclado ($<$supr$>$) y/o ratón el usuario siempre podrá eliminar un idea del mapa mental. Si existen otras ideas que dependan de la idea a borrar estas también se borrarán. Los nodos se redistribuirán en función de los nodos restantes el mapa mental. 
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-seq-borrar}
+\caption{Diagrama de secuencia borrar}
+\label{fig:diagrama-seq-borrar}
+\end{figure}
+
 
 \subsection{Editar idea}
 Toda idea será editable en cualquier momento. El usuario podrá activar el modo de edición y modificar el contenido. Se accederá al modo de edición cuando insertemos, naveguemos, o establezcamos el modo de edición. 
@@ -32,6 +56,14 @@ El editor deberá y ajustándose al tamaño del texto insertado.
 \subsection{Zoom}
 La aplicación permitirá acciones de zoom o cambio de escala a la imagen. Ampliar ($<$Ctrl++$>$), reducir ($<$Ctrl+-$>$) y reiniciar ($<$Ctrl+0$>$) la escala. Con esta funcionalidad el usuario podrá ajustar las dimensiones del mapa mental a sus necesidades. La rueda del ratón es también una buena opción para realizar zoom in / out.
 
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-seq-zoom}
+\caption{Diagrama de secuencia Zoom}
+\label{fig:diagrama-seq-zoom}
+\end{figure}
+
+
 \subsection{Navegar}
 El usuario debe poder moverse por el mapa mental tanto por teclado como con el ratón o touch. El mapa siempre tendrá una idea activa, o focalizada, que podrá variarse mediante un clic, touch o las siguientes secuencias de tecla:
 
@@ -42,6 +74,14 @@ El usuario debe poder moverse por el mapa mental tanto por teclado como con el r
 \item Para ir a una \textbf{idea hermana} $<$up$>$ y $<$down$>$
 \item Para \textbf{navegar por niveles} podemos utilizar $<$tab$>$
 \end{itemize}
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.4\linewidth]{imagenes/diagrama-seq-navegacion}
+\caption{Diagrama de secuencia navegación}
+\label{fig:diagrama-seq-navegacion}
+\end{figure}
+
 
 \subsection{Mover idea}
 Con el ratón y touch podremos ajustar la posición de los nodos.
@@ -59,4 +99,11 @@ El sistema dispondrá de opciones típicas de edición como hacer y deshacer.
 Las distintas ideas se podrá plegar o desplegar para una mejor visualización. El sistema deberá ajustar las posiciones de las ideas visibles ( que no estén plegada ) al campo de visión siempre que sea posible. 
 
 Para mayor agilidad el programa dispondrá de una secuencia de teclado para plegar ($<$Shift+-$>$) y desplegar ($<$Shift++$>$) además de botones. 
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.3\linewidth]{imagenes/diagrama-seq-plegar}
+\caption{Diagrama de secuencia plegar}
+\label{fig:diagrama-seq-plegar}
+\end{figure}
 

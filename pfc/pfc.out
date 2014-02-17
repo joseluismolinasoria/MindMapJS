@@ -2,17 +2,17 @@
 \BOOKMARK [0][-]{chapter.2}{Motivaci\363n y objetivos}{}% 2
 \BOOKMARK [1][-]{section.2.1}{Motivaci\363n}{chapter.2}% 3
 \BOOKMARK [1][-]{section.2.2}{Objetivos}{chapter.2}% 4
-\BOOKMARK [1][-]{section.2.3}{Organizaci\363n de la memoria}{chapter.2}% 5
-\BOOKMARK [0][-]{chapter.3}{Introducci\363n}{}% 6
-\BOOKMARK [1][-]{section.3.1}{\277Qu\351 es?}{chapter.3}% 7
-\BOOKMARK [1][-]{section.3.2}{Aplicaciones y beneficios.}{chapter.3}% 8
-\BOOKMARK [1][-]{section.3.3}{Partes de un mapa mental.}{chapter.3}% 9
-\BOOKMARK [2][-]{subsection.3.3.1}{Seg\372n su estructura.}{section.3.3}% 10
-\BOOKMARK [2][-]{subsection.3.3.2}{Por contenido.}{section.3.3}% 11
-\BOOKMARK [1][-]{section.3.4}{Elaboraci\363n.}{chapter.3}% 12
-\BOOKMARK [0][-]{chapter.4}{Materiales y m\351todos}{}% 13
-\BOOKMARK [1][-]{section.4.1}{Metodolog\355a de an\341lisis \(UML-WAE\)}{chapter.4}% 14
-\BOOKMARK [2][-]{subsection.4.1.1}{UML}{section.4.1}% 15
+\BOOKMARK [0][-]{chapter.3}{Introducci\363n}{}% 5
+\BOOKMARK [1][-]{section.3.1}{\277Qu\351 es?}{chapter.3}% 6
+\BOOKMARK [1][-]{section.3.2}{Aplicaciones y beneficios.}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.3}{Partes de un mapa mental.}{chapter.3}% 8
+\BOOKMARK [2][-]{subsection.3.3.1}{Seg\372n su estructura.}{section.3.3}% 9
+\BOOKMARK [2][-]{subsection.3.3.2}{Por contenido.}{section.3.3}% 10
+\BOOKMARK [1][-]{section.3.4}{Elaboraci\363n.}{chapter.3}% 11
+\BOOKMARK [0][-]{chapter.4}{Materiales y m\351todos}{}% 12
+\BOOKMARK [1][-]{section.4.1}{Metodolog\355a y etapas del desarrollo.}{chapter.4}% 13
+\BOOKMARK [2][-]{subsection.4.1.1}{Metodolog\355a de desarrollo \341gil.}{section.4.1}% 14
+\BOOKMARK [2][-]{subsection.4.1.2}{Etapas del desarrollo.}{section.4.1}% 15
 \BOOKMARK [1][-]{section.4.2}{Casos de uso.}{chapter.4}% 16
 \BOOKMARK [2][-]{subsection.4.2.1}{Nuevo mapa mental}{section.4.2}% 17
 \BOOKMARK [2][-]{subsection.4.2.2}{Insertar idea}{section.4.2}% 18
@@ -33,33 +33,37 @@
 \BOOKMARK [2][-]{subsection.4.3.5}{Diagrama de clases de aristas.}{section.4.3}% 33
 \BOOKMARK [2][-]{subsection.4.3.6}{Clase Kinetic.Beizer.}{section.4.3}% 34
 \BOOKMARK [2][-]{subsection.4.3.7}{Diagrama de clases de teclado}{section.4.3}% 35
-\BOOKMARK [1][-]{section.4.4}{Diagramas de secuencia.}{chapter.4}% 36
-\BOOKMARK [0][-]{chapter.5}{Implementaci\363n.}{}% 37
-\BOOKMARK [1][-]{section.5.1}{Metodolog\355a y etapas del desarrollo.}{chapter.5}% 38
-\BOOKMARK [2][-]{subsection.5.1.1}{Metodolog\355a de desarrollo \341gil.}{section.5.1}% 39
-\BOOKMARK [2][-]{subsection.5.1.2}{Etapas del desarrollo.}{section.5.1}% 40
-\BOOKMARK [0][-]{chapter.6}{Resultados y discusi\363n}{}% 41
-\BOOKMARK [1][-]{section.6.1}{Resultados}{chapter.6}% 42
-\BOOKMARK [1][-]{section.6.2}{Discusi\363n}{chapter.6}% 43
-\BOOKMARK [1][-]{section.6.3}{uglify}{chapter.6}% 44
-\BOOKMARK [1][-]{section.6.4}{jsHint}{chapter.6}% 45
-\BOOKMARK [1][-]{section.6.5}{KineticJS}{chapter.6}% 46
-\BOOKMARK [1][-]{section.6.6}{NodeJS}{chapter.6}% 47
-\BOOKMARK [2][-]{subsection.6.6.1}{Instalaci\363n de NodeJS}{section.6.6}% 48
-\BOOKMARK [2][-]{subsection.6.6.2}{Instalaci\363n del NPM}{section.6.6}% 49
-\BOOKMARK [2][-]{subsection.6.6.3}{Uso b\341sico de NPM}{section.6.6}% 50
-\BOOKMARK [1][-]{section.6.7}{GruntJs}{chapter.6}% 51
-\BOOKMARK [2][-]{subsection.6.7.1}{Caracter\355sticas}{section.6.7}% 52
-\BOOKMARK [2][-]{subsection.6.7.2}{Instalaci\363n}{section.6.7}% 53
-\BOOKMARK [2][-]{subsection.6.7.3}{Creando el Gruntfile}{section.6.7}% 54
-\BOOKMARK [2][-]{subsection.6.7.4}{Gruntfile.js de MindMapJS}{section.6.7}% 55
-\BOOKMARK [1][-]{section.6.8}{Github}{chapter.6}% 56
-\BOOKMARK [2][-]{subsection.6.8.1}{Crear el repositorio}{section.6.8}% 57
-\BOOKMARK [2][-]{subsection.6.8.2}{Fork/Pull request}{section.6.8}% 58
-\BOOKMARK [1][-]{section.6.9}{JSDoc}{chapter.6}% 59
-\BOOKMARK [1][-]{section.6.10}{Mocha}{chapter.6}% 60
-\BOOKMARK [2][-]{subsection.6.10.1}{Caracter\355sticas}{section.6.10}% 61
-\BOOKMARK [2][-]{subsection.6.10.2}{Ejemplo}{section.6.10}% 62
-\BOOKMARK [0][-]{chapter.7}{Manual de usuario}{}% 63
-\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 64
-\BOOKMARK [-1][-]{chapter.8}{Bibliograf\355a}{}% 65
+\BOOKMARK [0][-]{chapter.5}{Implementaci\363n.}{}% 36
+\BOOKMARK [1][-]{section.5.1}{Javascript.}{chapter.5}% 37
+\BOOKMARK [2][-]{subsection.5.1.1}{Qu\351 es.}{section.5.1}% 38
+\BOOKMARK [2][-]{subsection.5.1.2}{Un poco de historia.}{section.5.1}% 39
+\BOOKMARK [2][-]{subsection.5.1.3}{Prototipos}{section.5.1}% 40
+\BOOKMARK [2][-]{subsection.5.1.4}{\301mbito de variable \(Scope\)}{section.5.1}% 41
+\BOOKMARK [2][-]{subsection.5.1.5}{Patr\363n m\363dulo}{section.5.1}% 42
+\BOOKMARK [2][-]{subsection.5.1.6}{Implementaci\363n de MM.Class con prototipos}{section.5.1}% 43
+\BOOKMARK [2][-]{subsection.5.1.7}{KineticJS}{section.5.1}% 44
+\BOOKMARK [1][-]{section.5.2}{NodeJS}{chapter.5}% 45
+\BOOKMARK [2][-]{subsection.5.2.1}{Instalaci\363n de NodeJS}{section.5.2}% 46
+\BOOKMARK [2][-]{subsection.5.2.2}{Instalaci\363n del NPM}{section.5.2}% 47
+\BOOKMARK [2][-]{subsection.5.2.3}{Uso b\341sico de NPM}{section.5.2}% 48
+\BOOKMARK [1][-]{section.5.3}{GruntJs}{chapter.5}% 49
+\BOOKMARK [2][-]{subsection.5.3.1}{Caracter\355sticas}{section.5.3}% 50
+\BOOKMARK [2][-]{subsection.5.3.2}{Instalaci\363n}{section.5.3}% 51
+\BOOKMARK [2][-]{subsection.5.3.3}{Creando el Gruntfile}{section.5.3}% 52
+\BOOKMARK [2][-]{subsection.5.3.4}{Gruntfile.js de MindMapJS}{section.5.3}% 53
+\BOOKMARK [1][-]{section.5.4}{Github}{chapter.5}% 54
+\BOOKMARK [2][-]{subsection.5.4.1}{Crear el repositorio}{section.5.4}% 55
+\BOOKMARK [2][-]{subsection.5.4.2}{Fork/Pull request}{section.5.4}% 56
+\BOOKMARK [1][-]{section.5.5}{JSDoc}{chapter.5}% 57
+\BOOKMARK [1][-]{section.5.6}{Mocha}{chapter.5}% 58
+\BOOKMARK [2][-]{subsection.5.6.1}{Caracter\355sticas}{section.5.6}% 59
+\BOOKMARK [2][-]{subsection.5.6.2}{Ejemplo}{section.5.6}% 60
+\BOOKMARK [0][-]{chapter.6}{Resultados y discusi\363n}{}% 61
+\BOOKMARK [1][-]{section.6.1}{Resultados}{chapter.6}% 62
+\BOOKMARK [1][-]{section.6.2}{Discusi\363n}{chapter.6}% 63
+\BOOKMARK [1][-]{section.6.3}{uglify}{chapter.6}% 64
+\BOOKMARK [1][-]{section.6.4}{jsHint}{chapter.6}% 65
+\BOOKMARK [1][-]{section.6.5}{KineticJS}{chapter.6}% 66
+\BOOKMARK [0][-]{chapter.7}{Manual de usuario}{}% 67
+\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 68
+\BOOKMARK [-1][-]{chapter.8}{Bibliograf\355a}{}% 69
