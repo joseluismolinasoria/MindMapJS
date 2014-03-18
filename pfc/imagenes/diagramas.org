@@ -736,3 +736,30 @@ Hacer    -> null
 
 #+RESULTS:
 [[file:prototipo1.png]]
+
+
+#+BEGIN_SRC ditaa :file diagrama-kineticjs.png :cmdline -Er
+              +-----------+ 
+              | MindMapJS |
+              |(Escenario)|   
+              +-----+-----+
+                    |
+          +---------+---------+
+          |         |         |
+          v         v         v
+      +-------+ +------+ +--------+
+      | Nodos | | Grid | | Aristas|
+      | (Capa)| |(Capa)| | (Capa) |
+      +---+---+ +--+---+ +----+---+  
+          |        |          |
+          v        v          v
+      +------------------------------+
+      | Otros elementos gráficos como|
+      | líneas, figuras, grupos,     |
+      | textos, etc ...              |
+      +------------------------------+
+#+END_SRC
+
+#+RESULTS:
+[[file:diagrama-kineticjs.png]]
+

@@ -18,7 +18,7 @@ a objetos puro y libre de clases.
 \caption{Clase MM.Class}
 \label{fig:diagrama-clase-mm-class}
 \end{figure}
-Los principales métodos son:   
+Los principales métodos son:
 \begin{itemize}
 \item \textbf{MM.Class.extend:} método que nos permite extender sobre una clase existente.
 \item \textbf{MM.Class.init:} Constructor para las clases.
@@ -102,12 +102,7 @@ método hacer se encargará de repetir la operación ejecutada y el deshacer de 
 
 El manejador de acciones hacer/deshacer tiene un registro de comandos ejecutados en la aplicación y un puntero\footnote{Campo actual.} que indica el último comando ejecutado. El comportamiento es que siempre se puede deshacer la última acción ejecutada, apuntada por actual, y sólo se puede hacer el comando siguiente al puntero actual.
 
-\begin{figure}[tbph]
-\centering
-\includegraphics[width=0.7\linewidth]{imagenes/undomangerEjecucion.png}
-\caption{Secuencia de ejecución de UndoManager}
-\label{fig:undomanager-ejecucion}
-\end{figure}
+
  
 Como puede observar en la figura \ref{fig:undomanager-ejecucion} el puntero \textit{Actual} indica que comando se puede deshacer y \textit{Actual + 1} el comando que se puede hacer. 
 

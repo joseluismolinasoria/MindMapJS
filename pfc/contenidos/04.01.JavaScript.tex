@@ -330,20 +330,212 @@ Quedando el interfaz de nuestro módulo como la conjunción de los métodos y va
 
 
 \subsection{Implementación de MM.Class con prototipos}
-
-* ya se ha hablado del él
-* implementación de clase
-* Constructor por defecto init 
-* sobreescritura de métodos.
-* Se puede extender 
+Como ya hemos podido comprobar Javascript es un lenguaje sin clases, pero podemos simular, más o menos, el comportamiento de clase. Para el proyecto he implementado un patrón de extensión que nos permite tanto heredar como implementar la sobreescritura de funciones (métodos). 
 
 
 \lstinputlisting[language=JavaScript, numbers=left]{../src/klass.js}
 
-explicar la implementación del clases realizada en la aplicación incluir el klass.js y los test realizados para su verificación.
+Como se puede observar el código implementado en MM.Class.extend, se trata de una función que devuelve otra función constructora, a la cual se le ha añadido, manipulado el prototipo a partir de un objeto (prop) del que deseamos heredar o extender. Las propiedades del objeto padre, simplemente se copia pero las funciones (métodos) del objetos padre son envueltos en un closure, para poder dispones de sobre escritura de métodos. 
+
+La función init es el constructor de nuestra clase y se llamará cuando se instancie el objeto.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+var Persona = MM.Class.extend({
+	init: function(nombre) {
+		this.nombre = nombre;
+	},
+	bailar: function() {
+		return "Si";
+	},
+	piernas: 2
+});
+
+var Hombre = Persona.extend({
+	init: function(nombre) {
+		this._super(nombre);
+	},
+	bailar: function() {
+		return this._super() + ", pero es torpe";
+	},
+	
+	piernas: 2,
+	
+	sexo: 'Hombre'
+});
+
+> var pepe = new Hombre('pepe'); // nueva instancia de hombre
+> pepe.nombre;   // pepe
+> pepe.bailar(); // Si, pero es torpe
+> pepe instanceof Hombre; // true
+\end{lstlisting}
+
+Se puede observar en el ejemplo, como la implementación de MM.Class nos permite crear una jerarquía de clases. Además de un constructor y sobreescritura de funciones o métodos. En otras palabras, nos proporciona el mecanismo básico para sistemas más complejos. 
 
 
-ambito privado y público 
+\subsection{Patrón Chainable.}
+Popularizado por JQuery, el patrón Chainable, o encadenado, nos permite encadenar llamadas de forma que las aplicaciones pueden quedar más legibles y compactas. En MindMapJS se ha utilizado siempre que se ha podido sobre todo en el módulo MM. 
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+// ejemplo de Chainable en el MindMapJS
+MM.nuevo('Como usar MindMapJS').add('Teclado').add('Raton').add('Tablet');
+// Crea un nuevo mapa mental con tres nodos 
+\end{lstlisting}
+
+El patrón Chain, devuelve siempre el propio objeto del contexto de ejecución. De forma, que siempre podemos seguir realizando llamadas encadenadas. 
+
+\lstinputlisting[language=JavaScript, numbers=left]{../src/chain.js}
+
+En la implementación realizada se puede observar como se ha modificado el prototipo del propio objeto Function. De esta forma siempre podemos hacer nuestras funciones chain sin necesidad de acordarnos de devolver "this".
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+// ejemplo uso del patron
+var mod = function (){
+	return {
+		saludar: function(){ console.log(" hola ") }.chain();
+	};
+}();
+> mod.saludar().saludar().saludar() // " hola  hola  hola "
+\end{lstlisting}
 
 
-\subsection{KineticJS}
+\subsection{Patrón publicador/suscriptor.}
+
+Una de las grandes virtudes de NodeJS es el manejo de eventos para vertebrar distintos módulos o clases. MindMapJS también tiene un sistema de manejo de eventos. Más concretamente un patrón publicador/suscriptor. 
+
+\lstinputlisting[language=JavaScript, numbers=left]{../src/pubsub.js}
+
+En realidad, se trata de un patrón bastante simple, pero las posibilidades que nos proporcionan y limpieza son muy, muy importantes. Se trata de un registro de eventos y funciones callbacks a ejecutar cuando el evento publicador lo requiera. 
+
+MindMapJS ha realizado un uso intensivo del patrón. De echo, ha permitido implementar complejos mecanismos e interacciones entre el módulo MM y el render del árbol. El siguiente código muestra como es usado en la función add all crea una nueva idea en el mapa mental, y como suscrito al evento, podrá reaccionar a la creación de una nueva idea.
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+// MM eleva el evento 'add'
+mm.add = function ( texto ) {
+    texto = texto || 'Nueva idea';
+    var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, plegado: false,  nodo: null } );
+    this.foco.hijos.push ( nuevo );
+    this.undoManager.add(new MM.comandos.Insertar(this.foco.elemento.id, nuevo.elemento.id, texto) );
+    this.eventos.on ( 'add', this.foco, nuevo );
+    nuevo = null;
+}.chain();
+
+// El render esta suscrito al evento para poder reaccionar a los 
+// cambios del mapa mental.
+render.prototype.suscribrirEventos = function ( ) {
+    this.desuscribrirEventos(); // evitamos dobles suscripciones
+    var sus = this.suscripciones;
+    var e = MM.eventos;
+    sus.push ( e.suscribir('ponerFoco', cambiarFoco) );
+    sus.push ( e.suscribir('add', this.nuevoNodo, this) );
+    sus.push ( e.suscribir('borrar', this.borrarNodo, this) );
+    sus.push ( e.suscribir('nuevo/pre', function () {
+        MM.arbol.elemento.nodo.destroy();
+    }) );
+    sus.push ( e.suscribir('nuevo/post', function () {
+        this.renderizar();
+    }, this) );
+    this.contenedor.addEventListener("mousewheel", handlerWheel, false);
+    this.contenedor.addEventListener("DOMMouseScroll", handlerWheel, false);
+    sus = e = null;
+};
+\end{lstlisting}
+
+Las funciones callbacks asociadas a un evento se apilan y se ejecutan en orden de registro. Así pues, puede existir distintos puntos dentro de la aplicación donde tratar el evento.
+
+\subsection{UndoManager.}
+El comportamiento de esta clase ya fue explicado con su diagrama de clase y en la figura\ref{fig:undomanager-ejecucion} en este apartado vamos a destripara un poco más su comportamiento.
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.7\linewidth]{imagenes/undomangerEjecucion.png}
+\caption{Secuencia de ejecución de UndoManager}
+\label{fig:undomanager-ejecucion}
+\end{figure}
+
+La idea primigenia es posibilitar al usuario final de la aplicación la opción de deshacer y rehacer las acciones ejecutadas en el MindMapJS. UndoManager mantiene en un array los comandos realizados y un puntero (actual) que apunta a la última comando realizado. También disponemos de un limite de comandos(maxComandos) apilados en el historial. 
+
+El interfaz de la clase MM.UndoManager nos permite añadir nuevos comandos al historial, hacer y deshacer, conocer el estado del historial y el nombre del siguiente comando hacer o deshacer. También se le ha incorporado un manejador de eventos para que, los usuarios de la clase puedan saber en todo momento los cambios sufridos en el historial.
+
+\lstinputlisting[language=JavaScript, numbers=left]{../src/undoManager.js}
+
+La clase base de todos los comandos hacer y deshacer es MM.UndoMangaer.ComandoHacerDeshacer. Esta clase implementa un patrón comando con una variante obvia, que en realidad tiene registra dos comandos. Uno para hacer y otro para deshacer. 
+
+\lstinputlisting[language=JavaScript, numbers=left]{../src/undoManager.js}
+
+\section{Concatenación y UglifyJS}
+Es conveniente la unificación y compresión de código Javascript. Con ello, no sólo reducimos el número de peticiones\footnote{Más concretamente peticiones http get}, desde el navegador al servidor, sino que optimizamos los tiempos de carga y respuesta del navegador. Este aspecto es siempre deseable, evitando al usuario final esperas indeseadas.  
+
+Se ha utilizado la herramienta UglifyJS\footnote{En combinación con GruntJS} en MindMapJS, no sólo por tratarse de una librería estándar dentro de herramientas de ofuscación y reducción de código Javascript, sino por los beneficios que nos aporta.
+
+Es sencillo, comprobar que se reduce considerablemente el tiempo, si se concatenan los ficheros Javascript. Por cada fichero Javascript el navegador realiza una petición Get como se puede comprobar en la imagen \ref{fig:carga-desarrollo}.  
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.9\linewidth]{imagenes/Uglify1.png}
+\caption{Carga de ficheros Javascript en desarrollo}
+\label{fig:carga-desarrollo}
+\end{figure}
+
+Cada solicitud de fichero, por parte del navegador, tiene una latencia de red y un tiempo de carga por parte de navegador que puede provocar, dependiendo de las condiciones y velocidad de la red utilizada, esperas en por parte de usuario final. En la siguiente captura \ref{fig:carga-concatenado}, veremos como al concatenar reducimos el número de peticiones realizadas al servidor y por lo tanto, el tiempo de carga\footnote{Más concretamente a sólo 16ms en un fichero un único fichero de 111Kb.}.
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.9\linewidth]{imagenes/Uglify2.png}
+\caption{Carga de ficheros Javascript concatenado}
+\label{fig:carga-concatenado}
+\end{figure}
+
+Si a su vez comprimimos y reducimos al máximo el tamaño del fichero con UglifyJS, podemos comprobar, en la figura \ref{fig:carga-comprimido}, como el tiempo de carga de la librería se reduce considerablemente. 
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.9\linewidth]{imagenes/Uglify3.png}
+\caption{Carga de ficheros Javascript comprimido}
+\label{fig:carga-comprimido}
+\end{figure}
+
+Más concretamente, podemos comprobar que el fichero se a reducido desde los 111 Kbytes a 40.7 Kbytes. Es decir, se ha reducido el tamaño del fichero más de 35\% y el tiempo de carga a tan sólo 4 ms. 
+
+Como se puede comprobar es deseable la concatenación y reducción del código en toda aplicación web. Ya que el tiempo de respuesta y la experiencia de usuario mejoran al evitar tiempos muertos en la carga. Sobre todo en sistemas donde el ancho de banda es reducido. 
+
+
+\section{JsHint}
+JsHint es otra herramienta que no debe faltar en ningún desarrollo web. En MindMapJS se ha utilizado continuamente en los periodos de desarrollo. JsHint nos permite comprobar la validez y calidad de nuestro código Javascript, analizando del código fuente y mostrándonos los puntos en los que puede mejorarse desde el punto de vista de las buenas prácticas y código limpio. Evitando pues, errores o posibles errores de interpretación del código fuente.
+
+He utilizado JsHint por que se trata de un estándar utilizado por multitud de desarrollares web y que tiene una gran aceptación por parte de los grandes la programación web. Salvo quizás Douglas Crockford, autor de la herramienta JSLint.
+
+JSLint es un validador de código muy exhaustivo y da muchos falsos positivos. Además tiene muchos detractores, que alegan que los criterios evaluados son bastante subjetivos, sigue los criterios impuestos por Douglas Crockford\footnote{su creador}. Por todo ello, algunos desarrolladores crearon un fork llamado JSHint con el objeto de mejorar las mediciones que eran bastante arbitrarias en JSLint.
+
+\section{KineticJS}
+KineticJS es un framework gráfico sobre el canvas de HTML5, permitiendo anidamiento de nodos, capas, filtros, animaciones y manejo de eventos de forma, verdaderamente sencilla. 
+
+La librería KineticJS en los alto de la jerarquía de Objetos al escenario que puede tener una o más capas. Cada capa se renderiza en dos canvas, uno para contener los elementos gráficos y otro oculto para agilizar y acelarar la detección de eventos. Cada capa puede contener cualquier elemento gráfico.
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.6\linewidth]{imagenes/diagrama-kineticjs.png}
+\caption{Escenario y modelo de capas KineticJS de MindMapJS}
+\label{fig:escenario-capas}
+\end{figure}
+
+
+\subsection{¿Por qué usar KineticJS?}
+Entre otras virtudes, lo que más me atrajo a la hora de utilizar KineticJS es:
+\begin{itemize}
+\item \textbf{Su rendimiento.} Presenta un muy buen rendimiento gráfico. 
+\item \textbf{Soporte para capas.} Manejo sencillo de capas permitiendo sobre poner capas.
+\item \textbf{API clara y extensible.} Presenta un código claro, orientado a objetos y eventos. Resulta sumamente sencillo extender la librería como se puede ver en el apartado "Extendiendo KineticJS.
+\item \textbf{Manejo de eventos.} No sólo a nivel de canvas. También a nivel de figura. Soporta multitud de eventos no sólo de escritorio sino también de dispositivos táctiles.
+\item \textbf{Continuo desarrollo.} El desarrollo y avance de la librería es notable y tiene una comunidad detrás proporcionando ideas, soluciones, y verificando el desarrollo del la librería.
+\end{itemize}
+
+\subsection{Algunos ejemplso sencillos.}
+
+\subsubsection{un ejemplo}
+
+\subsubsection{Otro ejemplo}
+
+
+\subsection{Extendiendo KineticJS.}
+\lstinputlisting[language=JavaScript, numbers=left]{../src/beizer.js}
+

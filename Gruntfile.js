@@ -7,7 +7,15 @@ module.exports = function(grunt) {
 		separator: ';'
 	    },
 	    source: {
-		src:  ['src/*.js'],
+		src:  ["src/beizer.js", "src/MindMapJS.js", "src/properties.js", 
+		       "src/chain.js", "src/processable.js", "src/klass.js",
+		       "src/pubsub.js", "src/arbol-n.js", "src/dom.js",
+		       "src/teclado.js", "src/importar.js", "src/exportar.js",
+		       "src/grid.js", "src/borde.js", "src/mensaje.js", 
+		       "src/arista.js", "src/nodo.js", "src/color.js",
+		       "src/render.js", "src/undoManager.js", 
+		       "src/comandosHacerDeshacer.js", "src/mm.js", "src/atajos.js",
+		       "src/demo.js"],
 		dest: 'dist/<%= pkg.name %>-v<%= pkg.version %>.js'
 	    }
 	},

@@ -33,61 +33,66 @@
 \contentsline {subsection}{\numberline {4.3.2}Diagrama de clases MM.UndoManager}{32}{subsection.4.3.2}
 \contentsline {subsubsection}{Clase MM.UndoManager.ComandoHacerDeshacer}{32}{section*.3}
 \contentsline {subsubsection}{Clase MM.UndoManager}{33}{section*.4}
-\contentsline {subsection}{\numberline {4.3.3}Diagrama de clases MM}{35}{subsection.4.3.3}
-\contentsline {subsubsection}{M\IeC {\'o}dulo MM}{37}{section*.5}
-\contentsline {subsubsection}{Clase MM.Arbol}{38}{section*.6}
-\contentsline {subsubsection}{M\IeC {\'o}dulo MM.DOM}{39}{section*.7}
-\contentsline {subsubsection}{Clase MM.Render}{39}{section*.8}
-\contentsline {subsection}{\numberline {4.3.4}Diagrama de clases nodo.}{41}{subsection.4.3.4}
-\contentsline {subsubsection}{Clase MM.Mensaje.}{42}{section*.9}
-\contentsline {subsubsection}{Clase MM.NodoSimple.}{43}{section*.10}
-\contentsline {subsubsection}{Clase MM.Globo.}{45}{section*.11}
-\contentsline {subsubsection}{M\IeC {\'o}dulo MM.Color.}{45}{section*.12}
-\contentsline {subsection}{\numberline {4.3.5}Diagrama de clases de aristas.}{46}{subsection.4.3.5}
-\contentsline {subsection}{\numberline {4.3.6}Clase Kinetic.Beizer.}{46}{subsection.4.3.6}
-\contentsline {subsubsection}{Clase MM.Arista.}{47}{section*.13}
-\contentsline {subsubsection}{Clase MM.Rama.}{48}{section*.14}
-\contentsline {subsection}{\numberline {4.3.7}Diagrama de clases de teclado}{48}{subsection.4.3.7}
-\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado.atajos}{48}{section*.15}
-\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado.tecla}{50}{section*.16}
-\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado}{51}{section*.17}
-\contentsline {chapter}{\numberline {5}Implementaci\IeC {\'o}n.}{53}{chapter.5}
-\contentsline {section}{\numberline {5.1}Javascript.}{53}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Qu\IeC {\'e} es.}{53}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Un poco de historia.}{55}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Prototipos}{56}{subsection.5.1.3}
-\contentsline {subsubsection}{Herencia de propiedades y m\IeC {\'e}todos}{57}{section*.18}
-\contentsline {subsubsection}{Constructor, propiedad prototype y herencia}{57}{section*.19}
-\contentsline {subsection}{\numberline {5.1.4}\IeC {\'A}mbito de variable (Scope)}{58}{subsection.5.1.4}
-\contentsline {subsection}{\numberline {5.1.5}Patr\IeC {\'o}n m\IeC {\'o}dulo}{59}{subsection.5.1.5}
-\contentsline {subsection}{\numberline {5.1.6}Implementaci\IeC {\'o}n de MM.Class con prototipos}{65}{subsection.5.1.6}
-\contentsline {subsection}{\numberline {5.1.7}KineticJS}{67}{subsection.5.1.7}
-\contentsline {section}{\numberline {5.2}NodeJS}{67}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Instalaci\IeC {\'o}n de NodeJS}{68}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Instalaci\IeC {\'o}n del NPM}{68}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Uso b\IeC {\'a}sico de NPM}{68}{subsection.5.2.3}
-\contentsline {subsubsection}{Iniciar un proyecto nuevo}{68}{section*.20}
-\contentsline {subsubsection}{Buscar paquetes y obtener informaci\IeC {\'o}n}{69}{section*.21}
-\contentsline {subsubsection}{Instalaci\IeC {\'o}n de paquetes}{69}{section*.22}
-\contentsline {subsubsection}{Desinstalaci\IeC {\'o}n de paquetes}{70}{section*.23}
-\contentsline {section}{\numberline {5.3}GruntJs}{70}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Caracter\IeC {\'\i }sticas}{70}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Instalaci\IeC {\'o}n}{71}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}Creando el Gruntfile}{71}{subsection.5.3.3}
-\contentsline {subsection}{\numberline {5.3.4}Gruntfile.js de MindMapJS}{72}{subsection.5.3.4}
-\contentsline {section}{\numberline {5.4}Github}{75}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Crear el repositorio}{76}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Fork/Pull request}{77}{subsection.5.4.2}
-\contentsline {section}{\numberline {5.5}JSDoc}{77}{section.5.5}
-\contentsline {section}{\numberline {5.6}Mocha}{78}{section.5.6}
-\contentsline {subsection}{\numberline {5.6.1}Caracter\IeC {\'\i }sticas}{79}{subsection.5.6.1}
-\contentsline {subsection}{\numberline {5.6.2}Ejemplo}{80}{subsection.5.6.2}
-\contentsline {chapter}{\numberline {6}Resultados y discusi\IeC {\'o}n}{83}{chapter.6}
-\contentsline {section}{\numberline {6.1}Resultados}{83}{section.6.1}
-\contentsline {section}{\numberline {6.2}Discusi\IeC {\'o}n}{83}{section.6.2}
-\contentsline {section}{\numberline {6.3}uglify}{83}{section.6.3}
-\contentsline {section}{\numberline {6.4}jsHint}{83}{section.6.4}
-\contentsline {section}{\numberline {6.5}KineticJS}{83}{section.6.5}
-\contentsline {chapter}{\numberline {7}Manual de usuario}{85}{chapter.7}
-\contentsline {chapter}{\numberline {8}Conclusiones}{87}{chapter.8}
-\contentsline {part}{Bibliograf\'{\i }a}{88}{chapter.8}
+\contentsline {subsection}{\numberline {4.3.3}Diagrama de clases MM}{34}{subsection.4.3.3}
+\contentsline {subsubsection}{M\IeC {\'o}dulo MM}{36}{section*.5}
+\contentsline {subsubsection}{Clase MM.Arbol}{37}{section*.6}
+\contentsline {subsubsection}{M\IeC {\'o}dulo MM.DOM}{38}{section*.7}
+\contentsline {subsubsection}{Clase MM.Render}{38}{section*.8}
+\contentsline {subsection}{\numberline {4.3.4}Diagrama de clases nodo.}{40}{subsection.4.3.4}
+\contentsline {subsubsection}{Clase MM.Mensaje.}{41}{section*.9}
+\contentsline {subsubsection}{Clase MM.NodoSimple.}{42}{section*.10}
+\contentsline {subsubsection}{Clase MM.Globo.}{44}{section*.11}
+\contentsline {subsubsection}{M\IeC {\'o}dulo MM.Color.}{44}{section*.12}
+\contentsline {subsection}{\numberline {4.3.5}Diagrama de clases de aristas.}{45}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.6}Clase Kinetic.Beizer.}{45}{subsection.4.3.6}
+\contentsline {subsubsection}{Clase MM.Arista.}{46}{section*.13}
+\contentsline {subsubsection}{Clase MM.Rama.}{47}{section*.14}
+\contentsline {subsection}{\numberline {4.3.7}Diagrama de clases de teclado}{47}{subsection.4.3.7}
+\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado.atajos}{47}{section*.15}
+\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado.tecla}{49}{section*.16}
+\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado}{50}{section*.17}
+\contentsline {chapter}{\numberline {5}Implementaci\IeC {\'o}n.}{52}{chapter.5}
+\contentsline {section}{\numberline {5.1}Javascript.}{52}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Qu\IeC {\'e} es.}{52}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Un poco de historia.}{54}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Prototipos}{55}{subsection.5.1.3}
+\contentsline {subsubsection}{Herencia de propiedades y m\IeC {\'e}todos}{56}{section*.18}
+\contentsline {subsubsection}{Constructor, propiedad prototype y herencia}{56}{section*.19}
+\contentsline {subsection}{\numberline {5.1.4}\IeC {\'A}mbito de variable (Scope)}{57}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Patr\IeC {\'o}n m\IeC {\'o}dulo}{58}{subsection.5.1.5}
+\contentsline {subsection}{\numberline {5.1.6}Implementaci\IeC {\'o}n de MM.Class con prototipos}{64}{subsection.5.1.6}
+\contentsline {subsection}{\numberline {5.1.7}Patr\IeC {\'o}n Chainable.}{66}{subsection.5.1.7}
+\contentsline {subsection}{\numberline {5.1.8}Patr\IeC {\'o}n publicador/suscriptor.}{67}{subsection.5.1.8}
+\contentsline {subsection}{\numberline {5.1.9}UndoManager.}{69}{subsection.5.1.9}
+\contentsline {section}{\numberline {5.2}Concatenaci\IeC {\'o}n y UglifyJS}{76}{section.5.2}
+\contentsline {section}{\numberline {5.3}JsHint}{79}{section.5.3}
+\contentsline {section}{\numberline {5.4}KineticJS}{79}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}\IeC {\textquestiondown }Por qu\IeC {\'e} usar KineticJS?}{80}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Extendiendo KineticJS.}{81}{subsection.5.4.2}
+\contentsline {section}{\numberline {5.5}NodeJS}{81}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Instalaci\IeC {\'o}n de NodeJS}{82}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Instalaci\IeC {\'o}n del NPM}{82}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}Uso b\IeC {\'a}sico de NPM}{83}{subsection.5.5.3}
+\contentsline {subsubsection}{Iniciar un proyecto nuevo}{83}{section*.20}
+\contentsline {subsubsection}{Buscar paquetes y obtener informaci\IeC {\'o}n}{83}{section*.21}
+\contentsline {subsubsection}{Instalaci\IeC {\'o}n de paquetes}{84}{section*.22}
+\contentsline {subsubsection}{Desinstalaci\IeC {\'o}n de paquetes}{84}{section*.23}
+\contentsline {subsection}{\numberline {5.5.4}\IeC {\textquestiondown }Por qu\IeC {\'e} utilizar NodeJs y NPM?}{84}{subsection.5.5.4}
+\contentsline {section}{\numberline {5.6}GruntJs}{85}{section.5.6}
+\contentsline {subsection}{\numberline {5.6.1}Caracter\IeC {\'\i }sticas}{85}{subsection.5.6.1}
+\contentsline {subsection}{\numberline {5.6.2}Instalaci\IeC {\'o}n}{85}{subsection.5.6.2}
+\contentsline {subsection}{\numberline {5.6.3}Creando el Gruntfile}{86}{subsection.5.6.3}
+\contentsline {subsection}{\numberline {5.6.4}Gruntfile.js de MindMapJS}{86}{subsection.5.6.4}
+\contentsline {section}{\numberline {5.7}Github}{89}{section.5.7}
+\contentsline {subsection}{\numberline {5.7.1}Crear el repositorio}{90}{subsection.5.7.1}
+\contentsline {subsection}{\numberline {5.7.2}Fork/Pull request}{91}{subsection.5.7.2}
+\contentsline {section}{\numberline {5.8}JSDoc}{92}{section.5.8}
+\contentsline {section}{\numberline {5.9}Mocha}{93}{section.5.9}
+\contentsline {subsection}{\numberline {5.9.1}Caracter\IeC {\'\i }sticas}{94}{subsection.5.9.1}
+\contentsline {subsection}{\numberline {5.9.2}Ejemplo}{94}{subsection.5.9.2}
+\contentsline {chapter}{\numberline {6}Resultados y discusi\IeC {\'o}n}{98}{chapter.6}
+\contentsline {section}{\numberline {6.1}Resultados}{98}{section.6.1}
+\contentsline {section}{\numberline {6.2}Discusi\IeC {\'o}n}{98}{section.6.2}
+\contentsline {chapter}{\numberline {7}Manual de usuario}{100}{chapter.7}
+\contentsline {chapter}{\numberline {8}Conclusiones}{102}{chapter.8}
+\contentsline {part}{Bibliograf\'{\i }a}{104}{chapter.8}

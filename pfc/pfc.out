@@ -41,29 +41,34 @@
 \BOOKMARK [2][-]{subsection.5.1.4}{\301mbito de variable \(Scope\)}{section.5.1}% 41
 \BOOKMARK [2][-]{subsection.5.1.5}{Patr\363n m\363dulo}{section.5.1}% 42
 \BOOKMARK [2][-]{subsection.5.1.6}{Implementaci\363n de MM.Class con prototipos}{section.5.1}% 43
-\BOOKMARK [2][-]{subsection.5.1.7}{KineticJS}{section.5.1}% 44
-\BOOKMARK [1][-]{section.5.2}{NodeJS}{chapter.5}% 45
-\BOOKMARK [2][-]{subsection.5.2.1}{Instalaci\363n de NodeJS}{section.5.2}% 46
-\BOOKMARK [2][-]{subsection.5.2.2}{Instalaci\363n del NPM}{section.5.2}% 47
-\BOOKMARK [2][-]{subsection.5.2.3}{Uso b\341sico de NPM}{section.5.2}% 48
-\BOOKMARK [1][-]{section.5.3}{GruntJs}{chapter.5}% 49
-\BOOKMARK [2][-]{subsection.5.3.1}{Caracter\355sticas}{section.5.3}% 50
-\BOOKMARK [2][-]{subsection.5.3.2}{Instalaci\363n}{section.5.3}% 51
-\BOOKMARK [2][-]{subsection.5.3.3}{Creando el Gruntfile}{section.5.3}% 52
-\BOOKMARK [2][-]{subsection.5.3.4}{Gruntfile.js de MindMapJS}{section.5.3}% 53
-\BOOKMARK [1][-]{section.5.4}{Github}{chapter.5}% 54
-\BOOKMARK [2][-]{subsection.5.4.1}{Crear el repositorio}{section.5.4}% 55
-\BOOKMARK [2][-]{subsection.5.4.2}{Fork/Pull request}{section.5.4}% 56
-\BOOKMARK [1][-]{section.5.5}{JSDoc}{chapter.5}% 57
-\BOOKMARK [1][-]{section.5.6}{Mocha}{chapter.5}% 58
-\BOOKMARK [2][-]{subsection.5.6.1}{Caracter\355sticas}{section.5.6}% 59
-\BOOKMARK [2][-]{subsection.5.6.2}{Ejemplo}{section.5.6}% 60
-\BOOKMARK [0][-]{chapter.6}{Resultados y discusi\363n}{}% 61
-\BOOKMARK [1][-]{section.6.1}{Resultados}{chapter.6}% 62
-\BOOKMARK [1][-]{section.6.2}{Discusi\363n}{chapter.6}% 63
-\BOOKMARK [1][-]{section.6.3}{uglify}{chapter.6}% 64
-\BOOKMARK [1][-]{section.6.4}{jsHint}{chapter.6}% 65
-\BOOKMARK [1][-]{section.6.5}{KineticJS}{chapter.6}% 66
-\BOOKMARK [0][-]{chapter.7}{Manual de usuario}{}% 67
-\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 68
-\BOOKMARK [-1][-]{chapter.8}{Bibliograf\355a}{}% 69
+\BOOKMARK [2][-]{subsection.5.1.7}{Patr\363n Chainable.}{section.5.1}% 44
+\BOOKMARK [2][-]{subsection.5.1.8}{Patr\363n publicador/suscriptor.}{section.5.1}% 45
+\BOOKMARK [2][-]{subsection.5.1.9}{UndoManager.}{section.5.1}% 46
+\BOOKMARK [1][-]{section.5.2}{Concatenaci\363n y UglifyJS}{chapter.5}% 47
+\BOOKMARK [1][-]{section.5.3}{JsHint}{chapter.5}% 48
+\BOOKMARK [1][-]{section.5.4}{KineticJS}{chapter.5}% 49
+\BOOKMARK [2][-]{subsection.5.4.1}{\277Por qu\351 usar KineticJS?}{section.5.4}% 50
+\BOOKMARK [2][-]{subsection.5.4.2}{Extendiendo KineticJS.}{section.5.4}% 51
+\BOOKMARK [1][-]{section.5.5}{NodeJS}{chapter.5}% 52
+\BOOKMARK [2][-]{subsection.5.5.1}{Instalaci\363n de NodeJS}{section.5.5}% 53
+\BOOKMARK [2][-]{subsection.5.5.2}{Instalaci\363n del NPM}{section.5.5}% 54
+\BOOKMARK [2][-]{subsection.5.5.3}{Uso b\341sico de NPM}{section.5.5}% 55
+\BOOKMARK [2][-]{subsection.5.5.4}{\277Por qu\351 utilizar NodeJs y NPM?}{section.5.5}% 56
+\BOOKMARK [1][-]{section.5.6}{GruntJs}{chapter.5}% 57
+\BOOKMARK [2][-]{subsection.5.6.1}{Caracter\355sticas}{section.5.6}% 58
+\BOOKMARK [2][-]{subsection.5.6.2}{Instalaci\363n}{section.5.6}% 59
+\BOOKMARK [2][-]{subsection.5.6.3}{Creando el Gruntfile}{section.5.6}% 60
+\BOOKMARK [2][-]{subsection.5.6.4}{Gruntfile.js de MindMapJS}{section.5.6}% 61
+\BOOKMARK [1][-]{section.5.7}{Github}{chapter.5}% 62
+\BOOKMARK [2][-]{subsection.5.7.1}{Crear el repositorio}{section.5.7}% 63
+\BOOKMARK [2][-]{subsection.5.7.2}{Fork/Pull request}{section.5.7}% 64
+\BOOKMARK [1][-]{section.5.8}{JSDoc}{chapter.5}% 65
+\BOOKMARK [1][-]{section.5.9}{Mocha}{chapter.5}% 66
+\BOOKMARK [2][-]{subsection.5.9.1}{Caracter\355sticas}{section.5.9}% 67
+\BOOKMARK [2][-]{subsection.5.9.2}{Ejemplo}{section.5.9}% 68
+\BOOKMARK [0][-]{chapter.6}{Resultados y discusi\363n}{}% 69
+\BOOKMARK [1][-]{section.6.1}{Resultados}{chapter.6}% 70
+\BOOKMARK [1][-]{section.6.2}{Discusi\363n}{chapter.6}% 71
+\BOOKMARK [0][-]{chapter.7}{Manual de usuario}{}% 72
+\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 73
+\BOOKMARK [-1][-]{chapter.8}{Bibliograf\355a}{}% 74

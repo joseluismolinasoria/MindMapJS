@@ -1,8 +1,38 @@
-/**
+(function() {
+    Kinetic.Beizer = function(config) {
+        this.___init(config);
+    };
+
+    Kinetic.Beizer.prototype = {
+        // Tiene que recibir un Objecto, puntos = { start : {x,y}, end: {x,y}, control1 : {x,y}, control2 : {x,y} }
+        ___init: function(config) {
+            Kinetic.Shape.call(this, config);
+            this.className = 'Beizer';
+        },
+
+        drawFunc: function(canvas) {
+            var context = canvas.getContext(), 
+                puntos = this.attrs.puntos;
+
+            context.beginPath();
+            context.moveTo(puntos.start.x, puntos.start.y);
+            context.bezierCurveTo ( puntos.control1.x, puntos.control1.y,
+                                    puntos.control2.x, puntos.control2.y,
+                                    puntos.end.x, puntos.end.y );
+            canvas.stroke(this);
+        }
+    };
+    Kinetic.Util.extend(Kinetic.Beizer, Kinetic.Shape);
+
+    // add getters setters
+    Kinetic.Factory.addGetterSetter(Kinetic.Beizer, 'puntos', 0);
+})();
+ 
+;/**
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
  * @version 0.1.2
- * @date    2013-08-28
+ * @date    2014-03-17
  */
 
 /**
@@ -22,6 +52,262 @@ if ( typeof module !== 'undefined' ) {
 }
 
 
+;/**
+ * @file properties.js para manejos de propiedades
+ * @author José Luis Molina Soria
+ * @version 20130224
+ */
+
+/**
+ * Funciones de utilidad para el manejo de propiedades
+ * @namespace MM.Properties
+ */
+MM.Properties =  {};
+
+/**
+ * @desc Toma dos conjuntos de propiedades y crea una nueva con los valores de la primera y la segunda
+ * @param {object} propA conjunto de propiedades inicial
+ * @param {object} propB conjunto de propiedades a agregar
+ * @return {object} Unión de todas las propiedades
+ */
+MM.Properties.add = function (propA, propB) {
+    var nProp = {};
+    for (var name in propA) {
+        nProp[name] = propA[name];
+    }
+    for (name in propB) {
+        nProp[name] = propB[name];
+    }
+    return nProp;
+};
+
+
+;/**
+ * @file chain.js añade el patrón chainable al sistema
+ * @author José Luis Molina Soria
+ * @version 20130224
+ */
+
+/**
+ * @desc Implementación del patrón Chainable, mendiante la extensión del prototitpo de la función
+ * @return {function} función extendida
+ */
+Function.prototype.chain = function() {
+  var self = this;
+  return function() {
+    var ret = self.apply(this, arguments);
+    return ret === undefined ? this : ret;
+  };
+};
+
+;/**
+ * @file processable.js añade el patrón processable al sistema
+ * @author José Luis Molina Soria
+ * @version 20130224
+ */
+
+/**
+ * @desc Implementación del patrón processable, mendiante la extensión del prototitpo de la función.
+ * El patrón processable incorpora una función de pre y post procesado que se ejecutarán antes y después 
+ * de la función extendida.
+ * @return {function} función extendida
+ */
+Function.prototype.processable = function (prefn, postfn) {
+    var fn = this;
+    return function () {
+	var postRet;
+        if (prefn) {
+            prefn.apply(this, arguments);
+        }
+        var ret = fn.apply(this, arguments);    
+        
+        if (postfn) {
+            postRet = postfn.apply(this, arguments);
+        }
+        return (postRet === undefined)? ret : postRet;
+    };
+};
+
+if ( typeof module !== 'undefined' ) {
+    module.exports = Function.prototype.procesable;
+}
+
+
+;/**
+ * @file klass.js Implementación de Classes
+ * @author José Luis Molina Soria
+ * @version 20130224
+ */
+
+if ( typeof module !== 'undefined' ) {
+    var MM = require('./MindMapJS.js');
+}
+
+/**
+ * @class MM.Class
+ * @classdesc Clase base.
+ * @constructor MM.Class 
+ */
+
+MM.Class = function (){ 
+    this.init = function () {};
+};
+
+
+/**
+ * @desc Función que nos permite extender sobre una clase existente
+ * @param {object} prop Clase que deseamos extender.
+ * @return {Class} una nueva clase. Clase hija hereda los métodos y propiedades de la clase padre.
+ */    
+MM.Class.extend = function(prop) {
+    var _super = this.prototype || MM.Class.prototype; // prototype de la clase padre
+
+    function F() {}
+    F.prototype = _super;
+    var proto = new F();
+    var wrapperMetodo = function(name, fn) { // asociamos las funciones al nuevo contexto 
+        return function() {
+            var tmp = this._super;               // guardamos _super
+            this._super = _super[name];          // función super => podemos hacer this._super(argumentos)
+            var ret = fn.apply(this, arguments); // ejecutamos el método en el contexto de la nueva instancia
+            this._super = tmp;                   // restauramos el _super
+            return ret;
+        };
+    };
+    
+    // recorremos el objeto que nos han pasado como parámetro...
+    for (var name in prop) {
+        // Si estamos sobreescribiendo un método de la clase padre.
+        if (typeof prop[name] === "function" && typeof _super[name] === "function") {
+            proto[name] = wrapperMetodo(name, prop[name]);
+        } else { // no sobreescribimos métodos ni p
+            proto[name] = prop[name];
+        }
+    }
+    
+    function Klass() {
+        if (this.init) {
+            this.init.apply(this, arguments);
+	}
+    }
+    
+    Klass.prototype = proto;
+    Klass.prototype.constructor = Klass;
+    Klass.extend = this.extend;
+
+    return Klass; 
+};
+
+/**
+ * @desc Permite especificar un contexto concreto a una función dada
+ * @param {object} ctx Contexto en que desea asociar a la función
+ * @param {function} fn Función a la que le vamos a realizar el bind
+ * @return {function} nueva función asociada al contexto dado.
+ */    
+MM.Class.bind = function (ctx, fn) {
+    return function() {
+        return fn.apply(ctx, arguments); 
+    };
+};
+
+if ( typeof module !== 'undefined' ) {
+    module.exports = MM.Class;
+}
+;/**
+ * @file pubsub.js Implementación del patrón Publish/Subscribe
+ * @author José Luis Molina Soria
+ * @version 20130227
+ */
+
+if ( typeof module !== 'undefined' ) {
+    var MM = require('./MindMapJS.js');
+    MM.Class = require('./klass.js');
+}
+
+/**
+ * @class MM.PubSub
+ * @classdesc Implementación del patrón Publish/Subscribe
+ * @constructor MM.PubSub
+ */
+MM.PubSub = MM.Class.extend(/** @lends MM.PubSub.prototype */{
+
+    eventos : {},
+
+    idSus : 1,
+
+    init : function () {
+	this.eventos = {};
+	this.idSus = 1;
+    },
+
+    /**
+     * @desc Realiza la notificación a los suscriptores de que se a producido
+     * una publicación o evento.
+     * @param evento {string}    nombre del evento o publicación a notificar
+     * @param args   {*}         argumentos para la función callback
+     * @return {boolean} Si el evento no es un nombre valido retorna false en
+     * otro caso retorna true
+     */
+    on : function( evento ) {
+        if (!this.eventos[evento]) {
+            return false;
+        }
+        var args = Array.prototype.slice.call(arguments, 1);
+        this.eventos[evento].forEach(function (evt){
+            evt.funcion.apply(evt.contexto, args);
+        });
+        args = null;
+
+        return true;
+    },
+
+    /**
+     * @desc Pemite la suscripción a una publicación o evento. Donde el parametro func es
+     * la función a ejecutar en el caso de que se produzca la notificación y contexto el
+     * contexto de ejecución para la función callback
+     * @param evento   {string}   nombre del evento o publicación en la que deseamos suscribirnos
+     * @param func     {function} función callback
+     * @param contexto {object}   contexto de ejecución de la función callback
+     * @return {null|number} null en caso de fallo o *idSus* el identificador de suscripción
+     */
+    suscribir : function( evento, func, contexto ) {
+        if ( !evento || !func ) {
+            return null;
+        }
+
+        if (!this.eventos[evento]) {
+            this.eventos[evento] = [];
+        }
+
+        contexto = contexto || this;
+        this.eventos[evento].push({ id : this.idSus, contexto: contexto, funcion: func });
+        return this.idSus++;
+    },
+
+    /**
+     * @desc realiza una dessuscripción a un evento o notificación
+     * @param id   {number} identificador de suscripción
+     * @return {null|number} null si no se ha podido realizar la dessuscripción
+     */
+    desSuscribir : function (id) {
+        for (var evento in this.eventos) {
+            if ( this.eventos[evento] ) {
+                for (var i = 0, len = this.eventos[evento].length; i < len; i++) {
+                    if (this.eventos[evento][i].id === id) {
+                        this.eventos[evento].splice(i, 1);
+                        return id;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+});
+
+if ( typeof module !== 'undefined' ) {
+    module.exports = MM.PubSub;
+}
 ;/**
  * @file arbol-n.js Implementación de un árbol eneario 
  * @author José Luis Molina Soria
@@ -294,724 +580,6 @@ if ( typeof module !== 'undefined' ) {
     module.exports.Arbol = MM.Arbol;
 }
 ;/**
- * @file arista.js Implementación de arsitas 
- * @author José Luis Molina Soria
- * @version 20130512
- */
-
-/**
- * @class MM.Arista
- * @classdesc Render de arista. Capaz de dibujar una arista entre dos nodos
- * @constructor MM.Arista
- * @param {layer}  capa            capa donde pintar la arista
- * @param {Object} elementoOrigen  elemento del MM desde donde debe partir la arista
- * @param {Object} elementoDestino elemento del MM hasta donde debe llegar la arista
- * @param {int}    tamano          grosor de la arista
- */
-MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
-    init: function (capa, elementoOrigen, elementoDestino, tamano) {
-        this.capa = capa;
-        this.elementoOrigen = elementoOrigen;
-        this.elementoDestino = elementoDestino;
-        this.context = capa.getCanvas().getContext();
-        this.tamano = tamano;
-        this.render();
-    },
-
-    /**
-     * @desc Calcula los puntos necesarios para pintar la arista
-     */
-    calcularPuntos: function () {
-        var nodoOrigen = this.elementoOrigen.nodo;
-        var nodoDestino = this.elementoDestino.nodo;
-        this.x1 = (nodoOrigen.getX() + nodoOrigen.getWidth() - 5);
-        this.y1 = (nodoOrigen.getY() + nodoOrigen.getHeight() / 2);
-        this.x2 = (nodoDestino.getX() + 5); 
-        this.y2 = (nodoDestino.getY() + nodoDestino.getHeight() / 2);
-        this.c1x = this.x1 + (this.x2-this.x1)/2;
-        this.c1y = this.y1;
-        this.c2x = this.x1 + (this.x2-this.x1)/2;
-        this.c2y = this.y2;
-        nodoOrigen = nodoDestino = null;
-    },
-
-    /**
-     * @desc Función de pintado de la arista en función de los elementos pasados
-     */   
-    render: function () {
-        this.calcularPuntos();
-        this.beizer = new Kinetic.Beizer({
-            stroke: '#555',
-            strokeWidth: this.tamano,
-            puntos : { start : {x: this.x1, y: this.y1},
-                       end: {x: this.x2, y: this.y2},
-                       control1: {x: this.c1x, y: this.c1y},
-                       control2: {x: this.c2x, y: this.c2y}}
-        });
-        this.capa.add(this.beizer);
-    },
-
-    redraw: function () {
-        if ( this.elementoOrigen.plegado ) {
-            this.beizer.setVisible(false);
-        } else {
-            this.calcularPuntos();
-            this.beizer.setVisible(true);
-            this.beizer.setPuntos({ start : {x: this.x1, y: this.y1},
-                                    end: {x: this.x2, y: this.y2},
-                                    control1: {x: this.c1x, y: this.c1y},
-                                    control2: {x: this.c2x, y: this.c2y} });
-        }
-        this.capa.draw();
-    },
-
-    /**
-     * @desc Destruye la arista.
-     */
-    destroy : function () {
-        this.beizer.destroy();
-        delete this.beizer;
-        delete this.capa;
-        delete this.elementoOrigen;
-        delete this.elementoDestino;
-    }
-
-    
-});
-
-
-/**
- * @class MM.Rama
- * @classdesc Render de rama. Capaz de dibujar una arista de tipo rama entre dos nodos
- * @constructor MM.Rama
- * @param {layer}  capa            capa donde pintar la arista
- * @param {Object} elementoOrigen  elemento del MM desde donde debe partir la arista
- * @param {Object} elementoDestino elemento del MM hasta donde debe llegar la arista
- * @param {int}    tamano          grosor de la arista
- */
-MM.Rama = MM.Arista.extend(/** @lends MM.Rama.prototype */{
-    init: function (capa, elementoOrigen, elementoDestino, tamano) {
-        this._super(capa, elementoOrigen, elementoDestino, tamano);
-    },
-
-
-    /**
-     * @desc Cálculo de los puntos para poder pintar la Rama
-     */   
-    calcularPuntos: function () {
-        var nodoOrigen = this.elementoOrigen.nodo;
-        var nodoDestino = this.elementoDestino.nodo;
-        this.x1 = (nodoOrigen.getX() + MM.render.offset.x + nodoOrigen.getWidth()) 
-            * MM.render.getEscala();
-        this.y1 = (nodoOrigen.getY() + MM.render.offset.y + nodoOrigen.getHeight()) 
-            * MM.render.getEscala();
-        this.x2 = nodoDestino.getX() + MM.render.offset.x 
-            * MM.render.getEscala();
-        this.y2 = (nodoDestino.getY() + MM.render.offset.y + nodoDestino.getHeight()) 
-            * MM.render.getEscala();
-        this.x3 = (nodoDestino.getX() + MM.render.offset.x + nodoDestino.getWidth()) 
-            * MM.render.getEscala();
-        this.y3 = (nodoDestino.getY() + MM.render.offset.x + nodoDestino.getHeight()) 
-            * MM.render.getEscala();
-        this.c1x = this.x1 + (this.x2-this.x1)/2;
-        this.c1y = this.y1;
-        this.c2x = this.x1 + (this.x2-this.x1)/2;
-        this.c2y = this.y2;
-        nodoOrigen = nodoDestino = null;
-    },
-    
-    /**
-     * @desc Función de pintado de la rama
-     */   
-    render: function () {
-        var c = this.context;
-        this.calcularPuntos();
-
-        c.beginPath();
-        c.moveTo(this.x1, this.y1);
-        c.bezierCurveTo (this.c1x, this.c1y, this.c2x, this.c2y, this.x2, this.y2);
-        c.strokeStyle = this.elementoOrigen.nodo.color; 
-        c.lineWidth = this.tamano * MM.render.getEscala();
-        c.lineTo(this.x3, this.y3);
-        c.stroke();
-        c.beginPath();
-        c.moveTo(this.x2, this.y2);
-        c.strokeStyle = this.elementoDestino.nodo.color; 
-        c.lineWidth = this.tamano * MM.render.getEscala();
-        c.lineTo(this.x3, this.y3);
-        c.stroke();
-        c = null;
-    }
-});
-
-;/**
- * @file atajos.js Contiene la configuración de atajos de teclado del MM.
- * @author José Luis Molina Soria
- * @version 20130520
- */
-
-/**
- * @desc Define los atajos de teclado para el render
- * @memberof MM
- * @method definirAtajos
- * @inner
- */
-MM.definirAtajos = function() {
-
-    // teclado Zoom
-    MM.teclado.atajos.add('Ctrl++', MM.render.zoomIn, MM);    
-    MM.teclado.atajos.add('Ctrl+-', MM.render.zoomOut, MM);
-    MM.teclado.atajos.add('Ctrl+0', MM.render.zoomReset, MM);
-
-
-    var addEdicion = function () {
-        if ( MM.foco.elemento.plegado ) {
-            MM.plegarRama(false);
-        }
-        MM.add();
-        MM.render.editar();
-    };
-
-    // teclas de operaciones
-    MM.teclado.atajos.add('Shift+n', MM.nuevo, MM);
-    MM.teclado.atajos.add('ins', addEdicion, MM);
-    MM.teclado.atajos.add('Shift+Tab', addEdicion, MM);
-    MM.teclado.atajos.add('del', MM.borrar, MM);
-
-    // teclas de edición
-    MM.teclado.atajos.add('Shift+Enter', function() {
-        if ( MM.render.modoEdicion() ) {
-            MM.render.insertarSaltoDeLinea();
-        } else {
-            MM.padre().add();
-            MM.render.editar();
-        }
-    }, MM);
-    MM.teclado.atajos.add('enter', MM.render.editar, MM);
-    MM.teclado.atajos.add('esc', function() {
-        if ( MM.render.modoEdicion() ){
-            MM.render.editar();
-	}
-    }, MM);
-
-    // teclas de plegado / desplegado
-    MM.teclado.atajos.add('shift++', function() { MM.plegarRama(false); }, MM );
-    MM.teclado.atajos.add('shift+-', function() { MM.plegarRama(true); }, MM );
-
-    // teclas de navegación
-    MM.teclado.atajos.add('home', MM.root, MM);
-    MM.teclado.atajos.add('left', MM.padre, MM);
-    MM.teclado.atajos.add('right', MM.next, MM);
-    MM.teclado.atajos.add('up', MM.prevHermano, MM);
-    MM.teclado.atajos.add('down', MM.nextHermano, MM);
-    MM.teclado.atajos.add('tab', function() {
-        if ( MM.render.modoEdicion() ) {
-            MM.render.editar();
-        } else {
-            if ( MM.foco.esHoja() ) { // Si estamos en el último nivel añadimos un nuevo nodo hijo
-                addEdicion();
-            } if ( MM.foco.elemento.plegado ) {
-                MM.plegarRama(false);
-            } else { // navegamos por los niveles
-                MM.next();
-            }
-        }
-    }, MM);
-
-};
-
-/**
- * @desc pone los atajos de tecla en modo de edición.
- * @memberof MM
- * @method atajosEnEdicion
- * @inner
- */
-MM.atajosEnEdicion = function(enEdicion) {    
-    MM.teclado.atajos.activar('Ctrl++', !enEdicion );
-    MM.teclado.atajos.activar('Ctrl+-', !enEdicion );
-    MM.teclado.atajos.activar('Ctrl+0', !enEdicion );
-    MM.teclado.atajos.activar('Shift+n', !enEdicion ); 
-    MM.teclado.atajos.activar('ins', !enEdicion );
-    MM.teclado.atajos.activar('Shift+Tab', !enEdicion );
-    MM.teclado.atajos.activar('del', !enEdicion );
-    MM.teclado.atajos.activar('shift++', !enEdicion );
-    MM.teclado.atajos.activar('shift+-', !enEdicion );
-    MM.teclado.atajos.activar('home', !enEdicion ); 
-    MM.teclado.atajos.activar('left' , !enEdicion );
-    MM.teclado.atajos.activar('right', !enEdicion ); 
-    MM.teclado.atajos.activar('up', !enEdicion ); 
-    MM.teclado.atajos.activar('down', !enEdicion );
-};
-;(function() {
-    Kinetic.Beizer = function(config) {
-        this.___init(config);
-    };
-
-    Kinetic.Beizer.prototype = {
-        // Tiene que recibir un Objecto, puntos = { start : {x,y}, end: {x,y}, control1 : {x,y}, control2 : {x,y} }
-        ___init: function(config) {
-            Kinetic.Shape.call(this, config);
-            this.className = 'Beizer';
-        },
-
-        drawFunc: function(canvas) {
-            var context = canvas.getContext(), 
-                puntos = this.attrs.puntos;
-
-            context.beginPath();
-            context.moveTo(puntos.start.x, puntos.start.y);
-            context.bezierCurveTo ( puntos.control1.x, puntos.control1.y,
-                                    puntos.control2.x, puntos.control2.y,
-                                    puntos.end.x, puntos.end.y );
-            canvas.stroke(this);
-        }
-    };
-    Kinetic.Util.extend(Kinetic.Beizer, Kinetic.Shape);
-
-    // add getters setters
-    Kinetic.Factory.addGetterSetter(Kinetic.Beizer, 'puntos', 0);
-})();
- 
-;/**
- * @file borde.js Librería para pintar el borde del canvas
- * @author José Luis Molina Soria
- * @version 20130512
- */
-
-/**
- * @class MM.Borde
- * @classdesc Render de borde. Pinta un border al canvas
- * @constructor MM.Borde
- * @param {layer}  capa   capa donde pintar el border
- * @param {int}    width  ancho del borde
- * @param {int}    heigth alto del borde
- */
-MM.Borde = MM.Class.extend(/** @lends MM.Borde.prototype */{
-    init: function (capa, width, height ) {
-        this.capa = capa;
-        this.width = width;
-        this.height = height;
-        this.render();
-    }, 
- 
-    /**
-     * @desc Función de pintado el border
-     */
-    render: function () {
-        this.capa.add( new Kinetic.Line({
-            points: [0, 0, this.width, 0],
-            stroke: 'grey',
-            strokeWidth: 1,
-            lineCap: 'round',
-            lineJoin: 'round',
-            dashArray: [4, 3]
-        }));
-        this.capa.add( new Kinetic.Line({
-            points: [0, 0, 0, this.height],
-            stroke: 'grey',
-            strokeWidth: 1,
-            lineCap: 'round',
-            lineJoin: 'round',
-            dashArray: [4, 3]
-        }));
-        this.capa.add( new Kinetic.Line({
-            points: [0, this.height, this.width, this.height],
-            stroke: 'grey',
-            strokeWidth: 1,
-            lineCap: 'round',
-            lineJoin: 'round',
-            dashArray: [4, 3]
-        }));
-        this.capa.add( new Kinetic.Line({
-            points: [this.width, 0, this.width, this.height],
-            stroke: 'grey',
-            strokeWidth: 1,
-            lineCap: 'round',
-            lineJoin: 'round',
-            dashArray: [4, 3]
-        }));
-    }
-});
-
-;/**
- * @file chain.js añade el patrón chainable al sistema
- * @author José Luis Molina Soria
- * @version 20130224
- */
-
-/**
- * @desc Implementación del patrón Chainable, mendiante la extensión del prototitpo de la función
- * @return {function} función extendida
- */
-Function.prototype.chain = function() {
-  var self = this;
-  return function() {
-    var ret = self.apply(this, arguments);
-    return ret === undefined ? this : ret;
-  };
-};
-
-;/**
- * @file color.js Funciones y utiles para manejo de colores.
- * @author José Luis Molina Soria
- * @version 20130523
- */
-
-MM.color = {};
-
-/** 
- * @desc Función semialeatoria de colores en formato HSL. Esta función ha
- *       sido ajustada para evitar colores molestos o demasiado claros/oscuros.
- * @method randomHslColor 
- * @return {Object} Objecto con los campos h, s y l 
- * @memberof MM.color
- * @static
- */
-MM.color.randomHslColor = function () {
-    var rand = function (max, min) {
-        return parseInt(Math.random() * (max-min+1), 10) + min;
-    };
-
-    // h = Tonalidad 1-360;  s = saturación 30-100%;  l = brillo 20-50%
-    return { h: rand(1, 360), s: rand(30, 100), l:rand(20, 50) };
-};
-
-MM.color.addBrillo = function (hsl, offsetBrillo) {
-    offsetBrillo = offsetBrillo || 0;
-    return { h: hsl.h, s: hsl.s, l: hsl.l+offsetBrillo };
-};
-
-
-/** 
- * @desc Calcula la cadena hsl en formato CSS
- * @method hslToCSS
- * @param {Object} hsl          Objecto con los campos h, s y l 
- * @param {number} offsetBrillo Desplazamiento al brillo. 
- * @return {string} Cadena CSS del color en formato HSL
- * @memberof MM.color
- * @static
- */
-MM.color.hslToCSS = function ( hsl, offsetBrillo ) {
-    offsetBrillo = offsetBrillo || 0;
-    return 'hsl(' + Math.floor(hsl.h) + ',' + Math.floor(hsl.s) + '%,' + Math.floor(hsl.l + offsetBrillo) + '%)';
-};
-
-MM.color.rgbToCSS = function ( rgb ) {
-    return 'rgb(' + Math.floor(rgb.r) + ', ' + Math.floor(rgb.g) + ', ' + Math.floor(rgb.b) + ')';
-};
-
-MM.color.rgbToHexCSS = function ( rgb ) {
-    
-    return '#' + MM.color.intToHex (rgb.r) + MM.color.intToHex (rgb.g) + MM.color.intToHex (rgb.b);
-};
-
-
-MM.color.intToHex = function ( valor, longitud ) {
-    longitud = longitud || 2;
-    var hex = Math.floor(valor).toString(16);
-    while ( hex.length < longitud ) { hex = '0' + hex; }
-    return hex;
-};
-
-
-MM.color.hue = function  ( rgb, maximum, range ) {
-    var hue = 0;
-    if (range !== 0) {
-        switch (maximum) {
-        case rgb.r:
-            hue = (rgb.g - rgb.b) / range * 60;
-            if (hue < 0) { hue += 360; }
-            break;
-        case rgb.g:
-          hue = (rgb.b - rgb.r) / range * 60 + 120;
-          break;
-        case rgb.b:
-          hue = (rgb.r - rgb.g) / range * 60 + 240;
-          break;
-        }
-    }
-    return hue;
-};
-
-MM.color.rgbToHsl = function ( rgb ) {
-    var maximum = Math.max(rgb.r, rgb.g, rgb.b);
-    var range   = maximum - Math.min(rgb.r, rgb.g, rgb.b);
-    var l = maximum / 255 - range / 510;
-    
-    return {
-        'h' : MM.color.hue(rgb, maximum, range),
-        's' : (range === 0 ? 0 : range / 2.55 / (l < 0.5 ? l * 2 : 2 - l * 2)),
-        'l' : 100 * l
-    };
-};
-
-
-MM.color.hslToRgb = function ( hsl ) {
-    var rgb = {
-        'r' : hsl.l * 2.55,
-        'g' : hsl.l * 2.55,
-        'b' : hsl.l * 2.55
-    };
-
-    if (hsl.s !== 0) {
-        var p = hsl.l < 50
-                ? hsl.l * (1 + hsl.s / 100)
-                : hsl.l + hsl.s - hsl.l * hsl.s / 100;
-        var q = 2 * hsl.l - p;
-        
-        rgb = {
-            'r' : (hsl.h + 120) / 60 % 6,
-            'g' : hsl.h / 60,
-            'b' : (hsl.h + 240) / 60 % 6
-        };
-
-        for (var key in rgb) {
-            if (rgb.hasOwnProperty(key)) {
-                if (rgb[key] < 1) {
-                    rgb[key] = q + (p - q) * rgb[key];
-                } else if (rgb[key] < 3) {
-                    rgb[key] = p;
-                } else if (rgb[key] < 4) {
-                    rgb[key] = q + (p - q) * (4 - rgb[key]);
-                } else {
-                    rgb[key] = q;
-                }
-                rgb[key] *= 2.55;
-            }
-        }
-    }
-    return rgb;
-};
-
-/**
-  var rgb = { r: 250, g: 235, b: 215 };
-  var hsl = { h: 34, s: 78, l: 91 };
-  
-*/
-;MM.comandos = {};
-
-MM.comandos.Insertar=MM.UndoManager.ComandoHacerDeshacer.extend({
-    init: function ( idPadre, idHijo, texto ) {
-        this._super('Añadir nuevo hijo ' + texto, 
-                    function () {
-                        var p = MM.arbol.buscar(idPadre);
-                        var h = new MM.Arbol ( { id: idHijo, texto: texto, nodo: null } );
-                        MM.ponerFoco(p);
-                        p.hijos.push ( h );
-                        MM.eventos.on ( 'add', p, h );
-                        p = h = null;
-                    },
-                    function () {
-                        var p = MM.arbol.buscar(idPadre);
-                        var h = MM.arbol.buscar(idHijo);
-                        MM.ponerFoco ( p );
-                        MM.arbol.borrar ( idHijo );
-                        MM.eventos.on ( 'borrar', p, h );
-                        p = h = null;
-                    });
-    }
-});
-
-MM.comandos.Borrar=MM.UndoManager.ComandoHacerDeshacer.extend({
-    init: function ( padre, hijo ) {
-        // generamos las funciones para crear una copia del subárbol.
-        var generador = function (elemento) {
-            return new MM.Arbol( { id: elemento.id, texto: elemento.texto, nodo : null } );
-        };
-        var operador = function ( p, h ) {
-            p.hijos.push(h);
-        };
-
-        var preRecorrido = function (nodo) {
-            MM.render.repartoEspacio(nodo);
-        };
-        
-        var postRecorrido = function (nodo) {
-            var elemento = nodo.elemento;
-            nodo.hijos.forEach(function (hijo) {
-                if ( MM.render.buscarArista(nodo, hijo) === null ) {
-                    var arista = new MM.render.Arista(MM.render.capaAristas, elemento, hijo.elemento, '3');
-                    MM.render.aristas.push(arista);
-                    arista = null;
-                }
-            });
-            elemento = null;
-        };
-        
-        var idPadre = padre.elemento.id;
-        var subarbol = hijo.generalPreOrden(generador, operador);
-        this._super('Borrar ' + subarbol.elemento.texto, 
-                    function () {
-                        var padre = MM.arbol.buscar(idPadre);
-                        MM.ponerFoco ( padre );
-                        var hijo = MM.arbol.borrar ( subarbol.elemento.id );
-                        MM.eventos.on ( 'borrar', padre, hijo );
-                        padre = hijo = null;
-                    },
-                    function () {
-                        var padre = MM.arbol.buscar(idPadre);
-                        MM.ponerFoco(padre);
-                        var hijo = subarbol.generalPreOrden(generador, operador);
-                        padre.hijos.push ( hijo );
-                        if ( MM.render )  {
-                            var idSusPre = padre.suscribir('preOrden', preRecorrido);
-                            var idSusPost = padre.suscribir('postPreOrden', postRecorrido);
-                            padre.preOrden();
-                            padre.desSuscribir(idSusPre);
-                            padre.desSuscribir(idSusPost);
-                            idSusPre = idSusPost = null;
-                            MM.render.renderAristas();
-                            MM.render.capaNodos.draw();
-                        }
-                        padre = hijo = null;
-                    });
-    }
-});
-
-// TODO pendiente
-MM.comandos.Nuevo=MM.UndoManager.ComandoHacerDeshacer.extend({
-    init: function ( arbolOriginal ) {
-        this._super('nuevo', 
-                    function () {
-                        // crear un nuevo árbol
-                    },
-                    function () {
-                        // restaurar el árbol anterior
-                    });
-    }
-});
-
-MM.comandos.Editar=MM.UndoManager.ComandoHacerDeshacer.extend({
-    init: function  ( id, original, nuevo) {
-        this._super('Editar ' + original, 
-                    function () { 
-                        var e = MM.arbol.buscar(id);
-                        e.elemento.texto = nuevo;
-                        if ( e.elemento.nodo ) {
-                            e.elemento.nodo.setText(nuevo);
-			}
-                        e = null;
-                    },
-                    function () {
-                        var e = MM.arbol.buscar(id);
-                        e.elemento.texto = original;
-                        e.elemento.nodo.setText(original);
-                        e = null;
-                    });
-    }
-});
-
-MM.comandos.Zoom=MM.UndoManager.ComandoHacerDeshacer.extend({
-    init: function (anterior, nuevo) {
-        this._super('Zoom', 
-                    function () { 
-                        MM.render.setEscala(nuevo);
-                    },
-                    function () {
-                        MM.render.setEscala(anterior);
-                    });
-    }
-});
-
-MM.comandos.Plegar=MM.UndoManager.ComandoHacerDeshacer.extend({
-    init: function (arbol, p) {
-        this._super('Plegar', 
-                    function () { 
-                        MM.ponerFoco(arbol);
-                        MM.plegarRama(p, true);
-                    },
-                    function () {
-                        MM.ponerFoco(arbol);
-                        MM.plegarRama(!p, true);
-                    });
-    }
-});
-
-
-;
-MM.demo = {};
-
-MM.demo.timerDeslizador = null;
-
-MM.demo.deslizar = function( id, ids ){
-    var min = "-500px";
-    var max = "25px";
-    var e = document.getElementById(id);
-    ids = ids || [];
-
-    if ( e.style.top === max ) {
-        e.style.top = min;
-    } else if ( e.style.top === min || e.style.top === "" ) {
-        ids.forEach ( function (item) {
-            document.getElementById(item).style.top = min;
-        });
-        e.style.top = max;
-        if ( MM.demo.timerDeslizador ) {
-            window.clearTimeout(MM.demo.timerDeslizador);
-        }
-        MM.demo.timerDeslizador = window.setTimeout(function(){if (e.style.top === max ) { e.style.top = min; } },5000);
-    }
-};
-
-
-MM.demo.ayuda = function () {
-    MM.demo.deslizar('ayuda', ['datosDelProyecto']);
-};
-
-MM.demo.datosDelProyecto = function (mostrar) {
-    MM.demo.deslizar('datosDelProyecto', ['ayuda']);
-};
-
-MM.demo.hacer = function(){
-    MM.undoManager.hacer();
-};
-
-MM.demo.deshacer = function(){
-    MM.undoManager.deshacer();
-};
-
-MM.demo.cambioUndoManager = function() {
-    var btnHacer = document.getElementById('btnHacer');
-    var btnDeshacer = document.getElementById('btnDeshacer');
-    var iconHacer = document.getElementById('iconHacer');
-    var iconDeshacer = document.getElementById('iconDeshacer');
-
-    if ( MM.undoManager.hacerNombre() === null ) {
-        btnHacer.setAttribute('disabled', 'disabled');
-        btnHacer.setAttribute('title', '');
-        iconHacer.setAttribute('style', 'color: #ddd;');
-    } else {
-        if ( btnHacer.hasAttribute('disabled') ) {
-            btnHacer.removeAttribute('disabled');
-            iconHacer.removeAttribute('style');
-        }
-        btnHacer.setAttribute('title', 'Hacer ' + MM.undoManager.hacerNombre());
-    }
-
-    if ( MM.undoManager.deshacerNombre() === null ) {
-        btnDeshacer.setAttribute('disabled', 'disabled');
-        btnDeshacer.setAttribute('title', '');
-        iconDeshacer.setAttribute('style', 'color: #ddd;');
-    } else {
-        if ( btnDeshacer.hasAttribute('disabled') ) {
-            btnDeshacer.removeAttribute('disabled');
-            iconDeshacer.removeAttribute('style');
-        }
-        btnDeshacer.setAttribute('title', 'Deshacer ' + MM.undoManager.deshacerNombre());
-    }
-
-    btnHacer = btnDeshacer = null;
-};
-
-
-window.onload = function () {
-    MM.add('hijo1').add('hijo2').add('hijo3').add('hijo4').next().add('hijo11').add('hijo12').add('hijo13');
-    MM.renderizar('contenedorEditor');
-//    MM.renderizar('contenedorEditor', MM.NodoSimple, MM.Rama);
-    MM.undoManager.eventos.suscribir('cambio', MM.demo.cambioUndoManager );
-    MM.demo.cambioUndoManager();
-};
-;/**
  * @file element.js Funcionalidad para manejo del DOM
  * @author José Luis Molina Soria
  * @version 20130224
@@ -1025,9 +593,8 @@ MM.DOM = {};
 
 /**
  * @desc función para la creación de elementos DOM de forma comoda. 
- * @param {string} nombre del elemento DOM que deseemos crear
- * @param {object} objecto con los atributos que deseamos en el elemento DOM
- * @param {object} elemento DOM
+ * @param {string} tagName Etíqueta del elemento DOM que deseemos crear
+ * @param {object} prop Propiedades con los atributos que deseamos en el elemento DOM
  */
 MM.DOM.create = function(tagName, prop) {
     var e = window.document.createElement(tagName);
@@ -1049,131 +616,282 @@ MM.DOM.create = function(tagName, prop) {
 };
 
 ;/**
- * @file exportar.js Contiene toda la funcionalidad de exporación de Mapas mentales
+ * @file teclado.js Librería para el porcesado y control del teclado
  * @author José Luis Molina Soria
- * @version 20130608
+ * @version 20130508
  */
 
 if ( typeof module !== 'undefined' ) {
     var MM = require('./MindMapJS.js');
-    MM.Class = require('./klass.js');
-    MM.PubSub = require('./pubsub.js');
 }
 
+/**
+ * Espacio de nombre para el proceso y control del teclado 
+ * @namespace MM.teclado
+ * @property {MM.teclado.tecla}   tecla  - Funciones y constantes de tecla
+ * @property {MM.teclado.atajos}  atajos - Manejador de atajos de teclado. P.E.: "Ctrl+Alt+i"
+ */
+MM.teclado = {};
+
 
 /**
- * Contiene la funcionalidad básica para soportar la exportaciones a ficheros.
- *
- * @namespace MM.exportar
- * @property {MM.exportar.FreeMind}   FreeMind  - Clase encargada de exportar a ficheros FreeMind
+ * Espacio de nombre para funciones y constantes de teclas
+ * @namespace MM.teclado.tecla
  */
-MM.exportar = {};
+MM.teclado.tecla = {
+    // teclas de función
+    f1  : 112,
+    f2  : 113,
+    f3  : 114,
+    f4  : 115,
+    f5  : 116,
+    f6  : 117,
+    f7  : 118,
+    f8  : 119,
+    f9  : 120,
+    f10 : 121,
+    f11 : 122,
+    f12 : 123,
+    
+    // modificadores
+    shift : 16,
+    ctrl  : 17,
+    alt   : 18,
+    leftMeta : 91,
+    rightMeta : 92,
+    
+    // bloqueos
+    scrolllock : 145,
+    numlock : 144,
+    capslock : 20,
+    
+    // teclas de navegación y edición
+    pageup : 33,
+    pagedown : 34,
+    left : 37,
+    up : 38,
+    right :39,
+    down : 40,
+    ins : 45,
+    home : 36,
+    del : 46,
+    end : 35,
+    
+    // otras
+    backspace : 8,
+    tab : 9,
+    enter : 13,
+    esc : 27,
+    escape : 27,
+    space : 32
+};
 
-MM.exportar.freemind = function() {
-    var generar = function () {
-        var wrapper = MM.DOM.create('div');
-        var map = MM.DOM.create('map', {'version': '0.9.0'});
-        var nodos = MM.arbol.generalPreOrden(generadorNodo, operarNodo);
-        for ( var i = 0; i < nodos.length; i++ ) {
-            map.appendChild(nodos[i]);
-        }
-        wrapper.appendChild(map);
-        return wrapper.innerHTML;
-    };
+// Cada navegador tiene mapeado el teclado de forma diferente 
+// para ajustarse a esta excepciones utlizamos las siguiente
+MM.teclado.tecla.excepciones = {
+//  Firefox      Chrome      Safari     Teclado Numérico
+    171: '+',    187: '+',   221: '+',  107: '+',
+    173: '-',    189: '-',   191: '-',  109: '-', 
+                                         96: '0'
+};
 
-    var generadorNodo = function ( elemento ) {
-        var time = (new Date()).getTime();    
-        var nodo = MM.DOM.create('node', { 'BACKGROUND_COLOR': MM.color.rgbToHexCSS(MM.color.hslToRgb(MM.color.addBrillo(elemento.nodo.hslColor, 40))),
-                                           'COLOR': MM.color.rgbToHexCSS(MM.color.hslToRgb(elemento.nodo.hslColor)),
-                                           'CREATE': time, 
-                                           'ID': 'ID_' + Math.floor((Math.random()*(10e+10))+1),
-                                           'MODIFIED': time,
-                                           'STYLE': 'bubble',
-                                           'FOLDED': elemento.plegado,
-                                           'TEXT': elemento.texto });
-        var edge = MM.DOM.create('edge', { 'STYLE' : "bezier",
-                                           'COLOR' : MM.color.rgbToHexCSS(MM.color.hslToRgb(elemento.nodo.hslColor)) });
-        nodo.appendChild(edge);
-        time = null;
-        return [nodo];
-    };
-
-    var operarNodo = function ( nodoPadre, nodos ) {
-        for ( var i = 0; i < nodos.length; i++ ) {
-            nodoPadre[0].appendChild(nodos[i]);
-        }
-        i = null;
-    };
-
-    var grabar = function() {
-        window.URL = window.URL || window.webkitURL;
-        if ( !window.URL ) {
-            alert('Operación no soportada por su navegador');
-        }
-        var blob = new Blob([generar()], {type: 'application/xml'});
-        var link = window.document.createElement('a');
-        link.download= MM.arbol.elemento.texto + ".mm";
-        link.href = window.URL.createObjectURL(blob);
-        link.click();
-    };
-
-    return {
-        grabar: grabar
-    };
-}();
-;/**
- * @file grid.js Librería para pintar la rejilla de referencia
- * @author José Luis Molina Soria
- * @version 20130512
- */
 
 /**
- * @class MM.Grid
- * @classdesc Render de grid. Pinta una rejilla
- * @constructor MM.Grid
- * @param {layer}  capa   capa donde pintar el grid
- * @param {int}    width  ancho de la rejilla
- * @param {int}    heigth alto de la rejilla
+ * @desc Manejador de teclado para el evento keyDown
+ * @param {event} e Instancia de evento de teclado
  */
-MM.Grid = MM.Class.extend(/** @lends MM.Grid.prototype */{
-    init: function (capa, width, height ) {
-        this.capa = capa;
-        this.width = width;
-        this.height = height;
-        this.render();
-    }, 
- 
-    /**
-     * @desc Función de pintado de la rejilla
-     */
-    render: function () {
-        var minWidth = -2*this.width;
-        var maxWidth = 2*this.width;
-        var minHeight = -2*this.height;
-        var maxHeight = 2*this.height;
-        for ( var x = minWidth; x <= 2*this.width; x += 100 ) {
-             this.capa.add( new Kinetic.Line({
-                points: [x, minHeight, x, maxHeight],
-                stroke: 'grey',
-                strokeWidth: 1,
-                lineCap: 'round',
-                lineJoin: 'round',
-                dashArray: [0.8, 5]
-            }));
-        } 
-        for ( var y = -2*this.height; y <= 2*this.height; y += 100 ) {
-             this.capa.add( new Kinetic.Line({
-                points: [minWidth, y, maxWidth, y],
-                stroke: 'grey',
-                strokeWidth: 1,
-                lineCap: 'round',
-                lineJoin: 'round',
-                dashArray: [0.8, 5]
-            }));
-        } 
-        x = y = minWidth = maxWidth = minHeight = maxHeight = null;
+MM.teclado.keyDown = function (e){
+    if ( !MM.teclado.atajos.activo ) {
+        return true;
     }
-});
+    
+    var evt = e ? e : window.event;
+    var key = window.Event ? evt.which : evt.keyCode;
+    var nombre = MM.teclado.tecla.nombre(key, evt);
+
+    if ( MM.teclado.tecla.esModificador(key) ) {
+        evt = key = nombre = null;
+        return true;
+    } else { 
+        var nombreAtajo = MM.teclado.atajos.calcular(nombre, evt);
+        var a = MM.teclado.atajos.definidos[nombreAtajo];
+        if ( a && a.activo ) { 
+            evt.preventDefault(); 
+            evt.stopPropagation();
+            MM.teclado.atajos.lanzar(nombreAtajo);
+            a = evt = key = nombre = nombreAtajo = null;
+            return false;
+        }
+        a = evt = key = nombre = nombreAtajo = null;
+        return true;
+    }
+    evt = key = nombre = null;
+    return true;
+};
+
+
+/**
+ * @desc Dado un valor devuelve el nombre de la tecla
+ * @param {integer} key valor númerico de una tecla
+ * @return {string} nombre asociado a una tecla
+ **/ 
+MM.teclado.tecla.nombre = function ( key ) {
+    
+    if ( this.excepciones[key]) {
+        return this.excepciones[key];
+    }
+
+    for (var name in this) {
+        if ( key === this[name] ) {
+            return name;
+        }
+    }
+
+    return String.fromCharCode(key);
+};
+    
+
+/**
+ * @desc Dado un nombre nos devuelve su valor
+ * @param {string} nombre Nombre de una tecla
+ * @return {integer} valor asociado al nombre 
+ **/ 
+MM.teclado.tecla.valor = function ( nombre ) {
+    return this[nombre];
+};
+
+/**
+ * @desc Test para saber si una tecla es un modificador o no. Se trata de un 
+ * modificador si la tecla es Ctrl o Alt o Shift o Meta
+ * @param {integer} key Tecla a comprobar
+ * @return {boolean} true si es un modificador y false en otro caso
+ **/     
+MM.teclado.tecla.esModificador = function ( key ) {
+    return key === this.ctrl || key === this.alt || key === this.shift ||
+        key === this.leftMeta || key === this.rightMeta;
+};
+
+/**
+ * @desc Comprueba si latecla es Ctrl
+ * @param {integer} key Tecla a comprobar
+ * @return {boolean} true si la tecla es Ctrl
+ **/     
+MM.teclado.tecla.esControl = function ( key ) {
+    return key === this.ctrl;
+};
+
+/**
+ * @desc Comprueba si la tecla es Alt
+ * @param {integer} key Tecla a comprobar
+ * @return {boolean} true si la tecla es Alt
+ **/         
+MM.teclado.tecla.esAlt = function ( key ) {
+    return key === this.alt;
+};
+
+/**
+ * @desc Comprueba si la una tecla es Shift (Mayúsculas)
+ * @param {integer} key Tecla a comprobar
+ * @return {boolean} true si la tecla es Shift (Mayúsculas)
+ **/             
+MM.teclado.tecla.esShift = function ( key ) {
+    return key === this.shift;
+};
+
+/**
+ * @desc Comprueba si la una tecla es Window
+ * @param {integer} key Tecla a comprobar
+ * @return {boolean} true si la tecla es Window
+ **/                 
+MM.teclado.tecla.esMeta = function ( key ) {
+    return key === this.leftMeta || key === this.rightMeta;
+};
+
+/**
+ * Espacio de nombre manejos de atajos de teclado. P.E.: "Ctrl+Alt+i"
+ * @namespace MM.teclado.atajos
+ */
+MM.teclado.atajos = {
+    activo : true,
+    definidos : {},
+    ctrl : false,
+    shift : false,
+    alt : false,
+    window : false
+};
+
+/**
+ * @desc Añade una definición de atajo de teclado
+ * @param {string} atajo Nombre del atajo de teclado a añadir al control de atajos
+ * @param {function} f Función a ejecutar cuando se de el atajo
+ **/                 
+MM.teclado.atajos.add = function ( atajo, f, contexto ) {
+    this.definidos[atajo] = { funcion : f, 
+                              contexto : contexto || this, 
+                              activo : true 
+                            };
+};
+
+/**
+ * @desc Calcula si existe una atajo para el estado actual de los modficiadores y una tecla dada
+ * @param {string} nombre Nombre de tecla pulsada
+ * @param {object} evt Evento de teclado
+ * @return {string | null} Nombre del atajo de teclado o null si no existe
+ **/                 
+MM.teclado.atajos.calcular = function ( nombre, evt ) {
+
+    var reKey = new RegExp("\\+" + nombre + "$", "i" );
+    var reCtrl = /ctrl\+/i;
+    var reAlt = /alt\+/i;
+    var reShift = /shift\+/i;
+    var reWindow = /meta\+/i;
+    
+    for (var name in this.definidos) {
+        if ( nombre === name ) { return name; }
+        if( reKey.test(name) && 
+            ( evt.ctrlKey?reCtrl.test(name):!reCtrl.test(name)) && 
+            ( (evt.altKey || evt.altGraphKey)?reAlt.test(name):!reAlt.test(name)) && 
+            ( evt.shiftKey?reShift.test(name):!reShift.test(name)) && 
+            ( evt.metaKey?reWindow.test(name):!reWindow.test(name)) ) {
+            return name;
+        }
+    }
+    reKey = reCtrl = reAlt = reShift = reWindow = null;
+    return null;
+};
+
+/**
+ * @desc Lanza la función asociada al atajo de teclado
+ * @param {string} atajo Nombre del atajo de teclado
+ **/                 
+MM.teclado.atajos.lanzar = function (atajo) {
+    var a = this.definidos[atajo];
+    if ( a ) {
+        a.funcion.apply(a.contexto, []);
+    }
+    a = null;
+};
+
+/**
+ * @desc Lanza la función asociada al atajo de teclado
+ * @param {string} atajo Nombre del atajo de teclado
+ **/                 
+MM.teclado.atajos.activar = function (atajo, valor) {
+    var a = this.definidos[atajo];
+    if ( a ) {
+        a.activo = valor;
+    }
+    a = null;
+};
+
+
+if ( typeof module !== 'undefined' ) {
+    module.exports = MM.teclado;
+}
+
+if ( window ) {
+    window.addEventListener ("keydown", MM.teclado.keyDown, true);
+}
 
 ;/**
  * @file importar.js Contiene toda la funcionalidad con respecto a la carga y/o importacion de ficheros.
@@ -1471,85 +1189,193 @@ if ( typeof module !== 'undefined' ) {
 //     return(null);
 // }
 ;/**
- * @file klass.js Implementación de Classes
+ * @file exportar.js Contiene toda la funcionalidad de exporación de Mapas mentales
  * @author José Luis Molina Soria
- * @version 20130224
+ * @version 20130608
  */
 
 if ( typeof module !== 'undefined' ) {
     var MM = require('./MindMapJS.js');
+    MM.Class = require('./klass.js');
+    MM.PubSub = require('./pubsub.js');
 }
 
+
 /**
- * @class MM.Class
- * @classdesc Clase base.
- * @constructor MM.Class 
+ * Contiene la funcionalidad básica para soportar la exportaciones a ficheros.
+ *
+ * @namespace MM.exportar
+ * @property {MM.exportar.FreeMind}   FreeMind  - Clase encargada de exportar a ficheros FreeMind
+ */
+MM.exportar = {};
+
+MM.exportar.freemind = function() {
+    var generar = function () {
+        var wrapper = MM.DOM.create('div');
+        var map = MM.DOM.create('map', {'version': '0.9.0'});
+        var nodos = MM.arbol.generalPreOrden(generadorNodo, operarNodo);
+        for ( var i = 0; i < nodos.length; i++ ) {
+            map.appendChild(nodos[i]);
+        }
+        wrapper.appendChild(map);
+        return wrapper.innerHTML;
+    };
+
+    var generadorNodo = function ( elemento ) {
+        var time = (new Date()).getTime();    
+        var nodo = MM.DOM.create('node', { 'BACKGROUND_COLOR': MM.color.rgbToHexCSS(MM.color.hslToRgb(MM.color.addBrillo(elemento.nodo.hslColor, 40))),
+                                           'COLOR': MM.color.rgbToHexCSS(MM.color.hslToRgb(elemento.nodo.hslColor)),
+                                           'CREATE': time, 
+                                           'ID': 'ID_' + Math.floor((Math.random()*(10e+10))+1),
+                                           'MODIFIED': time,
+                                           'STYLE': 'bubble',
+                                           'FOLDED': elemento.plegado,
+                                           'TEXT': elemento.texto });
+        var edge = MM.DOM.create('edge', { 'STYLE' : "bezier",
+                                           'COLOR' : MM.color.rgbToHexCSS(MM.color.hslToRgb(elemento.nodo.hslColor)) });
+        nodo.appendChild(edge);
+        time = null;
+        return [nodo];
+    };
+
+    var operarNodo = function ( nodoPadre, nodos ) {
+        for ( var i = 0; i < nodos.length; i++ ) {
+            nodoPadre[0].appendChild(nodos[i]);
+        }
+        i = null;
+    };
+
+    var grabar = function() {
+        window.URL = window.URL || window.webkitURL;
+        if ( !window.URL ) {
+            alert('Operación no soportada por su navegador');
+        }
+        var blob = new Blob([generar()], {type: 'application/xml'});
+        var link = window.document.createElement('a');
+        link.download= MM.arbol.elemento.texto + ".mm";
+        link.href = window.URL.createObjectURL(blob);
+        link.click();
+    };
+
+    return {
+        grabar: grabar
+    };
+}();
+;/**
+ * @file grid.js Librería para pintar la rejilla de referencia
+ * @author José Luis Molina Soria
+ * @version 20130512
  */
 
-MM.Class = function (){ 
-    this.init = function () {};
-};
+/**
+ * @class MM.Grid
+ * @classdesc Render de grid. Pinta una rejilla
+ * @constructor MM.Grid
+ * @param {layer}  capa   capa donde pintar el grid
+ * @param {int}    width  ancho de la rejilla
+ * @param {int}    heigth alto de la rejilla
+ */
+MM.Grid = MM.Class.extend(/** @lends MM.Grid.prototype */{
+    init: function (capa, width, height ) {
+        this.capa = capa;
+        this.width = width;
+        this.height = height;
+        this.render();
+    }, 
+ 
+    /**
+     * @desc Función de pintado de la rejilla
+     */
+    render: function () {
+        var minWidth = -2*this.width;
+        var maxWidth = 2*this.width;
+        var minHeight = -2*this.height;
+        var maxHeight = 2*this.height;
+        for ( var x = minWidth; x <= 2*this.width; x += 100 ) {
+             this.capa.add( new Kinetic.Line({
+                points: [x, minHeight, x, maxHeight],
+                stroke: 'grey',
+                strokeWidth: 1,
+                lineCap: 'round',
+                lineJoin: 'round',
+                dashArray: [0.8, 5]
+            }));
+        } 
+        for ( var y = -2*this.height; y <= 2*this.height; y += 100 ) {
+             this.capa.add( new Kinetic.Line({
+                points: [minWidth, y, maxWidth, y],
+                stroke: 'grey',
+                strokeWidth: 1,
+                lineCap: 'round',
+                lineJoin: 'round',
+                dashArray: [0.8, 5]
+            }));
+        } 
+        x = y = minWidth = maxWidth = minHeight = maxHeight = null;
+    }
+});
 
+;/**
+ * @file borde.js Librería para pintar el borde del canvas
+ * @author José Luis Molina Soria
+ * @version 20130512
+ */
 
 /**
- * @desc Función que nos permite extender sobre una clase existente
- * @param {object} prop Clase que deseamos extender.
- * @return {Class} una nueva clase. Clase hija hereda los métodos y propiedades de la clase padre.
- */    
-MM.Class.extend = function(prop) {
-    var _super = this.prototype || MM.Class.prototype; // prototype de la clase padre
-
-    function F() {}
-    F.prototype = _super;
-    var proto = new F();
-    var wrapperMetodo = function(name, fn) { // asociamos las funciones al nuevo contexto 
-        return function() {
-            var tmp = this._super;               // guardamos _super
-            this._super = _super[name];          // función super => podemos hacer this._super(argumentos)
-            var ret = fn.apply(this, arguments); // ejecutamos el método en el contexto de la nueva instancia
-            this._super = tmp;                   // restauramos el _super
-            return ret;
-        };
-    };
-    
-    // recorremos el objeto que nos han pasado como parámetro...
-    for (var name in prop) {
-        // Si estamos sobreescribiendo un método de la clase padre.
-        if (typeof prop[name] === "function" && typeof _super[name] === "function") {
-            proto[name] = wrapperMetodo(name, prop[name]);
-        } else { // no sobreescribimos métodos ni p
-            proto[name] = prop[name];
-        }
+ * @class MM.Borde
+ * @classdesc Render de borde. Pinta un border al canvas
+ * @constructor MM.Borde
+ * @param {layer}  capa   capa donde pintar el border
+ * @param {int}    width  ancho del borde
+ * @param {int}    heigth alto del borde
+ */
+MM.Borde = MM.Class.extend(/** @lends MM.Borde.prototype */{
+    init: function (capa, width, height ) {
+        this.capa = capa;
+        this.width = width;
+        this.height = height;
+        this.render();
+    }, 
+ 
+    /**
+     * @desc Función de pintado el border
+     */
+    render: function () {
+        this.capa.add( new Kinetic.Line({
+            points: [0, 0, this.width, 0],
+            stroke: 'grey',
+            strokeWidth: 1,
+            lineCap: 'round',
+            lineJoin: 'round',
+            dashArray: [4, 3]
+        }));
+        this.capa.add( new Kinetic.Line({
+            points: [0, 0, 0, this.height],
+            stroke: 'grey',
+            strokeWidth: 1,
+            lineCap: 'round',
+            lineJoin: 'round',
+            dashArray: [4, 3]
+        }));
+        this.capa.add( new Kinetic.Line({
+            points: [0, this.height, this.width, this.height],
+            stroke: 'grey',
+            strokeWidth: 1,
+            lineCap: 'round',
+            lineJoin: 'round',
+            dashArray: [4, 3]
+        }));
+        this.capa.add( new Kinetic.Line({
+            points: [this.width, 0, this.width, this.height],
+            stroke: 'grey',
+            strokeWidth: 1,
+            lineCap: 'round',
+            lineJoin: 'round',
+            dashArray: [4, 3]
+        }));
     }
-    
-    function Klass() {
-        if (this.init) {
-            this.init.apply(this, arguments);
-	}
-    }
-    
-    Klass.prototype = proto;
-    Klass.prototype.constructor = Klass;
-    Klass.extend = this.extend;
+});
 
-    return Klass; 
-};
-
-/**
- * @desc Permite especificar un contexto concreto a una función dada
- * @param {object} ctx Contexto en que desea asociar a la función
- * @param {function} fn Función a la que le vamos a realizar el bind
- * @return {function} nueva función asociada al contexto dado.
- */    
-MM.Class.bind = function (ctx, fn) {
-    return function() {
-        return fn.apply(ctx, arguments); 
-    };
-};
-
-if ( typeof module !== 'undefined' ) {
-    module.exports = MM.Class;
-}
 ;/**
  * @file mensaje.js Librería para imprimir mensajes de texto. Es la base para
  *                  el resto de nodos existentes en el MM.
@@ -1662,353 +1488,156 @@ MM.Mensaje = MM.Class.extend(/** @lends MM.Mensaje.prototype */{
 });
 
 ;/**
- * @File mm.js Implementación del MM
+ * @file arista.js Implementación de arsitas 
  * @author José Luis Molina Soria
- * @version 20130520
+ * @version 20130512
  */
-MM = function (mm) {
 
-    /** 
-     * @prop {number} idNodos Identificador de nodos. Cada vez que se crea un nodo se 
-     *                        le asigna un nuevo identificador
-     * @memberof MM
-     * @inner
+/**
+ * @class MM.Arista
+ * @classdesc Render de arista. Capaz de dibujar una arista entre dos nodos
+ * @constructor MM.Arista
+ * @param {layer}  capa            capa donde pintar la arista
+ * @param {Object} elementoOrigen  elemento del MM desde donde debe partir la arista
+ * @param {Object} elementoDestino elemento del MM hasta donde debe llegar la arista
+ * @param {int}    tamano          grosor de la arista
+ */
+MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
+    init: function (capa, elementoOrigen, elementoDestino, tamano) {
+        this.capa = capa;
+        this.elementoOrigen = elementoOrigen;
+        this.elementoDestino = elementoDestino;
+        this.context = capa.getCanvas().getContext();
+        this.tamano = tamano;
+        this.render();
+    },
+
+    /**
+     * @desc Calcula los puntos necesarios para pintar la arista
      */
-    var idNodos = 1;
+    calcularPuntos: function () {
+        var nodoOrigen = this.elementoOrigen.nodo;
+        var nodoDestino = this.elementoDestino.nodo;
+        this.x1 = (nodoOrigen.getX() + nodoOrigen.getWidth() - 5);
+        this.y1 = (nodoOrigen.getY() + nodoOrigen.getHeight() / 2);
+        this.x2 = (nodoDestino.getX() + 5); 
+        this.y2 = (nodoDestino.getY() + nodoDestino.getHeight() / 2);
+        this.c1x = this.x1 + (this.x2-this.x1)/2;
+        this.c1y = this.y1;
+        this.c2x = this.x1 + (this.x2-this.x1)/2;
+        this.c2y = this.y2;
+        nodoOrigen = nodoDestino = null;
+    },
 
-    /** 
-     * @prop {MM.UndoManager} undoManager es el manejador de acciones hacer/deshacer (undo/redo)
-     * @memberof MM
-     * @inner
-     */
-    mm.undoManager = new MM.UndoManager(10);
+    /**
+     * @desc Función de pintado de la arista en función de los elementos pasados
+     */   
+    render: function () {
+        this.calcularPuntos();
+        this.beizer = new Kinetic.Beizer({
+            stroke: '#555',
+            strokeWidth: this.tamano,
+            puntos : { start : {x: this.x1, y: this.y1},
+                       end: {x: this.x2, y: this.y2},
+                       control1: {x: this.c1x, y: this.c1y},
+                       control2: {x: this.c2x, y: this.c2y}}
+        });
+        this.capa.add(this.beizer);
+    },
 
-    /** 
-     * @prop {MM.PubSub} eventos Gestor de eventos del Mapa mental
-     * @memberof MM
-     * @inner
-     */
-    mm.eventos = new MM.PubSub();
-
-    /** 
-     * @desc Sobreescritura del método "equal" del MM.Arbol. La comparación se realiza a 
-     *       nivel de identificador.  
-     * @method elementEqual 
-     * @memberof MM
-     * @inner
-     */
-    MM.Arbol.prototype.elementEqual = function ( id ) {
-        return id === this.elemento.id;
-    };
-
-    /** 
-     * @desc Genera un nuevo Mapa mental. Eliminar el Mapa mental existente hasta el momento.
-     *       Resetea el contador de nodos. 
-     * @param {String} ideaCentral Texto de la idea central. Por cefecto 'Idea Central'
-     * @method nuevo
-     * @memberof MM
-     * @instance
-     */
-    mm.nuevo = function ( ideaCentral ) {
-        if ( this.arbol ) {
-
-            this.ponerFoco ( this.arbol );
-
-            for ( var i = 0; i < this.arbol.hijos.length; i ) {
-                this.next();
-                this.borrar();
-            }
-
-            this.eventos.on ( 'nuevo/pre' );
-        }
-
-        idNodos = 1;
-
-        /** 
-         * @prop {MM.Arbol} arbol Arbol-eneario que representa al Mapa mental.
-         * @memberof MM
-         * @inner
-         */
-        this.arbol = this.foco = new MM.Arbol(
-            { id: idNodos++,
-              texto: ideaCentral || 'Idea Central',
-              plegado: false,
-              nodo: null }
-        );
-        this.ponerFoco ( this.arbol );
-        this.eventos.on ( 'nuevo/post' );
-    };
-
-    /** 
-     * @desc Añade un nodo al Mapa mental. Se añade un hijo al elemento activo (que tiene el foco).
-     *       Todos los nodos del árbol tiene como elemento un id, texto y un nodo (instancia de 
-     *       MM.NodoSimple o MM.Globo. Es Chainable, esto nos permite realizar operaciones encadenadas.
-     *       Por ejemplo, MM.add('Abuelo').add('Padre').add('Hijo').add('Nieto');
-     * @param {string} texto Texto del nuevo nodo. Valor por defecto "Nuevo".
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method add
-     * @memberof MM
-     * @instance
-     */
-    mm.add = function ( texto ) {
-        texto = texto || "Nueva idea";
-        var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, plegado: false,  nodo: null } );
-        this.foco.hijos.push ( nuevo );
-        this.undoManager.add(new MM.comandos.Insertar(this.foco.elemento.id, nuevo.elemento.id, texto) );
-        this.eventos.on ( 'add', this.foco, nuevo );
-        nuevo = null;
-    }.chain();
-
-    /** 
-     * @desc Borra el nodo que tiene el foco. Implementael patrón Chainable.
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method borrar
-     * @memberof MM
-     * @instance
-     */
-    mm.borrar = function () {
-        if ( this.arbol === this.foco ) {
-            this.nuevo();
-            return;
-        }
-
-        var borrar = this.foco;
-        this.padre();
-        this.arbol.borrar ( borrar.elemento.id );
-        this.undoManager.add(new MM.comandos.Borrar(this.foco, borrar));
-        this.eventos.on ( 'borrar', this.foco, borrar );
-        borrar = null;
-    }.chain();
-
-    /** 
-     * @desc Cambia el foco a primer hijo del nodo que tiene actualmente el foco.
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method next
-     * @memberof MM
-     * @instance
-     */
-    mm.next = function () {
-        if ( this.foco.ordenNodo() !== 0 ) {
-            this.eventos.on ( 'next', this.foco, this.foco.hijos[0] );
-            this.ponerFoco ( this.foco.hijos[0] );
-        }
-    }.chain();
-
-    /** 
-     * @desc Cambia el foco al padre del nodo activo.
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method padre
-     * @memberof MM
-     * @instance
-     */
-    mm.padre = function () {
-        if ( !this.foco ) { return; }
-        var padre = this.arbol.padreDe ( this.foco.elemento.id );
-        if ( padre !== null ) {
-            this.eventos.on ( 'padre', this.foco, padre );
-            this.ponerFoco ( padre );
-        }
-        padre = null;
-    }.chain();
-
-    /** 
-     * @desc Cambia el foco al siguiente hermano del nodo actual. Si llega al último 
-     *       siguiente hermano se entiende que es el primero
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method nextHermano
-     * @memberof MM
-     * @instance
-     */
-    mm.nextHermano = function () {
-        var padre = this.arbol.padreDe ( this.foco.elemento.id );
-
-        if ( padre === null ) { return; }
-
-        for ( var i = 0; i < padre.hijos.length; i++ ) {
-            if ( padre.hijos[i].elementEqual ( this.foco.elemento.id ) ) {
-                if ( i === padre.hijos.length - 1 ) {
-                    this.eventos.on ( 'nextHermano', this.foco, padre.hijos[0] );
-                    this.ponerFoco ( padre.hijos[0] );
-                } else {
-                    this.eventos.on ( 'nextHermano', this.foco, padre.hijos[i + 1] );
-                    this.ponerFoco ( padre.hijos[i + 1] );
-                }
-                break;
-            }
-        }
-        padre = null;
-    }.chain();
-
-    /** 
-     * @desc Cambia el foco al hermano anterior del nodo actual. Si llega al primero
-     *       en la siguiente llamada pasará al último de los hermanos. 
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method prevHermano
-     * @memberof MM
-     * @instance
-     */
-    mm.prevHermano = function () {
-        var padre = this.arbol.padreDe ( this.foco.elemento.id );
-
-        if ( padre === null ) { return; }
-
-        for ( var i = 0; i < padre.hijos.length; i++ ) {
-            if ( padre.hijos[i].elementEqual ( this.foco.elemento.id ) ) { 
-                if ( i === 0 ) {
-                    this.eventos.on ( 'prevHermano', this.foco, padre.hijos[padre.hijos.length - 1] );
-                    this.ponerFoco ( padre.hijos[padre.hijos.length - 1] );
-                } else {
-                    this.eventos.on ( 'prevHermano', this.foco, padre.hijos[i - 1] );
-                    this.ponerFoco ( padre.hijos[i - 1] );
-                }
-                return;
-            }
-        }
-        padre = null;
-    }.chain();
-
-    /** 
-     * @desc Cambia el foco al último hermano
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method lastHermano
-     * @memberof MM
-     * @instance
-     */
-    mm.lastHermano = function () {
-        var padre = this.arbol.padreDe ( this.foco.elemento.id );
-
-        if ( padre === null ) { return; }
-
-        if ( padre.hijos.length >= 1 ) {
-            this.ponerFoco ( padre.hijos[padre.hijos.length - 1] );
-        }
-        padre = null;
-    }.chain();
-
-
-    /** 
-     * @desc Pasa el foco al elemento raiz (Idea central).
-     * @return {MM} Al ser Chainable devuelve this (MM).
-     * @method root
-     * @memberof MM
-     * @instance
-     */
-    mm.root = function () {
-        this.eventos.on ( 'root', this.foco, this.arbol );
-        this.ponerFoco ( this.arbol );
-    }.chain();
-
-
-    /** 
-     * @desc Pone el foco en nodo (subárbol) dado.
-     * @param {MM.Arbol} arbol Subárbol (nodo) donde poner el foco.
-     * @method ponerFoco
-     * @memberof MM
-     * @instance
-     */
-    mm.ponerFoco = function ( arbol ) {
-        this.eventos.on ( 'ponerFoco', this.foco, arbol );
-        this.foco = arbol;
-    };
-
-    mm.nuevo( "Idea Central" );
-
-    /** 
-     * @prop {MM.Render} render Instancia de MM.Render. El valor por defecto es null
-     *                          y se crea en el momento de renderizar el árbol.
-     * @memberof MM
-     * @inner
-     */
-    mm.render = null;
-
-    /** 
-     * @desc Realiza el renderizado del Mapa mental. El renderizado se realiza ajustando el escenario al contenedor.
-     *       Una vez llamada a esta función queda establecido el valor de la propiedad MM.render.
-     * @param {Element}                contenedor  Elemento del árbol DOM que contendrá el Mapa mental.
-     * @param {MM.NodoSimple|MM.Globo} claseNodo   Clase de renderizado de nodo 
-     * @param {MM.Arista|MM.Rama}      claseArista Clase de renderizado de aristas
-     * @method renderizar
-     * @memberof MM
-     * @instance
-     */
-    mm.renderizar = function ( contenedor, claseNodo, claseArista ) {
-        mm.render = new MM.Render ( contenedor, claseNodo, claseArista );
-        mm.render.renderizar();
-    };
-
-    /** 
-     * @desc Marca el nodo actual (foco) como plegado, si no establa plegado o como 
-     *       desplegado si estaba plegado. 
-     * @param {Boolean} plegado Si es true fuerza el plegado y si es false el desplegado
-     * @method plegadoRama
-     * @memberof MM
-     * @instance
-     */
-    mm.plegarRama = function (plegado, undo) {
-        //   - PLEGADO:      Se pliega toda la herencia del nodo.
-        //   - DESPLEGADO:   Se despliega sólo el nodo en cuestión.
-
-        plegado = plegado || !this.foco.elemento.plegado;
-        this.foco.elemento.plegado = plegado;
-        var plegar = function (a) {
-            a.hijos.forEach(function (h) {
-                h.elemento.plegado = true;
-                plegar(h);
-            });
-        };
-        var desplegar = function (a) {
-            var aPlegado = a.elemento.plegado;
-            a.hijos.forEach(function (h) {
-                h.elemento.plegado = ( !aPlegado && h.esHoja() )?false:h.elemento.plegado;
-                desplegar(h);
-            });
-            aPlegado = null;
-        };
-
-        if ( plegado ) { 
-            plegar(this.foco);
+    redraw: function () {
+        if ( this.elementoOrigen.plegado ) {
+            this.beizer.setVisible(false);
         } else {
-            desplegar(this.foco);
+            this.calcularPuntos();
+            this.beizer.setVisible(true);
+            this.beizer.setPuntos({ start : {x: this.x1, y: this.y1},
+                                    end: {x: this.x2, y: this.y2},
+                                    control1: {x: this.c1x, y: this.c1y},
+                                    control2: {x: this.c2x, y: this.c2y} });
         }
-        this.render.dibujar();
-        if ( !undo ) { 
-            this.undoManager.add(new MM.comandos.Plegar(this.foco, plegado));
-        }
-    };
+        this.capa.draw();
+    },
 
-
-    /** 
-     * @desc Abre un cuadro de dialogo para seleccionar el fichero FreeMind que deseamos abrir. 
-     *       Lo carga y redendiza el nuevo Mapa mental una vez terminado la carga.
-     * @method cargarFreeMind
-     * @memberof MM
-     * @instance
+    /**
+     * @desc Destruye la arista.
      */
-    mm.cargarFreeMind = function () {
-        var importer = new MM.importar.FreeMind();
+    destroy : function () {
+        this.beizer.destroy();
+        delete this.beizer;
+        delete this.capa;
+        delete this.elementoOrigen;
+        delete this.elementoDestino;
+    }
 
-        var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
-            MM.render.desuscribrirEventos();
-        });
-        var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
-            MM.render.renderizar();
-        });
+    
+});
 
-        var input = MM.DOM.create('input', {
-            'type' : 'file',
-            'id'   : 'ficheros'
-        });
-        input.addEventListener("change", function(evt) {
-            if ( input.files.length !== 0 ) {
-                importer.cargar(input.files[0]);
-            }
-        }, false);
-        input.click();
 
-    };
+/**
+ * @class MM.Rama
+ * @classdesc Render de rama. Capaz de dibujar una arista de tipo rama entre dos nodos
+ * @constructor MM.Rama
+ * @param {layer}  capa            capa donde pintar la arista
+ * @param {Object} elementoOrigen  elemento del MM desde donde debe partir la arista
+ * @param {Object} elementoDestino elemento del MM hasta donde debe llegar la arista
+ * @param {int}    tamano          grosor de la arista
+ */
+MM.Rama = MM.Arista.extend(/** @lends MM.Rama.prototype */{
+    init: function (capa, elementoOrigen, elementoDestino, tamano) {
+        this._super(capa, elementoOrigen, elementoDestino, tamano);
+    },
 
-    return mm;
-}(MM);
+
+    /**
+     * @desc Cálculo de los puntos para poder pintar la Rama
+     */   
+    calcularPuntos: function () {
+        var nodoOrigen = this.elementoOrigen.nodo;
+        var nodoDestino = this.elementoDestino.nodo;
+        this.x1 = (nodoOrigen.getX() + MM.render.offset.x + nodoOrigen.getWidth()) 
+            * MM.render.getEscala();
+        this.y1 = (nodoOrigen.getY() + MM.render.offset.y + nodoOrigen.getHeight()) 
+            * MM.render.getEscala();
+        this.x2 = nodoDestino.getX() + MM.render.offset.x 
+            * MM.render.getEscala();
+        this.y2 = (nodoDestino.getY() + MM.render.offset.y + nodoDestino.getHeight()) 
+            * MM.render.getEscala();
+        this.x3 = (nodoDestino.getX() + MM.render.offset.x + nodoDestino.getWidth()) 
+            * MM.render.getEscala();
+        this.y3 = (nodoDestino.getY() + MM.render.offset.x + nodoDestino.getHeight()) 
+            * MM.render.getEscala();
+        this.c1x = this.x1 + (this.x2-this.x1)/2;
+        this.c1y = this.y1;
+        this.c2x = this.x1 + (this.x2-this.x1)/2;
+        this.c2y = this.y2;
+        nodoOrigen = nodoDestino = null;
+    },
+    
+    /**
+     * @desc Función de pintado de la rama
+     */   
+    render: function () {
+        var c = this.context;
+        this.calcularPuntos();
+
+        c.beginPath();
+        c.moveTo(this.x1, this.y1);
+        c.bezierCurveTo (this.c1x, this.c1y, this.c2x, this.c2y, this.x2, this.y2);
+        c.strokeStyle = this.elementoOrigen.nodo.color; 
+        c.lineWidth = this.tamano * MM.render.getEscala();
+        c.lineTo(this.x3, this.y3);
+        c.stroke();
+        c.beginPath();
+        c.moveTo(this.x2, this.y2);
+        c.strokeStyle = this.elementoDestino.nodo.color; 
+        c.lineWidth = this.tamano * MM.render.getEscala();
+        c.lineTo(this.x3, this.y3);
+        c.stroke();
+        c = null;
+    }
+});
+
 ;/**
  * @file nodo.js Librería para renderizar nodos del MM.
  * @author José Luis Molina Soria
@@ -2117,14 +1746,15 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             MM.render.contenedor.setAttribute('title', '');
         }));
 
-        this.triangle.on('click', MM.Class.bind ( this, function() {
+	var clickTriangulo = MM.Class.bind ( this, function(evt) {
             MM.render.contenedor.style.cursor = 'default';
             MM.render.contenedor.setAttribute('title', '');
-            //this.triangle.rotateDeg(180);
             MM.ponerFoco ( this.arbol );
             MM.plegarRama(!this.arbol.elemento.plegado);
-        }));
-
+	    evt.cancelBubble = true;
+        });
+        this.triangle.on('click', clickTriangulo );
+	this.triangle.on('tap', clickTriangulo );
         this.line = new Kinetic.Line({
             points: [{x:0, y: this.kText.getHeight()},
                      {x:this.kText.getWidth(), y:this.kText.getHeight()}],
@@ -2142,9 +1772,13 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
 
         var bindEditar = MM.Class.bind(MM.render, MM.render.editar);
         var bindNOP = MM.Class.bind(this, this.nop);
-        var bindPonerFoco = MM.Class.bind(this, function() {MM.ponerFoco(this.arbol);});
-        this.group.on('click tab', bindPonerFoco);
-        this.group.on('dblclick dbltap', bindEditar);
+        var bindPonerFoco = MM.Class.bind(this, function(evt) {
+	    MM.ponerFoco(this.arbol);
+	});
+        this.group.on('click', bindPonerFoco);
+	this.group.on('tap', bindPonerFoco);
+        this.group.on('dblclick', bindEditar);
+	this.group.on('dbltap', bindEditar);
         // this.group.on('mouseout', bindNOP);
         // this.group.on('mousemove', bindNOP);
         // this.group.on('mousedown', bindNOP);
@@ -2402,163 +2036,142 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
 
 });
 ;/**
- * @file processable.js añade el patrón processable al sistema
+ * @file color.js Funciones y utiles para manejo de colores.
  * @author José Luis Molina Soria
- * @version 20130224
+ * @version 20130523
  */
 
-/**
- * @desc Implementación del patrón processable, mendiante la extensión del prototitpo de la función.
- * El patrón processable incorpora una función de pre y post procesado que se ejecutarán antes y después 
- * de la función extendida.
- * @return {function} función extendida
+MM.color = {};
+
+/** 
+ * @desc Función semialeatoria de colores en formato HSL. Esta función ha
+ *       sido ajustada para evitar colores molestos o demasiado claros/oscuros.
+ * @method randomHslColor 
+ * @return {Object} Objecto con los campos h, s y l 
+ * @memberof MM.color
+ * @static
  */
-Function.prototype.processable = function (prefn, postfn) {
-    var fn = this;
-    return function () {
-	var postRet;
-        if (prefn) {
-            prefn.apply(this, arguments);
+MM.color.randomHslColor = function () {
+    var rand = function (max, min) {
+        return parseInt(Math.random() * (max-min+1), 10) + min;
+    };
+
+    // h = Tonalidad 1-360;  s = saturación 30-100%;  l = brillo 20-50%
+    return { h: rand(1, 360), s: rand(30, 100), l:rand(20, 50) };
+};
+
+MM.color.addBrillo = function (hsl, offsetBrillo) {
+    offsetBrillo = offsetBrillo || 0;
+    return { h: hsl.h, s: hsl.s, l: hsl.l+offsetBrillo };
+};
+
+
+/** 
+ * @desc Calcula la cadena hsl en formato CSS
+ * @method hslToCSS
+ * @param {Object} hsl          Objecto con los campos h, s y l 
+ * @param {number} offsetBrillo Desplazamiento al brillo. 
+ * @return {string} Cadena CSS del color en formato HSL
+ * @memberof MM.color
+ * @static
+ */
+MM.color.hslToCSS = function ( hsl, offsetBrillo ) {
+    offsetBrillo = offsetBrillo || 0;
+    return 'hsl(' + Math.floor(hsl.h) + ',' + Math.floor(hsl.s) + '%,' + Math.floor(hsl.l + offsetBrillo) + '%)';
+};
+
+MM.color.rgbToCSS = function ( rgb ) {
+    return 'rgb(' + Math.floor(rgb.r) + ', ' + Math.floor(rgb.g) + ', ' + Math.floor(rgb.b) + ')';
+};
+
+MM.color.rgbToHexCSS = function ( rgb ) {
+    
+    return '#' + MM.color.intToHex (rgb.r) + MM.color.intToHex (rgb.g) + MM.color.intToHex (rgb.b);
+};
+
+
+MM.color.intToHex = function ( valor, longitud ) {
+    longitud = longitud || 2;
+    var hex = Math.floor(valor).toString(16);
+    while ( hex.length < longitud ) { hex = '0' + hex; }
+    return hex;
+};
+
+
+MM.color.hue = function  ( rgb, maximum, range ) {
+    var hue = 0;
+    if (range !== 0) {
+        switch (maximum) {
+        case rgb.r:
+            hue = (rgb.g - rgb.b) / range * 60;
+            if (hue < 0) { hue += 360; }
+            break;
+        case rgb.g:
+          hue = (rgb.b - rgb.r) / range * 60 + 120;
+          break;
+        case rgb.b:
+          hue = (rgb.r - rgb.g) / range * 60 + 240;
+          break;
         }
-        var ret = fn.apply(this, arguments);    
-        
-        if (postfn) {
-            postRet = postfn.apply(this, arguments);
-        }
-        return (postRet === undefined)? ret : postRet;
+    }
+    return hue;
+};
+
+MM.color.rgbToHsl = function ( rgb ) {
+    var maximum = Math.max(rgb.r, rgb.g, rgb.b);
+    var range   = maximum - Math.min(rgb.r, rgb.g, rgb.b);
+    var l = maximum / 255 - range / 510;
+    
+    return {
+        'h' : MM.color.hue(rgb, maximum, range),
+        's' : (range === 0 ? 0 : range / 2.55 / (l < 0.5 ? l * 2 : 2 - l * 2)),
+        'l' : 100 * l
     };
 };
 
-if ( typeof module !== 'undefined' ) {
-    module.exports = Function.prototype.procesable;
-}
 
+MM.color.hslToRgb = function ( hsl ) {
+    var rgb = {
+        'r' : hsl.l * 2.55,
+        'g' : hsl.l * 2.55,
+        'b' : hsl.l * 2.55
+    };
 
-;/**
- * @file properties.js para manejos de propiedades
- * @author José Luis Molina Soria
- * @version 20130224
- */
+    if (hsl.s !== 0) {
+        var p = hsl.l < 50
+                ? hsl.l * (1 + hsl.s / 100)
+                : hsl.l + hsl.s - hsl.l * hsl.s / 100;
+        var q = 2 * hsl.l - p;
+        
+        rgb = {
+            'r' : (hsl.h + 120) / 60 % 6,
+            'g' : hsl.h / 60,
+            'b' : (hsl.h + 240) / 60 % 6
+        };
 
-/**
- * Funciones de utilidad para el manejo de propiedades
- * @namespace MM.Properties
- */
-MM.Properties =  {};
-
-/**
- * @desc Toma dos conjuntos de propiedades y crea una nueva con los valores de la primera y la segunda
- * @param {object} propA conjunto de propiedades inicial
- * @param {object} propB conjunto de propiedades a agregar
- * @return {object} Unión de todas las propiedades
- */
-MM.Properties.add = function (propA, propB) {
-    var nProp = {};
-    for (var name in propA) {
-        nProp[name] = propA[name];
-    }
-    for (name in propB) {
-        nProp[name] = propB[name];
-    }
-    return nProp;
-};
-
-
-;/**
- * @file pubsub.js Implementación del patrón Publish/Subscribe
- * @author José Luis Molina Soria
- * @version 20130227
- */
-
-if ( typeof module !== 'undefined' ) {
-    var MM = require('./MindMapJS.js');
-    MM.Class = require('./klass.js');
-}
-
-/**
- * @class MM.PubSub
- * @classdesc Implementación del patrón Publish/Subscribe
- * @constructor MM.PubSub
- */
-MM.PubSub = MM.Class.extend(/** @lends MM.PubSub.prototype */{
-
-    eventos : {},
-
-    idSus : 1,
-
-    init : function () {
-	this.eventos = {};
-	this.idSus = 1;
-    },
-
-    /**
-     * @desc Realiza la notificación a los suscriptores de que se a producido
-     * una publicación o evento.
-     * @param evento {string}    nombre del evento o publicación a notificar
-     * @param args   {*}         argumentos para la función callback
-     * @return {boolean} Si el evento no es un nombre valido retorna false en
-     * otro caso retorna true
-     */
-    on : function( evento ) {
-        if (!this.eventos[evento]) {
-            return false;
-        }
-        var args = Array.prototype.slice.call(arguments, 1);
-        this.eventos[evento].forEach(function (evt){
-            evt.funcion.apply(evt.contexto, args);
-        });
-        args = null;
-
-        return true;
-    },
-
-    /**
-     * @desc Pemite la suscripción a una publicación o evento. Donde el parametro func es
-     * la función a ejecutar en el caso de que se produzca la notificación y contexto el
-     * contexto de ejecución para la función callback
-     * @param evento   {string}   nombre del evento o publicación en la que deseamos suscribirnos
-     * @param func     {function} función callback
-     * @param contexto {object}   contexto de ejecución de la función callback
-     * @return {null|number} null en caso de fallo o *idSus* el identificador de suscripción
-     */
-    suscribir : function( evento, func, contexto ) {
-        if ( !evento || !func ) {
-            return null;
-        }
-
-        if (!this.eventos[evento]) {
-            this.eventos[evento] = [];
-        }
-
-        contexto = contexto || this;
-        this.eventos[evento].push({ id : this.idSus, contexto: contexto, funcion: func });
-        return this.idSus++;
-    },
-
-    /**
-     * @desc realiza una dessuscripción a un evento o notificación
-     * @param id   {number} identificador de suscripción
-     * @return {null|number} null si no se ha podido realizar la dessuscripción
-     */
-    desSuscribir : function (id) {
-        for (var evento in this.eventos) {
-            if ( this.eventos[evento] ) {
-                for (var i = 0, len = this.eventos[evento].length; i < len; i++) {
-                    if (this.eventos[evento][i].id === id) {
-                        this.eventos[evento].splice(i, 1);
-                        return id;
-                    }
+        for (var key in rgb) {
+            if (rgb.hasOwnProperty(key)) {
+                if (rgb[key] < 1) {
+                    rgb[key] = q + (p - q) * rgb[key];
+                } else if (rgb[key] < 3) {
+                    rgb[key] = p;
+                } else if (rgb[key] < 4) {
+                    rgb[key] = q + (p - q) * (4 - rgb[key]);
+                } else {
+                    rgb[key] = q;
                 }
+                rgb[key] *= 2.55;
             }
         }
-        return null;
     }
-    
-});
+    return rgb;
+};
 
-if ( typeof module !== 'undefined' ) {
-    module.exports = MM.PubSub;
-}
+/**
+  var rgb = { r: 250, g: 235, b: 215 };
+  var hsl = { h: 34, s: 78, l: 91 };
+  
+*/
 ;/**
  * @file render.js Implementación del render del MM
  * @author José Luis Molina Soria
@@ -3090,284 +2703,6 @@ MM.Render = function() {
 }();
 
 ;/**
- * @file teclado.js Librería para el porcesado y control del teclado
- * @author José Luis Molina Soria
- * @version 20130508
- */
-
-if ( typeof module !== 'undefined' ) {
-    var MM = require('./MindMapJS.js');
-}
-
-/**
- * Espacio de nombre para el proceso y control del teclado 
- * @namespace MM.teclado
- * @property {MM.teclado.tecla}   tecla  - Funciones y constantes de tecla
- * @property {MM.teclado.atajos}  atajos - Manejador de atajos de teclado. P.E.: "Ctrl+Alt+i"
- */
-MM.teclado = {};
-
-
-/**
- * Espacio de nombre para funciones y constantes de teclas
- * @namespace MM.teclado.tecla
- */
-MM.teclado.tecla = {
-    // teclas de función
-    f1  : 112,
-    f2  : 113,
-    f3  : 114,
-    f4  : 115,
-    f5  : 116,
-    f6  : 117,
-    f7  : 118,
-    f8  : 119,
-    f9  : 120,
-    f10 : 121,
-    f11 : 122,
-    f12 : 123,
-    
-    // modificadores
-    shift : 16,
-    ctrl  : 17,
-    alt   : 18,
-    leftMeta : 91,
-    rightMeta : 92,
-    
-    // bloqueos
-    scrolllock : 145,
-    numlock : 144,
-    capslock : 20,
-    
-    // teclas de navegación y edición
-    pageup : 33,
-    pagedown : 34,
-    left : 37,
-    up : 38,
-    right :39,
-    down : 40,
-    ins : 45,
-    home : 36,
-    del : 46,
-    end : 35,
-    
-    // otras
-    backspace : 8,
-    tab : 9,
-    enter : 13,
-    esc : 27,
-    escape : 27,
-    space : 32
-};
-
-// Cada navegador tiene mapeado el teclado de forma diferente 
-// para ajustarse a esta excepciones utlizamos las siguiente
-MM.teclado.tecla.excepciones = {
-//  Firefox      Chrome      Safari     Teclado Numérico
-    171: '+',    187: '+',   221: '+',  107: '+',
-    173: '-',    189: '-',   191: '-',  109: '-', 
-                                         96: '0'
-};
-
-
-/**
- * @desc Manejador de teclado para el evento keyDown
- * @param {event} e Instancia de evento de teclado
- */
-MM.teclado.keyDown = function (e){
-    if ( !MM.teclado.atajos.activo ) {
-        return true;
-    }
-    
-    var evt = e ? e : window.event;
-    var key = window.Event ? evt.which : evt.keyCode;
-    var nombre = MM.teclado.tecla.nombre(key, evt);
-
-    if ( MM.teclado.tecla.esModificador(key) ) {
-        evt = key = nombre = null;
-        return true;
-    } else { 
-        var nombreAtajo = MM.teclado.atajos.calcular(nombre, evt);
-        var a = MM.teclado.atajos.definidos[nombreAtajo];
-        if ( a && a.activo ) { 
-            evt.preventDefault(); 
-            evt.stopPropagation();
-            MM.teclado.atajos.lanzar(nombreAtajo);
-            a = evt = key = nombre = nombreAtajo = null;
-            return false;
-        }
-        a = evt = key = nombre = nombreAtajo = null;
-        return true;
-    }
-    evt = key = nombre = null;
-    return true;
-};
-
-
-/**
- * @desc Dado un valor devuelve el nombre de la tecla
- * @param {integer} key valor númerico de una tecla
- * @return {string} nombre asociado a una tecla
- **/ 
-MM.teclado.tecla.nombre = function ( key ) {
-    
-    if ( this.excepciones[key]) {
-        return this.excepciones[key];
-    }
-
-    for (var name in this) {
-        if ( key === this[name] ) {
-            return name;
-        }
-    }
-
-    return String.fromCharCode(key);
-};
-    
-
-/**
- * @desc Dado un nombre nos devuelve su valor
- * @param {string} nombre Nombre de una tecla
- * @return {integer} valor asociado al nombre 
- **/ 
-MM.teclado.tecla.valor = function ( nombre ) {
-    return this[nombre];
-};
-
-/**
- * @desc Test para saber si una tecla es un modificador o no. Se trata de un 
- * modificador si la tecla es Ctrl o Alt o Shift o Meta
- * @param {integer} key Tecla a comprobar
- * @return {boolean} true si es un modificador y false en otro caso
- **/     
-MM.teclado.tecla.esModificador = function ( key ) {
-    return key === this.ctrl || key === this.alt || key === this.shift ||
-        key === this.leftMeta || key === this.rightMeta;
-};
-
-/**
- * @desc Comprueba si latecla es Ctrl
- * @param {integer} key Tecla a comprobar
- * @return {boolean} true si la tecla es Ctrl
- **/     
-MM.teclado.tecla.esControl = function ( key ) {
-    return key === this.ctrl;
-};
-
-/**
- * @desc Comprueba si la tecla es Alt
- * @param {integer} key Tecla a comprobar
- * @return {boolean} true si la tecla es Alt
- **/         
-MM.teclado.tecla.esAlt = function ( key ) {
-    return key === this.alt;
-};
-
-/**
- * @desc Comprueba si la una tecla es Shift (Mayúsculas)
- * @param {integer} key Tecla a comprobar
- * @return {boolean} true si la tecla es Shift (Mayúsculas)
- **/             
-MM.teclado.tecla.esShift = function ( key ) {
-    return key === this.shift;
-};
-
-/**
- * @desc Comprueba si la una tecla es Window
- * @param {integer} key Tecla a comprobar
- * @return {boolean} true si la tecla es Window
- **/                 
-MM.teclado.tecla.esMeta = function ( key ) {
-    return key === this.leftMeta || key === this.rightMeta;
-};
-
-/**
- * Espacio de nombre manejos de atajos de teclado. P.E.: "Ctrl+Alt+i"
- * @namespace MM.teclado.atajos
- */
-MM.teclado.atajos = {
-    activo : true,
-    definidos : {},
-    ctrl : false,
-    shift : false,
-    alt : false,
-    window : false
-};
-
-/**
- * @desc Añade una definición de atajo de teclado
- * @param {string} atajo Nombre del atajo de teclado a añadir al control de atajos
- * @param {function} f Función a ejecutar cuando se de el atajo
- **/                 
-MM.teclado.atajos.add = function ( atajo, f, contexto ) {
-    this.definidos[atajo] = { funcion : f, 
-                              contexto : contexto || this, 
-                              activo : true 
-                            };
-};
-
-/**
- * @desc Calcula si existe una atajo para el estado actual de los modficiadores y una tecla dada
- * @param {string} nombre Nombre de tecla pulsada
- * @param {object} evt Evento de teclado
- * @return {string | null} Nombre del atajo de teclado o null si no existe
- **/                 
-MM.teclado.atajos.calcular = function ( nombre, evt ) {
-
-    var reKey = new RegExp("\\+" + nombre + "$", "i" );
-    var reCtrl = /ctrl\+/i;
-    var reAlt = /alt\+/i;
-    var reShift = /shift\+/i;
-    var reWindow = /meta\+/i;
-    
-    for (var name in this.definidos) {
-        if ( nombre === name ) { return name; }
-        if( reKey.test(name) && 
-            ( evt.ctrlKey?reCtrl.test(name):!reCtrl.test(name)) && 
-            ( (evt.altKey || evt.altGraphKey)?reAlt.test(name):!reAlt.test(name)) && 
-            ( evt.shiftKey?reShift.test(name):!reShift.test(name)) && 
-            ( evt.metaKey?reWindow.test(name):!reWindow.test(name)) ) {
-            return name;
-        }
-    }
-    reKey = reCtrl = reAlt = reShift = reWindow = null;
-    return null;
-};
-
-/**
- * @desc Lanza la función asociada al atajo de teclado
- * @param {string} atajo Nombre del atajo de teclado
- **/                 
-MM.teclado.atajos.lanzar = function (atajo) {
-    var a = this.definidos[atajo];
-    if ( a ) {
-        a.funcion.apply(a.contexto, []);
-    }
-    a = null;
-};
-
-/**
- * @desc Lanza la función asociada al atajo de teclado
- * @param {string} atajo Nombre del atajo de teclado
- **/                 
-MM.teclado.atajos.activar = function (atajo, valor) {
-    var a = this.definidos[atajo];
-    if ( a ) {
-        a.activo = valor;
-    }
-    a = null;
-};
-
-
-if ( typeof module !== 'undefined' ) {
-    module.exports = MM.teclado;
-}
-
-if ( window ) {
-    window.addEventListener ("keydown", MM.teclado.keyDown, true);
-}
-
-;/**
  * @file undoManager.js Implementación de un gestor de comandos hacer y deshacer
  * @author José Luis Molina Soria
  * @version 20130620
@@ -3592,3 +2927,728 @@ MM.UndoManager.ComandoHacerDeshacer = MM.Class.extend(
 if ( typeof module !== 'undefined' ) {
     module.exports.UndoManager = MM.UndoManager;
 }
+;MM.comandos = {};
+
+MM.comandos.Insertar=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function ( idPadre, idHijo, texto ) {
+        this._super('Añadir nuevo hijo ' + texto, 
+                    function () {
+                        var p = MM.arbol.buscar(idPadre);
+                        var h = new MM.Arbol ( { id: idHijo, texto: texto, nodo: null } );
+                        MM.ponerFoco(p);
+                        p.hijos.push ( h );
+                        MM.eventos.on ( 'add', p, h );
+                        p = h = null;
+                    },
+                    function () {
+                        var p = MM.arbol.buscar(idPadre);
+                        var h = MM.arbol.buscar(idHijo);
+                        MM.ponerFoco ( p );
+                        MM.arbol.borrar ( idHijo );
+                        MM.eventos.on ( 'borrar', p, h );
+                        p = h = null;
+                    });
+    }
+});
+
+MM.comandos.Borrar=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function ( padre, hijo ) {
+        // generamos las funciones para crear una copia del subárbol.
+        var generador = function (elemento) {
+            return new MM.Arbol( { id: elemento.id, texto: elemento.texto, nodo : null } );
+        };
+        var operador = function ( p, h ) {
+            p.hijos.push(h);
+        };
+
+        var preRecorrido = function (nodo) {
+            MM.render.repartoEspacio(nodo);
+        };
+        
+        var postRecorrido = function (nodo) {
+            var elemento = nodo.elemento;
+            nodo.hijos.forEach(function (hijo) {
+                if ( MM.render.buscarArista(nodo, hijo) === null ) {
+                    var arista = new MM.render.Arista(MM.render.capaAristas, elemento, hijo.elemento, '3');
+                    MM.render.aristas.push(arista);
+                    arista = null;
+                }
+            });
+            elemento = null;
+        };
+        
+        var idPadre = padre.elemento.id;
+        var subarbol = hijo.generalPreOrden(generador, operador);
+        this._super('Borrar ' + subarbol.elemento.texto, 
+                    function () {
+                        var padre = MM.arbol.buscar(idPadre);
+                        MM.ponerFoco ( padre );
+                        var hijo = MM.arbol.borrar ( subarbol.elemento.id );
+                        MM.eventos.on ( 'borrar', padre, hijo );
+                        padre = hijo = null;
+                    },
+                    function () {
+                        var padre = MM.arbol.buscar(idPadre);
+                        MM.ponerFoco(padre);
+                        var hijo = subarbol.generalPreOrden(generador, operador);
+                        padre.hijos.push ( hijo );
+                        if ( MM.render )  {
+                            var idSusPre = padre.suscribir('preOrden', preRecorrido);
+                            var idSusPost = padre.suscribir('postPreOrden', postRecorrido);
+                            padre.preOrden();
+                            padre.desSuscribir(idSusPre);
+                            padre.desSuscribir(idSusPost);
+                            idSusPre = idSusPost = null;
+                            MM.render.renderAristas();
+                            MM.render.capaNodos.draw();
+                        }
+                        padre = hijo = null;
+                    });
+    }
+});
+
+// TODO pendiente
+MM.comandos.Nuevo=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function ( arbolOriginal ) {
+        this._super('nuevo', 
+                    function () {
+                        // crear un nuevo árbol
+                    },
+                    function () {
+                        // restaurar el árbol anterior
+                    });
+    }
+});
+
+MM.comandos.Editar=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function  ( id, original, nuevo) {
+        this._super('Editar ' + original, 
+                    function () { 
+                        var e = MM.arbol.buscar(id);
+                        e.elemento.texto = nuevo;
+                        if ( e.elemento.nodo ) {
+                            e.elemento.nodo.setText(nuevo);
+			}
+                        e = null;
+                    },
+                    function () {
+                        var e = MM.arbol.buscar(id);
+                        e.elemento.texto = original;
+                        e.elemento.nodo.setText(original);
+                        e = null;
+                    });
+    }
+});
+
+MM.comandos.Zoom=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function (anterior, nuevo) {
+        this._super('Zoom', 
+                    function () { 
+                        MM.render.setEscala(nuevo);
+                    },
+                    function () {
+                        MM.render.setEscala(anterior);
+                    });
+    }
+});
+
+MM.comandos.Plegar=MM.UndoManager.ComandoHacerDeshacer.extend({
+    init: function (arbol, p) {
+        this._super('Plegar', 
+                    function () { 
+                        MM.ponerFoco(arbol);
+                        MM.plegarRama(p, true);
+                    },
+                    function () {
+                        MM.ponerFoco(arbol);
+                        MM.plegarRama(!p, true);
+                    });
+    }
+});
+
+
+;/**
+ * @File mm.js Implementación del MM
+ * @author José Luis Molina Soria
+ * @version 20130520
+ */
+MM = function (mm) {
+
+    /** 
+     * @prop {number} idNodos Identificador de nodos. Cada vez que se crea un nodo se 
+     *                        le asigna un nuevo identificador
+     * @memberof MM
+     * @inner
+     */
+    var idNodos = 1;
+
+    /** 
+     * @prop {MM.UndoManager} undoManager es el manejador de acciones hacer/deshacer (undo/redo)
+     * @memberof MM
+     * @inner
+     */
+    mm.undoManager = new MM.UndoManager(10);
+
+    /** 
+     * @prop {MM.PubSub} eventos Gestor de eventos del Mapa mental
+     * @memberof MM
+     * @inner
+     */
+    mm.eventos = new MM.PubSub();
+
+    /** 
+     * @desc Sobreescritura del método "equal" del MM.Arbol. La comparación se realiza a 
+     *       nivel de identificador.  
+     * @method elementEqual 
+     * @memberof MM
+     * @inner
+     */
+    MM.Arbol.prototype.elementEqual = function ( id ) {
+        return id === this.elemento.id;
+    };
+
+    /** 
+     * @desc Genera un nuevo Mapa mental. Eliminar el Mapa mental existente hasta el momento.
+     *       Resetea el contador de nodos. 
+     * @param {String} ideaCentral Texto de la idea central. Por cefecto 'Idea Central'
+     * @method nuevo
+     * @memberof MM
+     * @instance
+     */
+    mm.nuevo = function ( ideaCentral ) {
+        if ( this.arbol ) {
+
+            this.ponerFoco ( this.arbol );
+
+            for ( var i = 0; i < this.arbol.hijos.length; i ) {
+                this.next();
+                this.borrar();
+            }
+
+            this.eventos.on ( 'nuevo/pre' );
+        }
+
+        idNodos = 1;
+
+        /** 
+         * @prop {MM.Arbol} arbol Arbol-eneario que representa al Mapa mental.
+         * @memberof MM
+         * @inner
+         */
+        this.arbol = this.foco = new MM.Arbol(
+            { id: idNodos++,
+              texto: ideaCentral || 'Idea Central',
+              plegado: false,
+              nodo: null }
+        );
+        this.ponerFoco ( this.arbol );
+        this.eventos.on ( 'nuevo/post' );
+    }.chain();
+
+    /** 
+     * @desc Añade un nodo al Mapa mental. Se añade un hijo al elemento activo (que tiene el foco).
+     *       Todos los nodos del árbol tiene como elemento un id, texto y un nodo (instancia de 
+     *       MM.NodoSimple o MM.Globo. Es Chainable, esto nos permite realizar operaciones encadenadas.
+     *       Por ejemplo, MM.add('Abuelo').add('Padre').add('Hijo').add('Nieto');
+     * @param {string} texto Texto del nuevo nodo. Valor por defecto "Nuevo".
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method add
+     * @memberof MM
+     * @instance
+     */
+    mm.add = function ( texto ) {
+        texto = texto || "Nueva idea";
+        var nuevo = new MM.Arbol ( { id: idNodos++, texto: texto, plegado: false,  nodo: null } );
+        this.foco.hijos.push ( nuevo );
+        this.undoManager.add(new MM.comandos.Insertar(this.foco.elemento.id, nuevo.elemento.id, texto) );
+        this.eventos.on ( 'add', this.foco, nuevo );
+        nuevo = null;
+    }.chain();
+
+    /** 
+     * @desc Borra el nodo que tiene el foco. Implementael patrón Chainable.
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method borrar
+     * @memberof MM
+     * @instance
+     */
+    mm.borrar = function () {
+        if ( this.arbol === this.foco ) {
+            this.nuevo();
+            return;
+        }
+
+        var borrar = this.foco;
+        this.padre();
+        this.arbol.borrar ( borrar.elemento.id );
+        this.undoManager.add(new MM.comandos.Borrar(this.foco, borrar));
+        this.eventos.on ( 'borrar', this.foco, borrar );
+        borrar = null;
+    }.chain();
+
+    /** 
+     * @desc Cambia el foco a primer hijo del nodo que tiene actualmente el foco.
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method next
+     * @memberof MM
+     * @instance
+     */
+    mm.next = function () {
+        if ( this.foco.ordenNodo() !== 0 ) {
+            this.eventos.on ( 'next', this.foco, this.foco.hijos[0] );
+            this.ponerFoco ( this.foco.hijos[0] );
+        }
+    }.chain();
+
+    /** 
+     * @desc Cambia el foco al padre del nodo activo.
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method padre
+     * @memberof MM
+     * @instance
+     */
+    mm.padre = function () {
+        if ( !this.foco ) { return; }
+        var padre = this.arbol.padreDe ( this.foco.elemento.id );
+        if ( padre !== null ) {
+            this.eventos.on ( 'padre', this.foco, padre );
+            this.ponerFoco ( padre );
+        }
+        padre = null;
+    }.chain();
+
+    /** 
+     * @desc Cambia el foco al siguiente hermano del nodo actual. Si llega al último 
+     *       siguiente hermano se entiende que es el primero
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method nextHermano
+     * @memberof MM
+     * @instance
+     */
+    mm.nextHermano = function () {
+        var padre = this.arbol.padreDe ( this.foco.elemento.id );
+
+        if ( padre === null ) { return; }
+
+        for ( var i = 0; i < padre.hijos.length; i++ ) {
+            if ( padre.hijos[i].elementEqual ( this.foco.elemento.id ) ) {
+                if ( i === padre.hijos.length - 1 ) {
+                    this.eventos.on ( 'nextHermano', this.foco, padre.hijos[0] );
+                    this.ponerFoco ( padre.hijos[0] );
+                } else {
+                    this.eventos.on ( 'nextHermano', this.foco, padre.hijos[i + 1] );
+                    this.ponerFoco ( padre.hijos[i + 1] );
+                }
+                break;
+            }
+        }
+        padre = null;
+    }.chain();
+
+    /** 
+     * @desc Cambia el foco al hermano anterior del nodo actual. Si llega al primero
+     *       en la siguiente llamada pasará al último de los hermanos. 
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method prevHermano
+     * @memberof MM
+     * @instance
+     */
+    mm.prevHermano = function () {
+        var padre = this.arbol.padreDe ( this.foco.elemento.id );
+
+        if ( padre === null ) { return; }
+
+        for ( var i = 0; i < padre.hijos.length; i++ ) {
+            if ( padre.hijos[i].elementEqual ( this.foco.elemento.id ) ) { 
+                if ( i === 0 ) {
+                    this.eventos.on ( 'prevHermano', this.foco, padre.hijos[padre.hijos.length - 1] );
+                    this.ponerFoco ( padre.hijos[padre.hijos.length - 1] );
+                } else {
+                    this.eventos.on ( 'prevHermano', this.foco, padre.hijos[i - 1] );
+                    this.ponerFoco ( padre.hijos[i - 1] );
+                }
+                return;
+            }
+        }
+        padre = null;
+    }.chain();
+
+    /** 
+     * @desc Cambia el foco al último hermano
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method lastHermano
+     * @memberof MM
+     * @instance
+     */
+    mm.lastHermano = function () {
+        var padre = this.arbol.padreDe ( this.foco.elemento.id );
+
+        if ( padre === null ) { return; }
+
+        if ( padre.hijos.length >= 1 ) {
+            this.ponerFoco ( padre.hijos[padre.hijos.length - 1] );
+        }
+        padre = null;
+    }.chain();
+
+
+    /** 
+     * @desc Pasa el foco al elemento raiz (Idea central).
+     * @return {MM} Al ser Chainable devuelve this (MM).
+     * @method root
+     * @memberof MM
+     * @instance
+     */
+    mm.root = function () {
+        this.eventos.on ( 'root', this.foco, this.arbol );
+        this.ponerFoco ( this.arbol );
+    }.chain();
+
+
+    /** 
+     * @desc Pone el foco en nodo (subárbol) dado.
+     * @param {MM.Arbol} arbol Subárbol (nodo) donde poner el foco.
+     * @method ponerFoco
+     * @memberof MM
+     * @instance
+     */
+    mm.ponerFoco = function ( arbol ) {
+        this.eventos.on ( 'ponerFoco', this.foco, arbol );
+        this.foco = arbol;
+    };
+
+    mm.nuevo( "Idea Central" );
+
+    /** 
+     * @prop {MM.Render} render Instancia de MM.Render. El valor por defecto es null
+     *                          y se crea en el momento de renderizar el árbol.
+     * @memberof MM
+     * @inner
+     */
+    mm.render = null;
+
+    /** 
+     * @desc Realiza el renderizado del Mapa mental. El renderizado se realiza ajustando el escenario al contenedor.
+     *       Una vez llamada a esta función queda establecido el valor de la propiedad MM.render.
+     * @param {Element}                contenedor  Elemento del árbol DOM que contendrá el Mapa mental.
+     * @param {MM.NodoSimple|MM.Globo} claseNodo   Clase de renderizado de nodo 
+     * @param {MM.Arista|MM.Rama}      claseArista Clase de renderizado de aristas
+     * @method renderizar
+     * @memberof MM
+     * @instance
+     */
+    mm.renderizar = function ( contenedor, claseNodo, claseArista ) {
+        mm.render = new MM.Render ( contenedor, claseNodo, claseArista );
+        mm.render.renderizar();
+    };
+
+    /** 
+     * @desc Marca el nodo actual (foco) como plegado, si no establa plegado o como 
+     *       desplegado si estaba plegado. 
+     * @param {Boolean} plegado Si es true fuerza el plegado y si es false el desplegado
+     * @method plegadoRama
+     * @memberof MM
+     * @instance
+     */
+    mm.plegarRama = function (plegado, undo) {
+        //   - PLEGADO:      Se pliega toda la herencia del nodo.
+        //   - DESPLEGADO:   Se despliega sólo el nodo en cuestión.
+
+        plegado = plegado || !this.foco.elemento.plegado;
+        this.foco.elemento.plegado = plegado;
+        var plegar = function (a) {
+            a.hijos.forEach(function (h) {
+                h.elemento.plegado = true;
+                plegar(h);
+            });
+        };
+        var desplegar = function (a) {
+            var aPlegado = a.elemento.plegado;
+            a.hijos.forEach(function (h) {
+                h.elemento.plegado = ( !aPlegado && h.esHoja() )?false:h.elemento.plegado;
+                desplegar(h);
+            });
+            aPlegado = null;
+        };
+
+        if ( plegado ) { 
+            plegar(this.foco);
+        } else {
+            desplegar(this.foco);
+        }
+        this.render.dibujar();
+        if ( !undo ) { 
+            this.undoManager.add(new MM.comandos.Plegar(this.foco, plegado));
+        }
+    };
+
+
+    /** 
+     * @desc Abre un cuadro de dialogo para seleccionar el fichero FreeMind que deseamos abrir. 
+     *       Lo carga y redendiza el nuevo Mapa mental una vez terminado la carga.
+     * @method cargarFreeMind
+     * @memberof MM
+     * @instance
+     */
+    mm.cargarFreeMind = function () {
+        var importer = new MM.importar.FreeMind();
+
+        var susR = MM.importar.evento.suscribir("freeMind/raiz", function () {
+            MM.render.desuscribrirEventos();
+        });
+        var susP = MM.importar.evento.suscribir("freeMind/procesado", function () {
+            MM.render.renderizar();
+        });
+
+        var input = MM.DOM.create('input', {
+            'type' : 'file',
+            'id'   : 'ficheros'
+        });
+        input.addEventListener("change", function(evt) {
+            if ( input.files.length !== 0 ) {
+                importer.cargar(input.files[0]);
+            }
+        }, false);
+        input.click();
+
+    };
+
+    return mm;
+}(MM);
+;/**
+ * @file atajos.js Contiene la configuración de atajos de teclado del MM.
+ * @author José Luis Molina Soria
+ * @version 20130520
+ */
+
+/**
+ * @desc Define los atajos de teclado para el render
+ * @memberof MM
+ * @method definirAtajos
+ * @inner
+ */
+MM.definirAtajos = function() {
+
+    // teclado Zoom
+    MM.teclado.atajos.add('Ctrl++', MM.render.zoomIn, MM);    
+    MM.teclado.atajos.add('Ctrl+-', MM.render.zoomOut, MM);
+    MM.teclado.atajos.add('Ctrl+0', MM.render.zoomReset, MM);
+
+
+    var addEdicion = function () {
+        if ( MM.foco.elemento.plegado ) {
+            MM.plegarRama(false);
+        }
+        MM.add();
+        MM.render.editar();
+    };
+
+    // teclas de operaciones
+    MM.teclado.atajos.add('Shift+n', MM.nuevo, MM);
+    MM.teclado.atajos.add('ins', addEdicion, MM);
+    MM.teclado.atajos.add('Shift+Tab', addEdicion, MM);
+    MM.teclado.atajos.add('del', MM.borrar, MM);
+
+    // teclas de edición
+    MM.teclado.atajos.add('Shift+Enter', function() {
+        if ( MM.render.modoEdicion() ) {
+            MM.render.insertarSaltoDeLinea();
+        } else {
+            MM.padre().add();
+            MM.render.editar();
+        }
+    }, MM);
+    MM.teclado.atajos.add('enter', MM.render.editar, MM);
+    MM.teclado.atajos.add('esc', function() {
+        if ( MM.render.modoEdicion() ){
+            MM.render.editar();
+	}
+    }, MM);
+
+    // teclas de plegado / desplegado
+    MM.teclado.atajos.add('shift++', function() { MM.plegarRama(false); }, MM );
+    MM.teclado.atajos.add('shift+-', function() { MM.plegarRama(true); }, MM );
+
+    // teclas de navegación
+    MM.teclado.atajos.add('home', MM.root, MM);
+    MM.teclado.atajos.add('left', MM.padre, MM);
+    MM.teclado.atajos.add('right', MM.next, MM);
+    MM.teclado.atajos.add('up', MM.prevHermano, MM);
+    MM.teclado.atajos.add('down', MM.nextHermano, MM);
+    MM.teclado.atajos.add('tab', function() {
+        if ( MM.render.modoEdicion() ) {
+            MM.render.editar();
+        } else {
+            if ( MM.foco.esHoja() ) { // Si estamos en el último nivel añadimos un nuevo nodo hijo
+                addEdicion();
+            } if ( MM.foco.elemento.plegado ) {
+                MM.plegarRama(false);
+            } else { // navegamos por los niveles
+                MM.next();
+            }
+        }
+    }, MM);
+
+};
+
+/**
+ * @desc pone los atajos de tecla en modo de edición.
+ * @memberof MM
+ * @method atajosEnEdicion
+ * @inner
+ */
+MM.atajosEnEdicion = function(enEdicion) {    
+    MM.teclado.atajos.activar('Ctrl++', !enEdicion );
+    MM.teclado.atajos.activar('Ctrl+-', !enEdicion );
+    MM.teclado.atajos.activar('Ctrl+0', !enEdicion );
+    MM.teclado.atajos.activar('Shift+n', !enEdicion ); 
+    MM.teclado.atajos.activar('ins', !enEdicion );
+    MM.teclado.atajos.activar('Shift+Tab', !enEdicion );
+    MM.teclado.atajos.activar('del', !enEdicion );
+    MM.teclado.atajos.activar('shift++', !enEdicion );
+    MM.teclado.atajos.activar('shift+-', !enEdicion );
+    MM.teclado.atajos.activar('home', !enEdicion ); 
+    MM.teclado.atajos.activar('left' , !enEdicion );
+    MM.teclado.atajos.activar('right', !enEdicion ); 
+    MM.teclado.atajos.activar('up', !enEdicion ); 
+    MM.teclado.atajos.activar('down', !enEdicion );
+};
+;
+MM.demo = {};
+
+MM.demo.timerDeslizador = null;
+
+MM.demo.deslizar = function( id, ids ){
+    var min = "-500px";
+    var max = "25px";
+    var e = document.getElementById(id);
+    ids = ids || [];
+
+    if ( e.style.top === max ) {
+        e.style.top = min;
+    } else if ( e.style.top === min || e.style.top === "" ) {
+        ids.forEach ( function (item) {
+            document.getElementById(item).style.top = min;
+        });
+        e.style.top = max;
+        if ( MM.demo.timerDeslizador ) {
+            window.clearTimeout(MM.demo.timerDeslizador);
+        }
+        MM.demo.timerDeslizador = window.setTimeout(function(){if (e.style.top === max ) { e.style.top = min; } },5000);
+    }
+};
+
+
+MM.demo.ayuda = function () {
+    MM.demo.deslizar('ayuda', ['datosDelProyecto']);
+};
+
+MM.demo.datosDelProyecto = function (mostrar) {
+    MM.demo.deslizar('datosDelProyecto', ['ayuda']);
+};
+
+MM.demo.hacer = function(){
+    MM.undoManager.hacer();
+};
+
+MM.demo.deshacer = function(){
+    MM.undoManager.deshacer();
+};
+
+MM.demo.cambioUndoManager = function() {
+    var btnHacer = document.getElementById('btnHacer');
+    var btnDeshacer = document.getElementById('btnDeshacer');
+    var iconHacer = document.getElementById('iconHacer');
+    var iconDeshacer = document.getElementById('iconDeshacer');
+
+    if ( MM.undoManager.hacerNombre() === null ) {
+        btnHacer.setAttribute('disabled', 'disabled');
+        btnHacer.setAttribute('title', '');
+        iconHacer.setAttribute('style', 'color: #ddd;');
+    } else {
+        if ( btnHacer.hasAttribute('disabled') ) {
+            btnHacer.removeAttribute('disabled');
+            iconHacer.removeAttribute('style');
+        }
+        btnHacer.setAttribute('title', 'Hacer ' + MM.undoManager.hacerNombre());
+    }
+
+    if ( MM.undoManager.deshacerNombre() === null ) {
+        btnDeshacer.setAttribute('disabled', 'disabled');
+        btnDeshacer.setAttribute('title', '');
+        iconDeshacer.setAttribute('style', 'color: #ddd;');
+    } else {
+        if ( btnDeshacer.hasAttribute('disabled') ) {
+            btnDeshacer.removeAttribute('disabled');
+            iconDeshacer.removeAttribute('style');
+        }
+        btnDeshacer.setAttribute('title', 'Deshacer ' + MM.undoManager.deshacerNombre());
+    }
+
+    btnHacer = btnDeshacer = null;
+};
+
+
+window.onload = function () {
+    MM.nuevo('Como usar MindMapJS').add('Teclado').add('Ratón').add('Tablet');
+
+    // Teclado
+    MM.next();
+    MM.add('Zoom').add('Navegación').add('Plegado').add('Edición').add('Operaciones');
+    
+    // Teclado / Zoom
+    MM.next();
+    MM.add('<< Ctrl++ >> In').add('<< Ctrl+- >> Out').add('<< Ctrl+0 >> Reset');
+
+    // Teclado / Navegación
+    MM.nextHermano();
+    MM.add('<< Home >> Ir a Idea Central').add('<< Cursores >> Cambiar de nodo').add('<< Tab >> Siguiente nivel');
+
+    MM.nextHermano();
+    MM.add('<< Shift++ >>Desplegar').add('<< Shift+- >> Plegar');
+
+    // Teclado / Edición
+    MM.nextHermano();
+    MM.add('<< Enter >> Entrar/salir del modo de Edición').add('<< Escape >> Salir de Edición').add('<< Tab >> Salir del Edición');
+    
+    // Teclado / Operaciones
+    MM.nextHermano();
+    MM.add('<< Shift+n >> Nuevo Mapa Mental').add('<< Ins >> Nuevo hijo').add('<< Shift+Tab >> Nuevo hijo').add('<< del >> Borrar').add('<< Shift+Enter >> Nuevo hermano / Salto de línea');
+
+    // Ratón
+    MM.root().next().nextHermano().add('Click').add('Doble Click').add('Arrastrar');
+
+    // Ratón / Click
+    MM.next();
+    MM.add('Seleccionar Idea').add('Plegar/Desplegar');
+
+    // Ratón / Doble Click
+    MM.nextHermano();
+    MM.add('Editar');
+
+    // Ratón / Arrastrar
+    MM.nextHermano();
+    MM.add('Mover el escenario').add('Mover nodo');
+    
+
+    // Tablet
+    MM.root().next().nextHermano().nextHermano().add('Touch').add('Doble touch').add('Arrastrar');
+
+    // Tablet / Touch
+    MM.next();
+    MM.add('Seleccionar Idea');
+
+    // Tablet / Doble Touch
+    MM.nextHermano();
+    MM.add('Editar');
+
+    // Tablet / Arrastrar
+    MM.nextHermano();
+    MM.add('Mover el escenario').add('Mover nodo');
+
+    MM.renderizar('contenedorEditor');
+
+//    MM.renderizar('contenedorEditor', MM.NodoSimple, MM.Rama);
+    MM.undoManager.eventos.suscribir('cambio', MM.demo.cambioUndoManager );
+    MM.demo.cambioUndoManager();
+};

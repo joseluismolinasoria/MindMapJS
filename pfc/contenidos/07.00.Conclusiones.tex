@@ -12,3 +12,26 @@ expresamente cuáles son las partes totalmente originales del trabajo, mayores
 esfuerzos, expectativas, interés suscitado personalmente y sus posibilidades en la 
 
 comunidad científica.
+
+
+
+
+Ventajas del uso de MM.Class y desventajas.
+Consumo de memoria ya que se duplica los objetos vs mejor rendimiento por no tener que buscar en las
+propiedades y metodos en las cadenas de prototipos. 
+
+
+
+Si bien a menudo se considera uno de los puntos débiles de JavaScript, el modelo de herencia
+prototipado es de hecho más poderoso que el modelo clásico. Por ejemplo, es bastante trivial
+construir un modelo clásico a partir del modelo prototipado, mientras que al contrario es una tarea
+mucho más difícil.
+
+
+Búsqueda de propiedades
+
+Cuando se accede a las propiedades de un objeto, JavaScript recorre la cadena de prototipo hacia
+arriba hasta encontrar la propiedad con el nombre solicitado.
+
+Cuando se llega al final de la cadena - concretamente Object.prototype - y aún no se ha encontrado
+la propiedad especificada, se retornará un valor undefined en su lugar.
