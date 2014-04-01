@@ -307,7 +307,7 @@ MM = function (mm) {
         } else {
             desplegar(this.foco);
         }
-        this.render.dibujar();
+        this.render.dibujar(MM.arbol);
         if ( !undo ) { 
             this.undoManager.add(new MM.comandos.Plegar(this.foco, plegado));
         }

@@ -63,11 +63,11 @@ MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
             this.calcularPuntos();
             this.beizer.setVisible(true);
             this.beizer.setPuntos({ start : {x: this.x1, y: this.y1},
-                                    end: {x: this.x2, y: this.y2},
-                                    control1: {x: this.c1x, y: this.c1y},
-                                    control2: {x: this.c2x, y: this.c2y} });
+	    			    end: {x: this.x2, y: this.y2},
+	    			    control1: {x: this.c1x, y: this.c1y},
+	    			    control2: {x: this.c2x, y: this.c2y} });
         }
-        this.capa.draw();
+
     },
 
     /**

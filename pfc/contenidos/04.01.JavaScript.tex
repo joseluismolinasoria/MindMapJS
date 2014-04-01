@@ -507,9 +507,9 @@ He utilizado JsHint por que se trata de un estándar utilizado por multitud de d
 JSLint es un validador de código muy exhaustivo y da muchos falsos positivos. Además tiene muchos detractores, que alegan que los criterios evaluados son bastante subjetivos, sigue los criterios impuestos por Douglas Crockford\footnote{su creador}. Por todo ello, algunos desarrolladores crearon un fork llamado JSHint con el objeto de mejorar las mediciones que eran bastante arbitrarias en JSLint.
 
 \section{KineticJS}
-KineticJS es un framework gráfico sobre el canvas de HTML5, permitiendo anidamiento de nodos, capas, filtros, animaciones y manejo de eventos de forma, verdaderamente sencilla. 
+KineticJS es un framework gráfico sobre el canvas de HTML5, permitiendo anidamiento de nodos, capas, filtros, animaciones y manejo de eventos de forma muy sencilla. 
 
-La librería KineticJS en los alto de la jerarquía de Objetos al escenario que puede tener una o más capas. Cada capa se renderiza en dos canvas, uno para contener los elementos gráficos y otro oculto para agilizar y acelarar la detección de eventos. Cada capa puede contener cualquier elemento gráfico.
+La librería KineticJS tiene en lo alto de la jerarquía de Objetos al escenario que puede tener una o más capas. Cada capa se renderiza en dos canvas, uno para contener los elementos gráficos y otro oculto para agilizar y aclarar la detección de eventos. Cada capa puede contener cualquier elemento gráfico.
 
 \begin{figure}[tbph]
 \centering
@@ -523,19 +523,103 @@ La librería KineticJS en los alto de la jerarquía de Objetos al escenario que 
 Entre otras virtudes, lo que más me atrajo a la hora de utilizar KineticJS es:
 \begin{itemize}
 \item \textbf{Su rendimiento.} Presenta un muy buen rendimiento gráfico. 
-\item \textbf{Soporte para capas.} Manejo sencillo de capas permitiendo sobre poner capas.
-\item \textbf{API clara y extensible.} Presenta un código claro, orientado a objetos y eventos. Resulta sumamente sencillo extender la librería como se puede ver en el apartado "Extendiendo KineticJS.
+\item \textbf{Soporte para capas.} Manejo sencillo de capas permitiendo sobreponer capas.
+\item \textbf{API clara y extensible.} Presenta un código claro, orientado a objetos y eventos. Resulta sumamente sencillo extender la librería como se puede ver en el apartado 'Extendiendo KineticJS'.
 \item \textbf{Manejo de eventos.} No sólo a nivel de canvas. También a nivel de figura. Soporta multitud de eventos no sólo de escritorio sino también de dispositivos táctiles.
 \item \textbf{Continuo desarrollo.} El desarrollo y avance de la librería es notable y tiene una comunidad detrás proporcionando ideas, soluciones, y verificando el desarrollo del la librería.
 \end{itemize}
 
-\subsection{Algunos ejemplso sencillos.}
+\subsection{Algunos ejemplos sencillos.}
+Para todos los ejemplos sobre KineticJS a partir de ahora vamos a utilizar el mismo modelo de página HTML5. En ella, incorporaremos la librería de KineticJS y un contenedor para nuestro lienzo. Una etiqueta div que posteriormente utilizaremos para indicarle a KineticJS donde tiene que pintar.
+ 
+\lstinputlisting[language=HTML, numbers=left]{../test/kineticJS/1_eventos.html}
 
-\subsubsection{un ejemplo}
+\subsection{Creando escenarios y capas.}
 
-\subsubsection{Otro ejemplo}
+En este ejemplo vamos a crear un escenario y le incorporaremos una capa donde se dibujará un texto. En la figura \ref{fig:kinetic-ejemplo-escenarios-capas} podemos comprobar el resultado final.
 
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.6\linewidth]{imagenes/KineticjsEjemplo0.png}
+\caption{Ejemplo de Kinetic - uso básico de capas}
+\label{fig:kinetic-ejemplo-escenarios-capas}
+\end{figure}
+
+\lstinputlisting[language=JavaScript, numbers=left]{../test/kineticJS/0_texto.js}
+
+El ejemplo muestra en la línea 34 como se crea un escenario (Kinetic.Stage) indicando el contenedor dentro nuestro árbol DOM y su dimensiones. A continuación (en la línea 40) creamos una capa (Kintetic.Layer) donde dibujaremos los elementos gráficos que deseamos pintar. Más concretamente se ha creado dos elementos Kinetic.Text y se han incorporado a la capa.
+
+Se trata de un concepto muy utilizado en editores gráficos, por nombrar algunos, como Gimp y PhotoShop. Es exactamente el mismo concepto. En MindMapJS se ha utilizado concretamente tres capas superpuestas en el siguiente orden:
+\begin{itemize}
+\item \textbf{Capa grid:} muestra la rejilla de fondo.
+\item \textbf{Capa aristas:} contiene todas las aristas que interconecta las ideas. 
+\item \textbf{Capa nodos:} contiene las ideas que representan el mapa mental.
+\end{itemize}
+
+
+\subsection{Manejo de eventos.}
+Como se ha expresado con anterioridad tiene un buen sistema para menejo de eventos tanto de escritorio como touch. En el siguiente ejemplo \ref{fig:kinetic-ejemplo-eventos} podemos ver como manejar eventos sobre objetos con KineticJS.
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.6\linewidth]{imagenes/KineticjsEjemplo1.png}
+\caption{Ejemplo de Kinetic - eventos}
+\label{fig:kinetic-ejemplo-eventos}
+\end{figure}
+
+\lstinputlisting[language=JavaScript, numbers=left]{../test/kineticJS/1_eventos.js}
+
+Podemos ver que sigue un modelo de eventos estilo JQuery en el cual nos suscribimos a un evento mediante la fórmula: \footnote{También implementada en MindMapJS} 
+\begin{lstlisting}[language=JavaScript, numbers=left]
+ElementoGrafico.on('nombreEvento', function () { 
+	// Manejo del evento.
+});
+\end{lstlisting}
+
+Con este modelo, cualquier programador Javascript familiarizado con JQuery entiende como se comporta y sabe de inmediato como utilizarlo.  
+
+Existen otro muchos ejemplos que podemos ver y manipular en la página tutorial de KineticJS\footnote{Tutoriales en http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-shape-tutorial/}. 
 
 \subsection{Extendiendo KineticJS.}
+
+Existen dos formas de crear y extender KineticJS. La primera es mediante la creación de 'custom shape', se trata de un mecanismo para poder crear figuras que nosotros deseemos pintando directamente en el canvas. La segunda es implementación de una clase y extender su comportamiento dotando a nuestro nuevo elemento gráfico todas la virtudes de cualquier figura KineticJS.
+
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.6\linewidth]{imagenes/KineticjsEjemplo2.png}
+\caption{Ejemplo de Kinetic - custom shape}
+\label{fig:kinetic-ejemplo-customshape}
+\end{figure}
+
+La creación de 'custom shape' se basa en la implementación de una función (sceneFunc) que será utilizada a la hora de dibujar la figura. Esta función recibe un canvas sobre el que podemos dibujar directamente. 
+
+\begin{lstlisting}[language=JavaScript, numbers=left]
+	var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 578,
+        height: 200
+    });
+    var layer = new Kinetic.Layer();
+
+    var triangle = new Kinetic.Shape({
+        sceneFunc: function(context) {
+          context.beginPath();
+          context.moveTo(200, 50);
+          context.lineTo(420, 80);
+          context.quadraticCurveTo(300, 100, 260, 170);
+          context.closePath();
+          context.fillStrokeShape(this);
+        },
+        fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 4
+    });
+
+    layer.add(triangle);
+    stage.add(layer);
+\end{lstlisting}
+
+Esta segunda forma de extensión tiene la ventaja de que nos permite crear una clase que podremos reutilizar cada vez que necesitemos. Este mecanismo ha sido el utilizado para crear las aristas de MindMapJS implementando, como podemos comprobar en el siguiente código, una curva beizer para estos propósitos. Se trata, en definitiva, de crear una nueva función constructora y definir su prototipo en el cual no puede faltar la función init y drawFunc. 
+
 \lstinputlisting[language=JavaScript, numbers=left]{../src/beizer.js}
 

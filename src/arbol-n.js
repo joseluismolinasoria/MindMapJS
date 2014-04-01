@@ -147,7 +147,7 @@ MM.Arbol.prototype.numHojas = function () {
 	this.on('enHoja', this);
 	return 1;
     }
-    var p = 0;
+ p = 0;
     this.hijos.forEach(function (hijo) {
         p = p + hijo.numHojas();
     });

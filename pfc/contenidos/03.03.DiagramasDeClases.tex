@@ -30,7 +30,7 @@ podamos realizar una llamada al super (o padre).
 
 \subsection{Diagrama de clases PubSub}
 
-Como núcleo en la comunicación, entre clases y distintos bloques funcionales, están los eventos. Para ello, se ha desarrollado
+Como núcleo de la comunicación entre clases y distintos bloques funcionales, están los eventos. Para ello, se ha desarrollado
 la clase MM.PubSub que implementa el patrón Publicador-Suscriptor\footnote{También conocido como patrón Observador-observable}.
 
 \begin{figure}[tbph]
@@ -42,8 +42,8 @@ la clase MM.PubSub que implementa el patrón Publicador-Suscriptor\footnote{Tamb
 
 
 El concepto es sencillo, el objeto suscriptor se suscribe a un evento o mensaje concreto y el publicador anuncia a todos los 
-suscriptores cuando está lista las suscripción. El símil más utilizado, y directo, es el de los suscriptores de un periódico, 
-el cual un lector (o suscriptor) paga un precio para recibir el periódico y la editorial (o publicador) le envía un ejemplar 
+suscriptores cuando está lista la suscripción. Un símil muy utilizado, y directo, es el de los suscriptores de un periódico, 
+en el cual un lector (o suscriptor) paga un precio para recibir el periódico y la editorial (o publicador) le envía un ejemplar 
 cuando lo tiene disponible. 
 
 
@@ -61,7 +61,7 @@ ejecución y la función a ejecutar en el momento de la publicación del evento.
 Métodos:
 \begin{itemize}
 \item \textbf{MM.PubSub.suscribir:} permite a los suscriptores la suscripción a un evento o publicación.
-\item \textbf{MM.PubSub.desSuscribir:} permite a los suscriptores la de suscripción a un evento o publicación.
+\item \textbf{MM.PubSub.desSuscribir:} permite a los suscriptores la desuscripse de un evento o publicación.
 \item \textbf{MM.PubSub.on:} método que permite al publicador notificar a los suscriptores
 la ocurrencia de un evento. 
 \end{itemize}
@@ -100,9 +100,14 @@ método hacer se encargará de repetir la operación ejecutada y el deshacer de 
 
 \subsubsection{Clase MM.UndoManager}
 
-El manejador de acciones hacer/deshacer tiene un registro de comandos ejecutados en la aplicación y un puntero\footnote{Campo actual.} que indica el último comando ejecutado. El comportamiento es que siempre se puede deshacer la última acción ejecutada, apuntada por actual, y sólo se puede hacer el comando siguiente al puntero actual.
+El manejador de acciones hacer/deshacer tiene un registro de comandos ejecutados en la aplicación y un puntero\footnote{Campo actual.} que indica el último comando ejecutado. El funcionamiento consiste en que siempre se pueda deshacer la última acción ejecutada, apuntada por el puntero actual, y sólo se pueda hacer el comando siguiente al puntero actual.
 
-
+\begin{figure}[tbph]
+\centering
+\includegraphics[width=0.7\linewidth]{imagenes/undomangerEjecucion.png}
+\caption{Secuencia de ejecución de UndoManager}
+\label{fig:undomanager-ejecucion}
+\end{figure}
  
 Como puede observar en la figura \ref{fig:undomanager-ejecucion} el puntero \textit{Actual} indica que comando se puede deshacer y \textit{Actual + 1} el comando que se puede hacer. 
 

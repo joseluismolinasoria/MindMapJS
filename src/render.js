@@ -83,7 +83,7 @@ MM.Render = function() {
     render.prototype.renderizar = function () {
         this.capaGrid.removeChildren();
         new MM.Grid(this.capaGrid, this.width, this.height);
-        this.dibujar();
+        this.dibujar ( MM.arbol);
         this.suscribrirEventos();
         MM.root();
         MM.definirAtajos();
@@ -133,8 +133,8 @@ MM.Render = function() {
      * @method dibujar
      * @instance
      */    
-    render.prototype.dibujar = function () {
-        var arbol = MM.arbol;
+    render.prototype.dibujar = function (arbol) {
+	console.debug ('dibujar ' + arbol.elemento.texto );
         var idSusPre = arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
         var idSusPost = arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
         arbol.preOrden();
@@ -142,7 +142,6 @@ MM.Render = function() {
         arbol.desSuscribir(idSusPost);
         arbol = idSusPre = idSusPost = null;
         this.escenario.draw();
-        this.renderAristas();
     };
 
     var preRecorrido = function (nodo) {
@@ -156,7 +155,9 @@ MM.Render = function() {
             if ( arista === null ) {
                 arista = new this.Arista(this.capaAristas, elemento, hijo.elemento, '3');
                 this.aristas.push(arista);
-            }
+            } else {
+		this.aristas[arista].redraw();
+	    }
             arista = null;
         }, this);
         elemento = null;
@@ -209,7 +210,11 @@ MM.Render = function() {
         if ( arbol.elemento.id !== MM.arbol.elemento.id ) {
             x = reparto.xPadre + reparto.widthPadre + 75;
             var padre = MM.arbol.padreDe(elemento.id);
-            visible = !(MM.arbol.padreDe(elemento.id).elemento.plegado && arbol.elemento.plegado);
+	    if ( padre ) {
+		visible = !(padre.elemento.plegado && arbol.elemento.plegado);
+	    } else {
+		visible = !arbol.elemento.plegado;
+	    }
         }       
         var y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - (minimaAlturaNodo(arbol) / 2); 
 
@@ -272,10 +277,11 @@ MM.Render = function() {
      */
     render.prototype.renderAristas = function () {
         if (!this.capaAristas) { return; }
-        this.capaAristas.clear();
+
         this.aristas.forEach(function (arista) {
             arista.redraw();
         });
+        this.capaAristas.draw();
     };
 
     /**
@@ -290,7 +296,7 @@ MM.Render = function() {
     render.prototype.nuevoNodo = function (padre, hijo) {
         this.repartoEspacio(padre);
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
-        this.dibujar();
+        this.dibujar(padre);
         MM.ponerFoco(hijo);
     };
 
@@ -380,7 +386,7 @@ MM.Render = function() {
 
         // importante borrar el hijo borrado para evitar errores en el pintado
         this.borrarHijo(padre, borrado);
-        this.dibujar();
+        this.dibujar(padre);
         i = null;
     };
 

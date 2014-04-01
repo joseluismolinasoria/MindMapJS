@@ -2,8 +2,9 @@ var mensaje = new Kinetic.Text({
     x: 5,
     y: 5,
     text: 'mensaje ...',
-    fontSize: 10,
-    fontFamily: 'Calibri',
+    fontSize: 14,
+    fontFamily: 'helvetica',
+    strokeWidth : 1,
     textFill: '#555'
 });
 
@@ -11,8 +12,9 @@ var mensaje2 = new Kinetic.Text({
     x: 5,
     y: 18,
     text: 'Nodo posición x: 100, y: 60',
-    fontSize: 10,
-    fontFamily: 'Calibri',
+    fontSize: 14,
+    fontFamily: 'helvetica',
+    strokeWidth : 1,
     textFill: '#555'
 });
 
@@ -20,11 +22,11 @@ var nodo = new Kinetic.Text({
     x: 100,
     y: 60,
     stroke: '#555',
-    strokeWidth: 3,
+    strokeWidth: 2,
     fill: '#ddd',
     text: 'Prueba para texto\nsegunda línea',
-    fontSize: 10,
-    fontFamily: 'Calibri',
+    fontSize: 16,
+    fontFamily: 'helvetica',
     textFill: '#555',
     width: 'auto',
     padding: 20,

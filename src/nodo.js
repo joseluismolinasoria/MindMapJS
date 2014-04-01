@@ -57,7 +57,9 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             height: this.kText.getHeight(),
             draggable: true, 
             dragBoundFunc: function (pos) {
-                MM.render.renderAristas();
+		console.debug('drag Nodo');
+		MM.ponerFoco(arbol);
+		MM.render.renderAristas();
                 return pos;
             }
         });
@@ -146,7 +148,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         // this.group.on('mouseenter', bindNOP);
         // this.group.on('mouseLeave', bindNOP);
         // this.group.on('dragstart', bindNOP);
-//      this.group.on('dragmove dragend', MM.Class.bind(MM.render, MM.render.renderAristas) );
+      //this.group.on('dragmove dragend', MM.Class.bind(MM.render, MM.render.renderAristas) );
         h = w = t = x = y = null;
     },
 
@@ -157,7 +159,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
     ponerFoco : function () {
         this.kText.setFontStyle('bold');
         this.kText.setText('<' + this.arbol.elemento.texto + '>' );
-        this.capa.draw();
+        this.group.draw();
     },
 
     /**
@@ -167,7 +169,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.kText.setFontStyle('normal');
         this.kText.setLineHeight(1);
         this.kText.setText(this.arbol.elemento.texto);
-        this.capa.draw();
+        this.group.draw();
     },
 
     /**
@@ -256,7 +258,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
               'innerHTML': texto,
               'rows' :  fc.filas,
               'cols' : fc.columnas + 1,
-                'style': 'position: absolute; ' +
+              'style': 'position: absolute; ' +
                     'top : ' + top + 'px; ' +
                     'left: ' + left  + 'px; ' +
                     'height: auto;' +
@@ -310,7 +312,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.editor.remove();
         delete this.editor;
         MM.ponerFoco(this.arbol);
-        MM.render.dibujar();
+        MM.render.dibujar(MM.arbol);
         window.focus();
         t = x = y = w = h = null;
     },
@@ -332,8 +334,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         tamano = null;
     },
 
-    nop: function () {
-    },
+    nop: function () { },
 
     /**
      * @desc Destruye el nodo actual.
@@ -379,7 +380,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor(this.color);
         this.kText.setFill(this.colorFondo);
         this.triangle.setFill(this.colorFondo);
-        this.capa.draw();
+	this.group.draw();
     },
 
     /**
@@ -388,10 +389,10 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
     quitarFoco : function () {
         this.rect.setStroke(this.color);
         this.rect.setFill(this.colorFondo);
-        this.rect.setShadowColor('black');
+        this.rect.setShadowColor(this.colorFondo);
         this.kText.setFill(this.color);
         this.triangle.setFill(this.color);
-        this.capa.draw();
+	this.group.draw();
     }
 
 });
