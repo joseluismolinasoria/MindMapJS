@@ -1,0 +1,73 @@
+\select@language {spanish}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Esquema general de la especificaci\IeC {\'o}n HTML5 a diciembre de 2011}}{11}{figure.2.1}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Mapa mental de FreeMind}}{15}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Partes de un mapa mental}}{17}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Partes de un mapa mental considerando su contenido}}{18}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Mapa mental de elaboraci\IeC {\'o}n de mapas mentales}}{19}{figure.3.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Versi\IeC {\'o}n inicial.}}{23}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Versi\IeC {\'o}n inicial.}}{24}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Casos de uso}}{25}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Diagrama de secuencia nuevo}}{26}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Diagrama de secuencia add}}{27}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Diagrama de secuencia borrar}}{27}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Diagrama de secuencia Zoom}}{28}{figure.4.7}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Diagrama de secuencia navegaci\IeC {\'o}n}}{29}{figure.4.8}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Diagrama de secuencia plegar}}{30}{figure.4.9}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Clase MM.Class}}{31}{figure.4.10}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Diagrama de clases pubsub}}{32}{figure.4.11}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Clase MM.PubSub}}{32}{figure.4.12}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Diagrama de clases undo}}{33}{figure.4.13}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Clase MM.UndoManager.ComandoHacerDeshacer}}{34}{figure.4.14}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Secuencia de ejecuci\IeC {\'o}n de UndoManager}}{35}{figure.4.15}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Clase MM.UndoManager}}{36}{figure.4.16}
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Diagrama de clases MM}}{37}{figure.4.17}
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Clase MM}}{38}{figure.4.18}
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Clase MM.Arbol}}{39}{figure.4.19}
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Modulo MM.DOM}}{41}{figure.4.20}
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Modulo MM.Render}}{41}{figure.4.21}
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Diagrama de clases nodo}}{43}{figure.4.22}
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Clase MM.Mensaje}}{44}{figure.4.23}
+\contentsline {figure}{\numberline {4.24}{\ignorespaces Clase MM.NodoSimple}}{45}{figure.4.24}
+\contentsline {figure}{\numberline {4.25}{\ignorespaces Mapa mental con renderizaci\IeC {\'o}n de nodos simples}}{45}{figure.4.25}
+\contentsline {figure}{\numberline {4.26}{\ignorespaces Clase MM.Globo}}{46}{figure.4.26}
+\contentsline {figure}{\numberline {4.27}{\ignorespaces Mapa mental con renderizaci\IeC {\'o}n de nodos globo}}{46}{figure.4.27}
+\contentsline {figure}{\numberline {4.28}{\ignorespaces Modulo MM.Color}}{46}{figure.4.28}
+\contentsline {figure}{\numberline {4.29}{\ignorespaces Diagrama de clases aristas}}{47}{figure.4.29}
+\contentsline {figure}{\numberline {4.30}{\ignorespaces Clase Kinetic Beizer}}{48}{figure.4.30}
+\contentsline {figure}{\numberline {4.31}{\ignorespaces Clase MM.Arista}}{48}{figure.4.31}
+\contentsline {figure}{\numberline {4.32}{\ignorespaces Clase MM.Rama}}{49}{figure.4.32}
+\contentsline {figure}{\numberline {4.33}{\ignorespaces Diagrama de clases teclado}}{50}{figure.4.33}
+\contentsline {figure}{\numberline {4.34}{\ignorespaces Modulo MM.teclado.atajos}}{51}{figure.4.34}
+\contentsline {figure}{\numberline {4.35}{\ignorespaces Clase MM.teclado.tecla}}{52}{figure.4.35}
+\contentsline {figure}{\numberline {4.36}{\ignorespaces Clase MM.teclado}}{52}{figure.4.36}
+\contentsline {figure}{\numberline {4.37}{\ignorespaces Diagrama de secuencia teclado}}{53}{figure.4.37}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Cadena protot\IeC {\'\i }pica de objetos}}{57}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Secuencia de ejecuci\IeC {\'o}n de UndoManager}}{71}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Carga de ficheros Javascript en desarrollo}}{78}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Carga de ficheros Javascript concatenado}}{79}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Carga de ficheros Javascript comprimido}}{79}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Escenario y modelo de capas KineticJS de MindMapJS}}{81}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Ejemplo de Kinetic - uso b\IeC {\'a}sico de capas}}{82}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Ejemplo de Kinetic - eventos}}{84}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Ejemplo de Kinetic - custom shape}}{87}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Logo NodeJS}}{88}{figure.5.10}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Logo GruntJS}}{93}{figure.5.11}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Mascota de Github}}{97}{figure.5.12}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Ejemplo de c\IeC {\'o}digo fuente documentado con JSDoc}}{100}{figure.5.13}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces P\IeC {\'a}gina generada por JSDoc}}{101}{figure.5.14}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Mocha}}{102}{figure.5.15}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Resultado de ejecutar mocha -R spec *.js}}{102}{figure.5.16}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Resultado de ejecutar mocha -R spec array1-test.js}}{103}{figure.5.17}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Estructura de directorios de MindMapJS}}{108}{figure.7.1}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Resultado de ejecutar el comando 'grunt dev'}}{109}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Resultado de ejecutar el comando 'grunt full'}}{109}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Resultado de ejecutar el comando 'grunt hint'}}{110}{figure.7.4}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Resultado de ejecutar el comando 'grunt test'}}{110}{figure.7.5}
+\addvspace {10\p@ }

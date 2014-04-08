@@ -101,7 +101,7 @@ About to write to /tmp/hola/package.json:
 Is this ok? (yes) 
 \end{lstlisting}
 
-El comando \textbf{npm init} comenzará a realizarnos sobre los datos del proyecto como nombre, versión, etc. Una vez terminado, tendremos nuestro fichero de configuración (package.json) preparado.
+El comando \textbf{npm init} comenzará a realizarnos preguntas sobre los datos del proyecto como nombre, versión, etc. Una vez terminado, tendremos nuestro fichero de configuración (package.json) preparado.
 
 \subsubsection{Buscar paquetes y obtener información}
 
@@ -158,6 +158,11 @@ También existen dos modificadores muy interesantes \textit{--save} para que se 
 
 Las instrucciones son la misma salvo por que el comando \textit{install} se sustituye por \textit{uninstall}.
 
-\subsection{¿Por qué utilizar NodeJs y NPM?}
+\subsection{¿Por qué utilizar NodeJS y NPM?}
+Sin lugar a dudas se trata de herramientas potentes que proporcionan al desarrollador un buen punto de partida para cualquier desarrollo Javascripts. Lo que me decidió por NodeJS, desde un principio, fue:
 
-Explicar por qué se ha utilizado nodejs y npm 
+\begin{itemize}
+\item Disponer de una \textbf{consola} que me permita probar algunas partes del desarrollo sin necesidad de un navegador. Agilizando así el desarrollo de algunas librerías.
+\item Tener disponible un \textbf{sistema de paquetes como NPM} que me permite integrar multitud de librerías para el desarrollo, de forma sencilla y eficaz. 
+\item La amplia aceptación de esta herramienta y la multitud de \textbf{librerías} implementadas para la plataforma. Entre ellas, están todas la herramientas utilizadas en MindMapJS. Librerías para gestión de tareas\footnote{GruntJS ha sido la elección utilizada como gestor de tareas}, pruebas\footnote{En el caso de las pruebas unitarias opté por MochaJS} y verificación de código\footnote{JsHint} entre otras muchas. 
+\end{itemize}

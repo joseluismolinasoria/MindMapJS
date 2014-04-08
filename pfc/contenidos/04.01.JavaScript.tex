@@ -56,7 +56,7 @@ function map(f, xs) {
 }
 \end{lstlisting}
 
-Javascript no utiliza el mecanismos de clases para implementar la herencia, para ello hace uso de los prototipos. 
+Javascript no utiliza los mecanismos de clases para implementar la herencia, para ello hace uso de los prototipos. 
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 var Persona = function (){
@@ -105,11 +105,11 @@ ECMAScript.
 Durante mucho tiempo el estándar ECMAScript no fue el aceptado por todos los navegadores, ni que
 decir tiene que el más reacio al cambio fue el Internet Explorer de Microsoft. Es ahora, donde
 Microsoft a dado su brazo a torcer y poco a poco tiende al estándar ECMAScript facilitando al los
-desarrolladores la tarea.
+desarrolladores su tarea.
 
 \subsection{Prototipos}
 
-Como se ha comentado con anterioridad Javascript no utiliza el mecanismos de clases\footnote{Paradigma sin clases} para implementar la herencia, para ello hace uso de los prototipos. Los prototipos son un paradigma de programación orientada a objetos en la cual instanciación de objetos se hace mediante la clonación de otros objetos. 
+Como se ha comentado con anterioridad Javascript no utiliza el mecanismos de clases\footnote{Paradigma sin clases} para implementar la herencia, para ello hace uso de los prototipos. Los prototipos son un paradigma de programación orientada a objetos en la cual una instanciación de objetos, se lleva a cabo mediante la clonación de otros objetos. 
 
 Los objetos en cualquier lenguaje son un conjunto de propiedades y métodos. Pues bien, Javascript carece de métodos en su lugar existen propiedades que apuntan a funciones que hacen las veces de métodos. Además, cada objeto tiene un enlace interno a otro objeto llamado prototipo\footnote{prototype}. El prototipo de un objeto puede ser, o bien otro objeto, o bien el valor null. Es lo que se llama cadena de prototipos o cadena prototípica (ver figura\ref{fig:cadena-prototipos}). 
 
@@ -284,12 +284,12 @@ En MindMapJS no es una excepción, se ha utilizado un espacio de nombres MM.\foo
 \lstset{inputencoding=utf8/latin1}
 \lstinputlisting[language=JavaScript, numbers=left]{../src/MindMapJS.js}
 
-El modulo MM es tiene el interfaz de uso para la aplicación y sobre el que gira todo comportamiento. 
+El módulo MM tiene el interfaz de uso para la aplicación y sobre el que gira todo comportamiento. 
 
 
 \lstinputlisting[language=JavaScript, numbers=left]{../src/mm.js}
 
-Como se puede observar se ha utilizado incorporado una pequeña variación con respecto al módulo propuesto por Douglas Crockford. Se trata de un modulo extensible. Para ello, el espacio de nombre del módulo debe estar previamente definido y posteriormente se le pasa a la función auto-ejecutable para que extienda su interfaz. Un esquema de este módulo es:
+Como se puede observar se ha utilizado incorporado una pequeña variación con respecto al módulo propuesto por Douglas Crockford. Se trata de un módulo extensible. Para ello, el espacio de nombre del módulo debe estar previamente definido y posteriormente se le pasa a la función auto-ejecutable para que extienda su interfaz. Un esquema de este módulo es:
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 // El espacio de nombres en este ejemplo es la variable "modulo"
@@ -335,7 +335,7 @@ Como ya hemos podido comprobar Javascript es un lenguaje sin clases, pero podemo
 
 \lstinputlisting[language=JavaScript, numbers=left]{../src/klass.js}
 
-Como se puede observar el código implementado en MM.Class.extend, se trata de una función que devuelve otra función constructora, a la cual se le ha añadido, manipulado el prototipo a partir de un objeto (prop) del que deseamos heredar o extender. Las propiedades del objeto padre, simplemente se copia pero las funciones (métodos) del objetos padre son envueltos en un closure, para poder dispones de sobre escritura de métodos. 
+Como se puede observar el código implementado en MM.Class.extend, se trata de una función que devuelve otra función constructora, a la cual se le ha añadido, manipulado el prototipo a partir de un objeto (prop) del que deseamos heredar o extender. Las propiedades del objeto padre, simplemente se copia pero las funciones (métodos) del objetos padre son envueltos en un closure, para poder dispones de sobreescritura de métodos. 
 
 La función init es el constructor de nuestra clase y se llamará cuando se instancie el objeto.
 
@@ -406,7 +406,7 @@ Una de las grandes virtudes de NodeJS es el manejo de eventos para vertebrar dis
 
 En realidad, se trata de un patrón bastante simple, pero las posibilidades que nos proporcionan y limpieza son muy, muy importantes. Se trata de un registro de eventos y funciones callbacks a ejecutar cuando el evento publicador lo requiera. 
 
-MindMapJS ha realizado un uso intensivo del patrón. De echo, ha permitido implementar complejos mecanismos e interacciones entre el módulo MM y el render del árbol. El siguiente código muestra como es usado en la función add all crea una nueva idea en el mapa mental, y como suscrito al evento, podrá reaccionar a la creación de una nueva idea.
+MindMapJS ha realizado un uso intensivo del patrón. De echo, ha permitido implementar complejos mecanismos e interacciones entre el módulo MM y el render del árbol. El siguiente código muestra como es usado en la función add crea una nueva idea en el mapa mental, y como suscrito al evento, podrá reaccionar a la creación de una nueva idea.
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 // MM eleva el evento 'add'

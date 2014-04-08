@@ -106,10 +106,10 @@ El manejador de acciones hacer/deshacer tiene un registro de comandos ejecutados
 \centering
 \includegraphics[width=0.7\linewidth]{imagenes/undomangerEjecucion.png}
 \caption{Secuencia de ejecución de UndoManager}
-\label{fig:undomanager-ejecucion}
+\label{fig:undomanager-ejecucion-concepto}
 \end{figure}
  
-Como puede observar en la figura \ref{fig:undomanager-ejecucion} el puntero \textit{Actual} indica que comando se puede deshacer y \textit{Actual + 1} el comando que se puede hacer. 
+Como puede observar en la figura \ref{fig:undomanager-ejecucion-concepto} el puntero \textit{Actual} indica que comando se puede deshacer y \textit{Actual + 1} el comando que se puede hacer. 
 
 \begin{figure}[tbph]
 \centering
@@ -212,7 +212,7 @@ La implementación MM.Arbol debe ser una implementación funcional de un árbol-
 \item \textbf{MM.Arbol.altura:} altura del árbol.
 \item \textbf{MM.Arbol.esHoja:} indica si el nodo actual es un nodo hoja o no.
 \item \textbf{MM.Arbol.numHojas:} determina el número de nodos hojas del árbol.
-\item \textbf{MM.Arbol.elementEqual:} función de igual entre elementos de los nodos. Por defecto, es la igual estricta "===". Esta función podrá ser sobreescrita para adecuarse al tipo de elemento guardado en cada nodo.
+\item \textbf{MM.Arbol.elementEqual:} función de igual entre elementos de los nodos. Por defecto, es la igual estricta '==='. Esta función podrá ser sobreescrita para adecuarse al tipo de elemento guardado en cada nodo.
 \item \textbf{MM.Arbol.buscar:} busca un elemento en el árbol. Como comparador de nodos se utiliza la función MM.Arbol.elementEqual.
 \item \textbf{MM.Arbol.profundidad:} determina la profundidad del árbol.
 \item \textbf{MM.Arbol.padreDe:} calcula el árbol padre del elemento pasado.
@@ -249,7 +249,7 @@ La clase MM.Render es la encargada de pintar el mapa mental y realizar los ajust
 
 La clase MM.Render dispone de los siguientes métodos: 
 \begin{itemize}
-\item \textbf{MM.Render.init:} constructor de la clase render. Inicializas las capas del de nodos y aristas. 
+\item \textbf{MM.Render.init:} constructor de la clase render. Inicializa las capas de nodos y aristas. 
 \item \textbf{MM.Render.renderizar:} se encarga de realizar las suscripciones a eventos, dibujar y establecer los atajos de teclado.
 \item \textbf{MM.Render.renderizarAristas:} pinta las aristas entre los distintos nodos.
 \item \textbf{MM.Render.dibubar:} en función del mapa actual del módulo MM dibuja y reparte el espacio de dibujo.
@@ -268,7 +268,7 @@ La clase MM.Render dispone de los siguientes métodos:
 
 
 \subsection{Diagrama de clases nodo.}
-El nodo se encarga del pintado de una idea del mapa mental, en esencia, es un MM.Mensaje al cual se le han añadido otros elementos gráficos y funcionalidades. Existen dos implementaciones de nodo, como se pueden ver en el diagrama\ref{fig:diagrama-clases-mm-render}, el MM.NodoSimple y el MM.Globo, y ambos pueden ser usados desde MM.Render. Todos los nodos existen un escenario y en una capa dada. 
+El nodo se encarga del pintado de una idea del mapa mental, en esencia, es un MM.Mensaje al cual se le han añadido otros elementos gráficos y funcionalidades. Existen dos implementaciones de nodo, como se pueden ver en el diagrama\ref{fig:diagrama-clases-mm-render}, el MM.NodoSimple y el MM.Globo, y ambos pueden ser usados desde MM.Render. Todos los nodos existen en un escenario y en una capa dada. 
 
 \begin{figure}[tbph]
 \centering
@@ -298,7 +298,7 @@ Se trata de una simple clase que pinta un texto en una capa dada.
 \end{itemize}
 
 \subsubsection{Clase MM.NodoSimple.}
-Hereda de MM.Mensaje y representa un mensaje o idea subrayado. El nodo representa una idea que será renderizado y creado desde MM.Render. Su funcionalidad básica pasa por obtener el foco cuando sea la idea activa, poderse editar, ocultar cuando su rama este plegada o mostrar cuando este desplegada.
+Hereda de MM.Mensaje y representa un mensaje o idea subrayada. El nodo representa una idea que será renderizada y creada desde MM.Render. Su funcionalidad básica pasa por obtener el foco cuando sea la idea activa, poderse editar, ocultar cuando su rama este plegada o mostrar cuando este desplegada.
 
 \begin{figure}[tbph]
 \centering
@@ -404,7 +404,7 @@ Se trata de otro tipo de arista pensada para unir dos nodos de tipo MM.NodoSimpl
 
 
 \subsection{Diagrama de clases de teclado}
-Para una mejor experiencia de usuario se ha implementado un complejo manejador de teclados para procesar teclas del tipo \textit{Modificadores+tecla}. El manejo de teclado en el mundo web puede complicarse bastante ya que dependen del navegador y el sistema operativo, ya no sólo por que pueden existir o no teclas como \textit{Meta}\footnote{En los sistemas Mac.} o \textit{Windows}, si no por que existen teclas como \textit{+} que tienen distinto keycode en un Firefox, Chrome y Safari.
+Para una mejor experiencia de usuario se ha implementado un complejo manejador de teclados para procesar secuencias de teclas del tipo \textit{Modificadores+tecla}. El manejo de teclado en el mundo web puede complicarse bastante ya que dependen del navegador y el sistema operativo, ya no sólo por que pueden existir o no teclas como \textit{Meta}\footnote{En los sistemas Mac.} o \textit{Windows}, si no por que existen teclas como \textit{+} que tienen distinto keycode en un Firefox, Chrome y Safari.
 
 También hay que tener en cuenta que las aplicaciones webs no han sido pensadas para un uso intensivo de teclado.   
 
@@ -421,7 +421,7 @@ Un atajo esta compuesto por un nombre\footnote{Ctrl+i}, una función que será e
 detecte la pulsación de la secuencia de teclas. Un atajo puede estar activado o desactivado, es
 decir, que se ejecutará cuando se detecte el atajo de teclado o no. 
 
-El modulo de atajos registrar los atajos de teclados del sistema.
+El módulo de atajos registrar los atajos de teclados del sistema.
 
 
 \begin{figure}[tbph]
