@@ -70,19 +70,28 @@
 \BOOKMARK [1][-]{section.5.9}{Mocha}{chapter.5}% 70
 \BOOKMARK [2][-]{subsection.5.9.1}{Caracter\355sticas}{section.5.9}% 71
 \BOOKMARK [2][-]{subsection.5.9.2}{Ejemplo}{section.5.9}% 72
-\BOOKMARK [0][-]{chapter.6}{Resultados y discusi\363n}{}% 73
-\BOOKMARK [1][-]{section.6.1}{Resultados}{chapter.6}% 74
-\BOOKMARK [1][-]{section.6.2}{Discusi\363n}{chapter.6}% 75
-\BOOKMARK [0][-]{chapter.7}{Manual de usuario}{}% 76
-\BOOKMARK [1][-]{section.7.1}{Manual para el desarrollador}{chapter.7}% 77
-\BOOKMARK [2][-]{subsection.7.1.1}{Dependencias}{section.7.1}% 78
-\BOOKMARK [2][-]{subsection.7.1.2}{Clonar el MindMapJS}{section.7.1}% 79
-\BOOKMARK [2][-]{subsection.7.1.3}{Resolver dependencias}{section.7.1}% 80
-\BOOKMARK [2][-]{subsection.7.1.4}{Construir la versi\363n de desarrollo}{section.7.1}% 81
-\BOOKMARK [2][-]{subsection.7.1.5}{Construir la versi\363n de producci\363n}{section.7.1}% 82
-\BOOKMARK [2][-]{subsection.7.1.6}{JSHint. Verificar el c\363digo.}{section.7.1}% 83
-\BOOKMARK [2][-]{subsection.7.1.7}{Tests.}{section.7.1}% 84
-\BOOKMARK [2][-]{subsection.7.1.8}{Generar la documentaci\363n del API}{section.7.1}% 85
-\BOOKMARK [1][-]{section.7.2}{Manual de uso de MindMapJS}{chapter.7}% 86
-\BOOKMARK [0][-]{chapter.8}{Conclusiones}{}% 87
-\BOOKMARK [-1][-]{chapter.8}{Bibliograf\355a}{}% 88
+\BOOKMARK [0][-]{chapter.6}{Manual de usuario}{}% 73
+\BOOKMARK [1][-]{section.6.1}{Manual para el desarrollador}{chapter.6}% 74
+\BOOKMARK [2][-]{subsection.6.1.1}{Dependencias}{section.6.1}% 75
+\BOOKMARK [2][-]{subsection.6.1.2}{Clonar el MindMapJS}{section.6.1}% 76
+\BOOKMARK [2][-]{subsection.6.1.3}{Resolver dependencias}{section.6.1}% 77
+\BOOKMARK [2][-]{subsection.6.1.4}{Construir la versi\363n de desarrollo}{section.6.1}% 78
+\BOOKMARK [2][-]{subsection.6.1.5}{Construir la versi\363n de producci\363n}{section.6.1}% 79
+\BOOKMARK [2][-]{subsection.6.1.6}{JSHint. Verificar el c\363digo.}{section.6.1}% 80
+\BOOKMARK [2][-]{subsection.6.1.7}{Tests.}{section.6.1}% 81
+\BOOKMARK [2][-]{subsection.6.1.8}{Generar la documentaci\363n del API}{section.6.1}% 82
+\BOOKMARK [1][-]{section.6.2}{Manual de uso de MindMapJS}{chapter.6}% 83
+\BOOKMARK [2][-]{subsection.6.2.1}{Estructura de la p\341gina principal.}{section.6.2}% 84
+\BOOKMARK [2][-]{subsection.6.2.2}{Barra de herramientas.}{section.6.2}% 85
+\BOOKMARK [2][-]{subsection.6.2.3}{\277C\363mo crear un nuevo Mapa Mental?}{section.6.2}% 86
+\BOOKMARK [2][-]{subsection.6.2.4}{Insertar nuevas subideas.}{section.6.2}% 87
+\BOOKMARK [2][-]{subsection.6.2.5}{Editar idea.}{section.6.2}% 88
+\BOOKMARK [2][-]{subsection.6.2.6}{Borrar idea.}{section.6.2}% 89
+\BOOKMARK [2][-]{subsection.6.2.7}{Navegar por el mapa.}{section.6.2}% 90
+\BOOKMARK [2][-]{subsection.6.2.8}{Plegar/desplegar.}{section.6.2}% 91
+\BOOKMARK [2][-]{subsection.6.2.9}{Zoom. Ampliar y reducir la imagen.}{section.6.2}% 92
+\BOOKMARK [2][-]{subsection.6.2.10}{Listado de secuencias de teclado. Keystrokes.}{section.6.2}% 93
+\BOOKMARK [0][-]{chapter.7}{Resultados. Conclusiones}{}% 94
+\BOOKMARK [1][-]{section.7.1}{Resultados}{chapter.7}% 95
+\BOOKMARK [1][-]{section.7.2}{Conclusiones}{chapter.7}% 96
+\BOOKMARK [-1][-]{section.7.2}{Bibliograf\355a}{}% 97

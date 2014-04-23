@@ -11,6 +11,7 @@
         },
 
         drawFunc: function(canvas) {
+	    console.log('beizer');
             var context = canvas.getContext(), 
                 puntos = this.attrs.puntos;
 
@@ -32,7 +33,7 @@
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
  * @version 0.1.2
- * @date    2014-03-17
+ * @date    2014-04-23
  */
 
 /**
@@ -457,7 +458,7 @@ MM.Arbol.prototype.numHojas = function () {
 	this.on('enHoja', this);
 	return 1;
     }
-    var p = 0;
+ p = 0;
     this.hijos.forEach(function (hijo) {
         p = p + hijo.numHojas();
     });
@@ -1254,7 +1255,10 @@ MM.exportar.freemind = function() {
         var link = window.document.createElement('a');
         link.download= MM.arbol.elemento.texto + ".mm";
         link.href = window.URL.createObjectURL(blob);
-        link.click();
+	var evt = document.createEvent("MouseEvents"); 
+	evt.initMouseEvent("click", true, true, window, 
+			   0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+	link.dispatchEvent(evt);
     };
 
     return {
@@ -1552,11 +1556,11 @@ MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
             this.calcularPuntos();
             this.beizer.setVisible(true);
             this.beizer.setPuntos({ start : {x: this.x1, y: this.y1},
-                                    end: {x: this.x2, y: this.y2},
-                                    control1: {x: this.c1x, y: this.c1y},
-                                    control2: {x: this.c2x, y: this.c2y} });
+	    			    end: {x: this.x2, y: this.y2},
+	    			    control1: {x: this.c1x, y: this.c1y},
+	    			    control2: {x: this.c2x, y: this.c2y} });
         }
-        this.capa.draw();
+
     },
 
     /**
@@ -1697,7 +1701,9 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             height: this.kText.getHeight(),
             draggable: true, 
             dragBoundFunc: function (pos) {
-                MM.render.renderAristas();
+		console.debug('drag Nodo');
+		MM.ponerFoco(arbol);
+		MM.render.renderAristas();
                 return pos;
             }
         });
@@ -1786,7 +1792,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         // this.group.on('mouseenter', bindNOP);
         // this.group.on('mouseLeave', bindNOP);
         // this.group.on('dragstart', bindNOP);
-//      this.group.on('dragmove dragend', MM.Class.bind(MM.render, MM.render.renderAristas) );
+      //this.group.on('dragmove dragend', MM.Class.bind(MM.render, MM.render.renderAristas) );
         h = w = t = x = y = null;
     },
 
@@ -1797,7 +1803,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
     ponerFoco : function () {
         this.kText.setFontStyle('bold');
         this.kText.setText('<' + this.arbol.elemento.texto + '>' );
-        this.capa.draw();
+        this.group.draw();
     },
 
     /**
@@ -1807,7 +1813,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.kText.setFontStyle('normal');
         this.kText.setLineHeight(1);
         this.kText.setText(this.arbol.elemento.texto);
-        this.capa.draw();
+        this.group.draw();
     },
 
     /**
@@ -1896,7 +1902,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
               'innerHTML': texto,
               'rows' :  fc.filas,
               'cols' : fc.columnas + 1,
-                'style': 'position: absolute; ' +
+              'style': 'position: absolute; ' +
                     'top : ' + top + 'px; ' +
                     'left: ' + left  + 'px; ' +
                     'height: auto;' +
@@ -1950,7 +1956,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         this.editor.remove();
         delete this.editor;
         MM.ponerFoco(this.arbol);
-        MM.render.dibujar();
+        MM.render.dibujar(MM.arbol);
         window.focus();
         t = x = y = w = h = null;
     },
@@ -1972,8 +1978,7 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         tamano = null;
     },
 
-    nop: function () {
-    },
+    nop: function () { },
 
     /**
      * @desc Destruye el nodo actual.
@@ -2019,7 +2024,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor(this.color);
         this.kText.setFill(this.colorFondo);
         this.triangle.setFill(this.colorFondo);
-        this.capa.draw();
+	this.group.draw();
     },
 
     /**
@@ -2028,10 +2033,10 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
     quitarFoco : function () {
         this.rect.setStroke(this.color);
         this.rect.setFill(this.colorFondo);
-        this.rect.setShadowColor('black');
+        this.rect.setShadowColor(this.colorFondo);
         this.kText.setFill(this.color);
         this.triangle.setFill(this.color);
-        this.capa.draw();
+	this.group.draw();
     }
 
 });
@@ -2257,7 +2262,7 @@ MM.Render = function() {
     render.prototype.renderizar = function () {
         this.capaGrid.removeChildren();
         new MM.Grid(this.capaGrid, this.width, this.height);
-        this.dibujar();
+        this.dibujar ( MM.arbol);
         this.suscribrirEventos();
         MM.root();
         MM.definirAtajos();
@@ -2307,8 +2312,8 @@ MM.Render = function() {
      * @method dibujar
      * @instance
      */    
-    render.prototype.dibujar = function () {
-        var arbol = MM.arbol;
+    render.prototype.dibujar = function (arbol) {
+	console.debug ('dibujar ' + arbol.elemento.texto );
         var idSusPre = arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
         var idSusPost = arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
         arbol.preOrden();
@@ -2316,7 +2321,6 @@ MM.Render = function() {
         arbol.desSuscribir(idSusPost);
         arbol = idSusPre = idSusPost = null;
         this.escenario.draw();
-        this.renderAristas();
     };
 
     var preRecorrido = function (nodo) {
@@ -2330,7 +2334,9 @@ MM.Render = function() {
             if ( arista === null ) {
                 arista = new this.Arista(this.capaAristas, elemento, hijo.elemento, '3');
                 this.aristas.push(arista);
-            }
+            } else {
+		this.aristas[arista].redraw();
+	    }
             arista = null;
         }, this);
         elemento = null;
@@ -2383,7 +2389,11 @@ MM.Render = function() {
         if ( arbol.elemento.id !== MM.arbol.elemento.id ) {
             x = reparto.xPadre + reparto.widthPadre + 75;
             var padre = MM.arbol.padreDe(elemento.id);
-            visible = !(MM.arbol.padreDe(elemento.id).elemento.plegado && arbol.elemento.plegado);
+	    if ( padre ) {
+		visible = !(padre.elemento.plegado && arbol.elemento.plegado);
+	    } else {
+		visible = !arbol.elemento.plegado;
+	    }
         }       
         var y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - (minimaAlturaNodo(arbol) / 2); 
 
@@ -2446,10 +2456,11 @@ MM.Render = function() {
      */
     render.prototype.renderAristas = function () {
         if (!this.capaAristas) { return; }
-        this.capaAristas.clear();
+
         this.aristas.forEach(function (arista) {
             arista.redraw();
         });
+        this.capaAristas.draw();
     };
 
     /**
@@ -2464,7 +2475,7 @@ MM.Render = function() {
     render.prototype.nuevoNodo = function (padre, hijo) {
         this.repartoEspacio(padre);
         this.aristas.push(new this.Arista(this.capaAristas, padre.elemento, hijo.elemento, '3'));
-        this.dibujar();
+        this.dibujar(padre);
         MM.ponerFoco(hijo);
     };
 
@@ -2554,7 +2565,7 @@ MM.Render = function() {
 
         // importante borrar el hijo borrado para evitar errores en el pintado
         this.borrarHijo(padre, borrado);
-        this.dibujar();
+        this.dibujar(padre);
         i = null;
     };
 
@@ -3376,7 +3387,7 @@ MM = function (mm) {
         } else {
             desplegar(this.foco);
         }
-        this.render.dibujar();
+        this.render.dibujar(MM.arbol);
         if ( !undo ) { 
             this.undoManager.add(new MM.comandos.Plegar(this.foco, plegado));
         }
@@ -3589,7 +3600,7 @@ MM.demo.cambioUndoManager = function() {
 };
 
 
-window.onload = function () {
+MM.demo.mmAyuda = function () {
     MM.nuevo('Como usar MindMapJS').add('Teclado').add('Ratón').add('Tablet');
 
     // Teclado
@@ -3651,4 +3662,12 @@ window.onload = function () {
 //    MM.renderizar('contenedorEditor', MM.NodoSimple, MM.Rama);
     MM.undoManager.eventos.suscribir('cambio', MM.demo.cambioUndoManager );
     MM.demo.cambioUndoManager();
+
+    window.addEventListener( 'resize', function (evt) {
+	console.log ( 'resize 0' );
+	MM.render.escenario.setHeight(this.innerHeight);
+	MM.render.escenario.setWidth(this.innerWidth);
+	window.setTimeout ( MM.render.escenario.draw, 500 );
+	console.log ( 'resize 1' );
+    }, false );
 };

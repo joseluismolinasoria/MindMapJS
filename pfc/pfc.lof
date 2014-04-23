@@ -64,10 +64,20 @@
 \contentsline {figure}{\numberline {5.16}{\ignorespaces Resultado de ejecutar mocha -R spec *.js}}{102}{figure.5.16}
 \contentsline {figure}{\numberline {5.17}{\ignorespaces Resultado de ejecutar mocha -R spec array1-test.js}}{103}{figure.5.17}
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Estructura de directorios de MindMapJS}}{108}{figure.7.1}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Resultado de ejecutar el comando 'grunt dev'}}{109}{figure.7.2}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Resultado de ejecutar el comando 'grunt full'}}{109}{figure.7.3}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Resultado de ejecutar el comando 'grunt hint'}}{110}{figure.7.4}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Resultado de ejecutar el comando 'grunt test'}}{110}{figure.7.5}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Estructura de directorios de MindMapJS}}{106}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Resultado de ejecutar el comando 'grunt dev'}}{107}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Resultado de ejecutar el comando 'grunt full'}}{107}{figure.6.3}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Resultado de ejecutar el comando 'grunt hint'}}{108}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Resultado de ejecutar el comando 'grunt test'}}{108}{figure.6.5}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces P\IeC {\'a}gina principal de MindMapJS}}{109}{figure.6.6}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Men\IeC {\'u} > Datos del proyecto}}{110}{figure.6.7}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Barra de herramientas}}{111}{figure.6.8}
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Crear un nuevo mapa}}{111}{figure.6.9}
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Inserci\IeC {\'o}n de subideas.}}{112}{figure.6.10}
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Inserci\IeC {\'o}n de subideas hermana.}}{112}{figure.6.11}
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Editando una idea.}}{113}{figure.6.12}
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Mapa mental desplegado.}}{114}{figure.6.13}
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Mapa mental plegado.}}{114}{figure.6.14}
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Mapa mental con ampliado.}}{114}{figure.6.15}
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Mapa mental con reducido.}}{115}{figure.6.16}
 \addvspace {10\p@ }

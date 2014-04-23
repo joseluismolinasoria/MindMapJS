@@ -1,13 +1,34 @@
 \newpage\mbox{}\thispagestyle{empty}
 
-\chapter{Resultados y discusión}
+\chapter{Resultados. Conclusiones}
 
 \section{Resultados}
+
 %En los Resultados (del trabajo) se deben analizar críticamente las características, 
 %bondades, limitaciones y defectos de lo implementado y/o de las tareas que se han 
 %seguido. Se pueden poner ejemplos de aplicación a distintos casos.
 
+Cómo resultado del desarrollo de MindMapJS se ha obtenido una aplicación cross browser, capaz de funcionar completamente en los principales navegadores del mercado\footnote{Internet Explorer 10 y 11, Google Chrome, FireFox, Opera y Safari}. Se ha verificado su funcionamiento en sistemas Linux, Windows, Mac Os, iOS y Android. Esto ha sido posible gracias a que se ha seguido los estándares de la W3C\footnote{Sobre HTML5} y Emacs\footnote{Sobre JavaScript más concretamente la especificación EmacsScript 5.1}. Ampliamente soportados en casi todos los navegadores. 
+
+Se ha trabajado en muchos casos con borradores y propuestas de especificaciones que en algunos casos no han sido implementadas por los navegadores, o han sido parcialmente implementadas. Un claro ejemplo de este tipo de problemas lo podemos ver en la especificación de File API. Según la especificación es posible escribir un fichero\footnote{Con estrictas directivas de seguridad} en el cliente, pero no siempre ha sido posible. Por ejemplo, en todos los navegadores, en los que se ha probado, se cargan de forma satisfactoria los ficheros, pero la escritura a dado problemas y salvo Internet Explorer y Safari, el resto de los navegadores me han permitido la descarga del fichero. En el caso de Internet Explorer directamente no es soportado, pero en el caso de Safari se ha publicado declaraciones indicando que no se ha implementado ni se implementará por problemas de seguridad. 
+
+Para solventar el problema de la carga y descarga de fichero se puede optar por utilizar servicios de terceros\footnote{P.e. DropBox, Drive, Copy, etc}. 
+
+Se aplicado un diseño basado en patrones que ha permitido que el editor de mapas mentales sea fácilmente extensible, por cualquier desarrollador con conocimientos en JavaScript. Siempre se puede extender las clases de MM.Nodo o MM.Artistas y utilizarlas. 
+
+Un usuario puede incorporar un mapa mental en poco más de 20 líneas de código\footnote{La demo apenas supera las 150 líneas de código}. Y con un poco más de esfuerzo incorporar los distintos eventos a botones o nuevas secuencias de teclas. O bien incorporar un div contenedor donde desea el Mapa mental y las librerías JavaScript. Este aspecto ha sido buscado conscientemente para facilitar usuario poder incorporarlo. 
+
+\lstinputlisting[language=HTML, numbers=left]{../MM-reducido.html}
+
+Como informático, le doy mucha importancia al hecho de no tener que utilizar el ratón, por ello, he dado mucha importancia a la usabilidad del teclado y su configuración. 
+
+Entre los problemas que presenta la aplicación está la falta de flexibilidad en uso de sistemas táctiles. Necesita mejorar la experiencia de usuario en este tipo de dispositivos. Además se ha detectado en algunos sistemas Android de baja gama que no presenta un buen rendimiento debido a que KineticJS redibuja en función de los FPS del dispositivo. 
+
 \section{Discusión}
+
+Existen sin lugar a dudas productos mejores y con un buen rendimiento, pero estamos ante un comienzo prometedor. Con un poco más de trabajo se puede obtener un producto perfectamente vendible como servicio en internet que requiere de muy pocos recursos y extensible. 
+
+Rendimiento entre los distintos navegadores. 
 
 %En la Discusión se pueden justificar las limitaciones, compararlas con las de trabajos 
 %anteriores en el tema y analizar los productos obtenidos de la aplicación de nuestro 

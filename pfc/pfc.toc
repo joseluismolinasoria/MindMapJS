@@ -94,19 +94,28 @@
 \contentsline {section}{\numberline {5.9}Mocha}{100}{section.5.9}
 \contentsline {subsection}{\numberline {5.9.1}Caracter\IeC {\'\i }sticas}{101}{subsection.5.9.1}
 \contentsline {subsection}{\numberline {5.9.2}Ejemplo}{102}{subsection.5.9.2}
-\contentsline {chapter}{\numberline {6}Resultados y discusi\IeC {\'o}n}{105}{chapter.6}
-\contentsline {section}{\numberline {6.1}Resultados}{105}{section.6.1}
-\contentsline {section}{\numberline {6.2}Discusi\IeC {\'o}n}{105}{section.6.2}
-\contentsline {chapter}{\numberline {7}Manual de usuario}{107}{chapter.7}
-\contentsline {section}{\numberline {7.1}Manual para el desarrollador}{107}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}Dependencias}{107}{subsection.7.1.1}
-\contentsline {subsection}{\numberline {7.1.2}Clonar el MindMapJS}{107}{subsection.7.1.2}
-\contentsline {subsection}{\numberline {7.1.3}Resolver dependencias}{108}{subsection.7.1.3}
-\contentsline {subsection}{\numberline {7.1.4}Construir la versi\IeC {\'o}n de desarrollo}{109}{subsection.7.1.4}
-\contentsline {subsection}{\numberline {7.1.5}Construir la versi\IeC {\'o}n de producci\IeC {\'o}n}{109}{subsection.7.1.5}
-\contentsline {subsection}{\numberline {7.1.6}JSHint. Verificar el c\IeC {\'o}digo.}{109}{subsection.7.1.6}
-\contentsline {subsection}{\numberline {7.1.7}Tests.}{110}{subsection.7.1.7}
-\contentsline {subsection}{\numberline {7.1.8}Generar la documentaci\IeC {\'o}n del API}{110}{subsection.7.1.8}
-\contentsline {section}{\numberline {7.2}Manual de uso de MindMapJS}{110}{section.7.2}
-\contentsline {chapter}{\numberline {8}Conclusiones}{112}{chapter.8}
-\contentsline {part}{Bibliograf\'{\i }a}{114}{chapter.8}
+\contentsline {chapter}{\numberline {6}Manual de usuario}{105}{chapter.6}
+\contentsline {section}{\numberline {6.1}Manual para el desarrollador}{105}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Dependencias}{105}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Clonar el MindMapJS}{105}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Resolver dependencias}{106}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Construir la versi\IeC {\'o}n de desarrollo}{107}{subsection.6.1.4}
+\contentsline {subsection}{\numberline {6.1.5}Construir la versi\IeC {\'o}n de producci\IeC {\'o}n}{107}{subsection.6.1.5}
+\contentsline {subsection}{\numberline {6.1.6}JSHint. Verificar el c\IeC {\'o}digo.}{107}{subsection.6.1.6}
+\contentsline {subsection}{\numberline {6.1.7}Tests.}{108}{subsection.6.1.7}
+\contentsline {subsection}{\numberline {6.1.8}Generar la documentaci\IeC {\'o}n del API}{108}{subsection.6.1.8}
+\contentsline {section}{\numberline {6.2}Manual de uso de MindMapJS}{109}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Estructura de la p\IeC {\'a}gina principal.}{109}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Barra de herramientas.}{110}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}\IeC {\textquestiondown }C\IeC {\'o}mo crear un nuevo Mapa Mental?}{111}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Insertar nuevas subideas.}{111}{subsection.6.2.4}
+\contentsline {subsection}{\numberline {6.2.5}Editar idea.}{112}{subsection.6.2.5}
+\contentsline {subsection}{\numberline {6.2.6}Borrar idea.}{112}{subsection.6.2.6}
+\contentsline {subsection}{\numberline {6.2.7}Navegar por el mapa.}{113}{subsection.6.2.7}
+\contentsline {subsection}{\numberline {6.2.8}Plegar/desplegar.}{113}{subsection.6.2.8}
+\contentsline {subsection}{\numberline {6.2.9}Zoom. Ampliar y reducir la imagen.}{113}{subsection.6.2.9}
+\contentsline {subsection}{\numberline {6.2.10}Listado de secuencias de teclado. Keystrokes.}{116}{subsection.6.2.10}
+\contentsline {chapter}{\numberline {7}Resultados. Conclusiones}{118}{chapter.7}
+\contentsline {section}{\numberline {7.1}Resultados}{118}{section.7.1}
+\contentsline {section}{\numberline {7.2}Conclusiones}{120}{section.7.2}
+\contentsline {part}{Bibliograf\'{\i }a}{121}{section.7.2}

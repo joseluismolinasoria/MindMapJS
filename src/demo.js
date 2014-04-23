@@ -74,7 +74,7 @@ MM.demo.cambioUndoManager = function() {
 };
 
 
-window.onload = function () {
+MM.demo.mmAyuda = function () {
     MM.nuevo('Como usar MindMapJS').add('Teclado').add('Ratón').add('Tablet');
 
     // Teclado
@@ -136,4 +136,12 @@ window.onload = function () {
 //    MM.renderizar('contenedorEditor', MM.NodoSimple, MM.Rama);
     MM.undoManager.eventos.suscribir('cambio', MM.demo.cambioUndoManager );
     MM.demo.cambioUndoManager();
+
+    window.addEventListener( 'resize', function (evt) {
+	console.log ( 'resize 0' );
+	MM.render.escenario.setHeight(this.innerHeight);
+	MM.render.escenario.setWidth(this.innerWidth);
+	window.setTimeout ( MM.render.escenario.draw, 500 );
+	console.log ( 'resize 1' );
+    }, false );
 };

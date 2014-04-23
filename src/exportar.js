@@ -64,7 +64,10 @@ MM.exportar.freemind = function() {
         var link = window.document.createElement('a');
         link.download= MM.arbol.elemento.texto + ".mm";
         link.href = window.URL.createObjectURL(blob);
-        link.click();
+	var evt = document.createEvent("MouseEvents"); 
+	evt.initMouseEvent("click", true, true, window, 
+			   0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+	link.dispatchEvent(evt);
     };
 
     return {
