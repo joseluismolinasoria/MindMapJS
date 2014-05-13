@@ -2,13 +2,13 @@
 
 \chapter{Resultados. Conclusiones}
 
-\section{Resultados}
+\section{Resultados.}
 
 %En los Resultados (del trabajo) se deben analizar críticamente las características, 
 %bondades, limitaciones y defectos de lo implementado y/o de las tareas que se han 
 %seguido. Se pueden poner ejemplos de aplicación a distintos casos.
 
-Cómo resultado del desarrollo de MindMapJS se ha obtenido una aplicación cross browser, capaz de funcionar completamente en los principales navegadores del mercado\footnote{Internet Explorer 10 y 11, Google Chrome, FireFox, Opera y Safari}. Se ha verificado su funcionamiento en sistemas Linux, Windows, Mac Os, iOS y Android. Esto ha sido posible gracias a que se ha seguido los estándares de la W3C\footnote{Sobre HTML5} y Emacs\footnote{Sobre JavaScript más concretamente la especificación EmacsScript 5.1}. Ampliamente soportados en casi todos los navegadores. 
+Cómo resultado del desarrollo de MindMapJS se ha obtenido una aplicación cross browser, capaz de funcionar completamente en los principales navegadores del mercado\footnote{Internet Explorer 10 y 11, Google Chrome, FireFox, Opera y Safari}. Se ha verificado su funcionamiento en sistemas Linux, Windows, Mac Os, iOS y Android. Esto ha sido posible gracias a que se ha seguido los estándares de la W3C\footnote{Sobre HTML5} y Emacs\footnote{Sobre Javascripts más concretamente la especificación EmacsScript 5.1}. Ampliamente soportados en casi todos los navegadores. 
 
 Se ha trabajado en muchos casos con borradores y propuestas de especificaciones que en algunos casos no han sido implementadas por los navegadores, o han sido parcialmente implementadas. Un claro ejemplo de este tipo de problemas lo podemos ver en la especificación de File API. Según la especificación es posible escribir un fichero\footnote{Con estrictas directivas de seguridad} en el cliente, pero no siempre ha sido posible. Por ejemplo, en todos los navegadores, en los que se ha probado, se cargan de forma satisfactoria los ficheros, pero la escritura a dado problemas y salvo Internet Explorer y Safari, el resto de los navegadores me han permitido la descarga del fichero. En el caso de Internet Explorer directamente no es soportado, pero en el caso de Safari se ha publicado declaraciones indicando que no se ha implementado ni se implementará por problemas de seguridad. 
 
@@ -31,4 +31,17 @@ Entre los problemas que presenta la aplicación está la falta de flexibilidad e
 %expresamente cuáles son las partes totalmente originales del trabajo, mayores 
 %esfuerzos, expectativas, interés suscitado personalmente y sus posibilidades en la 
 %comunidad científica.
+HTML5 y Javascripts proporcionan un conjunto de herramientas que mejoran con creces a la versión anterior. Un conjunto de API que permiten dar rienda suelta a la imaginación del programador y que tiene grandes expectativas de futuro. Aun así, los navegadores y las políticas de empresa ponen cortapisas a dichas mejoras. Un ejemplo claro es la implementación del File API, dónde no sólo hay diferencias de implementación entre los navegadores sino, que existen navegadores que no pretenden implementarlo\footnote{Es el caso de Safari.}.
 
+MindMapJS es sin duda mejorable. Entre algunas mejoras estaría la posibilidad de:
+\begin{itemize}
+\item Creación de enlaces. Incluir tanto enlaces a otros nodos como a recursos externos.
+\item Inserción de imágenes. Añadir imágenes en las ideas sería una característica deseable que permitirá al usuario enriquecer sus ideas.
+\item Notas sobre ideas. Incorporar notas sobre las ideas. Un texto enriquecido probablemente en un formato html o markdown.
+\item Mapas múltiples. Dar la posibilidad al usuario de crear varios mapas mentales en el mismo editor. 
+\item Cargar y guardar mapas en la nube. Otra característica que podría mejorar sensiblemente el uso, por parte del usuario final, es el hecho de incorporar la posibilidad de cargar/guardar sus mapas mentales en servicios de ficheros como Drive, Dropbox, Copy, etc...
+\item Edición cooperativa. Implementación de un servicio, que permita la modificación simultanea de varios usuario sobre un mapa mental. Esta característica no ha sido implementada por ningún editor de mapas mentales hasta el momento y podría ser utilizado como herramienta de brainstorming. 
+\item Mejora en dispositivos táctiles. El uso de MindMapJS es, hasta el momento, tosco. Necesita de mejorar en este aspecto.
+\end{itemize}
+
+A pesar de los problemas y dificultades superadas, no puedo por menos, que considerar la experiencia positiva y divertida. Un reto que me ha llevado a innovar, adaptarme y probar multitud de tecnologías. Que me ha llevado por intrincados y tortuosos caminos. Y sobre todo que me ha permitido ampliar mis conocimientos sobre la materia. 

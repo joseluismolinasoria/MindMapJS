@@ -1,6 +1,6 @@
 \section{NodeJS}
 
-Basado en la máquina virtual JavaScript V8 de Google, NodeJS\footnote{La web oficial de NodeJS es nodejs.org} a supuesto una revolución en el mundo de la programación JavaScript, dando un salto de gigante desde el lado del cliente al servidor. Este enorme evolución, y de manos de V8, ha provocado la creación de un entorno de programación completo, en el cual se aglutina desde un REPL\footnote{Patrón Read-Eval-Print Loop} para pruebas y depuración interactiva hasta un gestor de paquetes y librerías NPM\footnote{La web oficial de NPM es npmjs.org} (Node Packaged Modules).
+Basado en la máquina virtual Javascripts V8 de Google, NodeJS\footnote{La web oficial de NodeJS es nodejs.org} a supuesto una revolución en el mundo de la programación Javascripts, dando un salto de gigante desde el lado del cliente al servidor. Este enorme evolución, y de manos de V8, ha provocado la creación de un entorno de programación completo, en el cual se aglutina desde un REPL\footnote{Patrón Read-Eval-Print Loop} para pruebas y depuración interactiva hasta un gestor de paquetes y librerías NPM\footnote{La web oficial de NPM es npmjs.org} (Node Packaged Modules).
 
 \begin{wrapfigure}{l}{0.4\textwidth}
   \begin{center}
@@ -10,7 +10,7 @@ Basado en la máquina virtual JavaScript V8 de Google, NodeJS\footnote{La web of
   \label{fig:nodejs}
 \end{wrapfigure}
 
-NodeJS nos permite crear aplicaciones de red escalables, alcanzando un alto rendimiento utilizando entrada/salida no bloqueante y un bucle de eventos en una sóla hebra. Es decir, que NodeJS se programa sobre un sólo hijo de ejecución y en el caso de que necesite operaciones de entrada/salida, creará una segunda hebra para evitar su bloqueo. En teoría NodeJS puede mantener tantas conexiones simultaneas abiertas como descriptores de fichero soporte el sistema operativo (en UNIX aproximadamente 65.000), en la realidad son bastantes menos (se calcula que entre 20.000 y 25.000). 
+NodeJS nos permite crear aplicaciones de red escalables, alcanzando un alto rendimiento utilizando entrada/salida no bloqueante y un bucle de eventos en una sola hebra. Es decir, que NodeJS se programa sobre un sólo hijo de ejecución y en el caso de que necesite operaciones de entrada/salida, creará una segunda hebra para evitar su bloqueo. En teoría NodeJS puede mantener tantas conexiones simultaneas abiertas como descriptores de fichero soporte el sistema operativo (en UNIX aproximadamente 65.000), en la realidad son bastantes menos (se calcula que entre 20.000 y 25.000). 
 
 Como ya se ha mencionado, y debido a que su arquitectura es usar un único hilo, sólo puede unas una CPU. Es el principal inconveniente que presenta la arquitectura de NodeJS.
 

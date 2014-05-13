@@ -1,6 +1,6 @@
 \section{GruntJs}
 
-Se trata de una aplicación Node que está empaquetada y disponible en NPM. GruntJS es una herramienta versátil para la automatización de tareas mediante Javascript, evitándonos dentro de lo posible la realización de tareas repetitivas. Con un simple archivo de configuración nos permite realizar tareas tan diversas como minificar código, lanzar la suite de tests, etc.
+Se trata de una aplicación Node que está empaquetada y disponible en NPM. GruntJS es una herramienta versátil para la automatización de tareas mediante Javascripts, evitándonos dentro de lo posible la realización de tareas repetitivas. Con un simple archivo de configuración nos permite realizar tareas tan diversas como minificar código, lanzar la suite de tests, etc.
 
 
 \subsection{Características}
@@ -9,7 +9,7 @@ Se trata de una aplicación Node que está empaquetada y disponible en NPM. Grun
 \item \textbf{Acceso a archivos:}
 	No tenemos que preocuparnos del acceso a archivos, sólo tratarlos.	
 \item \textbf{Automatización de tareas y conjunto de tareas:}
-	Podemos automatizar pequeñas tareas o mediante un conjunto de ellas automatizar tareas más complejas como la comprensión de una librería Javascript. 
+	Podemos automatizar pequeñas tareas o mediante un conjunto de ellas automatizar tareas más complejas como la comprensión de una librería Javascripts. 
 \item \textbf{Fácil instalación:}
 	Esta en NPM, la instalación es simplemente un npm install.
 \item \textbf{Plugins comunitarios:}
@@ -19,7 +19,7 @@ Se trata de una aplicación Node que está empaquetada y disponible en NPM. Grun
 \end{itemize}
 
 \subsection{Instalación}
-La instalación de GruntJS no tiene complicación, ya que, al tratarse de una apliación Node y estar publicado en NPM sólo necesitamos como prerrequisito tener instalado Node y NPM.
+La instalación de GruntJS no tiene complicación, ya que, al tratarse de una aplicación Node y estar publicado en NPM sólo necesitamos como prerrequisito tener instalado Node y NPM.
 
 Lo primero es instalar el cliente de forma global con el comando:
 
@@ -41,7 +41,7 @@ Y una vez instalado el cliente, en nuestro proyecto debemos ejecutar:
 $ npm install grunt --save-dev
 \end{lstlisting}
 
-Ya tenemos agregado GruntJS a nuestro proyecto. Con los --save-dev le indicamos al NPM que lo añada a las dependencias del proyecto para desarrollo. Así inlcuirá las líneas pertinentes en nuestro fichero package.json.
+Ya tenemos agregado GruntJS a nuestro proyecto. Con los --save-dev le indicamos al NPM que lo añada a las dependencias del proyecto para desarrollo. Así incluirá las líneas pertinentes en nuestro fichero package.json.
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 {
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 };
 \end{lstlisting}
 
-Como se puede observar se trata de un modulo Node, que será llamado por grunt cuando lo ejecutemos. En el ejemplo, le hemos regristrado una tarea por defecto que imprime "Hola Mundo!". Ahora sólo tenemos que ejecutar el comando grunt para ver el resultado de nuestra tarea.
+Como se puede observar se trata de un modulo Node, que será llamado por grunt cuando lo ejecutemos. En el ejemplo, le hemos registrado una tarea por defecto que imprime "Hola Mundo!". Ahora sólo tenemos que ejecutar el comando grunt para ver el resultado de nuestra tarea.
 
 GruntJS tiene un conjunto básico de plugins, nombrados grunt-contrib-XXXX, empaquetados en NPM y que podemos instalar fácilmente. 
 
@@ -83,11 +83,11 @@ El fichero de configuración de GruntJS utilizado para el proyecto es :
 Como se puede comprobar se han incorporados distintos plugins:
 
 \begin{itemize}
-\item \textbf{grunt-contrib-concat:} permite concatenar un conjunto de ficheros en nuestro caso los ficheros JavaScripts.
+\item \textbf{grunt-contrib-concat:} permite concatenar un conjunto de ficheros en nuestro caso los ficheros Javascripts.
 \item \textbf{grunt-replace:} plugins para realizar operaciones de reemplazo dentro de un conjunto de ficheros.
-\item \textbf{grunt-contrib-uglify:} para comprimir y/o minimizar el código JavaScripts.
+\item \textbf{grunt-contrib-uglify:} para comprimir y/o minimizar el código Javascripts.
 \item \textbf{grunt-contrib-clean:} borrar un conjunto de ficheros o el contenido de un directorio.
-\item \textbf{grunt-contrib-jshint:} permite reliazar la verificación y validación de buenas prácticas establecidas en JavaScripts.
+\item \textbf{grunt-contrib-jshint:} permite realizar la verificación y validación de buenas prácticas establecidas en Javascripts.
 \item \textbf{grunt-jsdoc:} compilar los comentarios JSDocs para generarla documentación HTML del API.
 \item \textbf{grunt-mocha-test:} tarea que lanza la suite de tests unitarios del proyecto.
 \end{itemize}
@@ -98,7 +98,7 @@ Con estos plugins se han cubierto todas las necesidades de automatización de ta
 \item \textbf{dev:} que concatena el código fuente y realiza los reemplazo como fechas, versión, etc ...
 \item \textbf{full:} además de realizar las tareas propias de la tarea 'dev', minimiza y realiza los reemplazos de producción.
 \item \textbf{test:} lanza la suite de test
-\item \textbf{hint:} lanza la terea de validación de código JSHint.
+\item \textbf{hint:} lanza la tarea de validación de código JSHint.
 \item \textbf{jsdoc:} genera la documentación del API.
 \end{itemize}
 

@@ -9,7 +9,7 @@ Como centro de todo el sistema de clases implementado está el MM.Class. Una abs
 patrón constructor que es eje de todas las clases implementadas en la aplicación. A partir 
 de ahora, cuando hable de clase me refiero a la herencia efectuada con MM.Class.
 
-La implementación de este objeto es fundamental ya que Javascript es un lenguaje orientado 
+La implementación de este objeto es fundamental ya que Javascripts es un lenguaje orientado 
 a objetos puro y libre de clases. 
 
 \begin{figure}[tbph]
@@ -61,7 +61,7 @@ ejecución y la función a ejecutar en el momento de la publicación del evento.
 Métodos:
 \begin{itemize}
 \item \textbf{MM.PubSub.suscribir:} permite a los suscriptores la suscripción a un evento o publicación.
-\item \textbf{MM.PubSub.desSuscribir:} permite a los suscriptores la desuscripse de un evento o publicación.
+\item \textbf{MM.PubSub.desSuscribir:} permite a los suscriptores la desuscribirse de un evento o publicación.
 \item \textbf{MM.PubSub.on:} método que permite al publicador notificar a los suscriptores
 la ocurrencia de un evento. 
 \end{itemize}
@@ -96,7 +96,7 @@ zoom, etc ...
 \end{figure}
 
 Todo comando deberá tener un nombre e implementar los métodos hacer y deshacer. La funcionalidad del 
-método hacer se encargará de repetir la operación ejecutada y el deshacer de revertirla.
+método hacer se encargará de repetir la operación ejecutada y el deshacer de revertir la.
 
 \subsubsection{Clase MM.UndoManager}
 
@@ -406,7 +406,7 @@ Se trata de otro tipo de arista pensada para unir dos nodos de tipo MM.NodoSimpl
 \subsection{Diagrama de clases de teclado}
 Para una mejor experiencia de usuario se ha implementado un complejo manejador de teclados para procesar secuencias de teclas del tipo \textit{Modificadores+tecla}. El manejo de teclado en el mundo web puede complicarse bastante ya que dependen del navegador y el sistema operativo, ya no sólo por que pueden existir o no teclas como \textit{Meta}\footnote{En los sistemas Mac.} o \textit{Windows}, si no por que existen teclas como \textit{+} que tienen distinto keycode en un Firefox, Chrome y Safari.
 
-También hay que tener en cuenta que las aplicaciones webs no han sido pensadas para un uso intensivo de teclado.   
+También hay que tener en cuenta que las aplicaciones web no han sido pensadas para un uso intensivo de teclado.   
 
 \begin{figure}[tbph]
 \centering

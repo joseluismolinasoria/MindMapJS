@@ -1,14 +1,14 @@
-\section{Javascript.}
+\section{Javascripts.}
 
 \subsection{Qué es.}
 
-Mozilla, los herederos directos de Netscape, definen javascript como:\footnote{MDN (Mozilla Developer Network)} \footnote{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/JavaScript\_Overview}
+Mozilla, los herederos directos de Netscape, definen Javascripts como:\footnote{MDN (Mozilla Developer Network)} \footnote{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/JavaScript\_Overview}
 
 \begin{quotation}
-JavaScript is a cross-platform, object-oriented scripting language. JavaScript is a small, lightweight language; it is not useful as a standalone language, but is designed for easy embedding in other products and applications, such as web browsers. Inside a host environment, JavaScript can be connected to the objects of its environment to provide programmatic control over them.
+Javascripts is a cross-platform, object-oriented scripting language. JavaScript is a small, lightweight language; it is not useful as a standalone language, but is designed for easy embedding in other products and applications, such as web browsers. Inside a host environment, JavaScript can be connected to the objects of its environment to provide programmatic control over them.
 \end{quotation}
 
-Definición que desde mi punto de vista se queda corta. Ya que Javascript es un lenguaje de scripting (que debe ser interpretado), imperativo, estructurado, orientado a objeto sin clases, débilmente tipado, dinámico, funcional y basado en prototipos.
+Definición que desde mi punto de vista se queda corta. Ya que Javascripts es un lenguaje de scripting (que debe ser interpretado), imperativo, estructurado, orientado a objeto sin clases, débilmente tipado, dinámico, funcional y basado en prototipos.
 
 De C ha heredado que sea un lenguaje imperativo y estructurado con distinción entre sentencias y expresiones. A diferencia de C y Java el ámbito de las variables no son a nivel de bloque sino de función, es decir, que una variable definida dentro de una sentencia puede ser utilizada fuera de dicha sentencia, ya que el ámbito no lo define la sentencia sino la función que la contiene.
 
@@ -21,7 +21,7 @@ var f = function (valor) {
 };
 \end{lstlisting}
 
-Sin lugar a dudas se trata de un lenguaje orientado a objeto. Los arrays, números, funciones, cadenas, casi en su totalidad el lenguaje son objetos\footnote{Salvo los valores destacados null y undefined, el resto de valores javascripts son objetos}. Los objetos son array asociativos al cual podemos acceder a través de la notación objeto.campo o como si de un array se tratará. 
+Sin lugar a dudas se trata de un lenguaje orientado a objeto. Los arrays, números, funciones, cadenas, casi en su totalidad el lenguaje son objetos\footnote{Salvo los valores destacados null y undefined, el resto de valores Javascripts son objetos}. Los objetos son array asociativos al cual podemos acceder a través de la notación objeto.campo o como si de un array se tratará. 
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 var f = function () {
@@ -45,7 +45,7 @@ var f = function () {
 };
 \end{lstlisting}
 
-Se trata de un lenguaje funcional en el que una función es un objeto de primera clase. Esto significa que Javascript soporta el paso de funciones como argumentos a otras funciones, funciones que devuelve funciones, variables que almacenan funciones, creación de funciones anónimas, etc ...
+Se trata de un lenguaje funcional en el que una función es un objeto de primera clase. Esto significa que Javascripts soporta el paso de funciones como argumentos a otras funciones, funciones que devuelve funciones, variables que almacenan funciones, creación de funciones anónimas, etc ...
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 function map(f, xs) {
@@ -56,7 +56,7 @@ function map(f, xs) {
 }
 \end{lstlisting}
 
-Javascript no utiliza los mecanismos de clases para implementar la herencia, para ello hace uso de los prototipos. 
+Javascripts no utiliza los mecanismos de clases para implementar la herencia, para ello hace uso de los prototipos. 
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 var Persona = function (){
@@ -75,30 +75,30 @@ pepe.setNombre('Pepe');   // y contiene una copia del prototipo de Persona.
 \subsection{Un poco de historia.}
 
 Cuando en 1996, el navegador Netscape introdujo su primer interprete de
-Javascript\footnote{Javascript fue un nombre por conveniencia legal. Originalmente se llamaba
+Javascripts\footnote{Javascripts fue un nombre por conveniencia legal. Originalmente se llamaba
   LiveScript} nadie podía intuir la importancia que adquiriría años después. 
 
 Internet aun estaba en pañales, navegar era lento\footnote{La velocidad máxima de los modems de
   usuario era 28.8Kbps} y los ordenadores personales poco potentes. En el mejor de los casos, el
 usuario tenía que esperar durante largo tiempo para poder interactuar con la web solicitada.  Las
-páginas comenzaban a ser más complejas, y la navegación más lenta, de ello surguió la necesidad de
+páginas comenzaban a ser más complejas, y la navegación más lenta, de ello surgió la necesidad de
 un lenguaje de programación que se ejecutará en el navegador del cliente. De esta forma, si el
 usuario introducía un valor incorrecto, en un formulario, no tendría que esperar a la respuesta del
 servidor, el mismo cliente podría dar una respuesta más rápida, indicando los errores existentes.
 
 Netscape Navigator 3.0 incorporó la primera versión del lenguaje, como ya se había comentado, y al
-mismo tiempo, o al poco, Microsofot lanzo JScript en su Internet Explorer 3. JScript no erá más que 
-una copia de Javascript al que le cambiaron el nombre para evitar problemas legales. De esta
-forma comienzan las divergencias entre las distintas versiones de Javascript, en esencia todas
-parten del mismo lenguaje y estandar, pero cada una aportaba sus mejoras provocando diferencias
+mismo tiempo, o al poco, Microsofot lanzo JScript en su Internet Explorer 3. JScript no era más que 
+una copia de Javascripts al que le cambiaron el nombre para evitar problemas legales. De esta
+forma comienzan las divergencias entre las distintas versiones de Javascripts, en esencia todas
+parten del mismo lenguaje y estándar, pero cada una aportaba sus mejoras provocando diferencias
 entre ellas. 
 
 La guerra entre las distintas versiones estaba servida. Todos deseaban que su versión fuera la
 aceptada por la comunidad y se popularizará. Bien intentando estandarizar su versión, o buscando
 que se evitará la guerra de tecnologías, Netscape decidió dar el paso, y en 1997 puso a disposición
 de ECMA\footnote{European Computer Manufacturers Association. Web oficial
-  http://www.ecma-international.org/} la especificación de Javascript1.1. ECMA creo el comité TC39
-del cual surgío el primer estándar que se denominó ECMA-262\footnote{Se puede encontrar la versión 5.1 en
+  http://www.ecma-international.org/} la especificación de Javascripts1.1. ECMA creo el comité TC39
+del cual surgió el primer estándar que se denominó ECMA-262\footnote{Se puede encontrar la versión 5.1 en
   http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf}, o más popularmente, 
 ECMAScript. 
 
@@ -109,9 +109,9 @@ desarrolladores su tarea.
 
 \subsection{Prototipos}
 
-Como se ha comentado con anterioridad Javascript no utiliza el mecanismos de clases\footnote{Paradigma sin clases} para implementar la herencia, para ello hace uso de los prototipos. Los prototipos son un paradigma de programación orientada a objetos en la cual una instanciación de objetos, se lleva a cabo mediante la clonación de otros objetos. 
+Como se ha comentado con anterioridad Javascripts no utiliza el mecanismos de clases\footnote{Paradigma sin clases} para implementar la herencia, para ello hace uso de los prototipos. Los prototipos son un paradigma de programación orientada a objetos en la cual una instanciación de objetos, se lleva a cabo mediante la clonación de otros objetos. 
 
-Los objetos en cualquier lenguaje son un conjunto de propiedades y métodos. Pues bien, Javascript carece de métodos en su lugar existen propiedades que apuntan a funciones que hacen las veces de métodos. Además, cada objeto tiene un enlace interno a otro objeto llamado prototipo\footnote{prototype}. El prototipo de un objeto puede ser, o bien otro objeto, o bien el valor null. Es lo que se llama cadena de prototipos o cadena prototípica (ver figura\ref{fig:cadena-prototipos}). 
+Los objetos en cualquier lenguaje son un conjunto de propiedades y métodos. Pues bien, Javascripts carece de métodos en su lugar existen propiedades que apuntan a funciones que hacen las veces de métodos. Además, cada objeto tiene un enlace interno a otro objeto llamado prototipo\footnote{prototype}. El prototipo de un objeto puede ser, o bien otro objeto, o bien el valor null. Es lo que se llama cadena de prototipos o cadena prototípica (ver figura\ref{fig:cadena-prototipos}). 
 
 \begin{figure}[tbph]
 \centering
@@ -142,7 +142,7 @@ Cómo se puede observar toda cadena de prototipo acaba con el prototipo de Objec
 
 \subsubsection{Herencia de propiedades y métodos}
 
-Un objeto javascript es un conjunto de propiedades\footnote{Los métodos son propiedades que referencia a una función} que en el momento de la herencia se copian en el nuevo objeto o objeto hijo. Así pues, en el siguiente ejemplo podemos observar como se heredan las propiedades y los "métodos". 
+Un objeto Javascripts es un conjunto de propiedades\footnote{Los métodos son propiedades que referencia a una función} que en el momento de la herencia se copian en el nuevo objeto o objeto hijo. Así pues, en el siguiente ejemplo podemos observar como se heredan las propiedades y los "métodos". 
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
 > var a = { 
@@ -164,7 +164,7 @@ Un objeto javascript es un conjunto de propiedades\footnote{Los métodos son pro
 > a.contar();  // una copia no el mismo
   Contador 2
 
-// la cadena de prototipos de los objectos:
+// la cadena de prototipos de los objetos:
 // b.prototype --> a.prototype --> Object.prototype --> null
 \end{lstlisting}
 
@@ -226,7 +226,7 @@ El ámbito de una variable\footnote{scope} es la zona del programa donde es acce
 
 En el ámbito global, las variables son accesibles desde cualquier punto del programa. Salvo si existe una variable con él mismo nombre en el ámbito local. 
 
-Cuando hablamos de ámbito local, en Javascript, nos referimos a nivel de función. Es decir, que las variables declaradas dentro de la función serán accesibles sólo dentro de la propia función. 
+Cuando hablamos de ámbito local, en Javascripts, nos referimos a nivel de función. Es decir, que las variables declaradas dentro de la función serán accesibles sólo dentro de la propia función. 
 
 
 \begin{lstlisting}[language=JavaScript, numbers=left]
@@ -242,7 +242,7 @@ function fn (){
 
 
 \subsection{Patrón módulo}
-Popularizado por Douglas Crockford el patrón módulo es sin lugar a dudas el más utilizado dentro del mundo de Javascript. Su simplicidad encierra gran potencia y flexibilidad que han aprovechado multitud de librerías\footnote{Por citar algunas de las más populares: JQuery, Dojo y Undercore, entre otros}.  
+Popularizado por Douglas Crockford el patrón módulo es sin lugar a dudas el más utilizado dentro del mundo de Javascripts. Su simplicidad encierra gran potencia y flexibilidad que han aprovechado multitud de librerías\footnote{Por citar algunas de las más populares: JQuery, Dojo y Undercore, entre otros}.  
 
 Para definir un módulo nos basamos principalmente en dos conceptos fundamentales: 
 \begin{itemize}
@@ -330,7 +330,7 @@ Quedando el interfaz de nuestro módulo como la conjunción de los métodos y va
 
 
 \subsection{Implementación de MM.Class con prototipos}
-Como ya hemos podido comprobar Javascript es un lenguaje sin clases, pero podemos simular, más o menos, el comportamiento de clase. Para el proyecto he implementado un patrón de extensión que nos permite tanto heredar como implementar la sobreescritura de funciones (métodos). 
+Como ya hemos podido comprobar Javascripts es un lenguaje sin clases, pero podemos simular, más o menos, el comportamiento de clase. Para el proyecto he implementado un patrón de extensión que nos permite tanto heredar como implementar la sobreescritura de funciones (métodos). 
 
 
 \lstinputlisting[language=JavaScript, numbers=left]{../src/klass.js}
@@ -463,7 +463,7 @@ La clase base de todos los comandos hacer y deshacer es MM.UndoMangaer.ComandoHa
 \lstinputlisting[language=JavaScript, numbers=left]{../src/undoManager.js}
 
 \section{Concatenación y UglifyJS}
-Es conveniente la unificación y compresión de código Javascript. Con ello, no sólo reducimos el número de peticiones\footnote{Más concretamente peticiones http get}, desde el navegador al servidor, sino que optimizamos los tiempos de carga y respuesta del navegador. Este aspecto es siempre deseable, evitando al usuario final esperas indeseadas.  
+Es conveniente la unificación y compresión de código Javascripts. Con ello, no sólo reducimos el número de peticiones\footnote{Más concretamente peticiones http get}, desde el navegador al servidor, sino que optimizamos los tiempos de carga y respuesta del navegador. Este aspecto es siempre deseable, evitando al usuario final esperas indeseadas.  
 
 Se ha utilizado la herramienta UglifyJS\footnote{En combinación con GruntJS} en MindMapJS, no sólo por tratarse de una librería estándar dentro de herramientas de ofuscación y reducción de código Javascript, sino por los beneficios que nos aporta.
 
@@ -558,7 +558,7 @@ Se trata de un concepto muy utilizado en editores gráficos, por nombrar algunos
 
 
 \subsection{Manejo de eventos.}
-Como se ha expresado con anterioridad tiene un buen sistema para menejo de eventos tanto de escritorio como touch. En el siguiente ejemplo \ref{fig:kinetic-ejemplo-eventos} podemos ver como manejar eventos sobre objetos con KineticJS.
+Como se ha expresado con anterioridad tiene un buen sistema para manejo de eventos tanto de escritorio como touch. En el siguiente ejemplo \ref{fig:kinetic-ejemplo-eventos} podemos ver como manejar eventos sobre objetos con KineticJS.
 
 \begin{figure}[tbph]
 \centering

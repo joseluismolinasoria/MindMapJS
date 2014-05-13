@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.1.2)  23 APR 2014 19:44
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.4.27)  10 MAY 2014 18:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **pfc.tex
 (./pfc.tex
 LaTeX2e <2011/06/27>
-Babel <3.9f> and hyphenation patterns for 78 languages loaded.
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo
@@ -510,7 +510,7 @@ Package hyperref Info: Bookmarks ON on input line 4688.
 
 (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5041.
 \XeTeXLinkMargin=\dimen130
@@ -560,15 +560,15 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \lst@maxwidth=\dimen136
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2013/07/10 1.5 (Carsten Heinz)
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 \c@lstnumber=\count127
 \lst@skipnumbers=\count128
 \lst@framebox=\box36
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2013/06/27 1.5pre1 listings configuration
+File: listings.cfg 2013/08/26 1.5b listings configuration
 ))
-Package: listings 2013/07/10 1.5 (Carsten Heinz)
+Package: listings 2013/08/26 1.5b (Carsten Heinz)
 
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/listingsutf8.sty
 Package: listingsutf8 2011/11/10 v1.2 Allow UTF-8 in listings input (HO)
@@ -586,23 +586,23 @@ Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
 less on input line 32.
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2013/05/16 v3.9f The Babel package
+Package: babel 2013/12/03 3.9h The Babel package
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
-Language: spanish.ldf 2010/05/23 v5.0j Spanish support from the babel system
+Language: spanish.ldf 2014/01/29 v5.0m Spanish support from the babel system
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2013/05/16 v3.9f Babel common definitions
+File: babel.def 2013/12/03 3.9h Babel common definitions
 \babel@savecnt=\count129
 \U@D=\dimen137
 )
 \es@datefmt=\count130
 \es@quottoks=\toks34
 \es@quotdepth=\count131
-Package babel Info: Making " an active character on input line 495.
-Package babel Info: Making . an active character on input line 588.
-Package babel Info: Making < an active character on input line 633.
-Package babel Info: Making > an active character on input line 633.
+Package babel Info: Making " an active character on input line 496.
+Package babel Info: Making . an active character on input line 599.
+Package babel Info: Making < an active character on input line 644.
+Package babel Info: Making > an active character on input line 644.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2013/05/02 v2.3f parameterised ToC, etc., typesetting
@@ -646,6 +646,16 @@ Package tocloft Info: The document has chapter divisions on input line 44.
 )) (./pfc.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
+
+
+LaTeX Warning: Label `Patterns' multiply defined.
+
+
+LaTeX Warning: Label `Patterns' multiply defined.
+
+
+LaTeX Warning: Label `w3c_html5' multiply defined.
+
 )
 \openout1 = `pfc.aux'.
 
@@ -1491,10 +1501,10 @@ LaTeX Info: Redefining \. on input line 526.
 LaTeX Info: Redefining \% on input line 526.
  [80]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/06/27 1.5pre1 listings language file
+File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2013/07/10 1.5 (Carsten Heinz)
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
 File: latin1.def 2008/03/30 v1.1d Input encoding file
@@ -1581,10 +1591,10 @@ LaTeX Info: Redefining \. on input line 27.
 LaTeX Info: Redefining \% on input line 27.
  [88 <./imagenes/nodejs-light-eps-converted-to.pdf>]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/06/27 1.5pre1 listings language file
+File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/06/27 1.5pre1 listings language file
+File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
 File: latin1.def 2008/03/30 v1.1d Input encoding file
@@ -2397,44 +2407,78 @@ Overfull \hbox (10.44753pt too wide) in paragraph at lines 3--3
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
 File: latin1.def 2008/03/30 v1.1d Input encoding file
-))
+)
+LaTeX Info: Redefining \. on input line 35.
+LaTeX Info: Redefining \% on input line 35.
+ [119])
+LaTeX Info: Redefining \. on input line 49.
+LaTeX Info: Redefining \% on input line 49.
+ [120]
 (./contenidos/bibliografia.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [119]
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [120]
+ [121]
 Overfull \hbox (14.9808pt too wide) in paragraph at lines 5--5
 [][] 
  []
 
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 21.
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 21.
+ [122
 
-LaTeX Warning: Empty `thebibliography' environment on input line 8.
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Patterns
+}) has been already used, duplicate ignored
 
-[121
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.29 \bibitem{kineticjs}
+                         KineticJS. \url{http://kineticjs.com/}pdfTeX warning (
+ext4): destination with the same identifier (name{cite.Patterns}) has been alre
+ady used, duplicate ignored
 
-])
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.29 \bibitem{kineticjs}
+                         KineticJS. \url{http://kineticjs.com/}pdfTeX warning (
+ext4): destination with the same identifier (name{cite.w3c_html5}) has been alr
+eady used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.29 \bibitem{kineticjs}
+                         KineticJS. \url{http://kineticjs.com/}]
+LaTeX Info: Redefining \. on input line 44.
+LaTeX Info: Redefining \% on input line 44.
+ [123])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 52.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 52.
- (./pfc.aux
+
+(./pfc.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 52.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 52.
 Package rerunfilecheck Info: File `pfc.out' has not changed.
-(rerunfilecheck)             Checksum: 6BA774EEA29707B5820A8AD02663C88E;6907.
+(rerunfilecheck)             Checksum: A14052131F97357AA4C625E33200173F;6910.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 52.
  ) 
 Here is how much of TeX's memory you used:
- 13345 strings out of 493307
- 200747 string characters out of 6139906
- 645756 words of memory out of 5000000
- 14091 multiletter control sequences out of 15000+600000
- 11111 words of font info for 40 fonts, out of 8000000 for 9000
+ 13411 strings out of 493304
+ 201747 string characters out of 6139871
+ 646965 words of memory out of 5000000
+ 14139 multiletter control sequences out of 15000+600000
+ 11280 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 41i,13n,52p,1796b,2566s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,13n,52p,1796b,2572s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
@@ -2445,12 +2489,13 @@ onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.
-pfb>
-Output written on pfc.pdf (123 pages, 2189306 bytes).
+cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on pfc.pdf (125 pages, 2210771 bytes).
 PDF statistics:
- 3761 PDF objects out of 4296 (max. 8388607)
- 3510 compressed objects within 36 object streams
- 2246 named destinations out of 2487 (max. 500000)
+ 3808 PDF objects out of 4296 (max. 8388607)
+ 3553 compressed objects within 36 object streams
+ 2263 named destinations out of 2487 (max. 500000)
  1147 words of extra memory for PDF output out of 10000 (max. 10000000)
 
