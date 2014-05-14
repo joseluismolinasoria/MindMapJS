@@ -1,0 +1,179 @@
+/*---------------------------------
+	IMPORTS
+-----------------------------------*/
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700,700italic);
+
+/*---------------------------------
+	OVERRIDES
+-----------------------------------*/
+h1,h2,h3,h4,h5,h6{
+    font-family: "Roboto", arial, verdana, sans-serif;
+    font-weight: normal;
+    text-shadow: 2px 2px 2px #ddd;
+}
+
+thead th,
+tbody th{
+    font-family: "Roboto", arial, verdana, sans-serif;
+}
+
+button,
+a.btn,
+input[type="submit"],
+input[type="reset"],
+input[type="button"]{
+    font-family: "Roboto", arial, verdana, sans-serif;
+}
+
+.menu{
+    font-family: "Roboto", arial, verdana, sans-serif;
+}
+
+blockquote{
+    font-family: "Roboto", arial, verdana, sans-serif;
+}
+
+/*---------------------------------
+  LAYOUT
+  -----------------------------------*/
+body{
+    margin:0;
+    padding:0 0 0 0;
+    color:#000;
+    font:normal 0.9em/150% "Roboto", arial, verdana, sans-serif;
+    text-shadow: 0px 0px 1px transparent; /* google font pixelation fix */
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: #888;
+}
+
+::moz-selection {
+    background: #888;
+}
+
+#wrap{
+    width:100%;
+    background:#fff;
+    margin:30px auto 30px auto;
+    padding:0 2%;
+    border:1px solid #ccc;
+}
+
+
+#footer {
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:2px;
+    margin:0;
+    border-top:1px solid #ddd;
+    color:#888;
+    height: 30px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background:#eee;
+}
+
+#link-top{
+    display:none;
+}
+
+/* NAV BAR*/
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    background:#eee;
+    border: 1px solid #ddd;
+    z-index: 1000;
+    padding: 0.10em 1em;
+}
+	
+.navbar span {
+    color:#aaa;
+}
+
+
+.navbar ul{
+    display:inline-block;
+    margin:0;
+    padding:0;
+}
+
+.navbar li{
+    margin:0;
+    padding:0;
+    list-style-type:0;
+    display:inline-block;
+}
+
+.navbar li a{
+    padding: 0em 0.5em;
+    display:inline-block;
+    color:#888;
+    text-decoration:none;
+    text-transform: camelcase;
+    line-height:100%;
+    font-size: 1.2em;
+}
+		
+.callout{
+    background:#4598ef;/*#86dc00;*/
+    padding:3em 0;
+    color:#fff;
+    box-shadow:inset 0px 0px 10px rgba(0,0,0,0.2);
+    text-align: center;
+    text-shadow:0px 1px 3px rgba(0,0,0,0.2);
+    display:block;
+}
+.callout + div.grid{margin-top:50px;}
+a.callout{cursor:pointer;}
+.callout i.icon-4x{font-size:6em;}
+.callout h4{margin-bottom:30px;}
+.callout-top{margin:50px 0 0 0;}
+.callout p{margin-bottom:0;}
+.callout .button{margin-top:10px;}
+.callout.green{background:#19ad0b;/*#86dc00;*/}
+
+#mc_embed_signup{
+    padding:30px 0;
+}
+
+#ui-preview{
+    border:5px solid #ddd;
+    margin:30px 0;
+    display:block;
+}
+
+#contenedorEditor {
+    display: block;
+    position: fixed;
+    left: 10px;
+    top: 30px;
+    overflow: hidden;
+    height: 92.1875%;  /* 708 / 768 */
+    width: 98.046875%; /* 1004 / 1024 target / context */
+    border: 1px dashed grey;
+}
+
+.deslizable {
+    top: -500px; /* -250 / 768 */
+    left: 0;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:2px;
+    margin:0;
+    border-top:1px solid #ddd;
+    color:#888;
+    width: 100%;
+    position: fixed;
+    background:#eee;
+    z-index: 3;
+    transition: top 1.5s;
+    -webkit-transition: top 1.5s; /* Safari */
+}
+

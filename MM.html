@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html debug="false">
+  <head>
+    <title>::MindMapJS::</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" href="css/kickstart/kickstart.css" media="all" /> 
+    <link rel="stylesheet" type="text/css" href="css/MM.css" media="all" />
+<!--    <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="lib/kickstart.js"></script> 
+
+    <script src="lib/kinetic-v4.6.0.min.js"></script>
+    <script src="dist/MindMapJS-v0.1.2.min.js"></script>
+    <script type="text/javascript">
+      window.onload = MM.demo.mmAyuda;
+    </script> 
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+	<li><a href="#">M<span>ind</span>M<span>ap</span>JS</a></li>
+	<li><a href="#" onclick="MM.demo.ayuda(true);"><i class="icon-question-sign"></i> Ayuda</a></li>
+	<li><a href="#" onclick="MM.demo.datosDelProyecto(true);"><i class="icon-info-sign"></i> Datos del proyecto</a></li>
+	<li><a href="https://github.com/joseluismolinasoria/MindMapJS" target="_black"><i class="icon-github-alt"></i> Github</a></li>
+	<li>
+	  <a href="docs/jsdocs/MM.html" target="_black"><i class="icon-align-left"></i> API</a></li>
+      </ul>
+    </nav>
+
+    <div id="contenedorEditor" tabindex="1"></div>
+
+    <footer id="footer"> 
+      <div class="center">
+	Realizado por D. José Luis Molina Soria - Tutor D. Juan Antonio Falgueras Cano
+      </div>
+    </footer>
+
+    <!-- DIVS DESLIZABLES -->
+    <div id="ayuda" class="deslizable" onclick="MM.demo.ayuda(false);">
+      <div class="col_4">
+	<h4><i class="icon-desktop"></i> Atajos de teclado</h4>
+	&lt;Cursores&gt; Desplazamiento por los nodos.<br/>
+	&lt;Insert&gt; Crear un nuevo hijo.<br/>
+	&lt;Supr&gt; Borrar el nodo.<br/>
+	&lt;Home&gt; Ir al nodo Raíz.<br/>
+	&lt;Ctrl++&gt; Zoom in.<br/>
+	&lt;Ctrl+-&gt; Zoom out.<br/>
+	&lt;Ctrl+0&gt; Reset Zoom.
+      </div>
+      <div class="col_8">
+	<h4><i class="icon-tablet"></i> Touch</h4>
+	Crear la documentación para manejo táctil
+      </div>
+    </div>
+
+    <div id="datosDelProyecto" class="deslizable" onclick="MM.demo.datosDelProyecto(false);">
+      <div class="col_12">
+	<h4><i class="icon-info-sign"></i> Datos del proyecto</h4>
+	Editor de mapas mentales Online con HTML5 y Javascripts (MindMapJS)<br/>
+	Autor Sr. D. José Luis Molina Soria<br/>
+	Tutor de proyecto Sr. D. Juan Antonio Falgueras Cano<br/>
+	Número de orden 5336<br/>
+	Autorizado el 3 de abril de 2013
+      </div>
+    </div>
+    <!-- FIN DIVS DESLIZABLES -->
+
+    <!-- BOTONERA -->
+    <ul class="button-bar" style="position:fixed; top: 40px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.nuevo(); return false;" title="Nuevo mapa mental">
+	  <i class="icon-file"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.render.editar(); return false;" title="Editar nodo actual">
+	  <i class="icon-edit"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 72px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.add(); MM.render.editar(); return false;" title="Crear un nuevo nodo hijo">
+	  <i class="icon-plus"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.borrar(); return false;" title="Borrar el nodo actual">
+	  <i class="icon-minus"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 104px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" id="btnHacer" onclick="MM.demo.hacer(); return false;" title="Hacer ..." >
+	  <i id="iconHacer" class="icon-repeat"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" id="btnDeshacer" onclick="MM.demo.deshacer(); return false;" title="Deshacer ..." >
+	  <i id="iconDeshacer" class="icon-undo"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 136px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.plegarRama(true); return false;"  title="Plegar">
+	  <i class="icon-caret-down "></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.plegarRama(false); return false;"  title="Desplegar">
+	  <i class="icon-caret-right "></i>
+	</a>
+      </li>
+    </ul>
+
+
+    <ul class="button-bar" style="position:fixed; top: 168px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.render.zoomIn(); return false;"  title="Zoom in (agrandar)">
+	  <i class="icon-zoom-in"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.render.zoomOut(); return false;"  title="Zoom out (encoger)">
+	  <i class="icon-zoom-out"></i>
+	</a>
+      </li>
+    </ul>
+
+    <ul class="button-bar" style="position:fixed; top: 200px; right: 30px; left:auto; z-index:2">
+      <li class="first">
+	<a href="#" onclick="MM.cargarFreeMind(); return false;" title="Cargar fichero FreeMind">
+	  <i class="icon-upload-alt"></i>
+	</a>
+      </li>
+      <li class="last">
+	<a href="#" onclick="MM.exportar.freemind.grabar(); return false;" title="Exportar a fichero FreeMind">
+	  <i class="icon-download-alt"></i>
+	</a>
+      </li>
+    </ul>
+    <!-- FIN DE BOTONERA -->
+
+  </body>  
+</html>
