@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.4.27)  10 MAY 2014 18:31
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.4.27)  15 MAY 2014 19:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1570,11 +1570,11 @@ LaTeX Info: Redefining \. on input line 30.
 LaTeX Info: Redefining \% on input line 30.
  [87 <./imagenes/KineticjsEjemplo2.png>]) (./contenidos/05.01.NodeJS.tex
 Package epstopdf Info: Source file: <imagenes/nodejs-light.eps>
-(epstopdf)                    date: 2013-10-21 21:17:07
+(epstopdf)                    date: 2014-05-15 17:03:01
 (epstopdf)                    size: 588530 bytes
 (epstopdf)             Output file: <imagenes/nodejs-light-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2013-10-21 21:18:19
+(epstopdf)                    date: 2014-05-15 17:03:01
 (epstopdf)                    size: 12687 bytes
 (epstopdf)             Command: <repstopdf --outfile=imagenes/nodejs-light-eps-
 converted-to.pdf imagenes/nodejs-light.eps>
@@ -2492,7 +2492,7 @@ onts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on pfc.pdf (125 pages, 2210771 bytes).
+Output written on pfc.pdf (125 pages, 2210761 bytes).
 PDF statistics:
  3808 PDF objects out of 4296 (max. 8388607)
  3553 compressed objects within 36 object streams
