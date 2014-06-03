@@ -33,7 +33,7 @@
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
  * @version 0.1.2
- * @date    2014-04-23
+ * @date    2014-06-03
  */
 
 /**
@@ -1720,9 +1720,9 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             strokeWidth: 2,
             fill: this.colorFondo,
             shadowColor: this.color,
-            shadowBlur: 5,
-            shadowOffset: [3, 3],
-            shadowOpacity: 0.5,
+            shadowBlur: 4,
+            shadowOffset: {x:4, y:4},
+            shadowOpacity: 0.7,
             tension: 0.3
         });
 
@@ -1785,14 +1785,6 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
 	this.group.on('tap', bindPonerFoco);
         this.group.on('dblclick', bindEditar);
 	this.group.on('dbltap', bindEditar);
-        // this.group.on('mouseout', bindNOP);
-        // this.group.on('mousemove', bindNOP);
-        // this.group.on('mousedown', bindNOP);
-        // this.group.on('mouseup', bindNOP);
-        // this.group.on('mouseenter', bindNOP);
-        // this.group.on('mouseLeave', bindNOP);
-        // this.group.on('dragstart', bindNOP);
-      //this.group.on('dragmove dragend', MM.Class.bind(MM.render, MM.render.renderAristas) );
         h = w = t = x = y = null;
     },
 
