@@ -16,10 +16,10 @@
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Diagrama de secuencia borrar}}{27}{figure.4.6}
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Diagrama de secuencia Zoom}}{28}{figure.4.7}
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Diagrama de secuencia navegaci\IeC {\'o}n}}{29}{figure.4.8}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Diagrama de secuencia plegar}}{30}{figure.4.9}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Diagrama de secuencia plegar}}{31}{figure.4.9}
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Clase MM.Class}}{31}{figure.4.10}
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Diagrama de clases pubsub}}{32}{figure.4.11}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Clase MM.PubSub}}{32}{figure.4.12}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Clase MM.PubSub}}{33}{figure.4.12}
 \contentsline {figure}{\numberline {4.13}{\ignorespaces Diagrama de clases undo}}{33}{figure.4.13}
 \contentsline {figure}{\numberline {4.14}{\ignorespaces Clase MM.UndoManager.ComandoHacerDeshacer}}{34}{figure.4.14}
 \contentsline {figure}{\numberline {4.15}{\ignorespaces Secuencia de ejecuci\IeC {\'o}n de UndoManager}}{35}{figure.4.15}
@@ -35,7 +35,7 @@
 \contentsline {figure}{\numberline {4.25}{\ignorespaces Mapa mental con renderizaci\IeC {\'o}n de nodos simples}}{45}{figure.4.25}
 \contentsline {figure}{\numberline {4.26}{\ignorespaces Clase MM.Globo}}{46}{figure.4.26}
 \contentsline {figure}{\numberline {4.27}{\ignorespaces Mapa mental con renderizaci\IeC {\'o}n de nodos globo}}{46}{figure.4.27}
-\contentsline {figure}{\numberline {4.28}{\ignorespaces Modulo MM.Color}}{46}{figure.4.28}
+\contentsline {figure}{\numberline {4.28}{\ignorespaces Modulo MM.Color}}{47}{figure.4.28}
 \contentsline {figure}{\numberline {4.29}{\ignorespaces Diagrama de clases aristas}}{47}{figure.4.29}
 \contentsline {figure}{\numberline {4.30}{\ignorespaces Clase Kinetic Beizer}}{48}{figure.4.30}
 \contentsline {figure}{\numberline {4.31}{\ignorespaces Clase MM.Arista}}{48}{figure.4.31}
@@ -43,7 +43,7 @@
 \contentsline {figure}{\numberline {4.33}{\ignorespaces Diagrama de clases teclado}}{50}{figure.4.33}
 \contentsline {figure}{\numberline {4.34}{\ignorespaces Modulo MM.teclado.atajos}}{51}{figure.4.34}
 \contentsline {figure}{\numberline {4.35}{\ignorespaces Clase MM.teclado.tecla}}{52}{figure.4.35}
-\contentsline {figure}{\numberline {4.36}{\ignorespaces Clase MM.teclado}}{52}{figure.4.36}
+\contentsline {figure}{\numberline {4.36}{\ignorespaces Clase MM.teclado}}{53}{figure.4.36}
 \contentsline {figure}{\numberline {4.37}{\ignorespaces Diagrama de secuencia teclado}}{53}{figure.4.37}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Cadena protot\IeC {\'\i }pica de objetos}}{57}{figure.5.1}

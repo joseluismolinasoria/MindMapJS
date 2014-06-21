@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.4.27)  3 JUN 2014 18:25
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.4.27)  18 JUN 2014 19:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -987,8 +987,8 @@ File: imagenes/diagrama-seq-navegacion.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-seq-navegacion.png used on input lin
 e 80.
 (pdftex.def)             Requested size: 182.09486pt x 455.46613pt.
-LaTeX Info: Redefining \. on input line 95.
-LaTeX Info: Redefining \% on input line 95.
+LaTeX Info: Redefining \. on input line 92.
+LaTeX Info: Redefining \% on input line 92.
  [29 <./imagenes/diagrama-seq-navegacion.png (PNG copy)>]
 <imagenes/diagrama-seq-plegar.png, id=757, 233.87375pt x 299.1175pt>
 File: imagenes/diagrama-seq-plegar.png Graphic file (type png)
@@ -999,10 +999,10 @@ Package pdftex.def Info: imagenes/diagrama-seq-plegar.png used on input line 10
 (pdftex.def)             Requested size: 136.57462pt x 174.68407pt.
 )
 (./contenidos/03.03.DiagramasDeClases.tex
-LaTeX Info: Redefining \. on input line 11.
-LaTeX Info: Redefining \% on input line 11.
- [30 <./imagenes/diagrama-seq-plegar.png (PNG copy)>]
-<imagenes/diagrama-clase-mm-class.png, id=762, 317.185pt x 199.74625pt>
+LaTeX Info: Redefining \. on input line 12.
+LaTeX Info: Redefining \% on input line 12.
+ [30]
+<imagenes/diagrama-clase-mm-class.png, id=763, 317.185pt x 199.74625pt>
 File: imagenes/diagrama-clase-mm-class.png Graphic file (type png)
 
 <use imagenes/diagrama-clase-mm-class.png>
@@ -1010,17 +1010,18 @@ Package pdftex.def Info: imagenes/diagrama-clase-mm-class.png used on input lin
 e 17.
 (pdftex.def)             Requested size: 182.09486pt x 114.67642pt.
 
-<imagenes/diagrama-clases-mm-pubsub.png, id=764, 685.56125pt x 378.41376pt>
+<imagenes/diagrama-clases-mm-pubsub.png, id=765, 685.56125pt x 378.41376pt>
 File: imagenes/diagrama-clases-mm-pubsub.png Graphic file (type png)
 
 <use imagenes/diagrama-clases-mm-pubsub.png>
 Package pdftex.def Info: imagenes/diagrama-clases-mm-pubsub.png used on input l
 ine 38.
 (pdftex.def)             Requested size: 455.24411pt x 251.28976pt.
-LaTeX Info: Redefining \. on input line 50.
-LaTeX Info: Redefining \% on input line 50.
- [31 <./imagenes/diagrama-clase-mm-class.png (PNG copy)>]
-<imagenes/diagrama-clase-mm-pubsub.png, id=771, 471.7625pt x 239.89626pt>
+LaTeX Info: Redefining \. on input line 41.
+LaTeX Info: Redefining \% on input line 41.
+ [31 <./imagenes/diagrama-seq-plegar.png (PNG copy)> <./imagenes/diagrama-clase
+-mm-class.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-pubsub.png, id=770, 471.7625pt x 239.89626pt>
 File: imagenes/diagrama-clase-mm-pubsub.png Graphic file (type png)
 
 <use imagenes/diagrama-clase-mm-pubsub.png>
@@ -1029,8 +1030,7 @@ ne 56.
 (pdftex.def)             Requested size: 227.62206pt x 115.7492pt.
 LaTeX Info: Redefining \. on input line 65.
 LaTeX Info: Redefining \% on input line 65.
- [32 <./imagenes/diagrama-clases-mm-pubsub.png (PNG copy)> <./imagenes/diagrama
--clase-mm-pubsub.png (PNG copy)>]
+ [32 <./imagenes/diagrama-clases-mm-pubsub.png (PNG copy)>]
 <imagenes/diagrama-clases-mm-undo.png, id=777, 935.495pt x 515.9275pt>
 File: imagenes/diagrama-clases-mm-undo.png Graphic file (type png)
 
@@ -1038,8 +1038,11 @@ File: imagenes/diagrama-clases-mm-undo.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-clases-mm-undo.png used on input lin
 e 80.
 (pdftex.def)             Requested size: 455.24411pt x 251.06688pt.
-
-<imagenes/diagrama-clase-mm-undomanager-comandohacerdeshacer.png, id=779, 521.9
+LaTeX Info: Redefining \. on input line 90.
+LaTeX Info: Redefining \% on input line 90.
+ [33 <./imagenes/diagrama-clase-mm-pubsub.png (PNG copy)> <./imagenes/diagrama-
+clases-mm-undo.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-undomanager-comandohacerdeshacer.png, id=783, 521.9
 5pt x 239.89626pt>
 File: imagenes/diagrama-clase-mm-undomanager-comandohacerdeshacer.png Graphic f
 ile (type png)
@@ -1048,10 +1051,8 @@ ile (type png)
 Package pdftex.def Info: imagenes/diagrama-clase-mm-undomanager-comandohacerdes
 hacer.png used on input line 93.
 (pdftex.def)             Requested size: 318.66948pt x 146.46828pt.
-LaTeX Info: Redefining \. on input line 100.
-LaTeX Info: Redefining \% on input line 100.
- [33 <./imagenes/diagrama-clases-mm-undo.png (PNG copy)>]
-<imagenes/undomangerEjecucion.png, id=786, 642.4pt x 786.94pt>
+
+<imagenes/undomangerEjecucion.png, id=785, 642.4pt x 786.94pt>
 File: imagenes/undomangerEjecucion.png Graphic file (type png)
 
 <use imagenes/undomangerEjecucion.png>
@@ -1059,19 +1060,19 @@ Package pdftex.def Info: imagenes/undomangerEjecucion.png used on input line 10
 7.
 (pdftex.def)             Requested size: 318.66948pt x 390.38304pt.
 
-<imagenes/diagrama-clase-mm-undomanager.png, id=788, 441.65pt x 354.32375pt>
+<imagenes/diagrama-clase-mm-undomanager.png, id=787, 441.65pt x 354.32375pt>
 File: imagenes/diagrama-clase-mm-undomanager.png Graphic file (type png)
 
 <use imagenes/diagrama-clase-mm-undomanager.png>
 Package pdftex.def Info: imagenes/diagrama-clase-mm-undomanager.png used on inp
 ut line 116.
 (pdftex.def)             Requested size: 318.66948pt x 255.66977pt.
-LaTeX Info: Redefining \. on input line 131.
-LaTeX Info: Redefining \% on input line 131.
+LaTeX Info: Redefining \. on input line 126.
+LaTeX Info: Redefining \% on input line 126.
  [34 <./imagenes/diagrama-clase-mm-undomanager-comandohacerdeshacer.png (PNG co
 py)>]
-LaTeX Info: Redefining \. on input line 131.
-LaTeX Info: Redefining \% on input line 131.
+LaTeX Info: Redefining \. on input line 126.
+LaTeX Info: Redefining \% on input line 126.
  [35 <./imagenes/undomangerEjecucion.png (PNG copy)>]
 <imagenes/diagrama-clases-mm.png, id=801, 965.6075pt x 770.88pt>
 File: imagenes/diagrama-clases-mm.png Graphic file (type png)
@@ -1080,21 +1081,21 @@ File: imagenes/diagrama-clases-mm.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-clases-mm.png used on input line 147
 .
 (pdftex.def)             Requested size: 455.24411pt x 363.4311pt.
-LaTeX Info: Redefining \. on input line 158.
-LaTeX Info: Redefining \% on input line 158.
+LaTeX Info: Redefining \. on input line 154.
+LaTeX Info: Redefining \% on input line 154.
  [36 <./imagenes/diagrama-clase-mm-undomanager.png (PNG copy)>]
-LaTeX Info: Redefining \. on input line 158.
-LaTeX Info: Redefining \% on input line 158.
+LaTeX Info: Redefining \. on input line 154.
+LaTeX Info: Redefining \% on input line 154.
  [37 <./imagenes/diagrama-clases-mm.png (PNG copy)>]
-<imagenes/diagrama-clase-mm.png, id=813, 383.4325pt x 313.17pt>
+<imagenes/diagrama-clase-mm.png, id=812, 383.4325pt x 313.17pt>
 File: imagenes/diagrama-clase-mm.png Graphic file (type png)
 
 <use imagenes/diagrama-clase-mm.png>
 Package pdftex.def Info: imagenes/diagrama-clase-mm.png used on input line 167.
 
 (pdftex.def)             Requested size: 227.62206pt x 185.91554pt.
-LaTeX Info: Redefining \. on input line 184.
-LaTeX Info: Redefining \% on input line 184.
+LaTeX Info: Redefining \. on input line 179.
+LaTeX Info: Redefining \% on input line 179.
  [38 <./imagenes/diagrama-clase-mm.png (PNG copy)>]
 <imagenes/diagrama-clase-mm-arbol.png, id=819, 461.725pt x 392.46625pt>
 File: imagenes/diagrama-clase-mm-arbol.png Graphic file (type png)
@@ -1103,8 +1104,8 @@ File: imagenes/diagrama-clase-mm-arbol.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-clase-mm-arbol.png used on input lin
 e 196.
 (pdftex.def)             Requested size: 318.66948pt x 270.86786pt.
-LaTeX Info: Redefining \. on input line 207.
-LaTeX Info: Redefining \% on input line 207.
+LaTeX Info: Redefining \. on input line 205.
+LaTeX Info: Redefining \% on input line 205.
  [39 <./imagenes/diagrama-clase-mm-arbol.png (PNG copy)>]
 <imagenes/diagrama-clase-mm-dom.png, id=825, 321.2pt x 177.66376pt>
 File: imagenes/diagrama-clase-mm-dom.png Graphic file (type png)
@@ -1121,15 +1122,15 @@ Underfull \hbox (badness 1496) in paragraph at lines 240--241
 
 LaTeX Info: Redefining \. on input line 241.
 LaTeX Info: Redefining \% on input line 241.
-[40] <imagenes/diagrama-clase-mm-render.png, id=834, 544.0325pt x 587.19376pt>
+[40] <imagenes/diagrama-clase-mm-render.png, id=833, 544.0325pt x 587.19376pt>
 File: imagenes/diagrama-clase-mm-render.png Graphic file (type png)
 
 <use imagenes/diagrama-clase-mm-render.png>
 Package pdftex.def Info: imagenes/diagrama-clase-mm-render.png used on input li
 ne 244.
 (pdftex.def)             Requested size: 295.90588pt x 319.39154pt.
-LaTeX Info: Redefining \. on input line 254.
-LaTeX Info: Redefining \% on input line 254.
+LaTeX Info: Redefining \. on input line 252.
+LaTeX Info: Redefining \% on input line 252.
  [41 <./imagenes/diagrama-clase-mm-dom.png (PNG copy)> <./imagenes/diagrama-cla
 se-mm-render.png (PNG copy)>]
 LaTeX Info: Redefining \. on input line 272.
@@ -1151,10 +1152,10 @@ File: imagenes/diagrama-clase-mm-mensaje.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-clase-mm-mensaje.png used on input l
 ine 286.
 (pdftex.def)             Requested size: 318.66948pt x 198.3847pt.
-LaTeX Info: Redefining \. on input line 296.
-LaTeX Info: Redefining \% on input line 296.
+LaTeX Info: Redefining \. on input line 295.
+LaTeX Info: Redefining \% on input line 295.
  [43 <./imagenes/diagrama-clases-mm-render.png (PNG copy)>]
-<imagenes/diagrama-clase-mm-nodosimple.png, id=857, 453.695pt x 392.46625pt>
+<imagenes/diagrama-clase-mm-nodosimple.png, id=856, 453.695pt x 392.46625pt>
 File: imagenes/diagrama-clase-mm-nodosimple.png Graphic file (type png)
 
 <use imagenes/diagrama-clase-mm-nodosimple.png>
@@ -1162,17 +1163,17 @@ Package pdftex.def Info: imagenes/diagrama-clase-mm-nodosimple.png used on inpu
 t line 305.
 (pdftex.def)             Requested size: 273.14923pt x 236.28401pt.
 
-<imagenes/NodoSimple.png, id=858, 300.3722pt x 396.7322pt>
+<imagenes/NodoSimple.png, id=857, 300.3722pt x 396.7322pt>
 File: imagenes/NodoSimple.png Graphic file (type png)
 
 <use imagenes/NodoSimple.png>
 Package pdftex.def Info: imagenes/NodoSimple.png used on input line 312.
 (pdftex.def)             Requested size: 227.62206pt x 300.65392pt.
-LaTeX Info: Redefining \. on input line 322.
-LaTeX Info: Redefining \% on input line 322.
+LaTeX Info: Redefining \. on input line 321.
+LaTeX Info: Redefining \% on input line 321.
  [44 <./imagenes/diagrama-clase-mm-mensaje.png (PNG copy)>]
-LaTeX Info: Redefining \. on input line 322.
-LaTeX Info: Redefining \% on input line 322.
+LaTeX Info: Redefining \. on input line 321.
+LaTeX Info: Redefining \% on input line 321.
  [45 <./imagenes/diagrama-clase-mm-nodosimple.png (PNG copy)> <./imagenes/NodoS
 imple.png>]
 <imagenes/diagrama-clase-mm-globo.png, id=869, 459.7175pt x 199.74625pt>
@@ -1197,28 +1198,30 @@ File: imagenes/diagrama-clase-mm-color.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-clase-mm-color.png used on input lin
 e 348.
 (pdftex.def)             Requested size: 227.62206pt x 149.78265pt.
-LaTeX Info: Redefining \. on input line 357.
-LaTeX Info: Redefining \% on input line 357.
- [46 <./imagenes/diagrama-clase-mm-globo.png (PNG copy)> <./imagenes/NodoGlobo.
-png> <./imagenes/diagrama-clase-mm-color.png (PNG copy)>]
-<imagenes/diagrama-clases-mm-aristas.png, id=881, 903.375pt x 624.3325pt>
+
+<imagenes/diagrama-clases-mm-aristas.png, id=874, 903.375pt x 624.3325pt>
 File: imagenes/diagrama-clases-mm-aristas.png Graphic file (type png)
 
 <use imagenes/diagrama-clases-mm-aristas.png>
 Package pdftex.def Info: imagenes/diagrama-clases-mm-aristas.png used on input 
 line 360.
 (pdftex.def)             Requested size: 455.24411pt x 314.63286pt.
-
-<imagenes/diagrama-clase-kinetic-beizer.png, id=882, 337.26pt x 272.01625pt>
+LaTeX Info: Redefining \. on input line 363.
+LaTeX Info: Redefining \% on input line 363.
+ [46 <./imagenes/diagrama-clase-mm-globo.png (PNG copy)> <./imagenes/NodoGlobo.
+png>]
+LaTeX Info: Redefining \. on input line 367.
+LaTeX Info: Redefining \% on input line 367.
+ [47 <./imagenes/diagrama-clase-mm-color.png (PNG copy)> <./imagenes/diagrama-c
+lases-mm-aristas.png (PNG copy)>]
+<imagenes/diagrama-clase-kinetic-beizer.png, id=887, 337.26pt x 272.01625pt>
 File: imagenes/diagrama-clase-kinetic-beizer.png Graphic file (type png)
 
 <use imagenes/diagrama-clase-kinetic-beizer.png>
 Package pdftex.def Info: imagenes/diagrama-clase-kinetic-beizer.png used on inp
 ut line 370.
 (pdftex.def)             Requested size: 227.62206pt x 183.59059pt.
-LaTeX Info: Redefining \. on input line 377.
-LaTeX Info: Redefining \% on input line 377.
- [47 <./imagenes/diagrama-clases-mm-aristas.png (PNG copy)>]
+
 <imagenes/diagrama-clase-mm-arista.png, id=888, 477.785pt x 278.03876pt>
 File: imagenes/diagrama-clase-mm-arista.png Graphic file (type png)
 
@@ -1226,8 +1229,8 @@ File: imagenes/diagrama-clase-mm-arista.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-clase-mm-arista.png used on input li
 ne 380.
 (pdftex.def)             Requested size: 318.66948pt x 185.44498pt.
-LaTeX Info: Redefining \. on input line 390.
-LaTeX Info: Redefining \% on input line 390.
+LaTeX Info: Redefining \. on input line 389.
+LaTeX Info: Redefining \% on input line 389.
  [48 <./imagenes/diagrama-clase-kinetic-beizer.png (PNG copy)> <./imagenes/diag
 rama-clase-mm-arista.png (PNG copy)>] <imagenes/diagrama-clase-mm-rama.png, id=
 894, 477.785pt x 199.74625pt>
@@ -1245,28 +1248,28 @@ File: imagenes/diagrama-clases-mm-teclado.png Graphic file (type png)
 Package pdftex.def Info: imagenes/diagrama-clases-mm-teclado.png used on input 
 line 413.
 (pdftex.def)             Requested size: 364.19667pt x 412.55728pt.
-
-<imagenes/diagrama-clase-mm-teclado-atajos.png, id=898, 403.5075pt x 292.09125p
+LaTeX Info: Redefining \. on input line 423.
+LaTeX Info: Redefining \% on input line 423.
+ [49 <./imagenes/diagrama-clase-mm-rama.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 423.
+LaTeX Info: Redefining \% on input line 423.
+ [50 <./imagenes/diagrama-clases-mm-teclado.png (PNG copy)>]
+<imagenes/diagrama-clase-mm-teclado-atajos.png, id=908, 403.5075pt x 292.09125p
 t>
 File: imagenes/diagrama-clase-mm-teclado-atajos.png Graphic file (type png)
  <use imagenes/diagrama-clase-mm-teclado-atajos.png>
 Package pdftex.def Info: imagenes/diagrama-clase-mm-teclado-atajos.png used on 
 input line 429.
 (pdftex.def)             Requested size: 273.14923pt x 197.72801pt.
-LaTeX Info: Redefining \. on input line 432.
-LaTeX Info: Redefining \% on input line 432.
- [49 <./imagenes/diagrama-clase-mm-rama.png (PNG copy)>]
-LaTeX Info: Redefining \. on input line 432.
-LaTeX Info: Redefining \% on input line 432.
- [50 <./imagenes/diagrama-clases-mm-teclado.png (PNG copy)>]
-<imagenes/diagrama-clase-mm-teclado-tecla.png, id=911, 365.365pt x 320.19624pt>
+
+<imagenes/diagrama-clase-mm-teclado-tecla.png, id=909, 365.365pt x 320.19624pt>
 File: imagenes/diagrama-clase-mm-teclado-tecla.png Graphic file (type png)
 <use imagenes/diagrama-clase-mm-teclado-tecla.png>
 Package pdftex.def Info: imagenes/diagrama-clase-mm-teclado-tecla.png used on i
 nput line 447.
 (pdftex.def)             Requested size: 182.09486pt x 159.5847pt.
-LaTeX Info: Redefining \. on input line 458.
-LaTeX Info: Redefining \% on input line 458.
+LaTeX Info: Redefining \. on input line 456.
+LaTeX Info: Redefining \% on input line 456.
  [51 <./imagenes/diagrama-clase-mm-teclado-atajos.png (PNG copy)>]
 <imagenes/diagrama-clase-mm-teclado.png, id=918, 285.065pt x 201.75375pt>
 File: imagenes/diagrama-clase-mm-teclado.png Graphic file (type png)
@@ -1286,8 +1289,8 @@ Package pdftex.def Info: imagenes/diagrama-seq-teclado.png used on input line 4
 ) (./contenidos/04.00.Implementacion.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-[52 <./imagenes/diagrama-clase-mm-teclado-tecla.png (PNG copy)> <./imagenes/dia
-grama-clase-mm-teclado.png (PNG copy)>] [53 <./imagenes/diagrama-seq-teclado.pn
+[52 <./imagenes/diagrama-clase-mm-teclado-tecla.png (PNG copy)>] [53 <./imagene
+s/diagrama-clase-mm-teclado.png (PNG copy)> <./imagenes/diagrama-seq-teclado.pn
 g (PNG copy)>]
 Cap\'{\i }tulo 5.
 
@@ -1570,11 +1573,11 @@ LaTeX Info: Redefining \. on input line 30.
 LaTeX Info: Redefining \% on input line 30.
  [87 <./imagenes/KineticjsEjemplo2.png>]) (./contenidos/05.01.NodeJS.tex
 Package epstopdf Info: Source file: <imagenes/nodejs-light.eps>
-(epstopdf)                    date: 2014-05-15 17:03:01
+(epstopdf)                    date: 2014-06-10 19:10:44
 (epstopdf)                    size: 588530 bytes
 (epstopdf)             Output file: <imagenes/nodejs-light-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2014-05-15 17:03:01
+(epstopdf)                    date: 2014-06-10 19:10:44
 (epstopdf)                    size: 12687 bytes
 (epstopdf)             Command: <repstopdf --outfile=imagenes/nodejs-light-eps-
 converted-to.pdf imagenes/nodejs-light.eps>
@@ -2474,7 +2477,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 52.
 Here is how much of TeX's memory you used:
  13411 strings out of 493304
  201747 string characters out of 6139871
- 646965 words of memory out of 5000000
+ 646969 words of memory out of 5000000
  14139 multiletter control sequences out of 15000+600000
  11280 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -2492,7 +2495,7 @@ onts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on pfc.pdf (125 pages, 2210760 bytes).
+Output written on pfc.pdf (125 pages, 2209645 bytes).
 PDF statistics:
  3808 PDF objects out of 4296 (max. 8388607)
  3553 compressed objects within 36 object streams

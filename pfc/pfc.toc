@@ -22,33 +22,33 @@
 \contentsline {subsection}{\numberline {4.2.5}Zoom}{28}{subsection.4.2.5}
 \contentsline {subsection}{\numberline {4.2.6}Navegar}{28}{subsection.4.2.6}
 \contentsline {subsection}{\numberline {4.2.7}Mover idea}{29}{subsection.4.2.7}
-\contentsline {subsection}{\numberline {4.2.8}Mover mapa mental}{29}{subsection.4.2.8}
+\contentsline {subsection}{\numberline {4.2.8}Mover mapa mental}{30}{subsection.4.2.8}
 \contentsline {subsection}{\numberline {4.2.9}Salvar/cargar mapa mental}{30}{subsection.4.2.9}
 \contentsline {subsection}{\numberline {4.2.10}Hacer/deshacer acciones}{30}{subsection.4.2.10}
 \contentsline {subsection}{\numberline {4.2.11}Plegado/desplegado de ramas}{30}{subsection.4.2.11}
 \contentsline {section}{\numberline {4.3}Diagramas de Clase}{30}{section.4.3}
-\contentsline {subsubsection}{Clase MM.Class}{31}{section*.1}
+\contentsline {subsubsection}{Clase MM.Class}{30}{section*.1}
 \contentsline {subsection}{\numberline {4.3.1}Diagrama de clases PubSub}{31}{subsection.4.3.1}
 \contentsline {subsubsection}{MM.PubSub}{32}{section*.2}
 \contentsline {subsection}{\numberline {4.3.2}Diagrama de clases MM.UndoManager}{33}{subsection.4.3.2}
-\contentsline {subsubsection}{Clase MM.UndoManager.ComandoHacerDeshacer}{33}{section*.3}
+\contentsline {subsubsection}{Clase MM.UndoManager.ComandoHacerDeshacer}{34}{section*.3}
 \contentsline {subsubsection}{Clase MM.UndoManager}{34}{section*.4}
 \contentsline {subsection}{\numberline {4.3.3}Diagrama de clases MM}{36}{subsection.4.3.3}
 \contentsline {subsubsection}{M\IeC {\'o}dulo MM}{38}{section*.5}
 \contentsline {subsubsection}{Clase MM.Arbol}{39}{section*.6}
 \contentsline {subsubsection}{M\IeC {\'o}dulo MM.DOM}{40}{section*.7}
-\contentsline {subsubsection}{Clase MM.Render}{40}{section*.8}
-\contentsline {subsection}{\numberline {4.3.4}Diagrama de clases nodo.}{42}{subsection.4.3.4}
+\contentsline {subsubsection}{Clase MM.Render}{41}{section*.8}
+\contentsline {subsection}{\numberline {4.3.4}Diagrama de clases nodo.}{43}{subsection.4.3.4}
 \contentsline {subsubsection}{Clase MM.Mensaje.}{43}{section*.9}
 \contentsline {subsubsection}{Clase MM.NodoSimple.}{44}{section*.10}
 \contentsline {subsubsection}{Clase MM.Globo.}{46}{section*.11}
 \contentsline {subsubsection}{M\IeC {\'o}dulo MM.Color.}{46}{section*.12}
-\contentsline {subsection}{\numberline {4.3.5}Diagrama de clases de aristas.}{47}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.5}Diagrama de clases de aristas.}{46}{subsection.4.3.5}
 \contentsline {subsection}{\numberline {4.3.6}Clase Kinetic.Beizer.}{47}{subsection.4.3.6}
 \contentsline {subsubsection}{Clase MM.Arista.}{48}{section*.13}
 \contentsline {subsubsection}{Clase MM.Rama.}{49}{section*.14}
 \contentsline {subsection}{\numberline {4.3.7}Diagrama de clases de teclado}{49}{subsection.4.3.7}
-\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado.atajos}{49}{section*.15}
+\contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado.atajos}{51}{section*.15}
 \contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado.tecla}{51}{section*.16}
 \contentsline {subsubsection}{M\IeC {\'o}dulo MM.teclado}{52}{section*.17}
 \contentsline {chapter}{\numberline {5}Implementaci\IeC {\'o}n.}{54}{chapter.5}
