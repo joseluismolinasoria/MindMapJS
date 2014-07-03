@@ -57,9 +57,9 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             height: this.kText.getHeight(),
             draggable: true, 
             dragBoundFunc: function (pos) {
-		console.debug('drag Nodo');
-		MM.ponerFoco(arbol);
-		MM.render.renderAristas();
+console.debug('drag Nodo');
+MM.ponerFoco(arbol);
+MM.render.renderAristas();
                 return pos;
             }
         });
@@ -108,15 +108,15 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             MM.render.contenedor.setAttribute('title', '');
         }));
 
-	var clickTriangulo = MM.Class.bind ( this, function(evt) {
+        var clickTriangulo = MM.Class.bind ( this, function(evt) {
             MM.render.contenedor.style.cursor = 'default';
             MM.render.contenedor.setAttribute('title', '');
             MM.ponerFoco ( this.arbol );
             MM.plegarRama(!this.arbol.elemento.plegado);
-	    evt.cancelBubble = true;
+            evt.cancelBubble = true;
         });
         this.triangle.on('click', clickTriangulo );
-	this.triangle.on('tap', clickTriangulo );
+        this.triangle.on('tap', clickTriangulo );
         this.line = new Kinetic.Line({
             points: [{x:0, y: this.kText.getHeight()},
                      {x:this.kText.getWidth(), y:this.kText.getHeight()}],
@@ -135,12 +135,12 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         var bindEditar = MM.Class.bind(MM.render, MM.render.editar);
         var bindNOP = MM.Class.bind(this, this.nop);
         var bindPonerFoco = MM.Class.bind(this, function(evt) {
-	    MM.ponerFoco(this.arbol);
-	});
+            MM.ponerFoco(this.arbol);
+        });
         this.group.on('click', bindPonerFoco);
-	this.group.on('tap', bindPonerFoco);
+        this.group.on('tap', bindPonerFoco);
         this.group.on('dblclick', bindEditar);
-	this.group.on('dbltap', bindEditar);
+        this.group.on('dbltap', bindEditar);
         h = w = t = x = y = null;
     },
 
@@ -372,7 +372,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor(this.color);
         this.kText.setFill(this.colorFondo);
         this.triangle.setFill(this.colorFondo);
-	this.group.draw();
+        this.group.draw();
     },
 
     /**
@@ -384,7 +384,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor(this.colorFondo);
         this.kText.setFill(this.color);
         this.triangle.setFill(this.color);
-	this.group.draw();
+        this.group.draw();
     }
 
 });

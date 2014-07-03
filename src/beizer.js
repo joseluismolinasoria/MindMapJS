@@ -11,7 +11,7 @@
         },
 
         drawFunc: function(canvas) {
-	    console.log('beizer');
+    console.log('beizer');
             var context = canvas.getContext(), 
                 puntos = this.attrs.puntos;
 

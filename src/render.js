@@ -134,7 +134,7 @@ MM.Render = function() {
      * @instance
      */    
     render.prototype.dibujar = function (arbol) {
-	console.debug ('dibujar ' + arbol.elemento.texto );
+console.debug ('dibujar ' + arbol.elemento.texto );
         var idSusPre = arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
         var idSusPost = arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
         arbol.preOrden();
@@ -156,8 +156,8 @@ MM.Render = function() {
                 arista = new this.Arista(this.capaAristas, elemento, hijo.elemento, '3');
                 this.aristas.push(arista);
             } else {
-		this.aristas[arista].redraw();
-	    }
+this.aristas[arista].redraw();
+            }
             arista = null;
         }, this);
         elemento = null;
@@ -210,11 +210,11 @@ MM.Render = function() {
         if ( arbol.elemento.id !== MM.arbol.elemento.id ) {
             x = reparto.xPadre + reparto.widthPadre + 75;
             var padre = MM.arbol.padreDe(elemento.id);
-	    if ( padre ) {
-		visible = !(padre.elemento.plegado && arbol.elemento.plegado);
-	    } else {
-		visible = !arbol.elemento.plegado;
-	    }
+            if ( padre ) {
+                visible = !(padre.elemento.plegado && arbol.elemento.plegado);
+            } else {
+                visible = !arbol.elemento.plegado;
+            }
         }       
         var y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - (minimaAlturaNodo(arbol) / 2); 
 
