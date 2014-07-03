@@ -763,3 +763,25 @@ Hacer    -> null
 #+RESULTS:
 [[file:diagrama-kineticjs.png]]
 
+
+#+BEGIN_SRC ditaa :file diagrama-mmjs.png :cmdline -Er
+ +---------------------------------------------------+ 
+ |                     Navegador    cGRE             |
+ +----+------------+--------------+--------------+---+
+      |            |              |              | 
+      v            v              v              v
+ +-------------------------------------------+ +-----+ 
+ |                     MindMapJS     cBLU    | |cRED |
+ +-------------------------------------------+ |  E  |
+ +-------------------+ +-------+ +-----------+ |  v  |
+ | cPNK  Render      | |       | |           | |  e  |
+ +-------------------+ |       | | Manejador | |  n  |
+ +-------+ +---------+ | Árbol | |    de     | |  t  |
+ | Nodos | | Aristas | |       | |  Ficheros | |  o  |
+ | cPNK  | |  cPNK   | |  cPNK | |  cPNK     | |  s  |
+ +-------+ +---------+ +-------+ +-----------+ +-----+ 
+#+END_SRC
+
+#+RESULTS:
+[[file:diagrama-mmjs.png]]
+
