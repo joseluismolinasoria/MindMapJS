@@ -11,7 +11,6 @@
         },
 
         drawFunc: function(canvas) {
-	    console.log('beizer');
             var context = canvas.getContext(), 
                 puntos = this.attrs.puntos;
 
@@ -33,7 +32,7 @@
  * @file MindMapJS.js Definición del espacio de nombres de la aplicación MM
  * @author José Luis Molina Soria
  * @version 0.1.2
- * @date    2014-07-01
+ * @date    2014-07-04
  */
 
 /**
@@ -458,7 +457,7 @@ MM.Arbol.prototype.numHojas = function () {
 	this.on('enHoja', this);
 	return 1;
     }
- p = 0;
+    var p = 0;
     this.hijos.forEach(function (hijo) {
         p = p + hijo.numHojas();
     });
@@ -691,7 +690,7 @@ MM.teclado.tecla = {
 // para ajustarse a esta excepciones utlizamos las siguiente
 MM.teclado.tecla.excepciones = {
 //  Firefox      Chrome      Safari     Teclado Numérico
-    171: '+',    187: '+',   221: '+',  107: '+',
+    171: '+',    56: '+',   221: '+',  107: '+',
     173: '-',    189: '-',   191: '-',  109: '-', 
                                          96: '0'
 };
@@ -1255,10 +1254,10 @@ MM.exportar.freemind = function() {
         var link = window.document.createElement('a');
         link.download= MM.arbol.elemento.texto + ".mm";
         link.href = window.URL.createObjectURL(blob);
-	var evt = document.createEvent("MouseEvents"); 
-	evt.initMouseEvent("click", true, true, window, 
-			   0, 0, 0, 0, 0, false, false, false, false, 0, null); 
-	link.dispatchEvent(evt);
+var evt = document.createEvent("MouseEvents"); 
+evt.initMouseEvent("click", true, true, window, 
+                           0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+        link.dispatchEvent(evt);
     };
 
     return {
@@ -1556,9 +1555,9 @@ MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
             this.calcularPuntos();
             this.beizer.setVisible(true);
             this.beizer.setPuntos({ start : {x: this.x1, y: this.y1},
-	    			    end: {x: this.x2, y: this.y2},
-	    			    control1: {x: this.c1x, y: this.c1y},
-	    			    control2: {x: this.c2x, y: this.c2y} });
+                            end: {x: this.x2, y: this.y2},
+                                    control1: {x: this.c1x, y: this.c1y},
+                                    control2: {x: this.c2x, y: this.c2y} });
         }
 
     },
@@ -1701,9 +1700,9 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             height: this.kText.getHeight(),
             draggable: true, 
             dragBoundFunc: function (pos) {
-		console.debug('drag Nodo');
-		MM.ponerFoco(arbol);
-		MM.render.renderAristas();
+console.debug('drag Nodo');
+MM.ponerFoco(arbol);
+MM.render.renderAristas();
                 return pos;
             }
         });
@@ -1752,15 +1751,15 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
             MM.render.contenedor.setAttribute('title', '');
         }));
 
-	var clickTriangulo = MM.Class.bind ( this, function(evt) {
+        var clickTriangulo = MM.Class.bind ( this, function(evt) {
             MM.render.contenedor.style.cursor = 'default';
             MM.render.contenedor.setAttribute('title', '');
             MM.ponerFoco ( this.arbol );
             MM.plegarRama(!this.arbol.elemento.plegado);
-	    evt.cancelBubble = true;
+            evt.cancelBubble = true;
         });
         this.triangle.on('click', clickTriangulo );
-	this.triangle.on('tap', clickTriangulo );
+        this.triangle.on('tap', clickTriangulo );
         this.line = new Kinetic.Line({
             points: [{x:0, y: this.kText.getHeight()},
                      {x:this.kText.getWidth(), y:this.kText.getHeight()}],
@@ -1779,12 +1778,12 @@ MM.NodoSimple = MM.Mensaje.extend(/** @lends MM.NodoSimple.prototype */{
         var bindEditar = MM.Class.bind(MM.render, MM.render.editar);
         var bindNOP = MM.Class.bind(this, this.nop);
         var bindPonerFoco = MM.Class.bind(this, function(evt) {
-	    MM.ponerFoco(this.arbol);
-	});
+            MM.ponerFoco(this.arbol);
+        });
         this.group.on('click', bindPonerFoco);
-	this.group.on('tap', bindPonerFoco);
+        this.group.on('tap', bindPonerFoco);
         this.group.on('dblclick', bindEditar);
-	this.group.on('dbltap', bindEditar);
+        this.group.on('dbltap', bindEditar);
         h = w = t = x = y = null;
     },
 
@@ -2016,7 +2015,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor(this.color);
         this.kText.setFill(this.colorFondo);
         this.triangle.setFill(this.colorFondo);
-	this.group.draw();
+        this.group.draw();
     },
 
     /**
@@ -2028,7 +2027,7 @@ MM.Globo = MM.NodoSimple.extend(/** @lends MM.Globo.prototype */{
         this.rect.setShadowColor(this.colorFondo);
         this.kText.setFill(this.color);
         this.triangle.setFill(this.color);
-	this.group.draw();
+        this.group.draw();
     }
 
 });
@@ -2305,7 +2304,6 @@ MM.Render = function() {
      * @instance
      */    
     render.prototype.dibujar = function (arbol) {
-	console.debug ('dibujar ' + arbol.elemento.texto );
         var idSusPre = arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
         var idSusPost = arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
         arbol.preOrden();
@@ -2327,8 +2325,8 @@ MM.Render = function() {
                 arista = new this.Arista(this.capaAristas, elemento, hijo.elemento, '3');
                 this.aristas.push(arista);
             } else {
-		this.aristas[arista].redraw();
-	    }
+this.aristas[arista].redraw();
+            }
             arista = null;
         }, this);
         elemento = null;
@@ -2381,11 +2379,11 @@ MM.Render = function() {
         if ( arbol.elemento.id !== MM.arbol.elemento.id ) {
             x = reparto.xPadre + reparto.widthPadre + 75;
             var padre = MM.arbol.padreDe(elemento.id);
-	    if ( padre ) {
-		visible = !(padre.elemento.plegado && arbol.elemento.plegado);
-	    } else {
-		visible = !arbol.elemento.plegado;
-	    }
+            if ( padre ) {
+                visible = !(padre.elemento.plegado && arbol.elemento.plegado);
+            } else {
+                visible = !arbol.elemento.plegado;
+            }
         }       
         var y = reparto.y0 + ( (reparto.y1 - reparto.y0) / 2) - (minimaAlturaNodo(arbol) / 2); 
 

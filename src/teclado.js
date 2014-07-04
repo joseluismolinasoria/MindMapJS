@@ -73,7 +73,7 @@ MM.teclado.tecla = {
 // para ajustarse a esta excepciones utlizamos las siguiente
 MM.teclado.tecla.excepciones = {
 //  Firefox      Chrome      Safari     Teclado Numérico
-    171: '+',    187: '+',   221: '+',  107: '+',
+    171: '+',    56: '+',   221: '+',  107: '+',
     173: '-',    189: '-',   191: '-',  109: '-', 
                                          96: '0'
 };

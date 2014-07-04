@@ -134,7 +134,6 @@ MM.Render = function() {
      * @instance
      */    
     render.prototype.dibujar = function (arbol) {
-console.debug ('dibujar ' + arbol.elemento.texto );
         var idSusPre = arbol.suscribir('preOrden', MM.Class.bind(this, preRecorrido) );
         var idSusPost = arbol.suscribir('postPreOrden', MM.Class.bind(this, postRecorrido) );
         arbol.preOrden();
