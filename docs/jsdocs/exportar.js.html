@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: exportar.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: exportar.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * @file exportar.js Contiene toda la funcionalidad de exporación de Mapas mentales
+ * @author José Luis Molina Soria
+ * @version 20130608
+ */
+
+if ( typeof module !== 'undefined' ) {
+    var MM = require('./MindMapJS.js');
+    MM.Class = require('./klass.js');
+    MM.PubSub = require('./pubsub.js');
+}
+
+
+/**
+ * Contiene la funcionalidad básica para soportar la exportaciones a ficheros.
+ *
+ * @namespace MM.exportar
+ * @property {MM.exportar.FreeMind}   FreeMind  - Clase encargada de exportar a ficheros FreeMind
+ */
+MM.exportar = {};
+
+MM.exportar.freemind = function() {
+    var generar = function () {
+        var wrapper = MM.DOM.create('div');
+        var map = MM.DOM.create('map', {'version': '0.9.0'});
+        var nodos = MM.arbol.generalPreOrden(generadorNodo, operarNodo);
+        for ( var i = 0; i &lt; nodos.length; i++ ) {
+            map.appendChild(nodos[i]);
+        }
+        wrapper.appendChild(map);
+        return wrapper.innerHTML;
+    };
+
+    var generadorNodo = function ( elemento ) {
+        var time = (new Date()).getTime();    
+        var nodo = MM.DOM.create('node', { 'BACKGROUND_COLOR': MM.color.rgbToHexCSS(MM.color.hslToRgb(MM.color.addBrillo(elemento.nodo.hslColor, 40))),
+                                           'COLOR': MM.color.rgbToHexCSS(MM.color.hslToRgb(elemento.nodo.hslColor)),
+                                           'CREATE': time, 
+                                           'ID': 'ID_' + Math.floor((Math.random()*(10e+10))+1),
+                                           'MODIFIED': time,
+                                           'STYLE': 'bubble',
+                                           'FOLDED': elemento.plegado,
+                                           'TEXT': elemento.texto });
+        var edge = MM.DOM.create('edge', { 'STYLE' : "bezier",
+                                           'COLOR' : MM.color.rgbToHexCSS(MM.color.hslToRgb(elemento.nodo.hslColor)) });
+        nodo.appendChild(edge);
+        time = null;
+        return [nodo];
+    };
+
+    var operarNodo = function ( nodoPadre, nodos ) {
+        for ( var i = 0; i &lt; nodos.length; i++ ) {
+            nodoPadre[0].appendChild(nodos[i]);
+        }
+        i = null;
+    };
+
+    var grabar = function() {
+        window.URL = window.URL || window.webkitURL;
+        if ( !window.URL ) {
+            alert('Operación no soportada por su navegador');
+        }
+        var blob = new Blob([generar()], {type: 'application/xml'});
+        var link = window.document.createElement('a');
+        link.download= MM.arbol.elemento.texto + ".mm";
+        link.href = window.URL.createObjectURL(blob);
+	var evt = document.createEvent("MouseEvents"); 
+	evt.initMouseEvent("click", true, true, window, 
+			   0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+	link.dispatchEvent(evt);
+    };
+
+    return {
+        grabar: grabar
+    };
+}();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="MM.Arbol.html">Arbol</a></li><li><a href="MM.Arista.html">Arista</a></li><li><a href="MM.Borde.html">Borde</a></li><li><a href="MM.Class.html">Class</a></li><li><a href="MM.Globo.html">Globo</a></li><li><a href="MM.Grid.html">Grid</a></li><li><a href="MM.importar.FreeMind.html">FreeMind</a></li><li><a href="MM.importar.XML.html">XML</a></li><li><a href="MM.Mensaje.html">Mensaje</a></li><li><a href="MM.NodoSimple.html">NodoSimple</a></li><li><a href="MM.PubSub.html">PubSub</a></li><li><a href="MM.Rama.html">Rama</a></li><li><a href="MM.Render.html">Render</a></li><li><a href="MM.UndoManager.html">UndoManager</a></li><li><a href="MM.UndoManager.ComandoHacerDeshacer.html">ComandoHacerDeshacer</a></li></ul><h3>Namespaces</h3><ul><li><a href="MM.html">MM</a></li><li><a href="MM.DOM.html">DOM</a></li><li><a href="MM.exportar.html">exportar</a></li><li><a href="MM.importar.html">importar</a></li><li><a href="MM.Properties.html">Properties</a></li><li><a href="MM.teclado.html">teclado</a></li><li><a href="MM.teclado.atajos.html">atajos</a></li><li><a href="MM.teclado.tecla.html">tecla</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Fri Jul 04 2014 19:49:16 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+</body>
+</html>

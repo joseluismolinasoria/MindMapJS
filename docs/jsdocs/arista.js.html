@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: arista.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: arista.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * @file arista.js Implementación de arsitas 
+ * @author José Luis Molina Soria
+ * @version 20130512
+ */
+
+/**
+ * @class MM.Arista
+ * @classdesc Render de arista. Capaz de dibujar una arista entre dos nodos
+ * @constructor MM.Arista
+ * @param {layer}  capa            capa donde pintar la arista
+ * @param {Object} elementoOrigen  elemento del MM desde donde debe partir la arista
+ * @param {Object} elementoDestino elemento del MM hasta donde debe llegar la arista
+ * @param {int}    tamano          grosor de la arista
+ */
+MM.Arista = MM.Class.extend(/** @lends MM.Arista.prototype */{
+    init: function (capa, elementoOrigen, elementoDestino, tamano) {
+        this.capa = capa;
+        this.elementoOrigen = elementoOrigen;
+        this.elementoDestino = elementoDestino;
+        this.context = capa.getCanvas().getContext();
+        this.tamano = tamano;
+        this.render();
+    },
+
+    /**
+     * @desc Calcula los puntos necesarios para pintar la arista
+     */
+    calcularPuntos: function () {
+        var nodoOrigen = this.elementoOrigen.nodo;
+        var nodoDestino = this.elementoDestino.nodo;
+        this.x1 = (nodoOrigen.getX() + nodoOrigen.getWidth() - 5);
+        this.y1 = (nodoOrigen.getY() + nodoOrigen.getHeight() / 2);
+        this.x2 = (nodoDestino.getX() + 5); 
+        this.y2 = (nodoDestino.getY() + nodoDestino.getHeight() / 2);
+        this.c1x = this.x1 + (this.x2-this.x1)/2;
+        this.c1y = this.y1;
+        this.c2x = this.x1 + (this.x2-this.x1)/2;
+        this.c2y = this.y2;
+        nodoOrigen = nodoDestino = null;
+    },
+
+    /**
+     * @desc Función de pintado de la arista en función de los elementos pasados
+     */   
+    render: function () {
+        this.calcularPuntos();
+        this.beizer = new Kinetic.Beizer({
+            stroke: '#555',
+            strokeWidth: this.tamano,
+            puntos : { start : {x: this.x1, y: this.y1},
+                       end: {x: this.x2, y: this.y2},
+                       control1: {x: this.c1x, y: this.c1y},
+                       control2: {x: this.c2x, y: this.c2y}}
+        });
+        this.capa.add(this.beizer);
+    },
+
+    redraw: function () {
+        if ( this.elementoOrigen.plegado ) {
+            this.beizer.setVisible(false);
+        } else {
+            this.calcularPuntos();
+            this.beizer.setVisible(true);
+            this.beizer.setPuntos({ start : {x: this.x1, y: this.y1},
+	    			    end: {x: this.x2, y: this.y2},
+	    			    control1: {x: this.c1x, y: this.c1y},
+	    			    control2: {x: this.c2x, y: this.c2y} });
+        }
+
+    },
+
+    /**
+     * @desc Destruye la arista.
+     */
+    destroy : function () {
+        this.beizer.destroy();
+        delete this.beizer;
+        delete this.capa;
+        delete this.elementoOrigen;
+        delete this.elementoDestino;
+    }
+
+    
+});
+
+
+/**
+ * @class MM.Rama
+ * @classdesc Render de rama. Capaz de dibujar una arista de tipo rama entre dos nodos
+ * @constructor MM.Rama
+ * @param {layer}  capa            capa donde pintar la arista
+ * @param {Object} elementoOrigen  elemento del MM desde donde debe partir la arista
+ * @param {Object} elementoDestino elemento del MM hasta donde debe llegar la arista
+ * @param {int}    tamano          grosor de la arista
+ */
+MM.Rama = MM.Arista.extend(/** @lends MM.Rama.prototype */{
+    init: function (capa, elementoOrigen, elementoDestino, tamano) {
+        this._super(capa, elementoOrigen, elementoDestino, tamano);
+    },
+
+
+    /**
+     * @desc Cálculo de los puntos para poder pintar la Rama
+     */   
+    calcularPuntos: function () {
+        var nodoOrigen = this.elementoOrigen.nodo;
+        var nodoDestino = this.elementoDestino.nodo;
+        this.x1 = (nodoOrigen.getX() + MM.render.offset.x + nodoOrigen.getWidth()) 
+            * MM.render.getEscala();
+        this.y1 = (nodoOrigen.getY() + MM.render.offset.y + nodoOrigen.getHeight()) 
+            * MM.render.getEscala();
+        this.x2 = nodoDestino.getX() + MM.render.offset.x 
+            * MM.render.getEscala();
+        this.y2 = (nodoDestino.getY() + MM.render.offset.y + nodoDestino.getHeight()) 
+            * MM.render.getEscala();
+        this.x3 = (nodoDestino.getX() + MM.render.offset.x + nodoDestino.getWidth()) 
+            * MM.render.getEscala();
+        this.y3 = (nodoDestino.getY() + MM.render.offset.x + nodoDestino.getHeight()) 
+            * MM.render.getEscala();
+        this.c1x = this.x1 + (this.x2-this.x1)/2;
+        this.c1y = this.y1;
+        this.c2x = this.x1 + (this.x2-this.x1)/2;
+        this.c2y = this.y2;
+        nodoOrigen = nodoDestino = null;
+    },
+    
+    /**
+     * @desc Función de pintado de la rama
+     */   
+    render: function () {
+        var c = this.context;
+        this.calcularPuntos();
+
+        c.beginPath();
+        c.moveTo(this.x1, this.y1);
+        c.bezierCurveTo (this.c1x, this.c1y, this.c2x, this.c2y, this.x2, this.y2);
+        c.strokeStyle = this.elementoOrigen.nodo.color; 
+        c.lineWidth = this.tamano * MM.render.getEscala();
+        c.lineTo(this.x3, this.y3);
+        c.stroke();
+        c.beginPath();
+        c.moveTo(this.x2, this.y2);
+        c.strokeStyle = this.elementoDestino.nodo.color; 
+        c.lineWidth = this.tamano * MM.render.getEscala();
+        c.lineTo(this.x3, this.y3);
+        c.stroke();
+        c = null;
+    }
+});
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="MM.Arbol.html">Arbol</a></li><li><a href="MM.Arista.html">Arista</a></li><li><a href="MM.Borde.html">Borde</a></li><li><a href="MM.Class.html">Class</a></li><li><a href="MM.Globo.html">Globo</a></li><li><a href="MM.Grid.html">Grid</a></li><li><a href="MM.importar.FreeMind.html">FreeMind</a></li><li><a href="MM.importar.XML.html">XML</a></li><li><a href="MM.Mensaje.html">Mensaje</a></li><li><a href="MM.NodoSimple.html">NodoSimple</a></li><li><a href="MM.PubSub.html">PubSub</a></li><li><a href="MM.Rama.html">Rama</a></li><li><a href="MM.Render.html">Render</a></li><li><a href="MM.UndoManager.html">UndoManager</a></li><li><a href="MM.UndoManager.ComandoHacerDeshacer.html">ComandoHacerDeshacer</a></li></ul><h3>Namespaces</h3><ul><li><a href="MM.html">MM</a></li><li><a href="MM.DOM.html">DOM</a></li><li><a href="MM.exportar.html">exportar</a></li><li><a href="MM.importar.html">importar</a></li><li><a href="MM.Properties.html">Properties</a></li><li><a href="MM.teclado.html">teclado</a></li><li><a href="MM.teclado.atajos.html">atajos</a></li><li><a href="MM.teclado.tecla.html">tecla</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Fri Jul 04 2014 19:49:16 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+</body>
+</html>

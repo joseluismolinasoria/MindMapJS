@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pubsub.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: pubsub.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * @file pubsub.js Implementación del patrón Publish/Subscribe
+ * @author José Luis Molina Soria
+ * @version 20130227
+ */
+
+if ( typeof module !== 'undefined' ) {
+    var MM = require('./MindMapJS.js');
+    MM.Class = require('./klass.js');
+}
+
+/**
+ * @class MM.PubSub
+ * @classdesc Implementación del patrón Publish/Subscribe
+ * @constructor MM.PubSub
+ */
+MM.PubSub = MM.Class.extend(/** @lends MM.PubSub.prototype */{
+
+    eventos : {},
+
+    idSus : 1,
+
+    init : function () {
+	this.eventos = {};
+	this.idSus = 1;
+    },
+
+    /**
+     * @desc Realiza la notificación a los suscriptores de que se a producido
+     * una publicación o evento.
+     * @param evento {string}    nombre del evento o publicación a notificar
+     * @param args   {*}         argumentos para la función callback
+     * @return {boolean} Si el evento no es un nombre valido retorna false en
+     * otro caso retorna true
+     */
+    on : function( evento ) {
+        if (!this.eventos[evento]) {
+            return false;
+        }
+        var args = Array.prototype.slice.call(arguments, 1);
+        this.eventos[evento].forEach(function (evt){
+            evt.funcion.apply(evt.contexto, args);
+        });
+        args = null;
+
+        return true;
+    },
+
+    /**
+     * @desc Pemite la suscripción a una publicación o evento. Donde el parametro func es
+     * la función a ejecutar en el caso de que se produzca la notificación y contexto el
+     * contexto de ejecución para la función callback
+     * @param evento   {string}   nombre del evento o publicación en la que deseamos suscribirnos
+     * @param func     {function} función callback
+     * @param contexto {object}   contexto de ejecución de la función callback
+     * @return {null|number} null en caso de fallo o *idSus* el identificador de suscripción
+     */
+    suscribir : function( evento, func, contexto ) {
+        if ( !evento || !func ) {
+            return null;
+        }
+
+        if (!this.eventos[evento]) {
+            this.eventos[evento] = [];
+        }
+
+        contexto = contexto || this;
+        this.eventos[evento].push({ id : this.idSus, contexto: contexto, funcion: func });
+        return this.idSus++;
+    },
+
+    /**
+     * @desc realiza una dessuscripción a un evento o notificación
+     * @param id   {number} identificador de suscripción
+     * @return {null|number} null si no se ha podido realizar la dessuscripción
+     */
+    desSuscribir : function (id) {
+        for (var evento in this.eventos) {
+            if ( this.eventos[evento] ) {
+                for (var i = 0, len = this.eventos[evento].length; i &lt; len; i++) {
+                    if (this.eventos[evento][i].id === id) {
+                        this.eventos[evento].splice(i, 1);
+                        return id;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+});
+
+if ( typeof module !== 'undefined' ) {
+    module.exports = MM.PubSub;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="MM.Arbol.html">Arbol</a></li><li><a href="MM.Arista.html">Arista</a></li><li><a href="MM.Borde.html">Borde</a></li><li><a href="MM.Class.html">Class</a></li><li><a href="MM.Globo.html">Globo</a></li><li><a href="MM.Grid.html">Grid</a></li><li><a href="MM.importar.FreeMind.html">FreeMind</a></li><li><a href="MM.importar.XML.html">XML</a></li><li><a href="MM.Mensaje.html">Mensaje</a></li><li><a href="MM.NodoSimple.html">NodoSimple</a></li><li><a href="MM.PubSub.html">PubSub</a></li><li><a href="MM.Rama.html">Rama</a></li><li><a href="MM.Render.html">Render</a></li><li><a href="MM.UndoManager.html">UndoManager</a></li><li><a href="MM.UndoManager.ComandoHacerDeshacer.html">ComandoHacerDeshacer</a></li></ul><h3>Namespaces</h3><ul><li><a href="MM.html">MM</a></li><li><a href="MM.DOM.html">DOM</a></li><li><a href="MM.exportar.html">exportar</a></li><li><a href="MM.importar.html">importar</a></li><li><a href="MM.Properties.html">Properties</a></li><li><a href="MM.teclado.html">teclado</a></li><li><a href="MM.teclado.atajos.html">atajos</a></li><li><a href="MM.teclado.tecla.html">tecla</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Fri Jul 04 2014 19:49:16 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+</body>
+</html>

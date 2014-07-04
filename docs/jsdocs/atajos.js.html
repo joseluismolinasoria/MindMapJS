@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: atajos.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: atajos.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * @file atajos.js Contiene la configuración de atajos de teclado del MM.
+ * @author José Luis Molina Soria
+ * @version 20130520
+ */
+
+/**
+ * @desc Define los atajos de teclado para el render
+ * @memberof MM
+ * @method definirAtajos
+ * @inner
+ */
+MM.definirAtajos = function() {
+
+    // teclado Zoom
+    MM.teclado.atajos.add('Ctrl++', MM.render.zoomIn, MM);    
+    MM.teclado.atajos.add('Ctrl+-', MM.render.zoomOut, MM);
+    MM.teclado.atajos.add('Ctrl+0', MM.render.zoomReset, MM);
+
+
+    var addEdicion = function () {
+        if ( MM.foco.elemento.plegado ) {
+            MM.plegarRama(false);
+        }
+        MM.add();
+        MM.render.editar();
+    };
+
+    // teclas de operaciones
+    MM.teclado.atajos.add('Shift+n', MM.nuevo, MM);
+    MM.teclado.atajos.add('ins', addEdicion, MM);
+    MM.teclado.atajos.add('Shift+Tab', addEdicion, MM);
+    MM.teclado.atajos.add('del', MM.borrar, MM);
+
+    // teclas de edición
+    MM.teclado.atajos.add('Shift+Enter', function() {
+        if ( MM.render.modoEdicion() ) {
+            MM.render.insertarSaltoDeLinea();
+        } else {
+            MM.padre().add();
+            MM.render.editar();
+        }
+    }, MM);
+    MM.teclado.atajos.add('enter', MM.render.editar, MM);
+    MM.teclado.atajos.add('esc', function() {
+        if ( MM.render.modoEdicion() ){
+            MM.render.editar();
+	}
+    }, MM);
+
+    // teclas de plegado / desplegado
+    MM.teclado.atajos.add('shift++', function() { MM.plegarRama(false); }, MM );
+    MM.teclado.atajos.add('shift+-', function() { MM.plegarRama(true); }, MM );
+
+    // teclas de navegación
+    MM.teclado.atajos.add('home', MM.root, MM);
+    MM.teclado.atajos.add('left', MM.padre, MM);
+    MM.teclado.atajos.add('right', MM.next, MM);
+    MM.teclado.atajos.add('up', MM.prevHermano, MM);
+    MM.teclado.atajos.add('down', MM.nextHermano, MM);
+    MM.teclado.atajos.add('tab', function() {
+        if ( MM.render.modoEdicion() ) {
+            MM.render.editar();
+        } else {
+            if ( MM.foco.esHoja() ) { // Si estamos en el último nivel añadimos un nuevo nodo hijo
+                addEdicion();
+            } if ( MM.foco.elemento.plegado ) {
+                MM.plegarRama(false);
+            } else { // navegamos por los niveles
+                MM.next();
+            }
+        }
+    }, MM);
+
+};
+
+/**
+ * @desc pone los atajos de tecla en modo de edición.
+ * @memberof MM
+ * @method atajosEnEdicion
+ * @inner
+ */
+MM.atajosEnEdicion = function(enEdicion) {    
+    MM.teclado.atajos.activar('Ctrl++', !enEdicion );
+    MM.teclado.atajos.activar('Ctrl+-', !enEdicion );
+    MM.teclado.atajos.activar('Ctrl+0', !enEdicion );
+    MM.teclado.atajos.activar('Shift+n', !enEdicion ); 
+    MM.teclado.atajos.activar('ins', !enEdicion );
+    MM.teclado.atajos.activar('Shift+Tab', !enEdicion );
+    MM.teclado.atajos.activar('del', !enEdicion );
+    MM.teclado.atajos.activar('shift++', !enEdicion );
+    MM.teclado.atajos.activar('shift+-', !enEdicion );
+    MM.teclado.atajos.activar('home', !enEdicion ); 
+    MM.teclado.atajos.activar('left' , !enEdicion );
+    MM.teclado.atajos.activar('right', !enEdicion ); 
+    MM.teclado.atajos.activar('up', !enEdicion ); 
+    MM.teclado.atajos.activar('down', !enEdicion );
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="MM.Arbol.html">Arbol</a></li><li><a href="MM.Arista.html">Arista</a></li><li><a href="MM.Borde.html">Borde</a></li><li><a href="MM.Class.html">Class</a></li><li><a href="MM.Globo.html">Globo</a></li><li><a href="MM.Grid.html">Grid</a></li><li><a href="MM.importar.FreeMind.html">FreeMind</a></li><li><a href="MM.importar.XML.html">XML</a></li><li><a href="MM.Mensaje.html">Mensaje</a></li><li><a href="MM.NodoSimple.html">NodoSimple</a></li><li><a href="MM.PubSub.html">PubSub</a></li><li><a href="MM.Rama.html">Rama</a></li><li><a href="MM.Render.html">Render</a></li><li><a href="MM.UndoManager.html">UndoManager</a></li><li><a href="MM.UndoManager.ComandoHacerDeshacer.html">ComandoHacerDeshacer</a></li></ul><h3>Namespaces</h3><ul><li><a href="MM.html">MM</a></li><li><a href="MM.DOM.html">DOM</a></li><li><a href="MM.exportar.html">exportar</a></li><li><a href="MM.importar.html">importar</a></li><li><a href="MM.Properties.html">Properties</a></li><li><a href="MM.teclado.html">teclado</a></li><li><a href="MM.teclado.atajos.html">atajos</a></li><li><a href="MM.teclado.tecla.html">tecla</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Fri Jul 04 2014 19:49:16 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+</body>
+</html>
